@@ -6,6 +6,7 @@
     on that page only (the ones not reused in other pages).
 */
 
+
 :root {
 	--card-height: 40vw;
 	--card-margin: 4vw;
@@ -16,7 +17,6 @@
   
 #cards {
 	padding-bottom: calc(var(--numcards) * var(--card-top-offset)); /* Make place at bottom, as items will slide to that position*/
-	margin-bottom: var(--card-margin); /* Don't include the --card-margin in padding, as that will affect the scroll-timeline*/
 	max-width: 1080px;
 }
 
@@ -44,6 +44,7 @@
 	position: sticky;
 	top: 0;
 	padding-top: calc(var(--index) * var(--card-top-offset));
+	height: fit-content;
 }
 
 @supports (animation-timeline: works) {
@@ -125,7 +126,6 @@ main {
 }
 
 header {
-	height: 100vh;
 	display: grid;
 	place-items: center;
 }
@@ -136,8 +136,6 @@ header {
 	
 	display: grid;
 	grid-template-columns: 1fr;
-	grid-template-rows: repeat(var(--numcards), var(--card-height));
-	gap: var(--card-margin);
 }
 
 .card {
@@ -216,13 +214,8 @@ aside p {
   .card__image:hover {
     transform: scale(1.1);
   }
-  
-  .scroll-container {
-	overflow-x: scroll;
-  }
-  
+    
 
   .flex.items-center {
 	z-index: 3;
   }
-
