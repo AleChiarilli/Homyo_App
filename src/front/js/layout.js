@@ -7,6 +7,11 @@ import { Footer } from "./component/footer";
 import { Home } from "./pages/home";
 import { Demo } from "./pages/demo";
 import { Single } from "./pages/single";
+import { Busqueda } from "./pages/busqueda";
+import { Faq } from "./pages/faq";
+import { Sobrenosotros } from "./pages/sobrenosotros";
+
+
 import injectContext from "./store/appContext";
 
 // create your first component
@@ -26,12 +31,15 @@ const Layout = () => {
                 <ScrollToTop>
                     <Navbar isLoggedIn={isLoggedIn} />
                     <Routes>
-                        <Route element={<Home />} path="/" />
+                        <Route element={<Home isLoggedIn={isLoggedIn}/>} path="/" />
                         <Route element={<Demo />} path="/demo" />
                         <Route element={<Single />} path="/single/:theid" />
+                        <Route element={<Busqueda />} path="/buscador" />
+                        <Route element={<Faq />} path="/preguntas-frecuentes" />
+                        <Route element={<Sobrenosotros />} path="/sobre-nosotros" />
                         <Route element={<h1>Not found!</h1>} />
                     </Routes>
-                    <Footer />
+                    <Footer isLoggedIn={isLoggedIn}/>
                 </ScrollToTop>
             </BrowserRouter>
         </div>

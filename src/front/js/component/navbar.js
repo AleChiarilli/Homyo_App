@@ -1,12 +1,12 @@
 import React, { useState } from "react";
+import { Link } from 'react-router-dom';
+
+
 
 export const Navbar = ({ isLoggedIn }) => {
   const [isModalOpen1, setIsModalOpen1] = useState(false);
   const [isModalOpen2, setIsModalOpen2] = useState(false);
   const [isModalOpen3, setIsModalOpen3] = useState(false);
-  const [isModalOpen4, setIsModalOpen4] = useState(false);
-
-
 
   const toggleModal1 = () => {
     setIsModalOpen1(!isModalOpen1);
@@ -20,9 +20,6 @@ export const Navbar = ({ isLoggedIn }) => {
     setIsModalOpen3(!isModalOpen3);
   };
 
-  const toggleModal4 = () => {
-    setIsModalOpen4(!isModalOpen4)
-  }
 
   const hideModal1 = () => {
     setIsModalOpen1(false);
@@ -36,14 +33,22 @@ export const Navbar = ({ isLoggedIn }) => {
     setIsModalOpen3(false);
   };
 
-  const hideModal4 = () => {
-    setIsModalOpen4(false);
+
+  const handleSearchKeyDown = (event) => {
+    if (event.keyCode === 13) {
+      window.location.href = "/buscador";
+    }
   };
+
+
 
   return (
     <nav className="bg-white border-gray-200 dark:bg-gray-900 fixed top-0 left-0 w-full z-50">
       <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
-        <a href="https://flowbite.com/" className="flex items-center">
+        <Link
+          className="flex items-center"
+          to="/"
+        >
           <img
             src="https://flowbite.com/docs/images/logo.svg"
             className="h-8 mr-3"
@@ -52,7 +57,8 @@ export const Navbar = ({ isLoggedIn }) => {
           <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">
             HOMYO
           </span>
-        </a>
+        </Link>
+
         <div className="relative hidden md:block flex-2 ml-4">
           <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
             <svg
@@ -73,10 +79,16 @@ export const Navbar = ({ isLoggedIn }) => {
           <input
             type="text"
             id="search-navbar"
-            className="block w-full p-2 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            className="block w-full p-2 pl-10 text-sm text-gray-900 rounded-lg shadow-md focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-purple-200"
             placeholder="Encuentra..."
+            onKeyDown={handleSearchKeyDown}
           />
-        </div>        <div className="flex items-center">
+          <Link
+            to="/buscador"
+            className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-auto"
+          />
+        </div>
+        <div className="flex items-center">
           <div className="space-x-2">
             <div className="flex">
               {/* Modal toggle 1 */}
@@ -85,7 +97,7 @@ export const Navbar = ({ isLoggedIn }) => {
                   <button
                     data-modal-target="authentication-modal1"
                     data-modal-toggle="authentication-modal1"
-                    className="block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                    className="block text-white bg-indigo-600 hover:bg-indigo-700 focus:ring-indigo-500 focus:ring-offset-indigo-200 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
                     type="button"
                     onClick={toggleModal1}
                   >
@@ -100,7 +112,7 @@ export const Navbar = ({ isLoggedIn }) => {
                   <button
                     data-modal-target="authentication-modal2"
                     data-modal-toggle="authentication-modal2"
-                    className="block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                    className="block text-white bg-indigo-600 hover:bg-indigo-700 focus:ring-indigo-500 focus:ring-offset-indigo-200 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
                     type="button"
                     onClick={toggleModal2}
                   >
@@ -115,7 +127,7 @@ export const Navbar = ({ isLoggedIn }) => {
                   <button
                     data-modal-target="authentication-modal3"
                     data-modal-toggle="authentication-modal3"
-                    className="block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                    className="block text-white bg-indigo-600 hover:bg-indigo-700 focus:ring-indigo-500 focus:ring-offset-indigo-200 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
                     type="button"
                     onClick={toggleModal3}
                   >
@@ -128,17 +140,39 @@ export const Navbar = ({ isLoggedIn }) => {
               {isLoggedIn && (
                 <div>
 
-                  <button id="dropdownDefaultButton" data-dropdown-toggle="dropdown" className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2.5 text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" type="button">Mi Perfil <svg className="w-4 h-4 ml-2" aria-hidden="true" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg></button>
-                  <div id="dropdown" className="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700">
-                    <ul className="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownDefaultButton">
+                  <button
+                    id="dropdownMiPerfilButton"
+                    data-dropdown-toggle="dropdownMiPerfil"
+                    className="text-white bg-indigo-600 hover:bg-indigo-700 focus:ring-indigo-500 focus:ring-offset-indigo-200 font-medium rounded-lg text-sm px-4 py-2.5 text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                    type="button">Mi Perfil
+                    <svg
+                      className="w-4 h-4 ml-2"
+                      aria-hidden="true"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                      xmlns="http://www.w3.org/2000/svg">
+                      <path stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2" d="M19 9l-7 7-7-7">
+                      </path>
+                    </svg>
+                  </button>
+                  <div id="dropdownMiPerfil"
+                    className="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700">
+                    <ul className="py-2 text-sm text-gray-700 dark:text-gray-200"
+                      aria-labelledby="dropdownMiPerfilButton">
                       <li>
-                        <a href="#" className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Panel de control</a>
+                        <a href="#"
+                          className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Panel de control</a>
                       </li>
                       <li>
-                        <a href="#" className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Mensajes</a>
+                        <a href="#"
+                          className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Mensajes</a>
                       </li>
                       <li>
-                        <a href="#" className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Salir</a>
+                        <a href="#"
+                          className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Salir</a>
                       </li>
                     </ul>
                   </div>
@@ -176,47 +210,67 @@ export const Navbar = ({ isLoggedIn }) => {
                       <span className="sr-only">Close modal</span>
                     </button>
                     <div className="px-6 py-6 lg:px-8 text-center">
-                      <h3 className="mb-4 text-xl font-medium text-gray-900 dark:text-white">Registrate como profesional</h3>
                       {/* Modal content 1 */}
+                      <div className="self-center mb-6 text-xl font-light text-gray-600 sm:text-2xl dark:text-white">
+                        Registrate como profesional
+                      </div>
+                      <div className="flex gap-4 item-center">
+                        <button type="button" className="py-2 px-4 flex justify-center items-center  bg-red-600 hover:bg-red-700 focus:ring-red-500 focus:ring-offset-red-200 text-white w-full transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-lg ">
+                          <svg width="20" height="20" fill="currentColor" className="mr-2" viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M896 786h725q12 67 12 128 0 217-91 387.5t-259.5 266.5-386.5 96q-157 0-299-60.5t-245-163.5-163.5-245-60.5-299 60.5-299 163.5-245 245-163.5 299-60.5q300 0 515 201l-209 201q-123-119-306-119-129 0-238.5 65t-173.5 176.5-64 243.5 64 243.5 173.5 176.5 238.5 65q87 0 160-24t120-60 82-82 51.5-87 22.5-78h-436v-264z">
+                            </path>
+                          </svg>
+                          Google
+                        </button>
+                      </div>
 
-                      <form className="space-y-6" action="#">
-                        <div className="google">
-                          <button type="button" className="text-white bg-[#4285F4] hover:bg-[#4285F4]/90 focus:ring-4 focus:outline-none focus:ring-[#4285F4]/50 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:focus:ring-[#4285F4]/55 mr-2 mb-2">
-                            <svg className="w-4 h-4 mr-2 -ml-1" aria-hidden="true" focusable="false" data-prefix="fab" data-icon="google" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 488 512"><path fill="currentColor" d="M488 261.8C488 403.3 391.1 504 248 504 110.8 504 0 393.2 0 256S110.8 8 248 8c66.8 0 123 24.5 166.3 64.9l-67.5 64.9C258.5 52.6 94.3 116.6 94.3 256c0 86.5 69.1 156.6 153.7 156.6 98.2 0 135-70.4 140.8-106.9H248v-85.3h236.1c2.3 12.7 3.9 24.9 3.9 41.4z"></path></svg>
-                            Registrate con Google
-                          </button>
-                          <p className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">--------------------------------o bien--------------------------------</p>
-                        </div>
-                        <div>
-                          <input type="text" name="name" id="name" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" placeholder="Nombre" required />
-                        </div>
-                        <div>
-                          <input type="email" name="email" id="email" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" placeholder="E-mail*" required />
-                        </div>
-                        <div>
-                          <input type="password" name="password" id="password" placeholder="Contraseña*" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" required />
-                        </div>
-                        <div className="flex justify-between">
-                          <div className="flex items-start">
-                            <div className="flex items-center h-5">
-                              <input id="remember" type="checkbox" value="" className="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-blue-300 dark:bg-gray-600 dark:border-gray-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800" required />
-                            </div>
-                            <label for="remember" className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">He leído y acepto la política de privacidad</label>
+                      <div className="mt-8">
+                        <div className="flex gap-4 mb-2">
+                          <div className=" relative ">
+                            <input type="text" id="create-account-first-name" className=" rounded-lg border-transparent flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent" name="First name" placeholder="Nombre" />
+                          </div>
+                          <div className=" relative ">
+                            <input type="text" id="create-account-last-name" className=" rounded-lg border-transparent flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent" name="Last name" placeholder="Apellido" />
                           </div>
                         </div>
-                        <div className="flex justify-between">
-                          <div className="flex items-start">
-                            <div className="flex items-center h-5">
-                              <input id="remember" type="checkbox" value="" className="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-blue-300 dark:bg-gray-600 dark:border-gray-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800" required />
+                        <form action="#" autoComplete="off">
+                          <div className="flex flex-col mb-2">
+                            <div className="flex relative ">
+                              <span className="rounded-l-md inline-flex  items-center px-3 border-t bg-white border-l border-b  border-gray-300 text-gray-500 shadow-sm text-sm">
+                                <svg width="15" height="15" fill="currentColor" viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg">
+                                  <path d="M1792 710v794q0 66-47 113t-113 47h-1472q-66 0-113-47t-47-113v-794q44 49 101 87 362 246 497 345 57 42 92.5 65.5t94.5 48 110 24.5h2q51 0 110-24.5t94.5-48 92.5-65.5q170-123 498-345 57-39 100-87zm0-294q0 79-49 151t-122 123q-376 261-468 325-10 7-42.5 30.5t-54 38-52 32.5-57.5 27-50 9h-2q-23 0-50-9t-57.5-27-52-32.5-54-38-42.5-30.5q-91-64-262-182.5t-205-142.5q-62-42-117-115.5t-55-136.5q0-78 41.5-130t118.5-52h1472q65 0 112.5 47t47.5 113z">
+                                  </path>
+                                </svg>
+                              </span>
+                              <input type="text" id="sign-in-email" className=" rounded-r-lg flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent" placeholder="Email" />
                             </div>
-                            <label for="remember" className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Recibir descuentos exclusivos, novedades y tendencias por E-Mail</label>
                           </div>
-                        </div>
-                        <button type="submit" className="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Crear cuenta</button>
-                        <div className="text-sm font-medium text-gray-500 dark:text-gray-300">
-                          Ya tengo cuenta <a href="#" className="text-blue-700 hover:underline dark:text-blue-500">Iniciar sesión</a>
-                        </div>
-                      </form>
+                          <div className="flex flex-col mb-6">
+                            <div className="flex relative ">
+                              <span className="rounded-l-md inline-flex  items-center px-3 border-t bg-white border-l border-b  border-gray-300 text-gray-500 shadow-sm text-sm">
+                                <svg width="15" height="15" fill="currentColor" viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg">
+                                  <path d="M1376 768q40 0 68 28t28 68v576q0 40-28 68t-68 28h-960q-40 0-68-28t-28-68v-576q0-40 28-68t68-28h32v-320q0-185 131.5-316.5t316.5-131.5 316.5 131.5 131.5 316.5q0 26-19 45t-45 19h-64q-26 0-45-19t-19-45q0-106-75-181t-181-75-181 75-75 181v320h736z">
+                                  </path>
+                                </svg>
+                              </span>
+                              <input type="password" id="sign-in-email" className=" rounded-r-lg flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent" placeholder="Contraseña" />
+                            </div>
+                          </div>
+
+                          <div className="flex w-full">
+                            <button type="submit" className="py-2 px-4  bg-indigo-500 hover:bg-indigo-500 focus:ring-indigo-500 focus:ring-offset-purple-200 text-white w-full transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-lg ">
+                              Login
+                            </button>
+                          </div>
+                        </form>
+                      </div>
+                      <div className="flex items-center justify-center mt-6">
+                        <a href="#" target="_blank" className="inline-flex items-center text-xs font-thin text-center text-gray-500 hover:text-gray-700 dark:text-gray-100 dark:hover:text-white">
+                          <span className="ml-2">
+                            ¿Ya tienes cuenta?
+                          </span>
+                        </a>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -252,48 +306,69 @@ export const Navbar = ({ isLoggedIn }) => {
                       <span className="sr-only">Close modal</span>
                     </button>
                     <div className="px-6 py-6 lg:px-8 text-center">
-                      <h3 className="mb-4 text-xl font-medium text-gray-900 dark:text-white">Registrate como cliente</h3>
                       {/* Modal content 2 */}
-                      <form className="space-y-6" action="#">
-                        <div className="google">
-                          <button type="button" className="text-white bg-[#4285F4] hover:bg-[#4285F4]/90 focus:ring-4 focus:outline-none focus:ring-[#4285F4]/50 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:focus:ring-[#4285F4]/55 mr-2 mb-2">
-                            <svg className="w-4 h-4 mr-2 -ml-1" aria-hidden="true" focusable="false" data-prefix="fab" data-icon="google" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 488 512"><path fill="currentColor" d="M488 261.8C488 403.3 391.1 504 248 504 110.8 504 0 393.2 0 256S110.8 8 248 8c66.8 0 123 24.5 166.3 64.9l-67.5 64.9C258.5 52.6 94.3 116.6 94.3 256c0 86.5 69.1 156.6 153.7 156.6 98.2 0 135-70.4 140.8-106.9H248v-85.3h236.1c2.3 12.7 3.9 24.9 3.9 41.4z"></path></svg>
-                            Registrate con Google
-                          </button>
-                          <p className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">--------------------------------o bien--------------------------------</p>
-                        </div>
+                      <div className="self-center mb-6 text-xl font-light text-gray-600 sm:text-2xl dark:text-white">
+                        Registrate como cliente
+                      </div>
+                      <div className="flex gap-4 item-center">
+                        <button type="button" className="py-2 px-4 flex justify-center items-center  bg-red-600 hover:bg-red-700 focus:ring-red-500 focus:ring-offset-red-200 text-white w-full transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-lg ">
+                          <svg width="20" height="20" fill="currentColor" className="mr-2" viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M896 786h725q12 67 12 128 0 217-91 387.5t-259.5 266.5-386.5 96q-157 0-299-60.5t-245-163.5-163.5-245-60.5-299 60.5-299 163.5-245 245-163.5 299-60.5q300 0 515 201l-209 201q-123-119-306-119-129 0-238.5 65t-173.5 176.5-64 243.5 64 243.5 173.5 176.5 238.5 65q87 0 160-24t120-60 82-82 51.5-87 22.5-78h-436v-264z">
+                            </path>
+                          </svg>
+                          Google
+                        </button>
+                      </div>
 
-                        <div>
-                          <input type="text" name="name" id="name" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" placeholder="Nombre" required />
-                        </div>
-                        <div>
-                          <input type="email" name="email" id="email" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" placeholder="E-mail*" required />
-                        </div>
-                        <div>
-                          <input type="password" name="password" id="password" placeholder="Contraseña*" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" required />
-                        </div>
-                        <div className="flex justify-between">
-                          <div className="flex items-start">
-                            <div className="flex items-center h-5">
-                              <input id="remember" type="checkbox" value="" className="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-blue-300 dark:bg-gray-600 dark:border-gray-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800" required />
-                            </div>
-                            <label for="remember" className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">He leído y acepto la política de privacidad</label>
+                      <div className="mt-8">
+                        <div className="flex gap-4 mb-2">
+                          <div className=" relative ">
+                            <input type="text" id="create-account-first-name" className=" rounded-lg border-transparent flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent" name="First name" placeholder="Nombre" />
+                          </div>
+                          <div className=" relative ">
+                            <input type="text" id="create-account-last-name" className=" rounded-lg border-transparent flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent" name="Last name" placeholder="Apellido" />
                           </div>
                         </div>
-                        <div className="flex justify-between">
-                          <div className="flex items-start">
-                            <div className="flex items-center h-5">
-                              <input id="remember" type="checkbox" value="" className="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-blue-300 dark:bg-gray-600 dark:border-gray-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800" required />
+                        <form action="#" autoComplete="off">
+                          <div className="flex flex-col mb-2">
+                            <div className="flex relative ">
+                              <span className="rounded-l-md inline-flex  items-center px-3 border-t bg-white border-l border-b  border-gray-300 text-gray-500 shadow-sm text-sm">
+                                <svg width="15" height="15" fill="currentColor" viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg">
+                                  <path d="M1792 710v794q0 66-47 113t-113 47h-1472q-66 0-113-47t-47-113v-794q44 49 101 87 362 246 497 345 57 42 92.5 65.5t94.5 48 110 24.5h2q51 0 110-24.5t94.5-48 92.5-65.5q170-123 498-345 57-39 100-87zm0-294q0 79-49 151t-122 123q-376 261-468 325-10 7-42.5 30.5t-54 38-52 32.5-57.5 27-50 9h-2q-23 0-50-9t-57.5-27-52-32.5-54-38-42.5-30.5q-91-64-262-182.5t-205-142.5q-62-42-117-115.5t-55-136.5q0-78 41.5-130t118.5-52h1472q65 0 112.5 47t47.5 113z">
+                                  </path>
+                                </svg>
+                              </span>
+                              <input type="text" id="sign-in-email" className=" rounded-r-lg flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent" placeholder="Email" />
                             </div>
-                            <label for="remember" className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Recibir descuentos exclusivos, novedades y tendencias por E-Mail</label>
                           </div>
-                        </div>
-                        <button type="submit" className="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Crear cuenta</button>
-                        <div className="text-sm font-medium text-gray-500 dark:text-gray-300">
-                          Ya tengo cuenta <a href="#" className="text-blue-700 hover:underline dark:text-blue-500">Iniciar sesión</a>
-                        </div>
-                      </form>
+                          <div className="flex flex-col mb-6">
+                            <div className="flex relative ">
+                              <span className="rounded-l-md inline-flex  items-center px-3 border-t bg-white border-l border-b  border-gray-300 text-gray-500 shadow-sm text-sm">
+                                <svg width="15" height="15" fill="currentColor" viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg">
+                                  <path d="M1376 768q40 0 68 28t28 68v576q0 40-28 68t-68 28h-960q-40 0-68-28t-28-68v-576q0-40 28-68t68-28h32v-320q0-185 131.5-316.5t316.5-131.5 316.5 131.5 131.5 316.5q0 26-19 45t-45 19h-64q-26 0-45-19t-19-45q0-106-75-181t-181-75-181 75-75 181v320h736z">
+                                  </path>
+                                </svg>
+                              </span>
+                              <input type="password" id="sign-in-email" className=" rounded-r-lg flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent" placeholder="Contraseña" />
+                            </div>
+                          </div>
+
+                          <div className="flex w-full">
+                            <button type="submit" className="py-2 px-4  bg-indigo-500 hover:bg-indigo-500 focus:ring-purple-500 focus:ring-offset-purple-200 text-white w-full transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-lg ">
+                              Login
+                            </button>
+                          </div>
+                        </form>
+                      </div>
+                      <div className="flex items-center justify-center mt-6">
+                        <a href="#" target="_blank" className="inline-flex items-center text-xs font-thin text-center text-gray-500 hover:text-gray-700 dark:text-gray-100 dark:hover:text-white">
+                          <span className="ml-2">
+                            ¿Ya tienes cuenta?
+                          </span>
+                        </a>
+                      </div>
                     </div>
+
                   </div>
                 </div>
               )}
@@ -327,39 +402,67 @@ export const Navbar = ({ isLoggedIn }) => {
                       </svg>
                       <span className="sr-only">Close modal</span>
                     </button>
-                    <div className="px-6 py-6 lg:px-8 text-center">
-                      <h3 className="mb-4 text-xl font-medium text-gray-900 dark:text-white">Accede</h3>
-                      {/* Modal content 3 */}
-                      <form className="space-y-6" action="#">
-                        <div className="google">
-                          <button type="button" className="text-white bg-[#4285F4] hover:bg-[#4285F4]/90 focus:ring-4 focus:outline-none focus:ring-[#4285F4]/50 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:focus:ring-[#4285F4]/55 mr-2 mb-2">
-                            <svg className="w-4 h-4 mr-2 -ml-1" aria-hidden="true" focusable="false" data-prefix="fab" data-icon="google" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 488 512"><path fill="currentColor" d="M488 261.8C488 403.3 391.1 504 248 504 110.8 504 0 393.2 0 256S110.8 8 248 8c66.8 0 123 24.5 166.3 64.9l-67.5 64.9C258.5 52.6 94.3 116.6 94.3 256c0 86.5 69.1 156.6 153.7 156.6 98.2 0 135-70.4 140.8-106.9H248v-85.3h236.1c2.3 12.7 3.9 24.9 3.9 41.4z"></path></svg>
-                            Accede con Google
-                          </button>
-                          <p className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">--------------------------------o bien--------------------------------</p>
-                        </div>
-
-                        <div>
-                          <input type="email" name="email" id="email" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" placeholder="E-mail*" required />
-                        </div>
-                        <div>
-                          <input type="password" name="password" id="password" placeholder="Contraseña*" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" required />
-                        </div>
-                        <div className="flex justify-between">
-                          <div className="flex items-start">
-                            <div className="flex items-center h-5">
-                              <input id="remember" type="checkbox" value="" className="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-blue-300 dark:bg-gray-600 dark:border-gray-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800" required />
+                    {/* Modal content 3 */}
+                    <div className="flex flex-col w-full max-w-md px-4 py-8 bg-white rounded-lg shadow dark:bg-gray-800 sm:px-6 md:px-8 lg:px-10">
+                      <div className="self-center mb-6 text-xl font-light text-gray-600 sm:text-2xl dark:text-white">
+                        Accede a tu cuenta
+                      </div>
+                      <div className="flex gap-4 item-center">
+                        <button type="button" className="py-2 px-4 flex justify-center items-center  bg-red-600 hover:bg-red-700 focus:ring-red-500 focus:ring-offset-red-200 text-white w-full transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-lg ">
+                          <svg width="20" height="20" fill="currentColor" className="mr-2" viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M896 786h725q12 67 12 128 0 217-91 387.5t-259.5 266.5-386.5 96q-157 0-299-60.5t-245-163.5-163.5-245-60.5-299 60.5-299 163.5-245 245-163.5 299-60.5q300 0 515 201l-209 201q-123-119-306-119-129 0-238.5 65t-173.5 176.5-64 243.5 64 243.5 173.5 176.5 238.5 65q87 0 160-24t120-60 82-82 51.5-87 22.5-78h-436v-264z">
+                            </path>
+                          </svg>
+                          Google
+                        </button>
+                      </div>
+                      <div className="mt-8">
+                        <form action="#" autoComplete="off">
+                          <div className="flex flex-col mb-2">
+                            <div className="flex relative ">
+                              <span className="rounded-l-md inline-flex  items-center px-3 border-t bg-white border-l border-b  border-gray-300 text-gray-500 shadow-sm text-sm">
+                                <svg width="15" height="15" fill="currentColor" viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg">
+                                  <path d="M1792 710v794q0 66-47 113t-113 47h-1472q-66 0-113-47t-47-113v-794q44 49 101 87 362 246 497 345 57 42 92.5 65.5t94.5 48 110 24.5h2q51 0 110-24.5t94.5-48 92.5-65.5q170-123 498-345 57-39 100-87zm0-294q0 79-49 151t-122 123q-376 261-468 325-10 7-42.5 30.5t-54 38-52 32.5-57.5 27-50 9h-2q-23 0-50-9t-57.5-27-52-32.5-54-38-42.5-30.5q-91-64-262-182.5t-205-142.5q-62-42-117-115.5t-55-136.5q0-78 41.5-130t118.5-52h1472q65 0 112.5 47t47.5 113z">
+                                  </path>
+                                </svg>
+                              </span>
+                              <input type="text" id="sign-in-email" className=" rounded-r-lg flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent" placeholder="Email" />
                             </div>
-                            <label for="remember" className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Recuerdame</label>
                           </div>
-                        </div>
-                        <a href="#" className="text-sm text-blue-700 hover:underline dark:text-blue-500">He olvidado mi contraseña</a>
-                        <button type="submit" className="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Iniciar sesión</button>
-                        <div className="text-sm font-medium text-gray-500 dark:text-gray-300">
-                          ¿Eres nuevo? <a href="#" className="text-blue-700 hover:underline dark:text-blue-500">Crear cuenta</a>
-                        </div>
-                      </form>
+                          <div className="flex flex-col mb-6">
+                            <div className="flex relative ">
+                              <span className="rounded-l-md inline-flex  items-center px-3 border-t bg-white border-l border-b  border-gray-300 text-gray-500 shadow-sm text-sm">
+                                <svg width="15" height="15" fill="currentColor" viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg">
+                                  <path d="M1376 768q40 0 68 28t28 68v576q0 40-28 68t-68 28h-960q-40 0-68-28t-28-68v-576q0-40 28-68t68-28h32v-320q0-185 131.5-316.5t316.5-131.5 316.5 131.5 131.5 316.5q0 26-19 45t-45 19h-64q-26 0-45-19t-19-45q0-106-75-181t-181-75-181 75-75 181v320h736z">
+                                  </path>
+                                </svg>
+                              </span>
+                              <input type="password" id="sign-in-email" className=" rounded-r-lg flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent" placeholder="Contraseña" />
+                            </div>
+                          </div>
+                          <div className="flex items-center mb-6 -mt-4">
+                            <div className="flex ml-auto">
+                              <a href="#" className="inline-flex text-xs font-thin text-gray-500 sm:text-sm dark:text-gray-100 hover:text-gray-700 dark:hover:text-white">
+                                ¿Has olvidado tu contraseña?
+                              </a>
+                            </div>
+                          </div>
+                          <div className="flex w-full">
+                            <button type="submit" className="py-2 px-4  bg-indigo-500 hover:bg-indigo-500 focus:ring-purple-500 focus:ring-offset-purple-200 text-white w-full transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-lg ">
+                              Login
+                            </button>
+                          </div>
+                        </form>
+                      </div>
+                      <div className="flex items-center justify-center mt-6">
+                        <a href="#" target="_blank" className="inline-flex items-center text-xs font-thin text-center text-gray-500 hover:text-gray-700 dark:text-gray-100 dark:hover:text-white">
+                          <span className="ml-2">
+                            ¿No tienes cuenta?
+                          </span>
+                        </a>
+                      </div>
                     </div>
+
                   </div>
                 </div>
 
