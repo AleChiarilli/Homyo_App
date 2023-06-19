@@ -162,7 +162,7 @@ class Cmr_user_profile(db.Model):
     
 class Home(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    is_visible = db.Column(db.Boolean(), unique=False, nullable=False)
+    is_visible = db.Column(db.Boolean(), unique=False, nullable=False, default=False)
     address = db.Column(db.String(200), unique=False, nullable=True)
     postal_code = db.Column(db.Integer, unique=False, nullable=False)
     description = db.Column(db.String(255), unique=False, nullable=False)
@@ -307,7 +307,7 @@ class Contract(TimestampMixin, db.Model):
     job_status = db.relationship(Job_status)
     payment_current_status = db.Column(db.Integer, db.ForeignKey('payment_status.id'))
     payment_status = db.relationship(Payment_status)
-    comment = db.Column(db.String(255), unique=False, nullable=False)
+    comment = db.Column(db.String(255), unique=False, nullable=True)
     job_date = db.Column(db.DateTime, unique=False, nullable=False)
 
     def __repr__(self):
@@ -346,7 +346,7 @@ class Pro_review(TimestampMixin, db.Model):
             "rating": self.rating,
             "pro_receiver_id": self.pro_receiver_id,
             "cmr_sender_id": self.cmr_sender_id,
-            "contract": self.contract,
+            "contract_id": self.contract_id,
             "comment": self.comment
         }
 
@@ -371,7 +371,7 @@ class Cmr_review(TimestampMixin, db.Model):
             "rating": self.rating,
             "pro_sender_id": self.pro_sender_id,
             "cmr_receiver_id": self.cmr_receiver_id,
-            "contract": self.contract,
+            "contract_id": self.contract_id,
             "comment": self.comment
         }
 
