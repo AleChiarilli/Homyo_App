@@ -15,6 +15,7 @@ import tranquilidad from "../../img/tranquilidad.png";
 import precio from "../../img/precio.png";
 import servicios from "../../img/servicios.png";
 import { Valoraciones } from "../component/valoraciones";
+import { BotonesFiltro } from "../component/botonesfiltro";
 
 
 export const Home = ({ isLoggedIn }) => {
@@ -32,120 +33,18 @@ export const Home = ({ isLoggedIn }) => {
 
 
         <div className="max-w-screen-xl bg-white dark:bg-gray-800 p-4 mx-auto mt-20 ">
-            <div className="flex-row gap-4 flex justify-center items-center ">
-                <button
-                    type="button"
-                    className="inline-flex items-center px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-full mx-1 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-indigo-500 focus:text-blue-700 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-blue-500 dark:focus:text-white"
-                >
-
-                    <div className="flex-row gap-4 flex justify-center items-center">
-                        <div className="flex-shrink-0">
-                            <a href="#" className="relative block">
-                                <img alt="limpieza" src={limpieza} className="mx-auto object-fit rounded-full h-16 w-16 " />
-                            </a>
-                        </div>
-                        <div className=" flex flex-col">
-                            <span className="text-lg font-medium text-gray-600 dark:text-white">
-                                Limpieza
-                            </span>
-                        </div>
-                    </div>
-
-
-                </button>
-                <button
-                    type="button"
-                    className="inline-flex items-center px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-full mx-1 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-indigo-500 focus:text-blue-700 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-blue-500 dark:focus:text-white"
-                >
-
-                    <div className="flex-row gap-4 flex justify-center items-center">
-                        <div className="flex-shrink-0">
-                            <a href="#" className="relative block">
-                                <img alt="cocina" src={chef} className="mx-auto object-fit rounded-full h-16 w-16 " />
-                            </a>
-                        </div>
-                        <div className=" flex flex-col">
-                            <span className="text-lg font-medium text-gray-600 dark:text-white">
-                                Cocina
-                            </span>
-                        </div>
-                    </div>
-
-
-                </button>
-                <button
-                    type="button"
-                    className="inline-flex items-center px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-full mx-1 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-indigo-500 focus:text-blue-700 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-blue-500 dark:focus:text-white"
-                >
-
-                    <div className="flex-row gap-4 flex justify-center items-center">
-                        <div className="flex-shrink-0">
-                            <a href="#" className="relative block">
-                                <img alt="profil" src={niños} className="mx-auto object-fit rounded-full h-16 w-16 " />
-                            </a>
-                        </div>
-                        <div className=" flex flex-col">
-                            <span className="text-lg font-medium text-gray-600 dark:text-white">
-                                Cuidado de niños
-                            </span>
-                        </div>
-                    </div>
-
-
-                </button>
-                <button
-                    type="button"
-                    className="inline-flex items-center px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-full mx-1 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-indigo-500 focus:text-blue-700 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-blue-500 dark:focus:text-white"
-                >
-
-                    <div className="flex-row gap-4 flex justify-center items-center">
-                        <div className="flex-shrink-0">
-                            <a href="#" className="relative block">
-                                <img alt="profil" src={animales} className="mx-auto object-fit rounded-full h-16 w-16 " />
-                            </a>
-                        </div>
-                        <div className=" flex flex-col">
-                            <span className="text-lg font-medium text-gray-600 dark:text-white">
-                                Cuidado de mascotas
-                            </span>
-                        </div>
-                    </div>
-
-
-                </button>
-                <button
-                    type="button"
-                    className="inline-flex items-center px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-full mx-1 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-indigo-500 focus:text-blue-700 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-blue-500 dark:focus:text-white"
-                >
-
-                    <div className="flex-row gap-4 flex justify-center items-center">
-                        <div className="flex-shrink-0">
-                            <a href="#" className="relative block">
-                                <img alt="profil" src={jardineria} className="mx-auto object-fit rounded-full h-16 w-16 " />
-                            </a>
-                        </div>
-                        <div className=" flex flex-col">
-                            <span className="text-lg font-medium text-gray-600 dark:text-white">
-                                Jardineria
-                            </span>
-                        </div>
-                    </div>
-
-
-                </button>
-            </div>
-
             <div className="flex justify-center">
                 <main>
                     <ul id="cards" className="flex justify-center mx-auto">
                         <li className="card" id="card_1">
                             <div className="card__content h-full">
-                                <div>
+                                <div className="">
                                 <h2 className="text-indigo-500">Limpieza</h2>
                                     <p>Tu casa siempre en optimas condiciones.</p>
 
                                 </div>
                                 <figure>
+                                    
                                     <img
                                         src={limpieza}
                                         alt="Image description"
@@ -155,7 +54,7 @@ export const Home = ({ isLoggedIn }) => {
                         </li>
                         <li className="card" id="card_2">
                             <div className="card__content h-full">
-                                <div>
+                            <div className="">
                                 <h2 className="text-indigo-500">Cocina</h2>
                                     <p>Olvidate de la comida a domicilio, nosotros nos encargamos de hacerte comida casera</p>
 
@@ -170,12 +69,13 @@ export const Home = ({ isLoggedIn }) => {
                         </li>
                         <li className="card" id="card_3">
                             <div className="card__content h-full">
-                                <div>
+                                <div className="">
                                 <h2 className="text-indigo-500">Cuidado de niños</h2>
-                                    <p>¿No llegas a tiempo a recoger a tus niños del cole? ¿Llegan tarde a las extraescolares? Estamos aquí para solucionarlo</p>
+                                <p>¿No llegas a tiempo a recoger a tus niños del cole? ¿Llegan tarde a las extraescolares? Estamos aquí para solucionarlo</p>
 
                                 </div>
                                 <figure>
+                                    
                                     <img
                                         src={niños}
                                         alt="Image description"
@@ -183,9 +83,10 @@ export const Home = ({ isLoggedIn }) => {
                                 </figure>
                             </div>
                         </li>
+
                         <li className="card" id="card_4">
                             <div className="card__content h-full">
-                                <div>
+                            <div className="">
                                 <h2 className="text-indigo-500">Cuidado de mascotas</h2>
                                     <p>Pasearemos y cuidaremos de tus mascotas cuando tu no puedas hacerlo.</p>
 
@@ -200,7 +101,7 @@ export const Home = ({ isLoggedIn }) => {
                         </li>
                         <li className="card" id="card_5">
                             <div className="card__content h-full">
-                                <div>
+                            <div className="">
                                 <h2 className="text-indigo-500">Jardineria</h2>
                                     <p>Con nosotros tus plantas y tu jardín están a salvo.</p>
 
@@ -315,7 +216,7 @@ export const Home = ({ isLoggedIn }) => {
                                     Es ahora o nunca
                                 </span>
                             </h2>
-                            {!isLoggedIn && (
+                            {!isLoggedIn ? (
                                 <div className="mt-12 inline-flex rounded-md shadow">
                                     <button
                                         data-modal-target="authentication-modal4"
@@ -325,7 +226,20 @@ export const Home = ({ isLoggedIn }) => {
                                         className="py-4 px-6 bg-indigo-600 hover:bg-indigo-700 focus:ring-indigo-500 focus:ring-offset-indigo-200 text-white w-full transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2 rounded-lg" >
                                         Empieza ya
                                     </button>
-                                </div>)}
+                                </div>) : 
+                                <div className="mt-12 inline-flex rounded-md shadow">
+                                <button
+                                  data-modal-target="authentication-modal4"
+                                  data-modal-toggle="authentication-modal4"
+                                  type="button"
+                                  onClick={toggleModal4}
+                                  className="py-4 px-6 bg-indigo-600 hover:bg-indigo-700 focus:ring-indigo-500 focus:ring-offset-indigo-200 text-white w-full transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2 rounded-lg disabled:opacity-50 disabled:bg-gray-400" // Agregar clases para estilo deshabilitado
+                                  disabled // Agregar la propiedad disabled
+                                >
+                                  Empieza ya
+                                </button>
+                              </div>
+                             }
                         </div>
                         <div className="hidden lg:block lg:w-1/2">
                             <img src={servicios} className="h-full max-w-full" alt="Services" />
