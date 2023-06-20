@@ -10,6 +10,7 @@ import { Profile } from "./pages/profile";
 import { Busqueda } from "./pages/busqueda";
 import { Faq } from "./pages/faq";
 import { Sobrenosotros } from "./pages/sobrenosotros";
+import { TablonDeAnuncios } from "./pages/tablonDeAnuncios";
 
 
 import injectContext from "./store/appContext";
