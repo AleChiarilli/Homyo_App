@@ -6,7 +6,7 @@ import { Navbar } from "./component/navbar";
 import { Footer } from "./component/footer";
 import { Home } from "./pages/home";
 import { Demo } from "./pages/demo";
-import { Single } from "./pages/single";
+import { Profile } from "./pages/profile";
 import { Busqueda } from "./pages/busqueda";
 import { Faq } from "./pages/faq";
 import { Sobrenosotros } from "./pages/sobrenosotros";
@@ -33,7 +33,8 @@ const Layout = () => {
                     <Routes>
                         <Route element={<Home isLoggedIn={isLoggedIn}/>} path="/" />
                         <Route element={<Demo />} path="/demo" />
-                        <Route element={<Single />} path="/single/:theid" />
+                        <Route element={<Profile />} path="/profile" />
+                        {/* <Route element={<Profile />} path="/profile/:theid" /> */}
                         <Route element={<Busqueda />} path="/buscador" />
                         <Route element={<Faq />} path="/preguntas-frecuentes" />
                         <Route element={<Sobrenosotros />} path="/sobre-nosotros" />
