@@ -28,6 +28,7 @@ const Layout = () => {
     return (
         <div>
             <BrowserRouter basename={basename}>
+                
                 <ScrollToTop>
                     <Navbar isLoggedIn={isLoggedIn} />
                     <Routes>
@@ -41,6 +42,7 @@ const Layout = () => {
                     </Routes>
                     <Footer isLoggedIn={isLoggedIn}/>
                 </ScrollToTop>
+                
             </BrowserRouter>
         </div>
     );

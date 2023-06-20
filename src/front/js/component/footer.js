@@ -39,8 +39,9 @@ export const Footer = ({ isLoggedIn }) => {
 
 					<li className="my-2">
 						{/* Modal toggle 5 */}
-						{!isLoggedIn && (
+						{!isLoggedIn ? (
 							<a
+								href="#"
 								className="text-gray-400 hover:text-gray-800 dark:text-gray-300 dark:hover:text-white transition-colors duration-200"
 								data-modal-target="authentication-modal5"
 								data-modal-toggle="authentication-modal5"
@@ -49,7 +50,15 @@ export const Footer = ({ isLoggedIn }) => {
 							>
 								Ofrece tus servicios
 							</a>
-						)}
+						) : <a
+							href="#"
+							className="text-gray-400 hover:text-gray-800 dark:text-gray-300 dark:hover:text-white transition-colors duration-200"
+							data-modal-target="authentication-modal5"
+							data-modal-toggle="authentication-modal5"
+							type="button"
+							>	
+							Ofrece tus servicios
+						</a>}
 
 						{/* Main modal 5 */}
 						{isModalOpen5 && (
@@ -201,6 +210,7 @@ export const Footer = ({ isLoggedIn }) => {
 
 					<li className="my-2">
 						<a
+							href="#"
 							data-modal-target="contact-modal"
 							data-modal-toggle="contact-modal"
 							type="button"

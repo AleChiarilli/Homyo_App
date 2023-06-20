@@ -8,37 +8,40 @@ export const Valoraciones = () => {
     useEffect(() => {
         const container = containerRef.current;
         let scrollInterval;
-
+        let scrollPosition = 0;
+      
         const startScrolling = () => {
-            scrollInterval = setInterval(() => {
-                container.scrollLeft += 1 * scrollDirectionRef.current; // Multiplica por el valor de dirección para controlar el desplazamiento
+          scrollInterval = setInterval(() => {
+            scrollPosition += 1 * scrollDirectionRef.current;
+      
+            // Verificar si se alcanzó el final del scroll
+            if (
+              (scrollDirectionRef.current === 1 && scrollPosition >= container.scrollWidth - container.offsetWidth) ||
+              (scrollDirectionRef.current === -1 && scrollPosition <= 0)
+            ) {
+              scrollPosition = 0; // Reiniciar la posición de desplazamiento al inicio
+            }
+      
+            container.scrollLeft = scrollPosition;
+          }, 30);             // Modifica la velocidad del scroll
 
-                // Verificar si se alcanzó el final del scroll
-                if (
-                    (scrollDirectionRef.current === 1 && container.scrollLeft + container.offsetWidth >= container.scrollWidth) ||
-                    (scrollDirectionRef.current === -1 && container.scrollLeft <= 0)
-                ) {
-                    // Cambiar la dirección del scroll
-                    scrollDirectionRef.current *= -1;
-                }
-            }, 30); // Cambia el intervalo según tu preferencia
         };
-
+      
         const stopScrolling = () => {
-            clearInterval(scrollInterval);
+          clearInterval(scrollInterval);
         };
-
+      
         container.addEventListener("mouseenter", stopScrolling);
         container.addEventListener("mouseleave", startScrolling);
-
+      
         startScrolling();
-
+      
         return () => {
-            container.removeEventListener("mouseenter", stopScrolling);
-            container.removeEventListener("mouseleave", startScrolling);
-            stopScrolling();
+          container.removeEventListener("mouseenter", stopScrolling);
+          container.removeEventListener("mouseleave", startScrolling);
+          stopScrolling();
         };
-    }, []);
+      }, []);
 
 
     return (
@@ -94,14 +97,14 @@ export const Valoraciones = () => {
                                     </svg>
                                 </div>
                             </div>
-                            <div className="flex items-start mt-6 text-gray-100">
-                                <button className="mr-4 hover:text-white">
-                                    <svg width="25" height="25" fill="currentColor" viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg">
+                            <div className="flex items-start mt-6 text-indigo-500">
+                                <button className="mr-4 hover:text-red-900">
+                                    <svg width="25"  height="25" fill="currentColor" viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg">
                                         <path d="M1664 596q0-81-21.5-143t-55-98.5-81.5-59.5-94-31-98-8-112 25.5-110.5 64-86.5 72-60 61.5q-18 22-49 22t-49-22q-24-28-60-61.5t-86.5-72-110.5-64-112-25.5-98 8-94 31-81.5 59.5-55 98.5-21.5 143q0 168 187 355l581 560 580-559q188-188 188-356zm128 0q0 221-229 450l-623 600q-18 18-44 18t-44-18l-624-602q-10-8-27.5-26t-55.5-65.5-68-97.5-53.5-121-23.5-138q0-220 127-344t351-124q62 0 126.5 21.5t120 58 95.5 68.5 76 68q36-36 76-68t95.5-68.5 120-58 126.5-21.5q224 0 351 124t127 344z">
                                         </path>
                                     </svg>
                                 </button>
-                                <button className="hover:text-white">
+                                <button className="hover:text-green-900">
                                     <svg width="25" height="25" fill="currentColor" viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg">
                                         <path d="M1344 1024q133 0 226.5 93.5t93.5 226.5-93.5 226.5-226.5 93.5-226.5-93.5-93.5-226.5q0-12 2-34l-360-180q-92 86-218 86-133 0-226.5-93.5t-93.5-226.5 93.5-226.5 226.5-93.5q126 0 218 86l360-180q-2-22-2-34 0-133 93.5-226.5t226.5-93.5 226.5 93.5 93.5 226.5-93.5 226.5-226.5 93.5q-126 0-218-86l-360 180q2 22 2 34t-2 34l360 180q92-86 218-86z">
                                         </path>
@@ -155,14 +158,14 @@ export const Valoraciones = () => {
                                     </svg>
                                 </div>
                             </div>
-                            <div className="flex items-start mt-6 text-gray-100">
-                                <button className="mr-4 hover:text-white">
-                                    <svg width="25" height="25" fill="currentColor" viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg">
+                            <div className="flex items-start mt-6 text-indigo-500">
+                                <button className="mr-4 hover:text-red-900">
+                                    <svg width="25"  height="25" fill="currentColor" viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg">
                                         <path d="M1664 596q0-81-21.5-143t-55-98.5-81.5-59.5-94-31-98-8-112 25.5-110.5 64-86.5 72-60 61.5q-18 22-49 22t-49-22q-24-28-60-61.5t-86.5-72-110.5-64-112-25.5-98 8-94 31-81.5 59.5-55 98.5-21.5 143q0 168 187 355l581 560 580-559q188-188 188-356zm128 0q0 221-229 450l-623 600q-18 18-44 18t-44-18l-624-602q-10-8-27.5-26t-55.5-65.5-68-97.5-53.5-121-23.5-138q0-220 127-344t351-124q62 0 126.5 21.5t120 58 95.5 68.5 76 68q36-36 76-68t95.5-68.5 120-58 126.5-21.5q224 0 351 124t127 344z">
                                         </path>
                                     </svg>
                                 </button>
-                                <button className="hover:text-white">
+                                <button className="hover:text-green-900">
                                     <svg width="25" height="25" fill="currentColor" viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg">
                                         <path d="M1344 1024q133 0 226.5 93.5t93.5 226.5-93.5 226.5-226.5 93.5-226.5-93.5-93.5-226.5q0-12 2-34l-360-180q-92 86-218 86-133 0-226.5-93.5t-93.5-226.5 93.5-226.5 226.5-93.5q126 0 218 86l360-180q-2-22-2-34 0-133 93.5-226.5t226.5-93.5 226.5 93.5 93.5 226.5-93.5 226.5-226.5 93.5q-126 0-218-86l-360 180q2 22 2 34t-2 34l360 180q92-86 218-86z">
                                         </path>
@@ -217,14 +220,14 @@ export const Valoraciones = () => {
                                     </svg>
                                 </div>
                             </div>
-                            <div className="flex items-start mt-6 text-gray-100">
-                                <button className="mr-4 hover:text-white">
-                                    <svg width="25" height="25" fill="currentColor" viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg">
+                            <div className="flex items-start mt-6 text-indigo-500">
+                                <button className="mr-4 hover:text-red-900">
+                                    <svg width="25"  height="25" fill="currentColor" viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg">
                                         <path d="M1664 596q0-81-21.5-143t-55-98.5-81.5-59.5-94-31-98-8-112 25.5-110.5 64-86.5 72-60 61.5q-18 22-49 22t-49-22q-24-28-60-61.5t-86.5-72-110.5-64-112-25.5-98 8-94 31-81.5 59.5-55 98.5-21.5 143q0 168 187 355l581 560 580-559q188-188 188-356zm128 0q0 221-229 450l-623 600q-18 18-44 18t-44-18l-624-602q-10-8-27.5-26t-55.5-65.5-68-97.5-53.5-121-23.5-138q0-220 127-344t351-124q62 0 126.5 21.5t120 58 95.5 68.5 76 68q36-36 76-68t95.5-68.5 120-58 126.5-21.5q224 0 351 124t127 344z">
                                         </path>
                                     </svg>
                                 </button>
-                                <button className="hover:text-white">
+                                <button className="hover:text-green-900">
                                     <svg width="25" height="25" fill="currentColor" viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg">
                                         <path d="M1344 1024q133 0 226.5 93.5t93.5 226.5-93.5 226.5-226.5 93.5-226.5-93.5-93.5-226.5q0-12 2-34l-360-180q-92 86-218 86-133 0-226.5-93.5t-93.5-226.5 93.5-226.5 226.5-93.5q126 0 218 86l360-180q-2-22-2-34 0-133 93.5-226.5t226.5-93.5 226.5 93.5 93.5 226.5-93.5 226.5-226.5 93.5q-126 0-218-86l-360 180q2 22 2 34t-2 34l360 180q92-86 218-86z">
                                         </path>
@@ -278,14 +281,14 @@ export const Valoraciones = () => {
                                     </svg>
                                 </div>
                             </div>
-                            <div className="flex items-start mt-6 text-gray-100">
-                                <button className="mr-4 hover:text-white">
-                                    <svg width="25" height="25" fill="currentColor" viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg">
+                            <div className="flex items-start mt-6 text-indigo-500">
+                                <button className="mr-4 hover:text-red-900">
+                                    <svg width="25"  height="25" fill="currentColor" viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg">
                                         <path d="M1664 596q0-81-21.5-143t-55-98.5-81.5-59.5-94-31-98-8-112 25.5-110.5 64-86.5 72-60 61.5q-18 22-49 22t-49-22q-24-28-60-61.5t-86.5-72-110.5-64-112-25.5-98 8-94 31-81.5 59.5-55 98.5-21.5 143q0 168 187 355l581 560 580-559q188-188 188-356zm128 0q0 221-229 450l-623 600q-18 18-44 18t-44-18l-624-602q-10-8-27.5-26t-55.5-65.5-68-97.5-53.5-121-23.5-138q0-220 127-344t351-124q62 0 126.5 21.5t120 58 95.5 68.5 76 68q36-36 76-68t95.5-68.5 120-58 126.5-21.5q224 0 351 124t127 344z">
                                         </path>
                                     </svg>
                                 </button>
-                                <button className="hover:text-white">
+                                <button className="hover:text-green-900">
                                     <svg width="25" height="25" fill="currentColor" viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg">
                                         <path d="M1344 1024q133 0 226.5 93.5t93.5 226.5-93.5 226.5-226.5 93.5-226.5-93.5-93.5-226.5q0-12 2-34l-360-180q-92 86-218 86-133 0-226.5-93.5t-93.5-226.5 93.5-226.5 226.5-93.5q126 0 218 86l360-180q-2-22-2-34 0-133 93.5-226.5t226.5-93.5 226.5 93.5 93.5 226.5-93.5 226.5-226.5 93.5q-126 0-218-86l-360 180q2 22 2 34t-2 34l360 180q92-86 218-86z">
                                         </path>
@@ -339,14 +342,14 @@ export const Valoraciones = () => {
                                     </svg>
                                 </div>
                             </div>
-                            <div className="flex items-start mt-6 text-gray-100">
-                                <button className="mr-4 hover:text-white">
-                                    <svg width="25" height="25" fill="currentColor" viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg">
+                            <div className="flex items-start mt-6 text-indigo-500">
+                                <button className="mr-4 hover:text-red-900">
+                                    <svg width="25"  height="25" fill="currentColor" viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg">
                                         <path d="M1664 596q0-81-21.5-143t-55-98.5-81.5-59.5-94-31-98-8-112 25.5-110.5 64-86.5 72-60 61.5q-18 22-49 22t-49-22q-24-28-60-61.5t-86.5-72-110.5-64-112-25.5-98 8-94 31-81.5 59.5-55 98.5-21.5 143q0 168 187 355l581 560 580-559q188-188 188-356zm128 0q0 221-229 450l-623 600q-18 18-44 18t-44-18l-624-602q-10-8-27.5-26t-55.5-65.5-68-97.5-53.5-121-23.5-138q0-220 127-344t351-124q62 0 126.5 21.5t120 58 95.5 68.5 76 68q36-36 76-68t95.5-68.5 120-58 126.5-21.5q224 0 351 124t127 344z">
                                         </path>
                                     </svg>
                                 </button>
-                                <button className="hover:text-white">
+                                <button className="hover:text-green-900">
                                     <svg width="25" height="25" fill="currentColor" viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg">
                                         <path d="M1344 1024q133 0 226.5 93.5t93.5 226.5-93.5 226.5-226.5 93.5-226.5-93.5-93.5-226.5q0-12 2-34l-360-180q-92 86-218 86-133 0-226.5-93.5t-93.5-226.5 93.5-226.5 226.5-93.5q126 0 218 86l360-180q-2-22-2-34 0-133 93.5-226.5t226.5-93.5 226.5 93.5 93.5 226.5-93.5 226.5-226.5 93.5q-126 0-218-86l-360 180q2 22 2 34t-2 34l360 180q92-86 218-86z">
                                         </path>
@@ -400,14 +403,14 @@ export const Valoraciones = () => {
                                     </svg>
                                 </div>
                             </div>
-                            <div className="flex items-start mt-6 text-gray-100">
-                                <button className="mr-4 hover:text-white">
-                                    <svg width="25" height="25" fill="currentColor" viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg">
+                            <div className="flex items-start mt-6 text-indigo-500">
+                                <button className="mr-4 hover:text-red-900">
+                                    <svg width="25"  height="25" fill="currentColor" viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg">
                                         <path d="M1664 596q0-81-21.5-143t-55-98.5-81.5-59.5-94-31-98-8-112 25.5-110.5 64-86.5 72-60 61.5q-18 22-49 22t-49-22q-24-28-60-61.5t-86.5-72-110.5-64-112-25.5-98 8-94 31-81.5 59.5-55 98.5-21.5 143q0 168 187 355l581 560 580-559q188-188 188-356zm128 0q0 221-229 450l-623 600q-18 18-44 18t-44-18l-624-602q-10-8-27.5-26t-55.5-65.5-68-97.5-53.5-121-23.5-138q0-220 127-344t351-124q62 0 126.5 21.5t120 58 95.5 68.5 76 68q36-36 76-68t95.5-68.5 120-58 126.5-21.5q224 0 351 124t127 344z">
                                         </path>
                                     </svg>
                                 </button>
-                                <button className="hover:text-white">
+                                <button className="hover:text-green-900">
                                     <svg width="25" height="25" fill="currentColor" viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg">
                                         <path d="M1344 1024q133 0 226.5 93.5t93.5 226.5-93.5 226.5-226.5 93.5-226.5-93.5-93.5-226.5q0-12 2-34l-360-180q-92 86-218 86-133 0-226.5-93.5t-93.5-226.5 93.5-226.5 226.5-93.5q126 0 218 86l360-180q-2-22-2-34 0-133 93.5-226.5t226.5-93.5 226.5 93.5 93.5 226.5-93.5 226.5-226.5 93.5q-126 0-218-86l-360 180q2 22 2 34t-2 34l360 180q92-86 218-86z">
                                         </path>
@@ -461,14 +464,14 @@ export const Valoraciones = () => {
                                     </svg>
                                 </div>
                             </div>
-                            <div className="flex items-start mt-6 text-gray-100">
-                                <button className="mr-4 hover:text-white">
-                                    <svg width="25" height="25" fill="currentColor" viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg">
+                            <div className="flex items-start mt-6 text-indigo-500">
+                                <button className="mr-4 hover:text-red-900">
+                                    <svg width="25"  height="25" fill="currentColor" viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg">
                                         <path d="M1664 596q0-81-21.5-143t-55-98.5-81.5-59.5-94-31-98-8-112 25.5-110.5 64-86.5 72-60 61.5q-18 22-49 22t-49-22q-24-28-60-61.5t-86.5-72-110.5-64-112-25.5-98 8-94 31-81.5 59.5-55 98.5-21.5 143q0 168 187 355l581 560 580-559q188-188 188-356zm128 0q0 221-229 450l-623 600q-18 18-44 18t-44-18l-624-602q-10-8-27.5-26t-55.5-65.5-68-97.5-53.5-121-23.5-138q0-220 127-344t351-124q62 0 126.5 21.5t120 58 95.5 68.5 76 68q36-36 76-68t95.5-68.5 120-58 126.5-21.5q224 0 351 124t127 344z">
                                         </path>
                                     </svg>
                                 </button>
-                                <button className="hover:text-white">
+                                <button className="hover:text-green-900">
                                     <svg width="25" height="25" fill="currentColor" viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg">
                                         <path d="M1344 1024q133 0 226.5 93.5t93.5 226.5-93.5 226.5-226.5 93.5-226.5-93.5-93.5-226.5q0-12 2-34l-360-180q-92 86-218 86-133 0-226.5-93.5t-93.5-226.5 93.5-226.5 226.5-93.5q126 0 218 86l360-180q-2-22-2-34 0-133 93.5-226.5t226.5-93.5 226.5 93.5 93.5 226.5-93.5 226.5-226.5 93.5q-126 0-218-86l-360 180q2 22 2 34t-2 34l360 180q92-86 218-86z">
                                         </path>
@@ -522,14 +525,14 @@ export const Valoraciones = () => {
                                     </svg>
                                 </div>
                             </div>
-                            <div className="flex items-start mt-6 text-gray-100">
-                                <button className="mr-4 hover:text-white">
-                                    <svg width="25" height="25" fill="currentColor" viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg">
+                            <div className="flex items-start mt-6 text-indigo-500">
+                                <button className="mr-4 hover:text-red-900">
+                                    <svg width="25"  height="25" fill="currentColor" viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg">
                                         <path d="M1664 596q0-81-21.5-143t-55-98.5-81.5-59.5-94-31-98-8-112 25.5-110.5 64-86.5 72-60 61.5q-18 22-49 22t-49-22q-24-28-60-61.5t-86.5-72-110.5-64-112-25.5-98 8-94 31-81.5 59.5-55 98.5-21.5 143q0 168 187 355l581 560 580-559q188-188 188-356zm128 0q0 221-229 450l-623 600q-18 18-44 18t-44-18l-624-602q-10-8-27.5-26t-55.5-65.5-68-97.5-53.5-121-23.5-138q0-220 127-344t351-124q62 0 126.5 21.5t120 58 95.5 68.5 76 68q36-36 76-68t95.5-68.5 120-58 126.5-21.5q224 0 351 124t127 344z">
                                         </path>
                                     </svg>
                                 </button>
-                                <button className="hover:text-white">
+                                <button className="hover:text-green-900">
                                     <svg width="25" height="25" fill="currentColor" viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg">
                                         <path d="M1344 1024q133 0 226.5 93.5t93.5 226.5-93.5 226.5-226.5 93.5-226.5-93.5-93.5-226.5q0-12 2-34l-360-180q-92 86-218 86-133 0-226.5-93.5t-93.5-226.5 93.5-226.5 226.5-93.5q126 0 218 86l360-180q-2-22-2-34 0-133 93.5-226.5t226.5-93.5 226.5 93.5 93.5 226.5-93.5 226.5-226.5 93.5q-126 0-218-86l-360 180q2 22 2 34t-2 34l360 180q92-86 218-86z">
                                         </path>
