@@ -10,14 +10,9 @@ import { Profile } from "./pages/profile";
 import { Busqueda } from "./pages/busqueda";
 import { Faq } from "./pages/faq";
 import { Sobrenosotros } from "./pages/sobrenosotros";
-<<<<<<< HEAD
 import { TablonDeAnuncios } from "./pages/tablonDeAnuncios";
 import { Vista } from "./pages/map"
-
-
-=======
 import { Messages } from "./component/messages"; 
->>>>>>> main
 
 import injectContext from "./store/appContext";
 
@@ -30,7 +25,7 @@ const Layout = () => {
     if (!process.env.BACKEND_URL || process.env.BACKEND_URL === "")
         return <BackendURL />;
 
-    const isLoggedIn = false; // Indica si el usuario está logueado
+    const isLoggedIn = true; // Indica si el usuario está logueado
 
     return (
         <div>
