@@ -10,7 +10,7 @@ import { Profile } from "./pages/profile";
 import { Busqueda } from "./pages/busqueda";
 import { Faq } from "./pages/faq";
 import { Sobrenosotros } from "./pages/sobrenosotros";
-
+import { Messages } from "./component/messages"; 
 
 import injectContext from "./store/appContext";
 
@@ -33,6 +33,7 @@ const Layout = () => {
                     <Navbar isLoggedIn={isLoggedIn} />
                     <Routes>
                         <Route element={<Home isLoggedIn={isLoggedIn}/>} path="/" />
+                        <Route element={<Messages />}path="/mensajes" />
                         <Route element={<Demo />} path="/demo" />
                         <Route element={<Profile />} path="/profile" />
                         {/* <Route element={<Profile />} path="/profile/:theid" /> */}

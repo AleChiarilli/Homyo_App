@@ -15,7 +15,6 @@ import tranquilidad from "../../img/tranquilidad.png";
 import precio from "../../img/precio.png";
 import servicios from "../../img/servicios.png";
 import { Valoraciones } from "../component/valoraciones";
-import { BotonesFiltro } from "../component/botonesfiltro";
 
 
 export const Home = ({ isLoggedIn }) => {
@@ -119,9 +118,9 @@ export const Home = ({ isLoggedIn }) => {
             </div>
 
 
-            <section className="funcionamiento bg-white dark:bg-gray-900 text-center">
+            <section className="bg-white dark:bg-gray-900 text-center">
                 <h1 className="text-3xl font-bold text-gray-800 dark:text-gray-200 py-8">¿Cómo funciona?</h1>
-                <div className="py-8 px-4 mx-auto max-w-screen-xl lg:py-16">
+                <div className="py-8 px-4 mx-auto lg:py-16">
                     <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
                         <div className="max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 transform transition-all hover:scale-110">
                                 <img className="rounded-t-lg h-[200px] object-cover" src={buscar} alt="" />
@@ -163,7 +162,7 @@ export const Home = ({ isLoggedIn }) => {
             </section>
 
 
-            <section className="caracteristicas bg-white dark:bg-gray-900 text-center">
+            <section className="bg-white dark:bg-gray-900 text-center">
                 <h1 className="text-3xl font-bold text-gray-800 dark:text-gray-200 py-8">¿Qué nos caracteriza?</h1>
                 <div className="py-8 px-4 mx-auto max-w-screen-xl lg:py-16">
                     <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
@@ -204,7 +203,7 @@ export const Home = ({ isLoggedIn }) => {
             <Valoraciones />
 
 
-            <section className="servicios bg-white dark:bg-gray-900 text-center">
+            <section className="bg-white dark:bg-gray-900 text-center">
                 <div className="bg-white dark:bg-gray-800 overflow-hidden relative">
                     <div className="w-full py-12 px-4 sm:px-6 lg:flex lg:justify-between">
                         <div className="lg:w-1/2 mt-24">
@@ -219,8 +218,8 @@ export const Home = ({ isLoggedIn }) => {
                             {!isLoggedIn ? (
                                 <div className="mt-12 inline-flex rounded-md shadow">
                                     <button
-                                        data-modal-target="authentication-modal4"
-                                        data-modal-toggle="authentication-modal4"
+                                        data-modal-target="authenticationModal4"
+                                        data-modal-toggle="authenticationModal4"
                                         type="button"
                                         onClick={toggleModal4}
                                         className="py-4 px-6 bg-indigo-600 hover:bg-indigo-700 focus:ring-indigo-500 focus:ring-offset-indigo-200 text-white w-full transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2 rounded-lg" >
@@ -229,8 +228,8 @@ export const Home = ({ isLoggedIn }) => {
                                 </div>) : 
                                 <div className="mt-12 inline-flex rounded-md shadow">
                                 <button
-                                  data-modal-target="authentication-modal4"
-                                  data-modal-toggle="authentication-modal4"
+                                  data-modal-target="authenticationModal4"
+                                  data-modal-toggle="authenticationModal4"
                                   type="button"
                                   onClick={toggleModal4}
                                   className="py-4 px-6 bg-indigo-600 hover:bg-indigo-700 focus:ring-indigo-500 focus:ring-offset-indigo-200 text-white w-full transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2 rounded-lg disabled:opacity-50 disabled:bg-gray-400" // Agregar clases para estilo deshabilitado
@@ -249,7 +248,7 @@ export const Home = ({ isLoggedIn }) => {
                 {/* Main modal 4 */}
                 {isModalOpen4 && (
                     <div
-                        id="authentication-modal4"
+                        id="authenticationModal4"
                         tabIndex="-1"
                         aria-hidden="true"
                         className="fixed top-0 left-0 right-0 bottom-0 flex items-center justify-center bg-black bg-opacity-50"
@@ -278,7 +277,7 @@ export const Home = ({ isLoggedIn }) => {
                             <div className="px-6 py-6 lg:px-8 text-center">
                                 {/* Modal content 4 */}
                                 <div className="self-center mb-6 text-xl font-light text-gray-600 sm:text-2xl dark:text-white">
-                                    Registrate como profesional
+                                    Regístrate
                                 </div>
                                 <div className="flex gap-4 item-center">
                                     <button type="button" className="py-2 px-4 flex justify-center items-center  bg-red-600 hover:bg-red-700 focus:ring-red-500 focus:ring-offset-red-200 text-white w-full transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-lg ">
@@ -324,8 +323,8 @@ export const Home = ({ isLoggedIn }) => {
                                         </div>
 
                                         <div className="flex w-full">
-                                            <button type="submit" className="py-2 px-4  bg-purple-600 hover:bg-purple-700 focus:ring-purple-500 focus:ring-offset-purple-200 text-white w-full transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-lg ">
-                                                Login
+                                            <button type="submit" className="py-2 px-4  bg-indigo-600 hover:bg-indigo-700 focus:ring-indigo-500 focus:ring-offset-indigo-200 text-white w-full transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-lg ">
+                                                Regístrate
                                             </button>
                                         </div>
                                     </form>
