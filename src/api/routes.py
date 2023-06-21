@@ -124,7 +124,7 @@ def delete_user(id):
 
 @api.route('/role', methods=['GET'])
 # Acceso protegido
-@jwt_required()
+# @jwt_required()
 def get_roles():
 
     results = Role.query.all()
@@ -142,12 +142,35 @@ def get_roles():
 
 @api.route('/role/<int:id>', methods=['GET'])
 # Acceso protegido
-@jwt_required()
+# @jwt_required()
 def get_single_role(id):
     print(id)
 
     role = Role.query.filter_by(id=id).first()
     print(role)
+# endpoint para crear un dato en tabla USER
+@api.route('/role', methods=['POST'])
+def create_role():
+
+    body = json.loads(request.data)
+    # json.loads(request.body.decode(encoding='UTF-8'))
+
+    if body is None:
+        raise APIException("You need to specify the request body as a json object", status_code=400)
+    if 'name' not in body:
+        raise APIException('Te falta añadir un nombre de usuario', status_code=400)
+    
+    print(body)
+    role = Role(name=body["name"])
+    db.session.add(role)
+    db.session.commit()
+
+    response_body = {
+        "msg": "El usuario ha sido creado",
+    }
+
+    return jsonify(response_body), 200
+
 # comprobamos que existe un ROLE con ese id, si no es asi, respondemos un mensaje de error
     if role is None:
         raise APIException("No hay un rol con ese ID", status_code=404)
@@ -164,7 +187,7 @@ def get_single_role(id):
 
 @api.route('/user_role', methods=['GET'])
 # Acceso protegido
-@jwt_required()
+# @jwt_required()
 def get_user_roles():
 
     results = User_role.query.all()
@@ -182,7 +205,7 @@ def get_user_roles():
 
 @api.route('/user_role/<int:id>', methods=['GET'])
 # Acceso protegido
-@jwt_required()
+# @jwt_required()
 def get_single_user_role(id):
     print(id)
 
@@ -203,7 +226,7 @@ def get_single_user_role(id):
 # endpoint para crear un dato en tabla USER_ROLE
 @api.route('/user_role', methods=['POST'])
 # Acceso protegido
-@jwt_required()
+# @jwt_required()
 def create_user_role():
 
     body = json.loads(request.data)
@@ -230,7 +253,7 @@ def create_user_role():
 # endpoint para BORRAR un dato en USER_ROLE 
 @api.route('/user_role/<int:id>', methods=['DELETE'])
 # Acceso protegido
-@jwt_required()
+# @jwt_required()
 def delete_user_role(id):
     print(id)
 
@@ -251,7 +274,7 @@ def delete_user_role(id):
 #----------------ENDPOINTS PRO_PROFILE---------------
 @api.route('/pro_profile', methods=['GET'])
 # Acceso protegido
-@jwt_required()
+# @jwt_required()
 def get_pro_profiles():
 
     results = Pro_profile.query.all()
@@ -268,7 +291,7 @@ def get_pro_profiles():
 # endpoint para consultar un dato en PRO_PROFILE
 @api.route('/pro_profile/<int:id>', methods=['GET'])
 # Acceso protegido
-@jwt_required()
+# @jwt_required()
 def get_single_pro_profile(id):
     print(id)
 
@@ -289,7 +312,7 @@ def get_single_pro_profile(id):
 # endpoint para crear un dato en tabla PRO_PROFILE
 @api.route('/pro_profile', methods=['POST'])
 # Acceso protegido
-@jwt_required()
+# @jwt_required()
 def create_pro_profile():
 
     body = json.loads(request.data)
@@ -318,7 +341,7 @@ def create_pro_profile():
 # endpoint para BORRAR un dato en PRO_PROFILE 
 @api.route('/pro_profile/<int:id>', methods=['DELETE'])
 # Acceso protegido
-@jwt_required()
+# # @jwt_required()
 def delete_pro_profile(id):
     print(id)
 
@@ -339,7 +362,7 @@ def delete_pro_profile(id):
 #----------------ENDPOINTS CMR_PROFILE---------------
 @api.route('/cmr_profile', methods=['GET'])
 # Acceso protegido
-@jwt_required()
+# # @jwt_required()
 def get_cmr_profiles():
 
     results = Cmr_profile.query.all()
@@ -356,7 +379,7 @@ def get_cmr_profiles():
 # endpoint para consultar un dato en CMR_PROFILE
 @api.route('/cmr_profile/<int:id>', methods=['GET'])
 # Acceso protegido
-@jwt_required()
+# # @jwt_required()
 def get_single_cmr_profile(id):
     print(id)
 
@@ -377,7 +400,7 @@ def get_single_cmr_profile(id):
 # endpoint para crear un dato en tabla CMR_PROFILE
 @api.route('/cmr_profile', methods=['POST'])
 # Acceso protegido
-@jwt_required()
+# # @jwt_required()
 def create_cmr_profile():
 
     body = json.loads(request.data)
@@ -402,7 +425,7 @@ def create_cmr_profile():
 # endpoint para BORRAR un dato en CMR_PROFILE 
 @api.route('/cmr_profile/<int:id>', methods=['DELETE'])
 # Acceso protegido
-@jwt_required()
+# # @jwt_required()
 def delete_cmr_profile(id):
     print(id)
 
@@ -424,7 +447,7 @@ def delete_cmr_profile(id):
 
 @api.route('/pro_user_profile', methods=['GET'])
 # Acceso protegido
-@jwt_required()
+# # @jwt_required()
 def get_pro_user_profile():
 
     results = Pro_user_profile.query.all()
@@ -442,7 +465,7 @@ def get_pro_user_profile():
 
 @api.route('/pro_user_profile/<int:id>', methods=['GET'])
 # Acceso protegido
-@jwt_required()
+# @jwt_required()
 def get_single_pro_user_profile(id):
     print(id)
 
@@ -463,7 +486,7 @@ def get_single_pro_user_profile(id):
 # endpoint para crear un dato en tabla PRO_USER_PROFILE
 @api.route('/pro_user_profile', methods=['POST'])
 # Acceso protegido
-@jwt_required()
+# @jwt_required()
 def create_pro_user_profile():
 
     body = json.loads(request.data)
@@ -490,7 +513,7 @@ def create_pro_user_profile():
 # endpoint para BORRAR un dato en PRO_PROFILE 
 @api.route('/pro_user_profile/<int:id>', methods=['DELETE'])
 # Acceso protegido
-@jwt_required()
+# @jwt_required()
 def delete_pro_user_profile(id):
     print(id)
 
@@ -512,7 +535,7 @@ def delete_pro_user_profile(id):
 
 @api.route('/cmr_user_profile', methods=['GET'])
 # Acceso protegido
-@jwt_required()
+# @jwt_required()
 def get_cmr_user_profile():
 
     results = Cmr_user_profile.query.all()
@@ -530,7 +553,7 @@ def get_cmr_user_profile():
 
 @api.route('/cmr_user_profile/<int:id>', methods=['GET'])
 # Acceso protegido
-@jwt_required()
+# @jwt_required()
 def get_single_cmr_user_profile(id):
     print(id)
 
@@ -551,7 +574,7 @@ def get_single_cmr_user_profile(id):
 # endpoint para crear un dato en tabla CMR_USER_PROFILE
 @api.route('/cmr_user_profile', methods=['POST'])
 # Acceso protegido
-@jwt_required()
+# @jwt_required()
 def create_cmr_user_profile():
 
     body = json.loads(request.data)
@@ -578,7 +601,7 @@ def create_cmr_user_profile():
 # endpoint para BORRAR un dato en PRO_PROFILE 
 @api.route('/cmr_user_profile/<int:id>', methods=['DELETE'])
 # Acceso protegido
-@jwt_required()
+# @jwt_required()
 def delete_cmr_user_profile(id):
     print(id)
 
@@ -600,7 +623,7 @@ def delete_cmr_user_profile(id):
 
 @api.route('/skill', methods=['GET'])
 # Acceso protegido
-@jwt_required()
+# @jwt_required()
 def get_skill():
 
     results = Skill.query.all()
@@ -618,7 +641,7 @@ def get_skill():
 
 @api.route('/skill/<int:id>', methods=['GET'])
 # Acceso protegido
-@jwt_required()
+# @jwt_required()
 def get_single_skill(id):
     print(id)
 
@@ -639,7 +662,7 @@ def get_single_skill(id):
 # endpoint para crear un dato en tabla CMR_USER_PROFILE
 @api.route('/skill', methods=['POST'])
 # Acceso protegido
-@jwt_required()
+# @jwt_required()
 def create_skill():
 
     body = json.loads(request.data)
@@ -664,7 +687,7 @@ def create_skill():
 # endpoint para BORRAR un dato en PRO_PROFILE 
 @api.route('/skill/<int:id>', methods=['DELETE'])
 # Acceso protegido
-@jwt_required()
+# @jwt_required()
 def delete_skill(id):
     print(id)
 
@@ -686,7 +709,7 @@ def delete_skill(id):
 
 @api.route('/pro_profile_skill', methods=['GET'])
 # Acceso protegido
-@jwt_required()
+# @jwt_required()
 def get_pro_profile_skill():
 
     results = Pro_profile_skill.query.all()
@@ -704,7 +727,7 @@ def get_pro_profile_skill():
 
 @api.route('/pro_profile_skill/<int:id>', methods=['GET'])
 # Acceso protegido
-@jwt_required()
+# @jwt_required()
 def get_single_pro_profile_skill(id):
     print(id)
 
@@ -725,7 +748,7 @@ def get_single_pro_profile_skill(id):
 # endpoint para crear un dato en tabla PRO_PROFILE_SKILL
 @api.route('/pro_profile_skill', methods=['POST'])
 # Acceso protegido
-@jwt_required()
+# @jwt_required()
 def create_pro_profile_skill():
 
     body = json.loads(request.data)
@@ -752,7 +775,7 @@ def create_pro_profile_skill():
 # endpoint para BORRAR un dato en PRO_PROFILE_SKILL 
 @api.route('/pro_profile_skill/<int:id>', methods=['DELETE'])
 # Acceso protegido
-@jwt_required()
+# @jwt_required()
 def delete_pro_profile_skill(id):
     print(id)
 
@@ -771,7 +794,7 @@ def delete_pro_profile_skill(id):
 #----------------ENDPOINTS HOME---------------
 @api.route('/home', methods=['GET'])
 # Acceso protegido
-@jwt_required()
+# @jwt_required()
 def get_home():
 
     results = Home.query.all()
@@ -788,7 +811,7 @@ def get_home():
 # endpoint para consultar un dato en HOME
 @api.route('/home/<int:id>', methods=['GET'])
 # Acceso protegido
-@jwt_required()
+# @jwt_required()
 def get_single_home(id):
     print(id)
 
@@ -809,7 +832,7 @@ def get_single_home(id):
 # endpoint para crear un dato en tabla HOME
 @api.route('/home', methods=['POST'])
 # Acceso protegido
-@jwt_required()
+# @jwt_required()
 def create_home():
 
     body = json.loads(request.data)
@@ -837,7 +860,7 @@ def create_home():
 # endpoint para BORRAR un dato en HOME 
 @api.route('/home/<int:id>', methods=['DELETE'])
 # Acceso protegido
-@jwt_required()
+# @jwt_required()
 def delete_home(id):
     print(id)
 
@@ -858,7 +881,7 @@ def delete_home(id):
 #----------------ENDPOINTS HABITANT---------------
 @api.route('/habitant', methods=['GET'])
 # Acceso protegido
-@jwt_required()
+# @jwt_required()
 def get_habitant():
 
     results = Habitant.query.all()
@@ -875,7 +898,7 @@ def get_habitant():
 # endpoint para consultar un dato en HABITANT
 @api.route('/habitant/<int:id>', methods=['GET'])
 # Acceso protegido
-@jwt_required()
+# @jwt_required()
 def get_single_habitant(id):
     print(id)
 
@@ -896,7 +919,7 @@ def get_single_habitant(id):
 # endpoint para crear un dato en tabla HABITANT
 @api.route('/habitant', methods=['POST'])
 # Acceso protegido
-@jwt_required()
+# @jwt_required()
 def create_habitant():
 
     body = json.loads(request.data)
@@ -924,7 +947,7 @@ def create_habitant():
 # endpoint para BORRAR un dato en HABITANT 
 @api.route('/habitant/<int:id>', methods=['DELETE'])
 # Acceso protegido
-@jwt_required()
+# @jwt_required()
 def delete_habitant(id):
     print(id)
 
@@ -945,7 +968,7 @@ def delete_habitant(id):
 #----------------ENDPOINTS ROOM---------------
 @api.route('/room', methods=['GET'])
 # Acceso protegido
-@jwt_required()
+# @jwt_required()
 def get_room():
 
     results = Room.query.all()
@@ -962,7 +985,7 @@ def get_room():
 # endpoint para consultar un dato en ROOM
 @api.route('/room/<int:id>', methods=['GET'])
 # Acceso protegido
-@jwt_required()
+# @jwt_required()
 def get_single_room(id):
     print(id)
 
@@ -983,7 +1006,7 @@ def get_single_room(id):
 # endpoint para crear un dato en tabla ROOM
 @api.route('/room', methods=['POST'])
 # Acceso protegido
-@jwt_required()
+# @jwt_required()
 def create_room():
 
     body = json.loads(request.data)
@@ -1013,7 +1036,7 @@ def create_room():
 # endpoint para BORRAR un dato en ROOM 
 @api.route('/room/<int:id>', methods=['DELETE'])
 # Acceso protegido
-@jwt_required()
+# @jwt_required()
 def delete_room(id):
     print(id)
 
@@ -1035,7 +1058,7 @@ def delete_room(id):
 
 @api.route('/home_habitant', methods=['GET'])
 # Acceso protegido
-@jwt_required()
+# @jwt_required()
 def get_home_habitant():
 
     results = Home_habitant.query.all()
@@ -1053,7 +1076,7 @@ def get_home_habitant():
 
 @api.route('/home_habitant/<int:id>', methods=['GET'])
 # Acceso protegido
-@jwt_required()
+# @jwt_required()
 def get_single_home_habitant(id):
     print(id)
 
@@ -1074,7 +1097,7 @@ def get_single_home_habitant(id):
 # endpoint para crear un dato en tabla HOME_HABITANT
 @api.route('/home_habitant', methods=['POST'])
 # Acceso protegido
-@jwt_required()
+# @jwt_required()
 def create_home_habitant():
 
     body = json.loads(request.data)
@@ -1101,7 +1124,7 @@ def create_home_habitant():
 # endpoint para BORRAR un dato en HOME_HABITANT 
 @api.route('/home_habitant/<int:id>', methods=['DELETE'])
 # Acceso protegido
-@jwt_required()
+# @jwt_required()
 def delete_home_habitant(id):
     print(id)
 
@@ -1121,7 +1144,7 @@ def delete_home_habitant(id):
 
 @api.route('/home_room', methods=['GET'])
 # Acceso protegido
-@jwt_required()
+# @jwt_required()
 def get_home_room():
 
     results = Home_room.query.all()
@@ -1139,7 +1162,7 @@ def get_home_room():
 
 @api.route('/home_room/<int:id>', methods=['GET'])
 # Acceso protegido
-@jwt_required()
+# @jwt_required()
 def get_single_home_room(id):
     print(id)
 
@@ -1160,7 +1183,7 @@ def get_single_home_room(id):
 # endpoint para crear un dato en tabla HOME_ROOM
 @api.route('/home_room', methods=['POST'])
 # Acceso protegido
-@jwt_required()
+# @jwt_required()
 def create_home_room():
 
     body = json.loads(request.data)
@@ -1187,7 +1210,7 @@ def create_home_room():
 # endpoint para BORRAR un dato en HOME_ROOM 
 @api.route('/home_room/<int:id>', methods=['DELETE'])
 # Acceso protegido
-@jwt_required()
+# @jwt_required()
 def delete_home_room(id):
     print(id)
 
@@ -1207,7 +1230,7 @@ def delete_home_room(id):
 
 @api.route('/cmr_profile_home', methods=['GET'])
 # Acceso protegido
-@jwt_required()
+# @jwt_required()
 def get_cmr_profile_home():
 
     results = Cmr_profile_home.query.all()
@@ -1225,7 +1248,7 @@ def get_cmr_profile_home():
 
 @api.route('/cmr_profile_home/<int:id>', methods=['GET'])
 # Acceso protegido
-@jwt_required()
+# @jwt_required()
 def get_single_cmr_profile_home(id):
     print(id)
 
@@ -1246,7 +1269,7 @@ def get_single_cmr_profile_home(id):
 # endpoint para crear un dato en tabla CMR_PROFILE_HOME
 @api.route('/cmr_profile_home', methods=['POST'])
 # Acceso protegido
-@jwt_required()
+# @jwt_required()
 def create_cmr_profile_home():
 
     body = json.loads(request.data)
@@ -1273,7 +1296,7 @@ def create_cmr_profile_home():
 # endpoint para BORRAR un dato en CMR_PROFILE_HOME 
 @api.route('/cmr_profile_home/<int:id>', methods=['DELETE'])
 # Acceso protegido
-@jwt_required()
+# @jwt_required()
 def delete_cmr_profile_home(id):
     print(id)
 
@@ -1293,7 +1316,7 @@ def delete_cmr_profile_home(id):
 
 @api.route('/contract', methods=['GET'])
 # Acceso protegido
-@jwt_required()
+# @jwt_required()
 def get_contract():
 
     results = Contract.query.all()
@@ -1311,7 +1334,7 @@ def get_contract():
 
 @api.route('/contract/<int:id>', methods=['GET'])
 # Acceso protegido
-@jwt_required()
+# @jwt_required()
 def get_single_contract(id):
     print(id)
 
@@ -1332,7 +1355,7 @@ def get_single_contract(id):
 # endpoint para crear un dato en tabla CONTRACT
 @api.route('/contract', methods=['POST'])
 # Acceso protegido
-@jwt_required()
+# @jwt_required()
 def create_contract():
 
     body = json.loads(request.data)
@@ -1367,7 +1390,7 @@ def create_contract():
 # endpoint para BORRAR un dato en CONTRACT 
 @api.route('/contract/<int:id>', methods=['DELETE'])
 # Acceso protegido
-@jwt_required()
+# @jwt_required()
 def delete_contract(id):
     print(id)
 
@@ -1387,7 +1410,7 @@ def delete_contract(id):
 
 @api.route('/job_status', methods=['GET'])
 # Acceso protegido
-@jwt_required()
+# @jwt_required()
 def get_job_statuss():
 
     results = Job_status.query.all()
@@ -1405,7 +1428,7 @@ def get_job_statuss():
 
 @api.route('/job_status/<int:id>', methods=['GET'])
 # Acceso protegido
-@jwt_required()
+# @jwt_required()
 def get_single_job_status(id):
     print(id)
 
@@ -1427,7 +1450,7 @@ def get_single_job_status(id):
 
 @api.route('/payment_status', methods=['GET'])
 # Acceso protegido
-@jwt_required()
+# @jwt_required()
 def get_payment_status():
 
     results = Payment_status.query.all()
@@ -1445,7 +1468,7 @@ def get_payment_status():
 
 @api.route('/payment_status/<int:id>', methods=['GET'])
 # Acceso protegido
-@jwt_required()
+# @jwt_required()
 def get_single_payment_status(id):
     print(id)
 
@@ -1467,7 +1490,7 @@ def get_single_payment_status(id):
 
 @api.route('/pro_review', methods=['GET'])
 # Acceso protegido
-@jwt_required()
+# @jwt_required()
 def get_pro_review():
 
     results = Pro_review.query.all()
@@ -1485,7 +1508,7 @@ def get_pro_review():
 
 @api.route('/pro_review/<int:id>', methods=['GET'])
 # Acceso protegido
-@jwt_required()
+# @jwt_required()
 def get_single_pro_review(id):
     print(id)
 
@@ -1506,7 +1529,7 @@ def get_single_pro_review(id):
 # endpoint para crear un dato en tabla PRO_REVIEW
 @api.route('/pro_review', methods=['POST'])
 # Acceso protegido
-@jwt_required()
+# @jwt_required()
 def create_pro_review():
 
     body = json.loads(request.data)
@@ -1540,7 +1563,7 @@ def create_pro_review():
 # endpoint para BORRAR un dato en PRO_REVIEW 
 @api.route('/pro_review/<int:id>', methods=['DELETE'])
 # Acceso protegido
-@jwt_required()
+# @jwt_required()
 def delete_pro_review(id):
     print(id)
 
@@ -1560,7 +1583,7 @@ def delete_pro_review(id):
 
 @api.route('/cmr_review', methods=['GET'])
 # Acceso protegido
-@jwt_required()
+# @jwt_required()
 def get_cmr_review():
 
     results = Cmr_review.query.all()
@@ -1578,7 +1601,7 @@ def get_cmr_review():
 
 @api.route('/cmr_review/<int:id>', methods=['GET'])
 # Acceso protegido
-@jwt_required()
+# @jwt_required()
 def get_single_cmr_review(id):
     print(id)
 
@@ -1599,7 +1622,7 @@ def get_single_cmr_review(id):
 # endpoint para crear un dato en tabla CMR_REVIEW
 @api.route('/cmr_review', methods=['POST'])
 # Acceso protegido
-@jwt_required()
+# @jwt_required()
 def create_cmr_review():
 
     body = json.loads(request.data)
@@ -1633,7 +1656,7 @@ def create_cmr_review():
 # endpoint para BORRAR un dato en CMR_REVIEW 
 @api.route('/cmr_review/<int:id>', methods=['DELETE'])
 # Acceso protegido
-@jwt_required()
+# @jwt_required()
 def delete_cmr_review(id):
     print(id)
 
@@ -1653,7 +1676,7 @@ def delete_cmr_review(id):
 
 @api.route('/message_received', methods=['GET'])
 # Acceso protegido
-@jwt_required()
+# @jwt_required()
 def get_message_received():
 
     results = Message_received.query.all()
@@ -1671,7 +1694,7 @@ def get_message_received():
 
 @api.route('/message_received/<int:id>', methods=['GET'])
 # Acceso protegido
-@jwt_required()
+# @jwt_required()
 def get_single_message_received(id):
     print(id)
 
@@ -1692,7 +1715,7 @@ def get_single_message_received(id):
 # endpoint para crear un dato en tabla MESSAGE_RECEIVED
 @api.route('/message_received', methods=['POST'])
 # Acceso protegido
-@jwt_required()
+# @jwt_required()
 def create_message_received():
 
     body = json.loads(request.data)
@@ -1719,7 +1742,7 @@ def create_message_received():
 # endpoint para BORRAR un dato en MESSAGE_RECEIVED 
 @api.route('/message_received/<int:id>', methods=['DELETE'])
 # Acceso protegido
-@jwt_required()
+# @jwt_required()
 def delete_message_received(id):
     print(id)
 
@@ -1739,7 +1762,7 @@ def delete_message_received(id):
 
 @api.route('/message', methods=['GET'])
 # Acceso protegido
-@jwt_required()
+# @jwt_required()
 def get_message():
 
     results = Message.query.all()
@@ -1757,7 +1780,7 @@ def get_message():
 
 @api.route('/message/<int:id>', methods=['GET'])
 # Acceso protegido
-@jwt_required()
+# @jwt_required()
 def get_single_message(id):
     print(id)
 
@@ -1778,7 +1801,7 @@ def get_single_message(id):
 # endpoint para crear un dato en tabla MESSAGE
 @api.route('/message', methods=['POST'])
 # Acceso protegido
-@jwt_required()
+# @jwt_required()
 def create_message():
 
     body = json.loads(request.data)
@@ -1809,7 +1832,7 @@ def create_message():
 # endpoint para BORRAR un dato en MESSAGE 
 @api.route('/message/<int:id>', methods=['DELETE'])
 # Acceso protegido
-@jwt_required()
+# @jwt_required()
 def delete_message(id):
     print(id)
 
@@ -1829,7 +1852,7 @@ def delete_message(id):
 
 @api.route('/message_sent', methods=['GET'])
 # Acceso protegido
-@jwt_required()
+# @jwt_required()
 def get_message_sent():
 
     results = Message_sent.query.all()
@@ -1847,7 +1870,7 @@ def get_message_sent():
 
 @api.route('/message_sent/<int:id>', methods=['GET'])
 # Acceso protegido
-@jwt_required()
+# @jwt_required()
 def get_single_message_sent(id):
     print(id)
 
@@ -1868,7 +1891,7 @@ def get_single_message_sent(id):
 # endpoint para crear un dato en tabla MESSAGE_SENT
 @api.route('/message_sent', methods=['POST'])
 # Acceso protegido
-@jwt_required()
+# @jwt_required()
 def create_message_sent():
 
     body = json.loads(request.data)
@@ -1895,7 +1918,7 @@ def create_message_sent():
 # endpoint para BORRAR un dato en MESSAGE_SENT 
 @api.route('/message_sent/<int:id>', methods=['DELETE'])
 # Acceso protegido
-@jwt_required()
+# @jwt_required()
 def delete_message_sent(id):
     print(id)
 
@@ -1915,7 +1938,7 @@ def delete_message_sent(id):
 
 @api.route('/message_status', methods=['GET'])
 # Acceso protegido
-@jwt_required()
+# @jwt_required()
 def get_message_status():
 
     results = Message_status.query.all()
@@ -1933,7 +1956,7 @@ def get_message_status():
 
 @api.route('/message_status/<int:id>', methods=['GET'])
 # Acceso protegido
-@jwt_required()
+# @jwt_required()
 def get_single_message_status(id):
     print(id)
 
@@ -1954,7 +1977,7 @@ def get_single_message_status(id):
 # endpoint para crear un dato en tabla MESSAGE_STATUS
 @api.route('/message_status', methods=['POST'])
 # Acceso protegido
-@jwt_required()
+# @jwt_required()
 def message_status():
 
     body = json.loads(request.data)
@@ -1979,7 +2002,7 @@ def message_status():
 # endpoint para BORRAR un dato en MESSAGE_STATUS 
 @api.route('/message_status/<int:id>', methods=['DELETE'])
 # Acceso protegido
-@jwt_required()
+# @jwt_required()
 def delete_message_status(id):
     print(id)
 
