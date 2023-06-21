@@ -29,11 +29,12 @@ const Layout = () => {
     return (
         <div>
             <BrowserRouter basename={basename}>
-                
+
                 <ScrollToTop>
                     <Navbar isLoggedIn={isLoggedIn} />
                     <Routes>
-                        <Route element={<Home isLoggedIn={isLoggedIn}/>} path="/" />
+                        <Route element={<TablonDeAnuncios/>} path="/tablonDeAnuncios"/>
+                        <Route element={<Home isLoggedIn={isLoggedIn} />} path="/" />
                         <Route element={<Demo />} path="/demo" />
                         <Route element={<Profile />} path="/profile" />
                         {/* <Route element={<Profile />} path="/profile/:theid" /> */}
@@ -42,9 +43,9 @@ const Layout = () => {
                         <Route element={<Sobrenosotros />} path="/sobre-nosotros" />
                         <Route element={<h1>Not found!</h1>} />
                     </Routes>
-                    <Footer isLoggedIn={isLoggedIn}/>
+                    <Footer isLoggedIn={isLoggedIn} />
                 </ScrollToTop>
-                
+
             </BrowserRouter>
         </div>
     );
