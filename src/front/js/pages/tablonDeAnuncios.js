@@ -1,4 +1,5 @@
 import React from "react";
+import SimpleMap from "../component/mapComponent";
 
 
 export const TablonDeAnuncios = () => {
@@ -199,6 +200,8 @@ export const TablonDeAnuncios = () => {
                     </tbody>
                 </table>
             </div>
+            <SimpleMap/>
         </div>
+        
     )
 }

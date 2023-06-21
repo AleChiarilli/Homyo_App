@@ -11,6 +11,8 @@ import { Busqueda } from "./pages/busqueda";
 import { Faq } from "./pages/faq";
 import { Sobrenosotros } from "./pages/sobrenosotros";
 import { TablonDeAnuncios } from "./pages/tablonDeAnuncios";
+import { Vista } from "./pages/map"
+
 
 
 import injectContext from "./store/appContext";
@@ -33,6 +35,7 @@ const Layout = () => {
                 <ScrollToTop>
                     <Navbar isLoggedIn={isLoggedIn} />
                     <Routes>
+                        <Route element={<Vista/>} path="/map"/>
                         <Route element={<TablonDeAnuncios/>} path="/tablonDeAnuncios"/>
                         <Route element={<Home isLoggedIn={isLoggedIn} />} path="/" />
                         <Route element={<Demo />} path="/demo" />
