@@ -10,7 +10,14 @@ import { Profile } from "./pages/profile";
 import { Busqueda } from "./pages/busqueda";
 import { Faq } from "./pages/faq";
 import { Sobrenosotros } from "./pages/sobrenosotros";
+<<<<<<< HEAD
+import { TablonDeAnuncios } from "./pages/tablonDeAnuncios";
+import { Vista } from "./pages/map"
+
+
+=======
 import { Messages } from "./component/messages"; 
+>>>>>>> main
 
 import injectContext from "./store/appContext";
 
@@ -28,10 +35,12 @@ const Layout = () => {
     return (
         <div>
             <BrowserRouter basename={basename}>
-                
+
                 <ScrollToTop>
                     <Navbar isLoggedIn={isLoggedIn} />
                     <Routes>
+                        <Route element={<Vista/>} path="/map"/>
+                        <Route element={<TablonDeAnuncios/>} path="/tablonDeAnuncios"/>
                         <Route element={<Home isLoggedIn={isLoggedIn}/>} path="/" />
                         <Route element={<Messages />}path="/mensajes" />
                         <Route element={<Demo />} path="/demo" />
@@ -42,9 +51,9 @@ const Layout = () => {
                         <Route element={<Sobrenosotros />} path="/sobre-nosotros" />
                         <Route element={<h1>Not found!</h1>} />
                     </Routes>
-                    <Footer isLoggedIn={isLoggedIn}/>
+                    <Footer isLoggedIn={isLoggedIn} />
                 </ScrollToTop>
-                
+
             </BrowserRouter>
         </div>
     );
