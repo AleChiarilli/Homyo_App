@@ -47,7 +47,7 @@
   }
   
   .card__content {
-	box-shadow: 0 0.2em 1em rgba(0, 0, 0, 0.1), 0 1em 2em rgba(0, 0, 0, 0.1);
+	box-shadow: 0em 0.1em 0.1em 0em rgba(0, 0, 0, 0.1), 0em 0.1em 0.1em 0em rgba(0, 0, 0, 0.1);
 	background: rgb(255, 255, 255);
 	border-radius: 1em;
 	overflow: hidden;

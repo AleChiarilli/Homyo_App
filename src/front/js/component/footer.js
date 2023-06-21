@@ -43,8 +43,8 @@ export const Footer = ({ isLoggedIn }) => {
 							<a
 								href="#"
 								className="text-gray-400 hover:text-gray-800 dark:text-gray-300 dark:hover:text-white transition-colors duration-200"
-								data-modal-target="authentication-modal5"
-								data-modal-toggle="authentication-modal5"
+								data-modal-target="authentication-modal-5"
+								data-modal-toggle="authentication-modal-5"
 								type="button"
 								onClick={toggleModal5}
 							>
@@ -53,8 +53,8 @@ export const Footer = ({ isLoggedIn }) => {
 						) : <a
 							href="#"
 							className="text-gray-400 hover:text-gray-800 dark:text-gray-300 dark:hover:text-white transition-colors duration-200"
-							data-modal-target="authentication-modal5"
-							data-modal-toggle="authentication-modal5"
+							data-modal-target="authentication-modal-5"
+							data-modal-toggle="authentication-modal-5"
 							type="button"
 							>	
 							Ofrece tus servicios
@@ -63,7 +63,7 @@ export const Footer = ({ isLoggedIn }) => {
 						{/* Main modal 5 */}
 						{isModalOpen5 && (
 							<div
-								id="authentication-modal5"
+								id="authentication-modal-5"
 								tabIndex="-1"
 								aria-hidden="true"
 								className="fixed top-0 left-0 right-0 bottom-0 flex items-center justify-center bg-black bg-opacity-50"
@@ -250,31 +250,31 @@ export const Footer = ({ isLoggedIn }) => {
 									<span className="sr-only">Close modal</span>
 								</button>
 								{/* Modal content 6 */}
-								<form class="flex w-full max-w-sm space-x-3">
+								<form className="flex w-full max-w-sm space-x-3">
 
-									<div class="w-full max-w-2xl px-5 pb-10 m-auto mt-10 bg-white rounded-lg shadow dark:bg-gray-800">
-										<div class="mb-6 text-3xl font-light text-center text-gray-800 dark:text-white">
+									<div className="w-full max-w-2xl px-5 pb-10 m-auto mt-10 bg-white rounded-lg shadow dark:bg-gray-800">
+										<div className="mb-6 text-3xl font-light text-center text-gray-800 dark:text-white">
 											Contáctanos
 										</div>
-										<div class="grid max-w-xl grid-cols-2 gap-4 m-auto">
-											<div class="col-span-2 lg:col-span-1">
-												<div class=" relative ">
-													<input type="text" id="contact-form-name" class=" rounded-lg border-transparent flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent" placeholder="Nombre" />
+										<div className="grid max-w-xl grid-cols-2 gap-4 m-auto">
+											<div className="col-span-2 lg:col-span-1">
+												<div className=" relative ">
+													<input type="text" id="contact-form-name" className=" rounded-lg border-transparent flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent" placeholder="Nombre" />
 												</div>
 											</div>
-											<div class="col-span-2 lg:col-span-1">
-												<div class=" relative ">
-													<input type="text" id="contact-form-email" class=" rounded-lg border-transparent flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent" placeholder="Email" />
+											<div className="col-span-2 lg:col-span-1">
+												<div className=" relative ">
+													<input type="text" id="contact-form-email" className=" rounded-lg border-transparent flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent" placeholder="Email" />
 												</div>
 											</div>
-											<div class="col-span-2">
-												<label class="text-gray-700" for="comentario">
-													<textarea class="flex-1 w-full px-4 py-2 text-base text-gray-700 placeholder-gray-400 bg-white border border-gray-300 rounded-lg appearance-none focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent" id="comment" placeholder="Escribe tu comentario" name="comment" rows="5" cols="40">
+											<div className="col-span-2">
+												<label className="text-gray-700" for="comentario">
+													<textarea className="flex-1 w-full px-4 py-2 text-base text-gray-700 placeholder-gray-400 bg-white border border-gray-300 rounded-lg appearance-none focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent" id="comment" placeholder="Escribe tu comentario" name="comment" rows="5" cols="40">
 													</textarea>
 												</label>
 											</div>
-											<div class="col-span-2 text-right">
-												<button type="submit" class="py-2 px-4  bg-indigo-600 hover:bg-indigo-700 focus:ring-indigo-500 focus:ring-offset-indigo-200 text-white w-full transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-lg ">
+											<div className="col-span-2 text-right">
+												<button type="submit" className="py-2 px-4  bg-indigo-600 hover:bg-indigo-700 focus:ring-indigo-500 focus:ring-offset-indigo-200 text-white w-full transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-lg ">
 													Enviar
 												</button>
 											</div>

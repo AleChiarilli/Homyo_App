@@ -10,10 +10,14 @@ import { Profile } from "./pages/profile";
 import { Busqueda } from "./pages/busqueda";
 import { Faq } from "./pages/faq";
 import { Sobrenosotros } from "./pages/sobrenosotros";
+<<<<<<< HEAD
 import { TablonDeAnuncios } from "./pages/tablonDeAnuncios";
 import { Vista } from "./pages/map"
 
 
+=======
+import { Messages } from "./component/messages"; 
+>>>>>>> main
 
 import injectContext from "./store/appContext";
 
@@ -37,7 +41,8 @@ const Layout = () => {
                     <Routes>
                         <Route element={<Vista/>} path="/map"/>
                         <Route element={<TablonDeAnuncios/>} path="/tablonDeAnuncios"/>
-                        <Route element={<Home isLoggedIn={isLoggedIn} />} path="/" />
+                        <Route element={<Home isLoggedIn={isLoggedIn}/>} path="/" />
+                        <Route element={<Messages />}path="/mensajes" />
                         <Route element={<Demo />} path="/demo" />
                         <Route element={<Profile />} path="/profile" />
                         {/* <Route element={<Profile />} path="/profile/:theid" /> */}

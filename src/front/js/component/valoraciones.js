@@ -50,7 +50,7 @@ export const Valoraciones = () => {
          
                 <div
                 ref={containerRef}
-                className="valoraciones py-8 px-4 mx-auto max-w-screen-xl lg:py-16 flex overflow-x-hidden space-x-4"
+                className="valoraciones py-8 px-4 mx-auto lg:py-16 flex overflow-x-hidden space-x-4"
             >
                     <div className="bg-white dark:bg-gray-800 w-72 shadow-lg mx-auto rounded-xl p-4">
                         <p className="text-gray-600 dark:text-white">
