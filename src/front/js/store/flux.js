@@ -16,21 +16,27 @@ const getState = ({ getStore, getActions, setStore }) => {
 			]
 		},
 		actions: {
-			// ÉSTE ES EL FETCH DE SIGN UP
-			signUp: async (email, password) => {
-				const resp = await fetch(process.env.BACKEND_URL + "sign_up", {
-					method: "POST",
-					body: JSON.stringify({ 'email': email, 'password': password }),
-					headers: {
-						'Content-Type': 'application/json'
-					},
-				})
-				const data = await resp.json()
-				console.log(data);
+			//new user registration
+			addUser: async (user) => {
+				console.log(user)
+				try {
+					const response = await fetch(process.env.BACKEND_URL + "api/user", { //variable de entorno que contiene la URL del backend.
+						method: 'POST',
+						body: JSON.stringify(user),
+						headers: {
+							'Content-Type': 'application/json'
+						}
+					})
+					const data =await response.json();
+					console.log(data)
+				}
+				catch (error) {
+					console.log("error loading message from backend", error)
+				}},
+
+
 			}
-
-		}
+		};
 	};
-};
 
-export default getState;
+	export default getState;
