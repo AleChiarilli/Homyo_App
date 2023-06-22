@@ -28,7 +28,7 @@ const Layout = () => {
         return <BackendURL />;
 
     const { store } = useContext(Context);
-    const isLoggedIn = true; // Indica si el usuario está logueado
+    const isLoggedIn = false; // Indica si el usuario está logueado
 
 
     return (
