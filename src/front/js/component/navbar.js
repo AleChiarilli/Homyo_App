@@ -1,21 +1,42 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { Link } from 'react-router-dom';
 import { Context } from "../store/appContext";
 
-
 export const Navbar = ({ isLoggedIn }) => {
-  const [isModalOpen1, setIsModalOpen1] = useState(false);
-  const [ismodalOpen2, setIsmodalOpen2] = useState(false);
+  const { actions } = useContext(Context);
+  const { store } = useContext(Context);
 
-  const { actions } = useContext(Context)
-  const [username, setUsername] = useState('')
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
+  const [toggleActive, setToggleActive] = useState(true); // Establece el interruptor como activado por defecto
+
+  const handleToggleActive = () => {
+    setToggleActive(!toggleActive); // Invierte el estado del interruptor al hacer clic
+    const role = toggleActive ? "empresa" : "cliente"; // Determina el rol actual en función del estado del interruptor
+    handleRoleChange(role); // Llama a la función para cambiar el rol
+  };
+
+  const handleRoleChange = (role) => {
+    actions.setRole(role); // Actualiza el rol en el contexto de la aplicación utilizando la función setRole del objeto actions
+    console.log("Nuevo rol:", role); // Muestra el nuevo rol en la consola
+  };
+
+  const setRoleOnLoad = () => {
+    handleRoleChange("cliente"); // Establece el rol como "cliente" al cargar la web
+  };
+
+  useEffect(() => {
+    setRoleOnLoad();
+  }, []); // Ejecuta setRoleOnLoad solo una vez al cargar el componente
+
+  const [isModalOpen1, setIsModalOpen1] = useState(false); // Estado del primer modal
+  const [ismodalOpen2, setIsmodalOpen2] = useState(false); // Estado del segundo modal
+  const [username, setUsername] = useState(''); // Estado del nombre de usuario
+  const [email, setEmail] = useState(''); // Estado del correo electrónico
+  const [password, setPassword] = useState(''); // Estado de la contraseña
 
   const submitUser = async (e) => {
-    e.preventDefault()
-    await actions.addUser({username,email,password})
-  }
+    e.preventDefault();
+    await actions.addUser({ username, email, password }); // Envía los datos del usuario utilizando la acción addUser del objeto actions
+  };
 
 const userLoggin = async (e) => {
   e.preventDefault()
@@ -23,30 +44,29 @@ const userLoggin = async (e) => {
 }
 
   const toggleModal1 = () => {
-    setIsModalOpen1(!isModalOpen1);
+    setIsModalOpen1(!isModalOpen1); // Invierte el estado del primer modal al hacer clic
   };
-
 
   const togglemodal2 = () => {
-    setIsmodalOpen2(!ismodalOpen2);
+    setIsmodalOpen2(!ismodalOpen2); // Invierte el estado del segundo modal al hacer clic
   };
-
 
   const hideModal1 = () => {
-    setIsModalOpen1(false);
+    setIsModalOpen1(false); // Cierra el primer modal
   };
-
 
   const hidemodal2 = () => {
-    setIsmodalOpen2(false);
+    setIsmodalOpen2(false); // Cierra el segundo modal
   };
-
 
   const handleSearchKeyDown = (event) => {
     if (event.keyCode === 13) {
-      window.location.href = "/buscador";
+      event.preventDefault(); // Evita el envío automático del formulario al presionar Enter
+      const searchUrl = store.role === 'Cliente' ? '/buscador' : '/tablon-de-anuncios'; // Determina la URL de redirección según el rol almacenado
+      window.location.href = searchUrl; // Redirige al usuario a la URL correspondiente según el rol
     }
   };
+
 
 
 
@@ -88,14 +108,38 @@ const userLoggin = async (e) => {
             type="text"
             id="search-navbar"
             className="block w-full p-2 pl-10 text-sm text-gray-900 rounded-lg shadow-md focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-purple-200"
-            placeholder="Encuentra..."
+            placeholder={store.role === 'Cliente' ? 'Encuentra el servicio' : 'Encuentra clientes'}
             onKeyDown={handleSearchKeyDown}
           />
-          <Link
-            to="/buscador"
-            className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-auto"
-          />
+          {store.role === 'Cliente' ? (
+            <Link to="/buscador" className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-auto" />
+          ) : (
+            <Link to="/tablon-de-anuncios" className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-auto" />
+          )}
         </div>
+
+
+
+        {/* Switch empresa y cliente */}
+        {isLoggedIn && (
+          <div className="flex justify-center items-center">
+            <label className="relative inline-flex items-center cursor-pointer">
+              <input
+                type="checkbox"
+                value=""
+                className="sr-only peer"
+                checked={toggleActive}
+                onChange={handleToggleActive}
+              />
+              <div className="w-11 h-6 bg-gray-200 rounded-full peer peer-focus:ring-4 peer-focus:ring-indigo-300 dark:peer-focus:ring-indigo-800 dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-indigo-600"></div>
+              <span className={`ml-3 text-sm font-medium ${toggleActive ? 'text-gray-900' : 'text-red-500'} dark:text-gray-300`}>
+                {toggleActive ? 'Cliente' : 'Empresa'}
+              </span>
+            </label>
+          </div>
+        )
+        }
+
         <div className="flex items-center">
           <div className="space-x-2">
             <div className="flex">
@@ -218,7 +262,7 @@ const userLoggin = async (e) => {
                     </div>
                     <a href="#" className="block py-2 text-sm font-medium text-center text-gray-900 rounded-b-lg bg-indigo-50 hover:bg-indigo-100 dark:bg-gray-800 dark:hover:bg-gray-700 dark:text-white">
                       <div className="inline-flex items-center ">
-                        <svg className="w-4 h-4 mr-2 text-gray-500 dark:text-gray-400" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M10 12a2 2 0 100-4 2 2 0 000 4z"></path><path fill-rule="evenodd" d="M.458 10C1.732 5.943 5.522 3 10 3s8.268 2.943 9.542 7c-1.274 4.057-5.064 7-9.542 7S1.732 14.057.458 10zM14 10a4 4 0 11-8 0 4 4 0 018 0z" clip-rule="evenodd"></path></svg>
+                        <svg className="w-4 h-4 mr-2 text-gray-500 dark:text-gray-400" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M10 12a2 2 0 100-4 2 2 0 000 4z"></path><path fillRule="evenodd" d="M.458 10C1.732 5.943 5.522 3 10 3s8.268 2.943 9.542 7c-1.274 4.057-5.064 7-9.542 7S1.732 14.057.458 10zM14 10a4 4 0 11-8 0 4 4 0 018 0z" clipRule="evenodd"></path></svg>
                         Ver todas                  </div>
                     </a>
                   </div>
@@ -239,9 +283,14 @@ const userLoggin = async (e) => {
                     <ul className="py-2 text-sm text-gray-700 dark:text-gray-200"
                       aria-labelledby="dropdownHoverButton">
                       <li>
-                        <Link to= "/profile" href="#"
-                          className="block px-4 py-2 hover:bg-indigo-100 dark:hover:bg-indigo-600 dark:hover:text-white">Panel de control</Link>
+                        <Link
+                          to={store.role === 'Cliente' ? '/perfil-cliente' : '/perfil-profesional'}
+                          className="block px-4 py-2 hover:bg-indigo-100 dark:hover:bg-indigo-600 dark:hover:text-white"
+                        >
+                          Panel de control
+                        </Link>
                       </li>
+
                       <li>
                         <a href="#"
                           className="block px-4 py-2 hover:bg-indigo-100 dark:hover:bg-indigo-600 dark:hover:text-white">Mensajes</a>

@@ -5,11 +5,8 @@ import SimpleMap from "../component/mapComponent";
 export const TablonDeAnuncios = () => {
 
     return (
-        <div>
-            <br></br><br></br><br></br><br></br>
-
-            {/* AQUÍ ESTA LA LISTA DE BÚSQUEDA */}
-            <div className="m-10 relative overflow-x-auto shadow-md sm:rounded-lg">
+        <div className="mt-20">
+            <div className="max-w-screen-xl m-10 relative overflow-x-auto shadow-md sm:rounded-lg mx-auto">
                 <div className="flex items-center justify-center pb-4 bg-white dark:bg-gray-900">
                     <div>
                         {/* AQUÍ ESTAN LOS DROPDOWNS PARA FILTRAR BÚSQUEDAS */}
