@@ -60,7 +60,7 @@ def get_users():
 def get_single_user(id):
     print(id)
 
-    user = User.query.filter_by(id=id).first()
+    user = User.query.filter_by(id=id).first()               
     print(user)
 # comprobamos que existe un usuario con ese id, si no es asi, respondemos un mensaje de error
     if user is None:

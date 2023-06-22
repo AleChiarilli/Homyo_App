@@ -25,7 +25,7 @@ const Layout = () => {
     if (!process.env.BACKEND_URL || process.env.BACKEND_URL === "")
         return <BackendURL />;
 
-    const isLoggedIn = true; // Indica si el usuario está logueado
+    const isLoggedIn = false; // Indica si el usuario está logueado
 
     return (
         <div>

@@ -33,6 +33,33 @@ const getState = ({ getStore, getActions, setStore }) => {
                 catch (error) {
                     console.log("error loading message from backend", error)
                 }},
+                
+
+            //inicio de sesion ya registrado
+            login: async (email, password) => {  //función asincrónica q toma como parametros email y password
+                try {   // para envolver el código que puede generar una excepción.
+                  const resp = await fetch(process.env.BACKEND_URL + "api/login", {
+                    method: "POST",
+                    body: JSON.stringify({
+                      email: email,
+                      password: password,
+                    }),
+                    headers: {
+                      "Content-Type": "application/json",
+                    },
+                  });
+                  const data = await resp.json(); //la respuesto de la solicitud POST la almaceno en resp.json y la almacenamos en data.
+                  if (resp.status === 200) {
+                    localStorage.setItem("token", data.access_token);
+                    setStore({ tokenLs: data.access_token });
+                    return true;
+                  } else {
+                    return false;
+                  }
+                } catch (error) {
+                  console.log("Error loading message from backend", error); //Si se produce algún error dentro del bloque try, se captura en el bloque catch. Aquí, se imprime un mensaje de erro
+                }
+              },
 
 
             }
