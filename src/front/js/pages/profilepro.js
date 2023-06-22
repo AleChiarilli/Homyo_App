@@ -1,4 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
+import { Context } from "../store/appContext";
+
 import "../../styles/profile.css";
 import { Calendar } from "../component/calendar";
 import { Messages } from "../component/messages";
@@ -8,14 +10,11 @@ import jardineria from "../../img/jardineria.png";
 import niños from "../../img/niños.png";
 import chef from "../../img/chef.png";
 
-
-export const Profile = () => {
+export const Profilepro = () => {
     const [showProfile, setShowProfile] = useState(true);
     const [showCalendar, setShowCalendar] = useState(false);
     const [showContracts, setShowContracts] = useState(false);
     const [showMessages, setShowMessages] = useState(false);
-
-
 
     const handleProfileClick = () => {
         setShowProfile(true);
@@ -29,7 +28,6 @@ export const Profile = () => {
         setShowCalendar(true);
         setShowContracts(false);
         setShowMessages(false);
-
     };
 
     const handleContractsClick = () => {
@@ -37,7 +35,6 @@ export const Profile = () => {
         setShowCalendar(false);
         setShowContracts(true);
         setShowMessages(false);
-
     };
 
     const handleMessagesClick = () => {
@@ -45,7 +42,13 @@ export const Profile = () => {
         setShowCalendar(false);
         setShowContracts(false);
         setShowMessages(true);
+    };
 
+    const { actions } = useContext(Context);
+
+    const handleRoleChange = (role) => {
+        actions.setRole(role);
+        console.log("Nuevo rol:", role);
     };
 
 
@@ -105,6 +108,14 @@ export const Profile = () => {
                                         MENSAJES
                                     </span>
                                 </a>
+
+                                
+
+
+
+
+
+
                             </div>
                         </nav>
                     </div>
@@ -126,39 +137,39 @@ export const Profile = () => {
                                                 <div className="grid md:grid-cols-2 md:gap-6">
                                                     <div className="relative z-0 w-full mb-6 group">
                                                         <input type="text" name="floating_first_name" id="floating_first_name" className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder="Nombre " required />
-                                                        <label for="floating_first_name" className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"></label>
+                                                        <label htmlFor="floating_first_name" className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"></label>
                                                     </div>
                                                     <div className="relative z-0 w-full mb-6 group">
                                                         <input type="text" name="floating_last_name" id="floating_last_name" className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder="Apellido" required />
-                                                        <label for="floating_last_name" className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"></label>
+                                                        <label htmlFor="floating_last_name" className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"></label>
                                                     </div>
                                                 </div>
                                                 <div className="relative z-0 w-full mb-6 group">
                                                     <input type="email" name="floating_email" id="floating_email" className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder="Email" required />
-                                                    <label for="floating_email" className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"></label>
+                                                    <label htmlFor="floating_email" className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"></label>
                                                 </div>
                                                 <div className="relative z-0 w-full mb-6 group">
                                                     <input type="text" name="floating_id" id="floating_id" className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder="DNI" required />
-                                                    <label for="floating_id" className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"></label>
+                                                    <label htmlFor="floating_id" className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"></label>
                                                 </div>
                                                 <div className="grid md:grid-cols-2 md:gap-6">
                                                     <div className="relative z-0 w-full mb-6 group">
                                                         <input type="text" name="floating_adress" id="floating_adress" className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder="Dirección " required />
-                                                        <label for="floating_adress" className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"></label>
+                                                        <label htmlFor="floating_adress" className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"></label>
                                                     </div>
                                                     <div className="relative z-0 w-full mb-6 group">
                                                         <input type="text" name="floating_cp" id="floating_cp" className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder="Código Postal " required />
-                                                        <label for="floating_cp" className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"></label>
+                                                        <label htmlFor="floating_cp" className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"></label>
                                                     </div>
                                                     <div className="relative z-0 w-full mb-6 group">
                                                         <input type="text" name="floating_city" id="floating_city" className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder="Ciudad" required />
-                                                        <label for="floating_company" className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"></label>
+                                                        <label htmlFor="floating_company" className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"></label>
                                                     </div>
                                                 </div>
                                                 <div className="grid md:grid-cols-1 md:gap-6">
                                                     <div className="relative z-0 w-full mb-6 group">
                                                         <input type="tel" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" name="floating_phone" id="floating_phone" className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder="Teléfono " required />
-                                                        <label for="floating_phone" className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"></label>
+                                                        <label htmlFor="floating_phone" className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"></label>
                                                     </div>
 
                                                 </div>
@@ -174,7 +185,7 @@ export const Profile = () => {
                                                 <div className="flex items-center">
                                                     <span className="relative p-2 bg-blue-100 rounded-xl">
                                                         <svg width="25" height="25" viewBox="0 0 2447.6 2452.5" xmlns="http://www.w3.org/2000/svg">
-                                                            <g clip-rule="evenodd" fill-rule="evenodd">
+                                                            <g clipRule="evenodd" fillRule="evenodd">
                                                                 <path d="m897.4 0c-135.3.1-244.8 109.9-244.7 245.2-.1 135.3 109.5 245.1 244.8 245.2h244.8v-245.1c.1-135.3-109.5-245.1-244.9-245.3.1 0 .1 0 0 0m0 654h-652.6c-135.3.1-244.9 109.9-244.8 245.2-.2 135.3 109.4 245.1 244.7 245.3h652.7c135.3-.1 244.9-109.9 244.8-245.2.1-135.4-109.5-245.2-244.8-245.3z" fill="#36c5f0">
                                                                 </path>
                                                                 <path d="m2447.6 899.2c.1-135.3-109.5-245.1-244.8-245.2-135.3.1-244.9 109.9-244.8 245.2v245.3h244.8c135.3-.1 244.9-109.9 244.8-245.3zm-652.7 0v-654c.1-135.2-109.4-245-244.7-245.2-135.3.1-244.9 109.9-244.8 245.2v654c-.2 135.3 109.4 245.1 244.7 245.3 135.3-.1 244.9-109.9 244.8-245.3z" fill="#2eb67d">
@@ -270,7 +281,7 @@ export const Profile = () => {
                                             <ul className="p-4">
                                                 <li>
                                                     <input type="checkbox" id="limpieza-option" value="" className="hidden peer" required="" />
-                                                    <label for="limpieza-option" className="inline-flex items-center justify-between w-full text-gray-500 bg-white border-2 border-gray-200 rounded-full cursor-pointer dark:hover:text-gray-300 dark:border-gray-700 peer-checked:border-indigo-600 hover:text-indigo-600 dark:peer-checked:text-indigo-300 peer-checked:text-indigo-600 hover:bg-indigo-50 dark:text-gray-400 dark:bg-gray-800 dark:hover:bg-gray-700">
+                                                    <label htmlFor="limpieza-option" className="inline-flex items-center justify-between w-full text-gray-500 bg-white border-2 border-gray-200 rounded-full cursor-pointer dark:hover:text-gray-300 dark:border-gray-700 peer-checked:border-indigo-600 hover:text-indigo-600 dark:peer-checked:text-indigo-300 peer-checked:text-indigo-600 hover:bg-indigo-50 dark:text-gray-400 dark:bg-gray-800 dark:hover:bg-gray-700">
                                                         <div className="flex-row gap-4 flex justify-center items-center">
                                                             <div className="flex-shrink-0">
                                                                 <a href="#" className="relative block">
@@ -287,7 +298,7 @@ export const Profile = () => {
                                                 </li>
                                                 <li>
                                                     <input type="checkbox" id="cocina-option" value="" className="hidden peer" required="" />
-                                                    <label for="cocina-option" className="inline-flex items-center justify-between w-full text-gray-500 bg-white border-2 border-gray-200 rounded-full cursor-pointer dark:hover:text-gray-300 dark:border-gray-700 peer-checked:border-indigo-600 hover:text-indigo-600 dark:peer-checked:text-indigo-300 peer-checked:text-indigo-600 hover:bg-indigo-50 dark:text-gray-400 dark:bg-gray-800 dark:hover:bg-gray-700">
+                                                    <label htmlFor="cocina-option" className="inline-flex items-center justify-between w-full text-gray-500 bg-white border-2 border-gray-200 rounded-full cursor-pointer dark:hover:text-gray-300 dark:border-gray-700 peer-checked:border-indigo-600 hover:text-indigo-600 dark:peer-checked:text-indigo-300 peer-checked:text-indigo-600 hover:bg-indigo-50 dark:text-gray-400 dark:bg-gray-800 dark:hover:bg-gray-700">
                                                         <div className="flex-row gap-4 flex justify-center items-center">
                                                             <div className="flex-shrink-0">
                                                                 <a href="#" className="relative block">
@@ -304,7 +315,7 @@ export const Profile = () => {
                                                 </li>
                                                 <li>
                                                     <input type="checkbox" id="cuidado-niños-option" value="" className="hidden peer" required="" />
-                                                    <label for="cuidado-niños-option" className="inline-flex items-center justify-between w-full text-gray-500 bg-white border-2 border-gray-200 rounded-full cursor-pointer dark:hover:text-gray-300 dark:border-gray-700 peer-checked:border-indigo-600 hover:text-indigo-600 dark:peer-checked:text-indigo-300 peer-checked:text-indigo-600 hover:bg-indigo-50 dark:text-gray-400 dark:bg-gray-800 dark:hover:bg-gray-700">
+                                                    <label htmlFor="cuidado-niños-option" className="inline-flex items-center justify-between w-full text-gray-500 bg-white border-2 border-gray-200 rounded-full cursor-pointer dark:hover:text-gray-300 dark:border-gray-700 peer-checked:border-indigo-600 hover:text-indigo-600 dark:peer-checked:text-indigo-300 peer-checked:text-indigo-600 hover:bg-indigo-50 dark:text-gray-400 dark:bg-gray-800 dark:hover:bg-gray-700">
                                                         <div className="flex-row gap-4 flex justify-center items-center">
                                                             <div className="flex-shrink-0">
                                                                 <a href="#" className="relative block">
@@ -321,7 +332,7 @@ export const Profile = () => {
                                                 </li>
                                                 <li>
                                                     <input type="checkbox" id="cuidado-animales-option" value="" className="hidden peer" required="" />
-                                                    <label for="cuidado-animales-option" className="inline-flex items-center justify-between w-full text-gray-500 bg-white border-2 border-gray-200 rounded-full cursor-pointer dark:hover:text-gray-300 dark:border-gray-700 peer-checked:border-indigo-600 hover:text-indigo-600 dark:peer-checked:text-indigo-300 peer-checked:text-indigo-600 hover:bg-indigo-50 dark:text-gray-400 dark:bg-gray-800 dark:hover:bg-gray-700">
+                                                    <label htmlFor="cuidado-animales-option" className="inline-flex items-center justify-between w-full text-gray-500 bg-white border-2 border-gray-200 rounded-full cursor-pointer dark:hover:text-gray-300 dark:border-gray-700 peer-checked:border-indigo-600 hover:text-indigo-600 dark:peer-checked:text-indigo-300 peer-checked:text-indigo-600 hover:bg-indigo-50 dark:text-gray-400 dark:bg-gray-800 dark:hover:bg-gray-700">
                                                         <div className="flex-row gap-4 flex justify-center items-center">
                                                             <div className="flex-shrink-0">
                                                                 <a href="#" className="relative block">
@@ -338,7 +349,7 @@ export const Profile = () => {
                                                 </li>
                                                 <li>
                                                     <input type="checkbox" id="jardineria-option" value="" className="hidden peer" required="" />
-                                                    <label for="jardineria-option" className="inline-flex items-center justify-between w-full text-gray-500 bg-white border-2 border-gray-200 rounded-full cursor-pointer dark:hover:text-gray-300 dark:border-gray-700 peer-checked:border-indigo-600 hover:text-indigo-600 dark:peer-checked:text-indigo-300 peer-checked:text-indigo-600 hover:bg-indigo-50 dark:text-gray-400 dark:bg-gray-800 dark:hover:bg-gray-700">
+                                                    <label htmlFor="jardineria-option" className="inline-flex items-center justify-between w-full text-gray-500 bg-white border-2 border-gray-200 rounded-full cursor-pointer dark:hover:text-gray-300 dark:border-gray-700 peer-checked:border-indigo-600 hover:text-indigo-600 dark:peer-checked:text-indigo-300 peer-checked:text-indigo-600 hover:bg-indigo-50 dark:text-gray-400 dark:bg-gray-800 dark:hover:bg-gray-700">
                                                         <div className="flex-row gap-4 flex justify-center items-center">
                                                             <div className="flex-shrink-0">
                                                                 <a href="#" className="relative block">
@@ -475,265 +486,69 @@ export const Profile = () => {
                                         </div>
                                     </div>
                                 </div>
-                                <div className="w-full sm:w-1/2 xl:w-1/3">
-                                    <div className="mb-4">
-                                        <div className="p-4 bg-white shadow-lg rounded-2xl dark:bg-gray-700">
-                                            <div className="flex flex-wrap overflow-hidden">
-                                                <div className="w-full rounded shadow-sm">
-                                                    <div className="flex items-center justify-between mb-4">
-                                                        <div className="text-xl font-bold text-left text-black dark:text-white">
-                                                            Dec 2021
-                                                        </div>
-                                                        <div className="flex space-x-4">
-                                                            <button className="p-2 text-white bg-blue-500 rounded-full">
-                                                                <svg width="15" height="15" fill="currentColor" viewBox="0 0 24 24">
-                                                                    <path fill="currentColor" d="M13.83 19a1 1 0 0 1-.78-.37l-4.83-6a1 1 0 0 1 0-1.27l5-6a1 1 0 0 1 1.54 1.28L10.29 12l4.32 5.36a1 1 0 0 1-.78 1.64z">
-                                                                    </path>
-                                                                </svg>
-                                                            </button>
-                                                            <button className="p-2 text-white bg-blue-500 rounded-full">
-                                                                <svg width="15" height="15" fill="currentColor" viewBox="0 0 24 24">
-                                                                    <path fill="currentColor" d="M10 19a1 1 0 0 1-.64-.23a1 1 0 0 1-.13-1.41L13.71 12L9.39 6.63a1 1 0 0 1 .15-1.41a1 1 0 0 1 1.46.15l4.83 6a1 1 0 0 1 0 1.27l-5 6A1 1 0 0 1 10 19z">
-                                                                    </path>
-                                                                </svg>
-                                                            </button>
-                                                        </div>
-                                                    </div>
-                                                    <div className="-mx-2">
-                                                        <table className="w-full dark:text-white">
-                                                            <tr>
-                                                                <th className="px-2 py-3 md:px-3 ">
-                                                                    S
-                                                                </th>
-                                                                <th className="px-2 py-3 md:px-3 ">
-                                                                    M
-                                                                </th>
-                                                                <th className="px-2 py-3 md:px-3 ">
-                                                                    T
-                                                                </th>
-                                                                <th className="px-2 py-3 md:px-3 ">
-                                                                    W
-                                                                </th>
-                                                                <th className="px-2 py-3 md:px-3 ">
-                                                                    T
-                                                                </th>
-                                                                <th className="px-2 py-3 md:px-3 ">
-                                                                    F
-                                                                </th>
-                                                                <th className="px-2 py-3 md:px-3 ">
-                                                                    S
-                                                                </th>
-                                                            </tr>
-                                                            <tr className="text-gray-400 dark:text-gray-500">
-                                                                <td className="px-2 py-3 text-center text-gray-300 md:px-3 dark:text-gray-500">
-                                                                    25
-                                                                </td>
-                                                                <td className="px-2 py-3 text-center text-gray-300 md:px-3 dark:text-gray-500">
-                                                                    26
-                                                                </td>
-                                                                <td className="px-2 py-3 text-center text-gray-300 md:px-3 dark:text-gray-500">
-                                                                    27
-                                                                </td>
-                                                                <td className="px-2 py-3 text-center text-gray-300 md:px-3 dark:text-gray-500">
-                                                                    28
-                                                                </td>
-                                                                <td className="px-2 py-3 text-center text-gray-300 md:px-3 dark:text-gray-500">
-                                                                    29
-                                                                </td>
-                                                                <td className="px-2 py-3 text-center text-gray-300 md:px-3 dark:text-gray-500">
-                                                                    30
-                                                                </td>
-                                                                <td className="px-2 py-3 text-center text-gray-800 cursor-pointer md:px-3 hover:text-blue-500">
-                                                                    1
-                                                                </td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td className="px-2 py-3 text-center cursor-pointer md:px-3 hover:text-blue-500">
-                                                                    2
-                                                                </td>
-                                                                <td className="relative px-1 py-3 text-center cursor-pointer hover:text-blue-500">
-                                                                    3
-                                                                    <span className="absolute bottom-0 w-2 h-2 transform -translate-x-1/2 bg-blue-500 rounded-full left-1/2">
-                                                                    </span>
-                                                                </td>
-                                                                <td className="px-2 py-3 text-center cursor-pointer md:px-3 hover:text-blue-500">
-                                                                    4
-                                                                </td>
-                                                                <td className="px-2 py-3 text-center cursor-pointer md:px-3 hover:text-blue-500">
-                                                                    5
-                                                                </td>
-                                                                <td className="px-2 py-3 text-center cursor-pointer md:px-3 hover:text-blue-500">
-                                                                    6
-                                                                </td>
-                                                                <td className="px-2 py-3 text-center cursor-pointer md:px-3 hover:text-blue-500">
-                                                                    7
-                                                                </td>
-                                                                <td className="relative px-2 py-3 text-center cursor-pointer md:px-3 lg:px-3 hover:text-blue-500">
-                                                                    8
-                                                                    <span className="absolute bottom-0 w-2 h-2 transform -translate-x-1/2 bg-yellow-500 rounded-full left-1/2">
-                                                                    </span>
-                                                                </td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td className="px-2 py-3 text-center cursor-pointer md:px-3 hover:text-blue-500">
-                                                                    9
-                                                                </td>
-                                                                <td className="px-2 py-3 text-center cursor-pointer md:px-3 hover:text-blue-500">
-                                                                    10
-                                                                </td>
-                                                                <td className="px-2 py-3 text-center cursor-pointer md:px-3 hover:text-blue-500">
-                                                                    11
-                                                                </td>
-                                                                <td className="px-2 py-3 text-center cursor-pointer md:px-3 hover:text-blue-500">
-                                                                    12
-                                                                </td>
-                                                                <td className="px-2 py-3 text-center text-white cursor-pointer md:px-3">
-                                                                    <span className="p-2 bg-blue-500 rounded-full">
-                                                                        13
-                                                                    </span>
-                                                                </td>
-                                                                <td className="px-2 py-3 text-center cursor-pointer md:px-3 hover:text-blue-500">
-                                                                    14
-                                                                </td>
-                                                                <td className="px-2 py-3 text-center cursor-pointer md:px-3 hover:text-blue-500">
-                                                                    15
-                                                                </td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td className="px-2 py-3 text-center cursor-pointer md:px-3 hover:text-blue-500">
-                                                                    16
-                                                                </td>
-                                                                <td className="px-2 py-3 text-center cursor-pointer md:px-3 hover:text-blue-500">
-                                                                    17
-                                                                </td>
-                                                                <td className="px-2 py-3 text-center cursor-pointer md:px-3 hover:text-blue-500">
-                                                                    18
-                                                                </td>
-                                                                <td className="px-2 py-3 text-center cursor-pointer md:px-3 hover:text-blue-500">
-                                                                    19
-                                                                </td>
-                                                                <td className="px-2 py-3 text-center cursor-pointer md:px-3 hover:text-blue-500">
-                                                                    20
-                                                                </td>
-                                                                <td className="px-2 py-3 text-center cursor-pointer md:px-3 hover:text-blue-500">
-                                                                    21
-                                                                </td>
-                                                                <td className="px-2 py-3 text-center cursor-pointer md:px-3 hover:text-blue-500">
-                                                                    22
-                                                                </td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td className="px-2 py-3 text-center cursor-pointer md:px-3 hover:text-blue-500">
-                                                                    23
-                                                                </td>
-                                                                <td className="px-2 py-3 text-center cursor-pointer md:px-3 hover:text-blue-500">
-                                                                    24
-                                                                </td>
-                                                                <td className="relative px-2 py-3 text-center cursor-pointer md:px-3 hover:text-blue-500">
-                                                                    25
-                                                                    <span className="absolute bottom-0 w-2 h-2 transform -translate-x-1/2 bg-red-500 rounded-full left-1/2">
-                                                                    </span>
-                                                                </td>
-                                                                <td className="px-2 py-3 text-center cursor-pointer md:px-3 hover:text-blue-500">
-                                                                    26
-                                                                </td>
-                                                                <td className="px-2 py-3 text-center cursor-pointer md:px-3 hover:text-blue-500">
-                                                                    27
-                                                                </td>
-                                                                <td className="px-2 py-3 text-center cursor-pointer md:px-3 hover:text-blue-500">
-                                                                    28
-                                                                </td>
-                                                                <td className="px-2 py-3 text-center cursor-pointer md:px-3 hover:text-blue-500">
-                                                                    29
-                                                                </td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td className="px-2 py-3 text-center cursor-pointer md:px-3 hover:text-blue-500">
-                                                                    30
-                                                                </td>
-                                                                <td className="px-2 py-3 text-center cursor-pointer md:px-3 hover:text-blue-500">
-                                                                    31
-                                                                </td>
-                                                                <td>
-                                                                </td>
-                                                                <td>
-                                                                </td>
-                                                                <td>
-                                                                </td>
-                                                                <td>
-                                                                </td>
-                                                                <td>
-                                                                </td>
-                                                            </tr>
-                                                        </table>
-                                                    </div>
+
+
+                                <div className="mb-4">
+                                    <div className="w-full p-4 bg-white shadow-lg rounded-2xl dark:bg-gray-700">
+                                        <p className="font-bold text-black text-md dark:text-white">
+                                            Messages
+                                        </p>
+                                        <ul>
+                                            <li className="flex items-center my-6 space-x-2">
+                                                <a href="#" className="relative block">
+                                                    <img alt="profil" src="/images/person/1.jpg" className="mx-auto object-cover rounded-full h-10 w-10 " />
+                                                </a>
+                                                <div className="flex flex-col">
+                                                    <span className="ml-2 text-sm font-semibold text-gray-900 dark:text-white">
+                                                        Charlie Rabiller
+                                                    </span>
+                                                    <span className="ml-2 text-sm text-gray-400 dark:text-gray-300">
+                                                        Hey John ! Do you read the NextJS doc ?
+                                                    </span>
                                                 </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div className="mb-4">
-                                        <div className="w-full p-4 bg-white shadow-lg rounded-2xl dark:bg-gray-700">
-                                            <p className="font-bold text-black text-md dark:text-white">
-                                                Messages
-                                            </p>
-                                            <ul>
-                                                <li className="flex items-center my-6 space-x-2">
-                                                    <a href="#" className="relative block">
-                                                        <img alt="profil" src="/images/person/1.jpg" className="mx-auto object-cover rounded-full h-10 w-10 " />
-                                                    </a>
-                                                    <div className="flex flex-col">
-                                                        <span className="ml-2 text-sm font-semibold text-gray-900 dark:text-white">
-                                                            Charlie Rabiller
-                                                        </span>
-                                                        <span className="ml-2 text-sm text-gray-400 dark:text-gray-300">
-                                                            Hey John ! Do you read the NextJS doc ?
-                                                        </span>
-                                                    </div>
-                                                </li>
-                                                <li className="flex items-center my-6 space-x-2">
-                                                    <a href="#" className="relative block">
-                                                        <img alt="profil" src="/images/person/5.jpg" className="mx-auto object-cover rounded-full h-10 w-10 " />
-                                                    </a>
-                                                    <div className="flex flex-col">
-                                                        <span className="ml-2 text-sm font-semibold text-gray-900 dark:text-white">
-                                                            Marie Lou
-                                                        </span>
-                                                        <span className="ml-2 text-sm text-gray-400 dark:text-gray-300">
-                                                            No I think the dog is better...
-                                                        </span>
-                                                    </div>
-                                                </li>
-                                                <li className="flex items-center my-6 space-x-2">
-                                                    <a href="#" className="relative block">
-                                                        <img alt="profil" src="/images/person/6.jpg" className="mx-auto object-cover rounded-full h-10 w-10 " />
-                                                    </a>
-                                                    <div className="flex flex-col">
-                                                        <span className="ml-2 text-sm font-semibold text-gray-900 dark:text-white">
-                                                            Ivan Buck
-                                                        </span>
-                                                        <span className="ml-2 text-sm text-gray-400 dark:text-gray-300">
-                                                            Seriously ? haha Bob is not a child !
-                                                        </span>
-                                                    </div>
-                                                </li>
-                                                <li className="flex items-center my-6 space-x-2">
-                                                    <a href="#" className="relative block">
-                                                        <img alt="profil" src="/images/person/7.jpg" className="mx-auto object-cover rounded-full h-10 w-10 " />
-                                                    </a>
-                                                    <div className="flex flex-col">
-                                                        <span className="ml-2 text-sm font-semibold text-gray-900 dark:text-white">
-                                                            Marina Farga
-                                                        </span>
-                                                        <span className="ml-2 text-sm text-gray-400 dark:text-gray-300">
-                                                            Do you need that design ?
-                                                        </span>
-                                                    </div>
-                                                </li>
-                                            </ul>
-                                        </div>
+                                            </li>
+                                            <li className="flex items-center my-6 space-x-2">
+                                                <a href="#" className="relative block">
+                                                    <img alt="profil" src="/images/person/5.jpg" className="mx-auto object-cover rounded-full h-10 w-10 " />
+                                                </a>
+                                                <div className="flex flex-col">
+                                                    <span className="ml-2 text-sm font-semibold text-gray-900 dark:text-white">
+                                                        Marie Lou
+                                                    </span>
+                                                    <span className="ml-2 text-sm text-gray-400 dark:text-gray-300">
+                                                        No I think the dog is better...
+                                                    </span>
+                                                </div>
+                                            </li>
+                                            <li className="flex items-center my-6 space-x-2">
+                                                <a href="#" className="relative block">
+                                                    <img alt="profil" src="/images/person/6.jpg" className="mx-auto object-cover rounded-full h-10 w-10 " />
+                                                </a>
+                                                <div className="flex flex-col">
+                                                    <span className="ml-2 text-sm font-semibold text-gray-900 dark:text-white">
+                                                        Ivan Buck
+                                                    </span>
+                                                    <span className="ml-2 text-sm text-gray-400 dark:text-gray-300">
+                                                        Seriously ? haha Bob is not a child !
+                                                    </span>
+                                                </div>
+                                            </li>
+                                            <li className="flex items-center my-6 space-x-2">
+                                                <a href="#" className="relative block">
+                                                    <img alt="profil" src="/images/person/7.jpg" className="mx-auto object-cover rounded-full h-10 w-10 " />
+                                                </a>
+                                                <div className="flex flex-col">
+                                                    <span className="ml-2 text-sm font-semibold text-gray-900 dark:text-white">
+                                                        Marina Farga
+                                                    </span>
+                                                    <span className="ml-2 text-sm text-gray-400 dark:text-gray-300">
+                                                        Do you need that design ?
+                                                    </span>
+                                                </div>
+                                            </li>
+                                        </ul>
                                     </div>
                                 </div>
-
                             </div>
                         </div>
                     </div>
