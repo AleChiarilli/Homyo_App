@@ -31,6 +31,7 @@ def login():
     password = request.json.get("password", None)
 
     user = User.query.filter_by(email=email).first()
+    print(user)
 
     if user is None:
         return jsonify({"msg": "User does not exists"}), 404 

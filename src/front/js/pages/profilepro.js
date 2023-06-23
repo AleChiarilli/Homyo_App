@@ -11,6 +11,14 @@ import niños from "../../img/niños.png";
 import chef from "../../img/chef.png";
 
 export const Profilepro = () => {
+    // const [profile_pic, setProfile_pic] = useState("");
+    // const [description,setDescription] = useState("");
+    // const [address,setAddress] = useState("");
+    // const [postal_code, setPostal_code ] = useState("");
+    // const [phone_number,setPhone_number ] = useState("");
+    // const [hourly_rate,setHourly_rate ] = useState("")
+
+
     const [showProfile, setShowProfile] = useState(true);
     const [showCalendar, setShowCalendar] = useState(false);
     const [showContracts, setShowContracts] = useState(false);
@@ -51,6 +59,10 @@ export const Profilepro = () => {
         console.log("Nuevo rol:", role);
     };
 
+    // const submit_prof_profile = async (e) => {
+    //     e.preventDefault()
+    //     await actions.login(profile_pic,description,address,postal_code,phone_number,hourly_rate)
+    // }
 
 
     return (
