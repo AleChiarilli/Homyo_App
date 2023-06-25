@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import ScrollToTop from "./component/scrollToTop";
 import { BackendURL } from "./component/backendURL";
@@ -6,15 +6,18 @@ import { Navbar } from "./component/navbar";
 import { Footer } from "./component/footer";
 import { Home } from "./pages/home";
 import { Demo } from "./pages/demo";
-import { Profile } from "./pages/profile";
+import { Profilepro } from "./pages/profilepro";
+import { Profileclient } from "./pages/profileclient";
 import { Busqueda } from "./pages/busqueda";
 import { Faq } from "./pages/faq";
 import { Sobrenosotros } from "./pages/sobrenosotros";
 import { TablonDeAnuncios } from "./pages/tablonDeAnuncios";
 import { SimpleMap } from "./component/mapComponent";
 import { Messages } from "./component/messages"; 
-
+import { Vista } from "./pages/map"
 import injectContext from "./store/appContext";
+import { Context } from "./store/appContext";
+
 
 // create your first component
 const Layout = () => {
@@ -25,22 +28,36 @@ const Layout = () => {
     if (!process.env.BACKEND_URL || process.env.BACKEND_URL === "")
         return <BackendURL />;
 
-    const isLoggedIn = false; // Indica si el usuario está logueado
+    const { store } = useContext(Context);
+    const isLoggedIn = true; // Indica si el usuario está logueado
+
 
     return (
         <div>
             <BrowserRouter basename={basename}>
-
                 <ScrollToTop>
                     <Navbar isLoggedIn={isLoggedIn} />
                     <Routes>
-                        <Route element={<TablonDeAnuncios/>} path="/tablonDeAnuncios"/>
                         <Route element={<Home isLoggedIn={isLoggedIn}/>} path="/" />
                         <Route element={<Messages />}path="/mensajes" />
+                        <Route element={<Vista />} path="/map" />
+                        {isLoggedIn && store.role === "Empresa" && (
+                            <Route element={<TablonDeAnuncios />} path="/tablon-de-anuncios" />
+                        )}
                         <Route element={<Demo />} path="/demo" />
-                        <Route element={<Profile />} path="/profile" />
+
+                        {isLoggedIn && store.role === "Empresa" && (<Route element={<Profilepro />} path="/perfil-profesional" />
+                        )}
+
+                        {isLoggedIn && store.role === "Cliente" && (<Route element={<Profileclient />} path="/perfil-cliente" />
+                        )}
+
                         {/* <Route element={<Profile />} path="/profile/:theid" /> */}
-                        <Route element={<Busqueda />} path="/buscador" />
+
+                        {(isLoggedIn || store.role === "Cliente") && (
+                            <Route element={<Busqueda />} path="/buscador" />
+                        )}
+
                         <Route element={<Faq />} path="/preguntas-frecuentes" />
                         <Route element={<Sobrenosotros />} path="/sobre-nosotros" />
                         <Route element={<h1>Not found!</h1>} />
