@@ -91,10 +91,10 @@ def create_user():
     if 'password' not in body:
         raise APIException('Te falta añadir una contraseña', status_code=400)
    # comprobamos si existe un usuario con ese email, si es asi, respondemos un mensaje de error 
-    # email = body['email']
-    # existing_user = User.query.filter_by(email=email).first()
-    # if existing_user:
-    #    raise APIException('Ese ya Email ya esta en uso', status_code=400)
+    email = body["email"]
+    existing_user = User.query.filter_by(email=email).first()
+    if existing_user:
+        raise APIException('Ese ya Email ya esta en uso', status_code=400)
     
     print(body)
     user = User(username=body["username"], email=body["email"], password=body["password"], profile_pic=body["profile_pic"])

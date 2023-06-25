@@ -25,7 +25,7 @@ class User(db.Model):
 
 class Role(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(120), unique=False, nullable=False)
+    name = db.Column(db.String(120), unique=True, nullable=False)
 
     def __repr__(self):
         return f'<Role {self.name}>'
@@ -108,7 +108,7 @@ class Pro_profile_skill(db.Model):
         return {
             "id": self.id,
             "skills": self.skill_id,
-            "pro_profile": self.pro_profile_id
+            "pro_profile_id": self.pro_profile_id
         }
     
 class Cmr_profile(db.Model):
