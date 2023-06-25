@@ -1,15 +1,15 @@
 import React, { useCallback } from "react";
-import {SimpleMap} from "../component/mapComponent";
+import { SimpleMap } from "../component/mapComponent";
 
 
 export const TablonDeAnuncios = () => {
-const infoUser = [{name:"Neil Sims", descripcion: "hago cosas", servicios: "Servicios que ofrece", reseñas: 2, email: "asd@gmail.com", direccion: [51.505, -0.09] },
-                    {name:"Bonnie Green", descripcion: "hago cosas", servicios: "Servicios que ofrece", reseñas: 2, email: "asd@gmail.com", direccion: [51.51, -0.09]},
-                    {name:"Jese Leos", descripcion: "hago cosas", servicios: "Servicios que ofrece", reseñas: 2, email: "asd@gmail.com", direccion: [51.52, -0.09]},
-                    {name:"Alejandro Chiarilli", descripcion: "NO hago cosas", servicios: "besitos", reseñas: 2, email: "asd@gmail.com", direccion: [51.52, -0.10]},
-                    {name:"Alejandro Chiarilli", descripcion: "NO hago cosas", servicios: "besitos", reseñas: 2, email: "asd@gmail.com", direccion: [51.52, -0.10]}]
+    const infoUser = [{ name: "Neil Sims", descripcion: "hago cosas", servicios: "Servicios que ofrece", reseñas: 2, email: "asd@gmail.com", direccion: [51.505, -0.09] },
+    { name: "Bonnie Green", descripcion: "hago cosas", servicios: "Servicios que ofrece", reseñas: 2, email: "asd@gmail.com", direccion: [51.51, -0.09] },
+    { name: "Jese Leos", descripcion: "hago cosas", servicios: "Servicios que ofrece", reseñas: 2, email: "asd@gmail.com", direccion: [51.52, -0.09] },
+    { name: "Alejandro Chiarilli", descripcion: "NO hago cosas", servicios: "besitos", reseñas: 2, email: "asd@gmail.com", direccion: [51.52, -0.10] },
+    { name: "Alejandro Chiarilli", descripcion: "NO hago cosas", servicios: "besitos", reseñas: 2, email: "asd@gmail.com", direccion: [51.52, -0.10] }]
 
-                    return (
+    return (
         <div>
             <br></br><br></br><br></br><br></br>
 
@@ -66,22 +66,26 @@ const infoUser = [{name:"Neil Sims", descripcion: "hago cosas", servicios: "Serv
                 <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
                     <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                         <tr>
-                            <th scope="col" className="px-10 py-3">
-                                Profesional
+                            <th scope="col" className="px-8 py-3">
+                                Espacio
                             </th>
-                            <th scope="col" className="px-6 py-3">
-                                Servicios que ofrece
+                            <th scope="col" className="px-5 py-3">
+                                Servicios que busca
                             </th>
-                            <th scope="col" className="px-6 py-3">
+                            <th scope="col" className="px-5 py-3">
                                 Reseñas
                             </th>
-                            <th scope="col" className="px-6 py-3">
+                            <th scope="col" className="px-5 py-3">
+                                Dirección
+                            </th>
+
+                            <th scope="col" className="px-5 py-3">
                                 Contacto
                             </th>
                         </tr>
                     </thead>
                     <tbody>
-                        {infoUser.map((data,index) => (<tr key={index} className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+                        {infoUser.map((data, index) => (<tr key={index} className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
                             <th scope="row" className="flex items-center px-6 py-4 text-gray-900 whitespace-nowrap dark:text-white">
                                 <img className="w-10 h-10 rounded-full" src="/docs/images/people/profile-picture-1.jpg" alt="Jese image" />
                                 <div className="pl-3">
@@ -94,15 +98,18 @@ const infoUser = [{name:"Neil Sims", descripcion: "hago cosas", servicios: "Serv
                             </td>
                             <td className="px-6 py-4">
                                 <div className="flex items-center">
-                                     {data.reseñas}
+                                    {data.reseñas}
                                 </div>
+                            </td>
+                            <td className="px-6 py-4">
+                                {data.direccion}
                             </td>
                             <td className="px-6 py-4">
                                 <a href="#" className="font-medium text-blue-600 dark:text-blue-500 hover:underline">
                                     <button type="button" className="text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
                                         ✉️
-                                        </button>
-                                        </a>
+                                    </button>
+                                </a>
                             </td>
                         </tr>)
                         )}
@@ -119,22 +126,22 @@ const infoUser = [{name:"Neil Sims", descripcion: "hago cosas", servicios: "Serv
                             </td>
                             <td className="px-6 py-4">
                                 <div className="flex items-center">
-                                     ⭐⭐
+                                    ⭐⭐
                                 </div>
                             </td>
                             <td className="px-6 py-4">
                                 <a href="#" className="font-medium text-blue-600 dark:text-blue-500 hover:underline">
                                     <button type="button" className="text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
                                         ✉️
-                                        </button>
-                                        </a>
+                                    </button>
+                                </a>
                             </td>
                         </tr>
                     </tbody>
                 </table>
             </div>
-            <SimpleMap/>
+            <SimpleMap />
         </div>
-        
+
     )
 }

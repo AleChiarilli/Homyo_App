@@ -7,8 +7,8 @@ export const SimpleMap = () => {
   { name: "Neil Sims", descripcion: "hago cosas", servicios: "Servicios que ofrece", reseñas: 2, email: "asd@gmail.com", direccion: [51.505, -0.09] },
   { name: "Bonnie Green", descripcion: "hago cosas", servicios: "Servicios que ofrece", reseñas: 2, email: "asd@gmail.com", direccion: [51.51, -0.09] },
   { name: "Jese Leos", descripcion: "hago cosas", servicios: "Servicios que ofrece", reseñas: 2, email: "asd@gmail.com", direccion: [51.52, -0.09] },
-  {name:"Alejandro Chiarilli", descripcion: "NO hago cosas", servicios: "besitos", reseñas: 2, email: "asd@gmail.com", direccion: [51.52, -0.10]},
-  {name:"Alejandro Chiarilli", descripcion: "NO hago cosas", servicios: "besitos", reseñas: 2, email: "asd@gmail.com", direccion: [51.53, -0.11]}
+  {name:"Alejandro Chiarilli", descripcion: "NO hago cosas", servicios: "besitos", reseñas: 2, email: "asd@gmail.com", direccion: [51.52, -0.10] },
+  {name:"Alejandro Chiarilli", descripcion: "NO hago cosas", servicios: "besitos", reseñas: 2, email: "asd@gmail.com", direccion: [51.53, -0.11] }
 ]
 
   const position = [51.505, -0.09]

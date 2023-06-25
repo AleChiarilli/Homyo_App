@@ -5,9 +5,21 @@ from flask import Flask, request, jsonify, url_for, Blueprint, json
 from api.models import db, User, Role, User_role, Pro_profile, Cmr_profile, Pro_user_profile, Cmr_user_profile, Skill, Pro_profile_skill, Home,Habitant, Home_habitant, Room, Home_room, Cmr_profile_home, Contract, Payment_status, Job_status, Pro_review, Cmr_review, Message, Message_received, Message_sent, Message_status
 from api.utils import generate_sitemap, APIException
 from flask_jwt_extended import create_access_token, get_jwt_identity, jwt_required
+from geopy.geocoders import Nominatim
 
 api = Blueprint('api', __name__)
 
+#  ÉSTA ES LA RUTA PARA LA OBTENCIÓN DE LOCALIZACIONES
+# https://alechiarilli-laughing-memory-pvvpx9v9wp9276xv-3001.preview.app.github.dev/api/pruebageopy
+# @api.route('/pruebageopy', methods=['POST'])
+# def handle_address_geopy():
+#     direction = request.json.get('direction', None)
+#     geolocator = Nominatim(user_agent="my_geocoder")
+#     location = geolocator.geocode(direction)
+#     latitude = location.latitude
+#     longitude = location.longitude
+
+#     return jsonify({'longitud':longitude, 'latitude':latitude}), 200
 
 @api.route('/hello', methods=['POST', 'GET'])
 def handle_hello():
