@@ -1,4 +1,4 @@
-import React, {useState } from "react";
+import React, { useState } from "react";
 import "../../styles/home.css";
 import limpieza from "../../img/limpieza.png";
 import animales from "../../img/animales.png";
@@ -38,12 +38,12 @@ export const Home = ({ isLoggedIn }) => {
                         <li className="card" id="card_1">
                             <div className="card__content h-full">
                                 <div className="">
-                                <h2 className="text-indigo-500">Limpieza</h2>
+                                    <h2 className="text-indigo-500">Limpieza</h2>
                                     <p>Tu casa siempre en optimas condiciones.</p>
 
                                 </div>
                                 <figure>
-                                    
+
                                     <img
                                         src={limpieza}
                                         alt="Image description"
@@ -53,8 +53,8 @@ export const Home = ({ isLoggedIn }) => {
                         </li>
                         <li className="card" id="card_2">
                             <div className="card__content h-full">
-                            <div className="">
-                                <h2 className="text-indigo-500">Cocina</h2>
+                                <div className="">
+                                    <h2 className="text-indigo-500">Cocina</h2>
                                     <p>Olvidate de la comida a domicilio, nosotros nos encargamos de hacerte comida casera</p>
 
                                 </div>
@@ -69,12 +69,12 @@ export const Home = ({ isLoggedIn }) => {
                         <li className="card" id="card_3">
                             <div className="card__content h-full">
                                 <div className="">
-                                <h2 className="text-indigo-500">Cuidado de niños</h2>
-                                <p>¿No llegas a tiempo a recoger a tus niños del cole? ¿Llegan tarde a las extraescolares? Estamos aquí para solucionarlo</p>
+                                    <h2 className="text-indigo-500">Cuidado de niños</h2>
+                                    <p>¿No llegas a tiempo a recoger a tus niños del cole? ¿Llegan tarde a las extraescolares? Estamos aquí para solucionarlo</p>
 
                                 </div>
                                 <figure>
-                                    
+
                                     <img
                                         src={niños}
                                         alt="Image description"
@@ -85,8 +85,8 @@ export const Home = ({ isLoggedIn }) => {
 
                         <li className="card" id="card_4">
                             <div className="card__content h-full">
-                            <div className="">
-                                <h2 className="text-indigo-500">Cuidado de mascotas</h2>
+                                <div className="">
+                                    <h2 className="text-indigo-500">Cuidado de mascotas</h2>
                                     <p>Pasearemos y cuidaremos de tus mascotas cuando tu no puedas hacerlo.</p>
 
                                 </div>
@@ -100,8 +100,8 @@ export const Home = ({ isLoggedIn }) => {
                         </li>
                         <li className="card" id="card_5">
                             <div className="card__content h-full">
-                            <div className="">
-                                <h2 className="text-indigo-500">Jardineria</h2>
+                                <div className="">
+                                    <h2 className="text-indigo-500">Jardineria</h2>
                                     <p>Con nosotros tus plantas y tu jardín están a salvo.</p>
 
                                 </div>
@@ -123,9 +123,9 @@ export const Home = ({ isLoggedIn }) => {
                 <div className="py-8 px-4 mx-auto lg:py-16">
                     <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
                         <div className="max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 transform transition-all hover:scale-110">
-                                <img className="rounded-t-lg h-[200px] object-cover" src={buscar} alt="" />
+                            <img className="rounded-t-lg h-[200px] object-cover" src={buscar} alt="" />
                             <div className="p-5">
-                                    <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white"><span className="text-indigo-500">Busca</span> el servicio que necesitas</h5>
+                                <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white"><span className="text-indigo-500">Busca</span> el servicio que necesitas</h5>
                                 <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">Cualquier servicio que necesites para tu hogar, nosotros te lo encontramos</p>
                             </div>
                         </div>
@@ -142,17 +142,17 @@ export const Home = ({ isLoggedIn }) => {
                         </div>
 
                         <div className="max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 transform transition-all hover:scale-110">
-                                <img className="rounded-t-lg h-[200px] object-cover" src={stripe} alt="" />
+                            <img className="rounded-t-lg h-[200px] object-cover" src={stripe} alt="" />
                             <div className="p-5">
-                                    <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white"><span className="text-indigo-500">Paga</span> comodamente</h5>
+                                <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white"><span className="text-indigo-500">Paga</span> comodamente</h5>
                                 <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">Al realizar tus pagos a traves de nuestra plataforma, el profesional recibirá el pago cuando confirmes que lo ha realizado</p>
                             </div>
                         </div>
 
                         <div className="max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 transform transition-all hover:scale-110">
-                                <img className="rounded-t-lg h-[200px] object-cover" src={relajate} alt="" />
+                            <img className="rounded-t-lg h-[200px] object-cover" src={relajate} alt="" />
                             <div className="p-5">
-                                    <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white"><span className="text-indigo-500">Disfruta</span> tu tiempo libre</h5>
+                                <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white"><span className="text-indigo-500">Disfruta</span> tu tiempo libre</h5>
                                 <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">Porque lo primero eres tu y los tuyos.</p>
                             </div>
                         </div>
@@ -167,33 +167,33 @@ export const Home = ({ isLoggedIn }) => {
                 <div className="py-8 px-4 mx-auto max-w-screen-xl lg:py-16">
                     <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
                         <div className="max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 transform transition-all hover:scale-110">
-                                <img className="rounded-t-lg h-[200px] object-cover" src={seguridad} alt="" />
+                            <img className="rounded-t-lg h-[200px] object-cover" src={seguridad} alt="" />
                             <div className="p-5">
-                                    <h5 className="mb-2 text-2xl font-bold tracking-tight text-indigo-500 dark:text-white">Seguridad</h5>
+                                <h5 className="mb-2 text-2xl font-bold tracking-tight text-indigo-500 dark:text-white">Seguridad</h5>
                                 <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">Verificamos la identidad tanto del profesional como del cliente y protegemos tus pagos.</p>
                             </div>
                         </div>
 
                         <div className="max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 transform transition-all hover:scale-110">
-                                <img className="rounded-t-lg h-[200px] object-cover" src={tranquilidad} alt="" />
+                            <img className="rounded-t-lg h-[200px] object-cover" src={tranquilidad} alt="" />
                             <div className="p-5">
-                                    <h5 className="mb-2 text-2xl font-bold tracking-tight text-indigo-500 dark:text-white">Tranquilidad</h5>
+                                <h5 className="mb-2 text-2xl font-bold tracking-tight text-indigo-500 dark:text-white">Tranquilidad</h5>
                                 <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">Contamos con los mejores profesionales del sector para garantizar un servicio TOP</p>
                             </div>
                         </div>
 
                         <div className="max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 transform transition-all hover:scale-110">
-                                <img className="rounded-t-lg h-[200px] object-cover" src={atencion} alt="" />
+                            <img className="rounded-t-lg h-[200px] object-cover" src={atencion} alt="" />
                             <div className="p-5">
-                                    <h5 className="mb-2 text-2xl font-bold tracking-tight text-indigo-500 dark:text-white">Atención</h5>
+                                <h5 className="mb-2 text-2xl font-bold tracking-tight text-indigo-500 dark:text-white">Atención</h5>
                                 <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">Atención al cliente los 365 días del año.</p>
                             </div>
                         </div>
 
                         <div className="max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 transform transition-all hover:scale-110">
-                                <img className="rounded-t-lg h-[200px] object-cover" src={precio} alt="" />
+                            <img className="rounded-t-lg h-[200px] object-cover" src={precio} alt="" />
                             <div className="p-5">
-                                    <h5 className="mb-2 text-2xl font-bold tracking-tight text-indigo-500 dark:text-white">Precio</h5>
+                                <h5 className="mb-2 text-2xl font-bold tracking-tight text-indigo-500 dark:text-white">Precio</h5>
                                 <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">Tenemos los precios mas competitivos del mercado sin necesidad de cobrarte una comisión</p>
                             </div>
                         </div>
@@ -225,20 +225,20 @@ export const Home = ({ isLoggedIn }) => {
                                         className="py-4 px-6 bg-indigo-600 hover:bg-indigo-700 focus:ring-indigo-500 focus:ring-offset-indigo-200 text-white w-full transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2 rounded-lg" >
                                         Empieza ya
                                     </button>
-                                </div>) : 
+                                </div>) :
                                 <div className="mt-12 inline-flex rounded-md shadow">
-                                <button
-                                  data-modal-target="authenticationModal4"
-                                  data-modal-toggle="authenticationModal4"
-                                  type="button"
-                                  onClick={toggleModal4}
-                                  className="py-4 px-6 bg-indigo-600 hover:bg-indigo-700 focus:ring-indigo-500 focus:ring-offset-indigo-200 text-white w-full transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2 rounded-lg disabled:opacity-50 disabled:bg-gray-400" // Agregar clases para estilo deshabilitado
-                                  disabled // Agregar la propiedad disabled
-                                >
-                                  Empieza ya
-                                </button>
-                              </div>
-                             }
+                                    <button
+                                        data-modal-target="authenticationModal4"
+                                        data-modal-toggle="authenticationModal4"
+                                        type="button"
+                                        onClick={toggleModal4}
+                                        className="py-4 px-6 bg-indigo-600 hover:bg-indigo-700 focus:ring-indigo-500 focus:ring-offset-indigo-200 text-white w-full transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2 rounded-lg disabled:opacity-50 disabled:bg-gray-400" // Agregar clases para estilo deshabilitado
+                                        disabled // Agregar la propiedad disabled
+                                    >
+                                        Empieza ya
+                                    </button>
+                                </div>
+                            }
                         </div>
                         <div className="hidden lg:block lg:w-1/2">
                             <img src={servicios} className="h-full max-w-full" alt="Services" />
@@ -290,15 +290,18 @@ export const Home = ({ isLoggedIn }) => {
                                 </div>
 
                                 <div className="mt-8">
-                                    <div className="flex gap-4 mb-2">
-                                        <div className=" relative ">
-                                            <input type="text" id="create-account-first-name" className=" rounded-lg border-transparent flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent" name="First name" placeholder="Nombre" />
+                                    <form onSubmit={(e) => submitUser(e)} autoComplete="off">
+                                        <div className="flex flex-col mb-2">
+                                            <div className="flex relative ">
+                                                <span className="rounded-l-md inline-flex  items-center px-3 border-t bg-white border-l border-b  border-gray-300 text-gray-500 shadow-sm text-sm">
+                                                    <svg width="15" height="15" fill="currentColor" viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg">
+                                                        <path d="M1376 768q40 0 68 28t28 68v576q0 40-28 68t-68 28h-960q-40 0-68-28t-28-68v-576q0-40 28-68t68-28h32v-320q0-185 131.5-316.5t316.5-131.5 316.5 131.5 131.5 316.5q0 26-19 45t-45 19h-64q-26 0-45-19t-19-45q0-106-75-181t-181-75-181 75-75 181v320h736z">
+                                                        </path>
+                                                    </svg>
+                                                </span>
+                                                <input type="text" id="sign-in-username" className=" rounded-r-lg flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent" placeholder="Nombre" onChange={(event) => setUsername(event.target.value)} />
+                                            </div>
                                         </div>
-                                        <div className=" relative ">
-                                            <input type="text" id="create-account-last-name" className=" rounded-lg border-transparent flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent" name="Last name" placeholder="Apellido" />
-                                        </div>
-                                    </div>
-                                    <form action="#" autoComplete="off">
                                         <div className="flex flex-col mb-2">
                                             <div className="flex relative ">
                                                 <span className="rounded-l-md inline-flex  items-center px-3 border-t bg-white border-l border-b  border-gray-300 text-gray-500 shadow-sm text-sm">
@@ -307,7 +310,7 @@ export const Home = ({ isLoggedIn }) => {
                                                         </path>
                                                     </svg>
                                                 </span>
-                                                <input type="text" id="sign-in-email" className=" rounded-r-lg flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent" placeholder="Email" />
+                                                <input type="email" id="sign-in-email" className=" rounded-r-lg flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent" placeholder="Email" onChange={(event) => setEmail(event.target.value)} />
                                             </div>
                                         </div>
                                         <div className="flex flex-col mb-6">
@@ -318,12 +321,12 @@ export const Home = ({ isLoggedIn }) => {
                                                         </path>
                                                     </svg>
                                                 </span>
-                                                <input type="password" id="sign-in-email" className=" rounded-r-lg flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent" placeholder="Contraseña" />
+                                                <input type="password" id="sign-in-password" className=" rounded-r-lg flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent" placeholder="Contraseña" onChange={(event) => setPassword(event.target.value)} />
                                             </div>
                                         </div>
 
                                         <div className="flex w-full">
-                                            <button type="submit" className="py-2 px-4  bg-indigo-600 hover:bg-indigo-700 focus:ring-indigo-500 focus:ring-offset-indigo-200 text-white w-full transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-lg ">
+                                            <button type="submit" className="py-2 px-4  bg-indigo-500 hover:bg-indigo-700 focus:ring-indigo-500 focus:ring-offset-purple-200 text-white w-full transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-lg"  >
                                                 Regístrate
                                             </button>
                                         </div>
