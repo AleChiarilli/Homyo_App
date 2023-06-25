@@ -1,16 +1,17 @@
 import React, { useState, useContext, useEffect } from "react";
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Context } from "../store/appContext";
 
 export const Navbar = ({ isLoggedIn }) => {
   const { actions } = useContext(Context);
   const { store } = useContext(Context);
+  const navigate = useNavigate()
 
   const [toggleActive, setToggleActive] = useState(true); // Establece el interruptor como activado por defecto
 
   const handleToggleActive = () => {
     setToggleActive(!toggleActive); // Invierte el estado del interruptor al hacer clic
-    const role = toggleActive ? "empresa" : "cliente"; // Determina el rol actual en función del estado del interruptor
+    const role = toggleActive ? "profesional" : "cliente"; // Determina el rol actual en función del estado del interruptor
     handleRoleChange(role); // Llama a la función para cambiar el rol
   };
 
@@ -27,8 +28,26 @@ export const Navbar = ({ isLoggedIn }) => {
     setRoleOnLoad();
   }, []); // Ejecuta setRoleOnLoad solo una vez al cargar el componente
 
+  useEffect(() => {
+    if (window.location.pathname === "/buscador" && toggleActive == false) {
+      navigate("/tablon-de-anuncios")
+    } else if (window.location.pathname === "/tablon-de-anuncios" && toggleActive == true) {
+      navigate("/buscador")
+    }
+  }, [toggleActive]); // Cambia de ruta en el buscador segun rol 
+
+  useEffect(() => {
+    if (window.location.pathname === "/mi-perfil-cliente" && toggleActive == false) {
+      navigate("/mi-perfil-profesional")
+    } else if (window.location.pathname === "/mi-perfil-profesional" && toggleActive == true) {
+      navigate("/mi-perfil-cliente")
+    }
+  }, [toggleActive]); // Cambia de ruta en el perfil segun rol  
+
+
   const [isModalOpen1, setIsModalOpen1] = useState(false); // Estado del primer modal
   const [ismodalOpen2, setIsmodalOpen2] = useState(false); // Estado del segundo modal
+  
   const [username, setUsername] = useState(''); // Estado del nombre de usuario
   const [email, setEmail] = useState(''); // Estado del correo electrónico
   const [password, setPassword] = useState(''); // Estado de la contraseña
@@ -38,10 +57,10 @@ export const Navbar = ({ isLoggedIn }) => {
     await actions.addUser({ username, email, password }); // Envía los datos del usuario utilizando la acción addUser del objeto actions
   };
 
-const userLoggin = async (e) => {
-  e.preventDefault()
-  await actions.login(email,password)
-}
+  const userLoggin = async (e) => {
+    e.preventDefault()
+    await actions.login(email, password)
+  }
 
   const toggleModal1 = () => {
     setIsModalOpen1(!isModalOpen1); // Invierte el estado del primer modal al hacer clic
@@ -62,8 +81,8 @@ const userLoggin = async (e) => {
   const handleSearchKeyDown = (event) => {
     if (event.keyCode === 13) {
       event.preventDefault(); // Evita el envío automático del formulario al presionar Enter
-      const searchUrl = store.role === 'Cliente' ? '/buscador' : '/tablon-de-anuncios'; // Determina la URL de redirección según el rol almacenado
-      window.location.href = searchUrl; // Redirige al usuario a la URL correspondiente según el rol
+      const searchUrl = store.role === 'cliente' ? '/buscador' : '/tablon-de-anuncios'; // Determina la URL de redirección según el rol almacenado
+      navigate(searchUrl) // Redirige al usuario a la URL correspondiente según el rol
     }
   };
 
@@ -108,10 +127,10 @@ const userLoggin = async (e) => {
             type="text"
             id="search-navbar"
             className="block w-full p-2 pl-10 text-sm text-gray-900 rounded-lg shadow-md focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-purple-200"
-            placeholder={store.role === 'Cliente' ? 'Encuentra el servicio' : 'Encuentra clientes'}
+            placeholder={store.role === 'cliente' ? 'Encuentra el servicio' : 'Encuentra clientes'}
             onKeyDown={handleSearchKeyDown}
           />
-          {store.role === 'Cliente' ? (
+          {store.role === 'cliente' ? (
             <Link to="/buscador" className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-auto" />
           ) : (
             <Link to="/tablon-de-anuncios" className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-auto" />
@@ -133,7 +152,7 @@ const userLoggin = async (e) => {
               />
               <div className="w-11 h-6 bg-gray-200 rounded-full peer peer-focus:ring-4 peer-focus:ring-indigo-300 dark:peer-focus:ring-indigo-800 dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-indigo-600"></div>
               <span className={`ml-3 text-sm font-medium ${toggleActive ? 'text-gray-900' : 'text-red-500'} dark:text-gray-300`}>
-                {toggleActive ? 'Cliente' : 'Empresa'}
+                {toggleActive ? 'Cliente' : 'Profesional'}
               </span>
             </label>
           </div>
@@ -284,7 +303,7 @@ const userLoggin = async (e) => {
                       aria-labelledby="dropdownHoverButton">
                       <li>
                         <Link
-                          to={store.role === 'Cliente' ? '/perfil-cliente' : '/perfil-profesional'}
+                          to={store.role === 'cliente' ? '/mi-perfil-cliente' : '/mi-perfil-profesional'}
                           className="block px-4 py-2 hover:bg-indigo-100 dark:hover:bg-indigo-600 dark:hover:text-white"
                         >
                           Panel de control
@@ -388,7 +407,7 @@ const userLoggin = async (e) => {
 
                           <div className="flex w-full">
                             <button type="submit" className="py-2 px-4  bg-indigo-500 hover:bg-indigo-700 focus:ring-indigo-500 focus:ring-offset-purple-200 text-white w-full transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-lg"  >
-                              Login
+                              Regístrate
                             </button>
                           </div>
                         </form>
@@ -450,7 +469,7 @@ const userLoggin = async (e) => {
                         </button>
                       </div>
                       <div className="mt-8">
-                        <form onSubmit = {(e)=>userLoggin(e)} autoComplete="off">
+                        <form onSubmit={(e) => userLoggin(e)} autoComplete="off">
                           <div className="flex flex-col mb-2">
                             <div className="flex relative ">
                               <span className="rounded-l-md inline-flex  items-center px-3 border-t bg-white border-l border-b  border-gray-300 text-gray-500 shadow-sm text-sm">
@@ -459,7 +478,7 @@ const userLoggin = async (e) => {
                                   </path>
                                 </svg>
                               </span>
-                              <input onChange={(e)=>setEmail(e.target.value)} type="email" id="login-email" className= " rounded-r-lg flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent" placeholder="Email" />
+                              <input onChange={(e) => setEmail(e.target.value)} type="email" id="login-email" className=" rounded-r-lg flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent" placeholder="Email" />
                             </div>
                           </div>
                           <div className="flex flex-col mb-6">
@@ -470,7 +489,7 @@ const userLoggin = async (e) => {
                                   </path>
                                 </svg>
                               </span>
-                              <input onChange={(e)=>setPassword(e.target.value)}  type="password" id="login-password" className=" rounded-r-lg flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent" placeholder="Contraseña" />
+                              <input onChange={(e) => setPassword(e.target.value)} type="password" id="login-password" className=" rounded-r-lg flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent" placeholder="Contraseña" />
                             </div>
                           </div>
                           <div className="flex items-center mb-6 -mt-4">
@@ -481,8 +500,8 @@ const userLoggin = async (e) => {
                             </div>
                           </div>
                           <div className="flex w-full">
-                            <input type="submit" className="py-2 px-4  bg-indigo-500 hover:bg-indigo-700 focus:ring-purple-500 focus:ring-offset-purple-200 text-white w-full transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-lg " value="iniciar sesion"/>
-                              
+                            <input type="submit" className="py-2 px-4  bg-indigo-500 hover:bg-indigo-700 focus:ring-purple-500 focus:ring-offset-purple-200 text-white w-full transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-lg " value="iniciar sesion" />
+
                           </div>
                         </form>
                       </div>
