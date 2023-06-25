@@ -1,7 +1,7 @@
   
 import os
 from flask_admin import Admin
-from .models import db, User, Role, User_role, Pro_profile, Pro_user_profile, Skill, Pro_profile_skill, Cmr_profile, Cmr_user_profile, Home, Room, Home_room, Habitant, Home_habitant, Cmr_profile_home, Contract, Cmr_review, Pro_review, Job_status, Payment_status, Message, Message_sent, Message_status, Message_received
+from .models import db, User, Role, User_role, Pro_profile, Skill, Pro_profile_skill, Cmr_profile, Home, Room, Habitant, Home_habitant, Contract, Cmr_review, Pro_review, Message, Message_receiver
 from flask_admin.contrib.sqla import ModelView
 
 def setup_admin(app):
@@ -15,26 +15,18 @@ def setup_admin(app):
     admin.add_view(ModelView(Role, db.session))
     admin.add_view(ModelView(User_role, db.session))
     admin.add_view(ModelView(Pro_profile, db.session))
-    admin.add_view(ModelView(Pro_user_profile, db.session))
     admin.add_view(ModelView(Skill, db.session))
     admin.add_view(ModelView(Pro_profile_skill, db.session))
     admin.add_view(ModelView(Cmr_profile, db.session))
-    admin.add_view(ModelView(Cmr_user_profile, db.session))
     admin.add_view(ModelView(Home, db.session))
     admin.add_view(ModelView(Room, db.session))
-    admin.add_view(ModelView(Home_room, db.session))
     admin.add_view(ModelView(Habitant, db.session))
     admin.add_view(ModelView(Home_habitant, db.session))
-    admin.add_view(ModelView(Cmr_profile_home, db.session))
     admin.add_view(ModelView(Contract, db.session))
-    admin.add_view(ModelView(Payment_status, db.session))
-    admin.add_view(ModelView(Job_status, db.session))
     admin.add_view(ModelView(Cmr_review, db.session))
     admin.add_view(ModelView(Pro_review, db.session))
     admin.add_view(ModelView(Message, db.session))
-    admin.add_view(ModelView(Message_sent, db.session))
-    admin.add_view(ModelView(Message_received, db.session))
-    admin.add_view(ModelView(Message_status, db.session))
+    admin.add_view(ModelView(Message_receiver, db.session))
 
     # You can duplicate that line to add mew models
     # admin.add_view(ModelView(YourModelName, db.session))
