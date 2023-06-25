@@ -9,6 +9,9 @@ import animales from "../../img/animales.png";
 import jardineria from "../../img/jardineria.png";
 import niños from "../../img/niños.png";
 import chef from "../../img/chef.png";
+import { Contractprofesionaldcard } from "../component/contractProfesionalCard";
+
+
 
 export const Profilepro = () => {
     // const [profile_pic, setProfile_pic] = useState("");
@@ -30,6 +33,8 @@ export const Profilepro = () => {
         setShowContracts(false);
         setShowMessages(false);
     };
+
+
 
     const handleCalendarClick = () => {
         setShowProfile(false);
@@ -67,7 +72,7 @@ export const Profilepro = () => {
 
     return (
 
-        <main className="max-w-screen-xl overflow-hidden  dark:bg-gray-800 rounded-2xl mt-20 mx-auto">
+        <main className="max-w-screen-xl overflow-hidden dark:bg-gray-800 rounded-2xl mt-20 mx-auto">
             <div className="flex items-start justify-between">
                 <div className="relative hidden h-screen my-4 ml-4 shadow-lg lg:block w-80">
                     <div className="h-full bg-white rounded-2xl dark:bg-gray-700">
@@ -78,56 +83,66 @@ export const Profilepro = () => {
                             <div>
                                 <a className="flex items-center justify-start w-full p-4 my-2 font-thin text-gray-500 bg-white cursor-pointer dark:hover:text-gray-300 dark:border-gray-700 peer-checked:border-indigo-600 hover:text-indigo-600 dark:peer-checked:text-indigo-300 peer-checked:text-indigo-600 hover:bg-indigo-50 dark:text-gray-400 dark:bg-gray-800 dark:hover:bg-gray-700" onClick={handleProfileClick} href="#">
                                     <span className="text-left">
-                                        <svg width="20" height="20" fill="currentColor" viewBox="0 0 2048 1792" xmlns="http://www.w3.org/2000/svg">
-                                            <path d="M1070 1178l306-564h-654l-306 564h654zm722-282q0 182-71 348t-191 286-286 191-348 71-348-71-286-191-191-286-71-348 71-348 191-286 286-191 348-71 348 71 286 191 191 286 71 348z">
-                                            </path>
+                                        <svg width="20" height="20" fill="currentColor" viewBox="0 0 64 64" enableBackground="new 0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+                                            <path fill="#231F20" d="M62.242,47.758l0.014-0.014c-3.239-2.634-6.865-4.874-10.839-6.644C50.502,38.229,50,35.175,50,32V16 c0-8.837-7.163-16-16-16h-4c-8.837,0-16,7.163-16,16v16c0,3.173-0.501,6.226-1.415,9.096c-3.979,1.745-7.526,3.953-10.841,6.648 l0.014,0.014C0.672,48.844,0,50.344,0,52v8c0,2.211,1.789,4,4,4h56c2.211,0,4-1.789,4-4v-8C64,50.344,63.328,48.844,62.242,47.758z M16,32V16c0-7.732,6.268-14,14-14h4c7.732,0,14,6.268,14,14v16c0,2.806,0.382,5.519,1.062,8.111 c-2.771-1.062-5.709-1.888-8.798-2.461C43.508,34.141,46,28.695,46,22c0-0.435,0-0.754,0-1c0-4.418-3.582-8-8-8h-4 c-2.209,0-4-1.791-4-4c0-0.553-0.447-1-1-1s-1,0.447-1,1c0,2.209-1.791,4-4,4c-3.313,0-6,2.687-6,6c0,0,0,2.565,0,3 c0,6.719,2.509,12.181,5.77,15.689c-3.2,0.605-6.121,1.425-8.838,2.443C15.615,37.534,16,34.813,16,32z M20,19c0-2.209,1.791-4,4-4 c2.088,0,3.926-1.068,5-2.687C30.074,13.932,31.912,15,34,15h4c3.313,0,6,2.687,6,6c0,0.188,0,0.5,0,1c0,12-7.469,18-12,18 s-12-6-12-18C20,21.5,20,19,20,19z M25.677,39.439C27.76,41.084,29.99,42,32,42s4.24-0.916,6.323-2.561 c2.743,0.378,5.399,1.018,7.966,1.857c-2.468,2.468-13.311,13.311-13.691,13.691c-0.43,0.43-0.748,0.447-1.183,0.013 C31.03,54.616,20.18,43.766,17.711,41.297C20.277,40.457,22.934,39.817,25.677,39.439z M62,60c0,1.104-0.896,2-2,2H4 c-1.104,0-2-0.896-2-2v-8c0-1.104,0.447-2.104,1.172-2.828l-0.004-0.004c3.716-2.994,7.918-5.401,12.453-7.133l14.172,14.172 c1.5,1.5,2.914,1.5,4.414,0l14.172-14.172c4.535,1.731,8.737,4.139,12.453,7.133l-0.004,0.004C61.553,49.896,62,50.896,62,52V60z"></path>
+                                            <path fill="#231F20" d="M25.882,22.467C25.91,22.419,26.18,22,26.998,22c0.808,0,1.096,0.436,1.111,0.458 C28.287,22.803,28.637,23,28.999,23c0.154,0,0.311-0.035,0.457-0.111c0.491-0.253,0.684-0.856,0.431-1.347 C29.592,20.969,28.651,20,26.998,20c-1.691,0-2.618,0.983-2.9,1.564c-0.233,0.482-0.034,1.045,0.439,1.298 C25.012,23.117,25.61,22.931,25.882,22.467z"></path>
+                                            <path fill="#231F20" d="M34.539,22.862c0.475,0.255,1.073,0.068,1.345-0.396C35.912,22.419,36.182,22,37,22 c0.808,0,1.096,0.436,1.111,0.458C38.289,22.803,38.639,23,39.001,23c0.154,0,0.311-0.035,0.457-0.111 c0.491-0.253,0.684-0.856,0.431-1.347C39.594,20.969,38.653,20,37,20c-1.691,0-2.618,0.983-2.9,1.564 C33.866,22.047,34.065,22.609,34.539,22.862z"></path>
                                         </svg>
                                     </span>
                                     <span className="mx-4 text-sm font-normal">
                                         MI PERFIL
                                     </span>
                                 </a>
+
+
                                 <a className="flex items-center justify-start w-full p-4 my-2 font-thin text-gray-500 bg-white cursor-pointer dark:hover:text-gray-300 dark:border-gray-700 peer-checked:border-indigo-600 hover:text-indigo-600 dark:peer-checked:text-indigo-300 peer-checked:text-indigo-600 hover:bg-indigo-50 dark:text-gray-400 dark:bg-gray-800 dark:hover:bg-gray-700" onClick={handleCalendarClick} href="#">
                                     <span className="text-left">
-                                        <svg width="20" height="20" fill="currentColor" className="m-auto" viewBox="0 0 2048 1792" xmlns="http://www.w3.org/2000/svg">
-                                            <path d="M1024 1131q0-64-9-117.5t-29.5-103-60.5-78-97-28.5q-6 4-30 18t-37.5 21.5-35.5 17.5-43 14.5-42 4.5-42-4.5-43-14.5-35.5-17.5-37.5-21.5-30-18q-57 0-97 28.5t-60.5 78-29.5 103-9 117.5 37 106.5 91 42.5h512q54 0 91-42.5t37-106.5zm-157-520q0-94-66.5-160.5t-160.5-66.5-160.5 66.5-66.5 160.5 66.5 160.5 160.5 66.5 160.5-66.5 66.5-160.5zm925 509v-64q0-14-9-23t-23-9h-576q-14 0-23 9t-9 23v64q0 14 9 23t23 9h576q14 0 23-9t9-23zm0-260v-56q0-15-10.5-25.5t-25.5-10.5h-568q-15 0-25.5 10.5t-10.5 25.5v56q0 15 10.5 25.5t25.5 10.5h568q15 0 25.5-10.5t10.5-25.5zm0-252v-64q0-14-9-23t-23-9h-576q-14 0-23 9t-9 23v64q0 14 9 23t23 9h576q14 0 23-9t9-23zm256-320v1216q0 66-47 113t-113 47h-352v-96q0-14-9-23t-23-9h-64q-14 0-23 9t-9 23v96h-768v-96q0-14-9-23t-23-9h-64q-14 0-23 9t-9 23v96h-352q-66 0-113-47t-47-113v-1216q0-66 47-113t113-47h1728q66 0 113 47t47 113z">
-                                            </path>
+                                        <svg width="20" height="20" fill="currentColor" viewBox="0 0 64 64" enableBackground="new 0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+                                            <path fill="#231F20" d="M11,54h6c0.553,0,1-0.447,1-1v-5c0-0.553-0.447-1-1-1h-6c-0.553,0-1,0.447-1,1v5C10,53.553,10.447,54,11,54z M12,49h4v3h-4V49z"></path>
+                                            <path fill="#231F20" d="M23,54h6c0.553,0,1-0.447,1-1v-5c0-0.553-0.447-1-1-1h-6c-0.553,0-1,0.447-1,1v5C22,53.553,22.447,54,23,54z M24,49h4v3h-4V49z"></path>
+                                            <path fill="#231F20" d="M35,54h6c0.553,0,1-0.447,1-1v-5c0-0.553-0.447-1-1-1h-6c-0.553,0-1,0.447-1,1v5C34,53.553,34.447,54,35,54z M36,49h4v3h-4V49z"></path>
+                                            <path fill="#231F20" d="M11,43h6c0.553,0,1-0.447,1-1v-5c0-0.553-0.447-1-1-1h-6c-0.553,0-1,0.447-1,1v5C10,42.553,10.447,43,11,43z M12,38h4v3h-4V38z"></path>
+                                            <path fill="#231F20" d="M23,43h6c0.553,0,1-0.447,1-1v-5c0-0.553-0.447-1-1-1h-6c-0.553,0-1,0.447-1,1v5C22,42.553,22.447,43,23,43z M24,38h4v3h-4V38z"></path>
+                                            <path fill="#231F20" d="M35,43h6c0.553,0,1-0.447,1-1v-5c0-0.553-0.447-1-1-1h-6c-0.553,0-1,0.447-1,1v5C34,42.553,34.447,43,35,43z M36,38h4v3h-4V38z"></path>
+                                            <path fill="#231F20" d="M47,43h6c0.553,0,1-0.447,1-1v-5c0-0.553-0.447-1-1-1h-6c-0.553,0-1,0.447-1,1v5C46,42.553,46.447,43,47,43z M48,38h4v3h-4V38z"></path>
+                                            <path fill="#231F20" d="M11,32h6c0.553,0,1-0.447,1-1v-5c0-0.553-0.447-1-1-1h-6c-0.553,0-1,0.447-1,1v5C10,31.553,10.447,32,11,32z M12,27h4v3h-4V27z"></path>
+                                            <path fill="#231F20" d="M23,32h6c0.553,0,1-0.447,1-1v-5c0-0.553-0.447-1-1-1h-6c-0.553,0-1,0.447-1,1v5C22,31.553,22.447,32,23,32z M24,27h4v3h-4V27z"></path>
+                                            <path fill="#231F20" d="M35,32h6c0.553,0,1-0.447,1-1v-5c0-0.553-0.447-1-1-1h-6c-0.553,0-1,0.447-1,1v5C34,31.553,34.447,32,35,32z M36,27h4v3h-4V27z"></path>
+                                            <path fill="#231F20" d="M47,32h6c0.553,0,1-0.447,1-1v-5c0-0.553-0.447-1-1-1h-6c-0.553,0-1,0.447-1,1v5C46,31.553,46.447,32,47,32z M48,27h4v3h-4V27z"></path>
+                                            <path fill="#231F20" d="M60,4h-7V3c0-1.657-1.343-3-3-3s-3,1.343-3,3v1H17V3c0-1.657-1.343-3-3-3s-3,1.343-3,3v1H4C1.789,4,0,5.789,0,8v52c0,2.211,1.789,4,4,4h56c2.211,0,4-1.789,4-4V8C64,5.789,62.211,4,60,4z M49,3c0-0.553,0.447-1,1-1 s1,0.447,1,1v3v4c0,0.553-0.447,1-1,1s-1-0.447-1-1V6V3z M13,3c0-0.553,0.447-1,1-1s1,0.447,1,1v3v4c0,0.553-0.447,1-1,1 s-1-0.447-1-1V6V3z M62,60c0,1.104-0.896,2-2,2H4c-1.104,0-2-0.896-2-2V17h60V60z M62,15H2V8c0-1.104,0.896-2,2-2h7v4 c0,1.657,1.343,3,3,3s3-1.343,3-3V6h30v4c0,1.657,1.343,3,3,3s3-1.343,3-3V6h7c1.104,0,2,0.896,2,2V15z"></path>
                                         </svg>
                                     </span>
                                     <span className="mx-4 text-sm font-normal">
-                                        CALENDARIO
+                                        MI CALENDARIO
                                     </span>
                                 </a>
+
+
                                 <a className="flex items-center justify-start w-full p-4 my-2 font-thin text-gray-500 bg-white cursor-pointer dark:hover:text-gray-300 dark:border-gray-700 peer-checked:border-indigo-600 hover:text-indigo-600 dark:peer-checked:text-indigo-300 peer-checked:text-indigo-600 hover:bg-indigo-50 dark:text-gray-400 dark:bg-gray-800 dark:hover:bg-gray-700" onClick={handleContractsClick} href="#">
                                     <span className="text-left">
-                                        <svg width="20" height="20" fill="currentColor" className="m-auto" viewBox="0 0 2048 1792" xmlns="http://www.w3.org/2000/svg">
-                                            <path d="M685 483q16 0 27.5-11.5t11.5-27.5-11.5-27.5-27.5-11.5-27 11.5-11 27.5 11 27.5 27 11.5zm422 0q16 0 27-11.5t11-27.5-11-27.5-27-11.5-27.5 11.5-11.5 27.5 11.5 27.5 27.5 11.5zm-812 184q42 0 72 30t30 72v430q0 43-29.5 73t-72.5 30-73-30-30-73v-430q0-42 30-72t73-30zm1060 19v666q0 46-32 78t-77 32h-75v227q0 43-30 73t-73 30-73-30-30-73v-227h-138v227q0 43-30 73t-73 30q-42 0-72-30t-30-73l-1-227h-74q-46 0-78-32t-32-78v-666h918zm-232-405q107 55 171 153.5t64 215.5h-925q0-117 64-215.5t172-153.5l-71-131q-7-13 5-20 13-6 20 6l72 132q95-42 201-42t201 42l72-132q7-12 20-6 12 7 5 20zm477 488v430q0 43-30 73t-73 30q-42 0-72-30t-30-73v-430q0-43 30-72.5t72-29.5q43 0 73 29.5t30 72.5z">
-                                            </path>
+                                        <svg width="20" height="20" fill="currentColor" viewBox="0 0 64 64" enableBackground="new 0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+                                            <path fill="#231F20" d="M60,0H4C1.789,0,0,1.789,0,4v56c0,2.211,1.789,4,4,4h56c2.211,0,4-1.789,4-4V4C64,1.789,62.211,0,60,0z M62,60c0,1.104-0.896,2-2,2H4c-1.104,0-2-0.896-2-2V4c0-1.104,0.896-2,2-2h56c1.104,0,2,0.896,2,2V60z"></path>
+                                            <path fill="#231F20" d="M59,4H5C4.447,4,4,4.447,4,5v38c0,0.553,0.447,1,1,1h13v5c0,0.553,0.447,1,1,1h26c0.553,0,1-0.447,1-1v-5 h13c0.553,0,1-0.447,1-1V5C60,4.447,59.553,4,59,4z M58,42H45c-0.553,0-1,0.447-1,1v5H20v-5c0-0.553-0.447-1-1-1H6V6h52V42z"></path>
+                                            <path fill="#231F20" d="M15,16h34c0.553,0,1-0.447,1-1s-0.447-1-1-1H15c-0.553,0-1,0.447-1,1S14.447,16,15,16z"></path>
+                                            <path fill="#231F20" d="M15,28h34c0.553,0,1-0.447,1-1s-0.447-1-1-1H15c-0.553,0-1,0.447-1,1S14.447,28,15,28z"></path>
+                                            <path fill="#231F20" d="M15,34h34c0.553,0,1-0.447,1-1s-0.447-1-1-1H15c-0.553,0-1,0.447-1,1S14.447,34,15,34z"></path>
+                                            <path fill="#231F20" d="M15,22h34c0.553,0,1-0.447,1-1s-0.447-1-1-1H15c-0.553,0-1,0.447-1,1S14.447,22,15,22z"></path>
                                         </svg>
                                     </span>
                                     <span className="mx-4 text-sm font-normal">
-                                        CONTRATACIONES
+                                        MIS CONTRATACIONES
                                     </span>
                                 </a>
+
                                 <a className="flex items-center justify-start w-full p-4 my-2 font-thin text-gray-500 bg-white cursor-pointer dark:hover:text-gray-300 dark:border-gray-700 peer-checked:border-indigo-600 hover:text-indigo-600 dark:peer-checked:text-indigo-300 peer-checked:text-indigo-600 hover:bg-indigo-50 dark:text-gray-400 dark:bg-gray-800 dark:hover:bg-gray-700" onClick={handleMessagesClick} href="#">
                                     <span className="text-left">
-                                        <svg width="20" height="20" fill="currentColor" className="m-auto" viewBox="0 0 2048 1792" xmlns="http://www.w3.org/2000/svg">
-                                            <path d="M685 483q16 0 27.5-11.5t11.5-27.5-11.5-27.5-27.5-11.5-27 11.5-11 27.5 11 27.5 27 11.5zm422 0q16 0 27-11.5t11-27.5-11-27.5-27-11.5-27.5 11.5-11.5 27.5 11.5 27.5 27.5 11.5zm-812 184q42 0 72 30t30 72v430q0 43-29.5 73t-72.5 30-73-30-30-73v-430q0-42 30-72t73-30zm1060 19v666q0 46-32 78t-77 32h-75v227q0 43-30 73t-73 30-73-30-30-73v-227h-138v227q0 43-30 73t-73 30q-42 0-72-30t-30-73l-1-227h-74q-46 0-78-32t-32-78v-666h918zm-232-405q107 55 171 153.5t64 215.5h-925q0-117 64-215.5t172-153.5l-71-131q-7-13 5-20 13-6 20 6l72 132q95-42 201-42t201 42l72-132q7-12 20-6 12 7 5 20zm477 488v430q0 43-30 73t-73 30q-42 0-72-30t-30-73v-430q0-43 30-72.5t72-29.5q43 0 73 29.5t30 72.5z">
-                                            </path>
-                                        </svg>
+                                        <svg width="20" height="20" fill="currentColor" viewBox="0 0 64 64" enableBackground="new 0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+                                            <path fill="#231F20" d="M60,0H16c-2.211,0-4,1.789-4,4v6H4c-2.211,0-4,1.789-4,4v30c0,2.211,1.789,4,4,4h7c0.553,0,1,0.447,1,1v11 c0,1.617,0.973,3.078,2.469,3.695C14.965,63.902,15.484,64,16,64c1.039,0,2.062-0.406,2.828-1.172l14.156-14.156 c0,0,0.516-0.672,1.672-0.672S50,48,50,48c2.211,0,4-1.789,4-4v-8h6c2.211,0,4-1.789,4-4V4C64,1.789,62.211,0,60,0z M52,44 c0,1.105-0.895,2-2,2c0,0-14.687,0-15.344,0C32.709,46,32,47,32,47S20,59,18,61c-2.141,2.141-4,0.391-4-1c0-1,0-12,0-12 c0-1.105-0.895-2-2-2H4c-1.105,0-2-0.895-2-2V14c0-1.105,0.895-2,2-2h46c1.105,0,2,0.895,2,2V44z M62,32c0,1.105-0.895,2-2,2h-6V14 c0-2.211-1.789-4-4-4H14V4c0-1.105,0.895-2,2-2h44c1.105,0,2,0.895,2,2V32z"></path> <path fill="#231F20" d="M13,24h13c0.553,0,1-0.447,1-1s-0.447-1-1-1H13c-0.553,0-1,0.447-1,1S12.447,24,13,24z"></path> <path fill="#231F20" d="M41,28H13c-0.553,0-1,0.447-1,1s0.447,1,1,1h28c0.553,0,1-0.447,1-1S41.553,28,41,28z"></path> <path fill="#231F20" d="M34,34H13c-0.553,0-1,0.447-1,1s0.447,1,1,1h21c0.553,0,1-0.447,1-1S34.553,34,34,34z"></path>                                        </svg>
                                     </span>
                                     <span className="mx-4 text-sm font-normal">
-                                        MENSAJES
+                                        MIS MENSAJES
                                     </span>
                                 </a>
-
-                                
-
-
-
-
-
-
                             </div>
                         </nav>
                     </div>
@@ -139,9 +154,9 @@ export const Profilepro = () => {
                     <div className="flex flex-col w-full pl-0 md:p-4 md:space-y-4">
                         <div className="h-screen pt-2 pb-24 pl-2 pr-2 overflow-auto md:pt-0 md:pr-0 md:pl-0">
                             <div className="flex flex-col flex-wrap sm:flex-row ">
-                                <div className="w-full sm:w-1/2 xl:w-1/3">
+                                <div className="w-full">
                                     <div className="mb-4">
-                                        <div className="w-full bg-white shadow-lg rounded-2xl dark:bg-gray-700">
+                                        <div className="w-full p-4 bg-white shadow-lg rounded-2xl dark:bg-gray-700">
                                             <form className="p-4">
                                                 <p className="text-center font-bold text-black text-md dark:text-white">
                                                     Mis Datos
@@ -174,8 +189,12 @@ export const Profilepro = () => {
                                                         <label htmlFor="floating_cp" className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"></label>
                                                     </div>
                                                     <div className="relative z-0 w-full mb-6 group">
-                                                        <input type="text" name="floating_city" id="floating_city" className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder="Ciudad" required />
-                                                        <label htmlFor="floating_company" className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"></label>
+                                                        <input type="text" name="floating_city" id="floating_city" className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder="Radio de trabajo en km" required />
+                                                        <label htmlFor="floating_city" className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"></label>
+                                                    </div>
+                                                    <div className="relative z-0 w-full mb-6 group">
+                                                        <input type="text" name="floating_radio" id="floating_radio" className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder="Ciudad" required />
+                                                        <label htmlFor="floating_radio" className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"></label>
                                                     </div>
                                                 </div>
                                                 <div className="grid md:grid-cols-1 md:gap-6">
@@ -185,388 +204,137 @@ export const Profilepro = () => {
                                                     </div>
 
                                                 </div>
+
+                                                <div className="mb-4">
+                                                    <p className="p-4 font-bold text-black text-md text-center dark:text-white">
+                                                        Descripción
+                                                    </p>
+                                                    <form>
+
+                                                        <div className="w-full mb-4 border border-gray-200 rounded-lg bg-gray-50 dark:bg-gray-700 dark:border-gray-600">
+                                                            <div className="px-4 py-2 bg-white rounded-t-lg dark:bg-gray-800">
+                                                                <label htmlFor="comment" className="sr-only">Descríbete</label>
+                                                                <textarea id="comment" rows="4" className="w-full px-0 text-sm text-gray-900 bg-white border-0 dark:bg-gray-800 focus:ring-0 dark:text-white dark:placeholder-gray-400" placeholder="Descríbete..." required></textarea>
+                                                            </div>
+
+                                                        </div>
+                                                    </form>
+                                                </div>
+
+
+                                                <p className="p-4 font-bold text-black text-md text-center dark:text-white">
+                                                    Mis Servicios
+                                                </p>
+                                                <ul className="p-4 flex justify-center">
+                                                    <li>
+                                                        <button
+                                                            type="button"
+                                                            className="flex h-[50px] items-center px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-indigo-200 rounded-full mx-1 hover:bg-indigo-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-indigo-500 focus:text-blue-700 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-blue-500 dark:focus:text-white"
+                                                        >
+                                                            <div className="flex-row gap-4 flex justify-center items-center">
+                                                                <div className="flex-shrink-0">
+                                                                    <a href="#" className="relative block">
+                                                                        <img alt="limpieza" src={limpieza} className="mx-auto object-fit rounded-full h-8 w-8" />
+                                                                    </a>
+                                                                </div>
+                                                                <div className="flex flex-col">
+                                                                    <span className="text-lg font-medium text-gray-600 dark:text-white">
+                                                                        Limpieza
+                                                                    </span>
+                                                                </div>
+                                                            </div>
+                                                        </button>
+                                                    </li>
+                                                    <li>
+                                                        <button
+                                                            type="button"
+                                                            className="flex h-[50px] items-center px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-indigo-200 rounded-full mx-1 hover:bg-indigo-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-indigo-500 focus:text-blue-700 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-blue-500 dark:focus:text-white"
+                                                        >
+                                                            <div className="flex-row gap-4 flex justify-center items-center">
+                                                                <div className="flex-shrink-0">
+                                                                    <a href="#" className="relative block">
+                                                                        <img alt="cocina" src={chef} className="mx-auto object-fit rounded-full h-8 w-8" />
+                                                                    </a>
+                                                                </div>
+                                                                <div className="flex flex-col">
+                                                                    <span className="text-lg font-medium text-gray-600 dark:text-white">
+                                                                        Cocina
+                                                                    </span>
+                                                                </div>
+                                                            </div>
+                                                        </button>
+                                                    </li>
+                                                    <li>
+                                                        <button
+                                                            type="button"
+                                                            className="flex h-[50px] items-center px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-indigo-200 rounded-full mx-1 hover:bg-indigo-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-indigo-500 focus:text-blue-700 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-blue-500 dark:focus:text-white"
+                                                        >
+                                                            <div className="flex-row gap-4 flex justify-center items-center">
+                                                                <div className="flex-shrink-0">
+                                                                    <a href="#" className="relative block">
+                                                                        <img alt="cuidad de niños" src={niños} className="mx-auto object-fit rounded-full h-8 w-8 " />
+                                                                    </a>
+                                                                </div>
+                                                                <div className=" flex flex-col">
+                                                                    <span className="text-lg font-medium text-gray-600 dark:text-white">
+                                                                        Cuidado de niños
+                                                                    </span>
+                                                                </div>
+                                                            </div>
+                                                        </button>
+                                                    </li>
+                                                    <li>
+                                                        <button
+                                                            type="button"
+                                                            className="flex h-[50px] items-center px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-indigo-200 rounded-full mx-1 hover:bg-indigo-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-indigo-500 focus:text-blue-700 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-blue-500 dark:focus:text-white"
+                                                        >
+                                                            <div className="flex-row gap-4 flex justify-center items-center">
+                                                                <div className="flex-shrink-0">
+                                                                    <a href="#" className="relative block">
+                                                                        <img alt="cuidado de animales" src={animales} className="mx-auto object-fit rounded-full h-8 w-8 " />
+                                                                    </a>
+                                                                </div>
+                                                                <div className=" flex flex-col">
+                                                                    <span className="text-lg font-medium text-gray-600 dark:text-white">
+                                                                        Cuidado de animales
+                                                                    </span>
+                                                                </div>
+                                                            </div>
+                                                        </button>
+                                                    </li>
+                                                    <li>
+                                                        <button
+                                                            type="button"
+                                                            className="flex h-[50px] items-center px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-indigo-200 rounded-full mx-1 hover:bg-indigo-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-indigo-500 focus:text-blue-700 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-blue-500 dark:focus:text-white"
+                                                        >
+                                                            <div className="flex-row gap-4 flex justify-center items-center">
+                                                                <div className="flex-shrink-0">
+                                                                    <a href="#" className="relative block">
+                                                                        <img alt="jardineria" src={jardineria} className="mx-auto object-fit rounded-full h-8 w-8 " />
+                                                                    </a>
+                                                                </div>
+                                                                <div className=" flex flex-col">
+                                                                    <span className="text-lg font-medium text-gray-600 dark:text-white">
+                                                                        Jardineria
+                                                                    </span>
+                                                                </div>
+                                                            </div>
+                                                        </button>
+                                                    </li>
+                                                </ul>
                                                 <div className="text-center">
-                                                    <button type="submit" className="text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Guardar</button>
+                                                    <button type="submit" className="text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Empieza a trabajar</button>
                                                 </div>
                                             </form>
                                         </div>
                                     </div>
-                                    <div className="mb-4">
-                                        <div className="w-full p-4 bg-white shadow-lg rounded-2xl dark:bg-gray-700">
-                                            <div className="flex items-center justify-between mb-6">
-                                                <div className="flex items-center">
-                                                    <span className="relative p-2 bg-blue-100 rounded-xl">
-                                                        <svg width="25" height="25" viewBox="0 0 2447.6 2452.5" xmlns="http://www.w3.org/2000/svg">
-                                                            <g clipRule="evenodd" fillRule="evenodd">
-                                                                <path d="m897.4 0c-135.3.1-244.8 109.9-244.7 245.2-.1 135.3 109.5 245.1 244.8 245.2h244.8v-245.1c.1-135.3-109.5-245.1-244.9-245.3.1 0 .1 0 0 0m0 654h-652.6c-135.3.1-244.9 109.9-244.8 245.2-.2 135.3 109.4 245.1 244.7 245.3h652.7c135.3-.1 244.9-109.9 244.8-245.2.1-135.4-109.5-245.2-244.8-245.3z" fill="#36c5f0">
-                                                                </path>
-                                                                <path d="m2447.6 899.2c.1-135.3-109.5-245.1-244.8-245.2-135.3.1-244.9 109.9-244.8 245.2v245.3h244.8c135.3-.1 244.9-109.9 244.8-245.3zm-652.7 0v-654c.1-135.2-109.4-245-244.7-245.2-135.3.1-244.9 109.9-244.8 245.2v654c-.2 135.3 109.4 245.1 244.7 245.3 135.3-.1 244.9-109.9 244.8-245.3z" fill="#2eb67d">
-                                                                </path>
-                                                                <path d="m1550.1 2452.5c135.3-.1 244.9-109.9 244.8-245.2.1-135.3-109.5-245.1-244.8-245.2h-244.8v245.2c-.1 135.2 109.5 245 244.8 245.2zm0-654.1h652.7c135.3-.1 244.9-109.9 244.8-245.2.2-135.3-109.4-245.1-244.7-245.3h-652.7c-135.3.1-244.9 109.9-244.8 245.2-.1 135.4 109.4 245.2 244.7 245.3z" fill="#ecb22e">
-                                                                </path>
-                                                                <path d="m0 1553.2c-.1 135.3 109.5 245.1 244.8 245.2 135.3-.1 244.9-109.9 244.8-245.2v-245.2h-244.8c-135.3.1-244.9 109.9-244.8 245.2zm652.7 0v654c-.2 135.3 109.4 245.1 244.7 245.3 135.3-.1 244.9-109.9 244.8-245.2v-653.9c.2-135.3-109.4-245.1-244.7-245.3-135.4 0-244.9 109.8-244.8 245.1 0 0 0 .1 0 0" fill="#e01e5a">
-                                                                </path>
-                                                            </g>
-                                                        </svg>
-                                                    </span>
-                                                    <div className="flex flex-col">
-                                                        <span className="ml-2 font-bold text-black text-md dark:text-white">
-                                                            Slack
-                                                        </span>
-                                                        <span className="ml-2 text-sm text-gray-500 dark:text-white">
-                                                            Slack corporation
-                                                        </span>
-                                                    </div>
-                                                </div>
-                                                <div className="flex items-center">
-                                                    <button className="p-1 border border-gray-200 rounded-full">
-                                                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" className="w-4 h-4 text-yellow-500" fill="currentColor" viewBox="0 0 1792 1792">
-                                                            <path d="M1728 647q0 22-26 48l-363 354 86 500q1 7 1 20 0 21-10.5 35.5t-30.5 14.5q-19 0-40-12l-449-236-449 236q-22 12-40 12-21 0-31.5-14.5t-10.5-35.5q0-6 2-20l86-500-364-354q-25-27-25-48 0-37 56-46l502-73 225-455q19-41 49-41t49 41l225 455 502 73q56 9 56 46z">
-                                                            </path>
-                                                        </svg>
-                                                    </button>
-                                                    <button className="text-gray-200">
-                                                        <svg width="25" height="25" fill="currentColor" viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg">
-                                                            <path d="M1088 1248v192q0 40-28 68t-68 28h-192q-40 0-68-28t-28-68v-192q0-40 28-68t68-28h192q40 0 68 28t28 68zm0-512v192q0 40-28 68t-68 28h-192q-40 0-68-28t-28-68v-192q0-40 28-68t68-28h192q40 0 68 28t28 68zm0-512v192q0 40-28 68t-68 28h-192q-40 0-68-28t-28-68v-192q0-40 28-68t68-28h192q40 0 68 28t28 68z">
-                                                            </path>
-                                                        </svg>
-                                                    </button>
-                                                </div>
-                                            </div>
-                                            <div className="flex items-center justify-between mb-4 space-x-12">
-                                                <span className="flex items-center px-2 py-1 text-xs font-semibold text-green-700 rounded-md bg-green-50">
-                                                    COMPLETED
-                                                </span>
-                                                <span className="flex items-center px-2 py-1 text-xs font-semibold text-green-600 bg-white border border-green-600 rounded-md">
-                                                    MEDIUM PRIORITY
-                                                </span>
-                                            </div>
-                                            <div className="block m-auto">
-                                                <div>
-                                                    <span className="inline-block text-sm text-gray-500 dark:text-gray-100">
-                                                        Task done :
-                                                        <span className="font-bold text-gray-700 dark:text-white">
-                                                            50
-                                                        </span>
-                                                        /50
-                                                    </span>
-                                                </div>
-                                                <div className="w-full h-2 mt-2 bg-gray-200 rounded-full">
-                                                    <div className="w-full h-full text-xs text-center text-white bg-pink-400 rounded-full">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div className="flex items-center justify-start my-4 space-x-4">
-                                                <span className="flex items-center px-2 py-1 text-xs font-semibold text-green-500 rounded-md bg-green-50">
-                                                    IOS APP
-                                                </span>
-                                                <span className="flex items-center px-2 py-1 text-xs font-semibold text-yellow-600 bg-yellow-200 rounded-md">
-                                                    ANDROID
-                                                </span>
-                                            </div>
-                                            <div className="flex -space-x-2">
-                                                <a href="#" className="">
-                                                    <img className="inline-block h-10 w-10 rounded-full object-cover ring-2 ring-white" src="/images/person/1.jpg" alt="Guy" />
-                                                </a>
-                                                <a href="#" className="">
-                                                    <img className="inline-block h-10 w-10 rounded-full object-cover ring-2 ring-white" src="/images/person/2.jpeg" alt="Max" />
-                                                </a>
-                                                <a href="#" className="">
-                                                    <img className="inline-block h-10 w-10 rounded-full object-cover ring-2 ring-white" src="/images/person/3.jpg" alt="Charles" />
-                                                </a>
-                                                <a href="#" className="">
-                                                    <img className="inline-block h-10 w-10 rounded-full object-cover ring-2 ring-white" src="/images/person/4.jpg" alt="Jade" />
-                                                </a>
-                                            </div>
-                                            <span className="flex items-center px-2 py-1 mt-4 text-xs font-semibold text-yellow-500 bg-yellow-100 rounded-md w-36">
-                                                DUE DATE : 18 JUN
-                                            </span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="w-full sm:w-1/2 xl:w-1/3">
-                                    <div className="mx-0 mb-4 sm:ml-4 xl:mr-4">
-                                        <div className="w-full bg-white shadow-lg rounded-2xl dark:bg-gray-700">
-                                            <p className="p-4 font-bold text-black text-md text-center dark:text-white">
-                                                Mis Servicios
-                                            </p>
-                                            <ul className="p-4">
-                                                <li>
-                                                    <input type="checkbox" id="limpieza-option" value="" className="hidden peer" required="" />
-                                                    <label htmlFor="limpieza-option" className="inline-flex items-center justify-between w-full text-gray-500 bg-white border-2 border-gray-200 rounded-full cursor-pointer dark:hover:text-gray-300 dark:border-gray-700 peer-checked:border-indigo-600 hover:text-indigo-600 dark:peer-checked:text-indigo-300 peer-checked:text-indigo-600 hover:bg-indigo-50 dark:text-gray-400 dark:bg-gray-800 dark:hover:bg-gray-700">
-                                                        <div className="flex-row gap-4 flex justify-center items-center">
-                                                            <div className="flex-shrink-0">
-                                                                <a href="#" className="relative block">
-                                                                    <img alt="limpieza" src={limpieza} className="mx-auto object-fit rounded-full h-20 w-20 " />
-                                                                </a>
-                                                            </div>
-                                                            <div className=" flex flex-col">
-                                                                <span className="text-lg font-medium text-gray-600 dark:text-white">
-                                                                    Limpieza
-                                                                </span>
-                                                            </div>
-                                                        </div>
-                                                    </label>
-                                                </li>
-                                                <li>
-                                                    <input type="checkbox" id="cocina-option" value="" className="hidden peer" required="" />
-                                                    <label htmlFor="cocina-option" className="inline-flex items-center justify-between w-full text-gray-500 bg-white border-2 border-gray-200 rounded-full cursor-pointer dark:hover:text-gray-300 dark:border-gray-700 peer-checked:border-indigo-600 hover:text-indigo-600 dark:peer-checked:text-indigo-300 peer-checked:text-indigo-600 hover:bg-indigo-50 dark:text-gray-400 dark:bg-gray-800 dark:hover:bg-gray-700">
-                                                        <div className="flex-row gap-4 flex justify-center items-center">
-                                                            <div className="flex-shrink-0">
-                                                                <a href="#" className="relative block">
-                                                                    <img alt="cocina" src={chef} className="mx-auto object-fit rounded-full h-20 w-20 " />
-                                                                </a>
-                                                            </div>
-                                                            <div className=" flex flex-col">
-                                                                <span className="text-lg font-medium text-gray-600 dark:text-white">
-                                                                    Cocina
-                                                                </span>
-                                                            </div>
-                                                        </div>
-                                                    </label>
-                                                </li>
-                                                <li>
-                                                    <input type="checkbox" id="cuidado-niños-option" value="" className="hidden peer" required="" />
-                                                    <label htmlFor="cuidado-niños-option" className="inline-flex items-center justify-between w-full text-gray-500 bg-white border-2 border-gray-200 rounded-full cursor-pointer dark:hover:text-gray-300 dark:border-gray-700 peer-checked:border-indigo-600 hover:text-indigo-600 dark:peer-checked:text-indigo-300 peer-checked:text-indigo-600 hover:bg-indigo-50 dark:text-gray-400 dark:bg-gray-800 dark:hover:bg-gray-700">
-                                                        <div className="flex-row gap-4 flex justify-center items-center">
-                                                            <div className="flex-shrink-0">
-                                                                <a href="#" className="relative block">
-                                                                    <img alt="niños" src={niños} className="mx-auto object-fit rounded-full h-20 w-20 " />
-                                                                </a>
-                                                            </div>
-                                                            <div className=" flex flex-col">
-                                                                <span className="text-lg font-medium text-gray-600 dark:text-white">
-                                                                    Cuidado de niños
-                                                                </span>
-                                                            </div>
-                                                        </div>
-                                                    </label>
-                                                </li>
-                                                <li>
-                                                    <input type="checkbox" id="cuidado-animales-option" value="" className="hidden peer" required="" />
-                                                    <label htmlFor="cuidado-animales-option" className="inline-flex items-center justify-between w-full text-gray-500 bg-white border-2 border-gray-200 rounded-full cursor-pointer dark:hover:text-gray-300 dark:border-gray-700 peer-checked:border-indigo-600 hover:text-indigo-600 dark:peer-checked:text-indigo-300 peer-checked:text-indigo-600 hover:bg-indigo-50 dark:text-gray-400 dark:bg-gray-800 dark:hover:bg-gray-700">
-                                                        <div className="flex-row gap-4 flex justify-center items-center">
-                                                            <div className="flex-shrink-0">
-                                                                <a href="#" className="relative block">
-                                                                    <img alt="animales" src={animales} className="mx-auto object-fit rounded-full h-20 w-20 " />
-                                                                </a>
-                                                            </div>
-                                                            <div className=" flex flex-col">
-                                                                <span className="text-lg font-medium text-gray-600 dark:text-white">
-                                                                    Cuidado de animales
-                                                                </span>
-                                                            </div>
-                                                        </div>
-                                                    </label>
-                                                </li>
-                                                <li>
-                                                    <input type="checkbox" id="jardineria-option" value="" className="hidden peer" required="" />
-                                                    <label htmlFor="jardineria-option" className="inline-flex items-center justify-between w-full text-gray-500 bg-white border-2 border-gray-200 rounded-full cursor-pointer dark:hover:text-gray-300 dark:border-gray-700 peer-checked:border-indigo-600 hover:text-indigo-600 dark:peer-checked:text-indigo-300 peer-checked:text-indigo-600 hover:bg-indigo-50 dark:text-gray-400 dark:bg-gray-800 dark:hover:bg-gray-700">
-                                                        <div className="flex-row gap-4 flex justify-center items-center">
-                                                            <div className="flex-shrink-0">
-                                                                <a href="#" className="relative block">
-                                                                    <img alt="jardineria" src={jardineria} className="mx-auto object-fit rounded-full h-20 w-20 " />
-                                                                </a>
-                                                            </div>
-                                                            <div className=" flex flex-col">
-                                                                <span className="text-lg font-medium text-gray-600 dark:text-white">
-                                                                    Limpieza
-                                                                </span>
-                                                            </div>
-                                                        </div>
-                                                    </label>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                    <div className="mb-4 sm:ml-4 xl:mr-4">
-                                        <div className="w-full bg-white shadow-lg rounded-2xl dark:bg-gray-700">
-                                            <div className="flex items-center justify-between p-4">
-                                                <p className="font-bold text-black text-md dark:text-white">
-                                                    Google
-                                                </p>
-                                            </div>
-                                            <div className="flex items-center justify-between px-4 py-2 text-gray-600 bg-blue-100 border-l-4 border-blue-500 dark:bg-gray-800">
-                                                <p className="flex items-center text-xs dark:text-white">
-                                                    <svg width="20" height="20" fill="currentColor" className="mr-2 text-blue-500" viewBox="0 0 24 24">
-                                                        <g fill="none">
-                                                            <path d="M12 5a8.5 8.5 0 1 1 0 17a8.5 8.5 0 0 1 0-17zm0 3a.75.75 0 0 0-.743.648l-.007.102v4.5l.007.102a.75.75 0 0 0 1.486 0l.007-.102v-4.5l-.007-.102A.75.75 0 0 0 12 8zm7.17-2.877l.082.061l1.149 1a.75.75 0 0 1-.904 1.193l-.081-.061l-1.149-1a.75.75 0 0 1 .903-1.193zM14.25 2.5a.75.75 0 0 1 .102 1.493L14.25 4h-4.5a.75.75 0 0 1-.102-1.493L9.75 2.5h4.5z" fill="currentColor">
-                                                            </path>
-                                                        </g>
-                                                    </svg>
-                                                    Create wireframe
-                                                </p>
-                                                <div className="flex items-center">
-                                                    <span className="ml-2 mr-2 text-xs font-bold dark:text-gray-200 md:ml-4">
-                                                        25 min 20s
-                                                    </span>
-                                                    <button className="p-1 mr-4 text-sm text-gray-400 bg-blue-500 border rounded">
-                                                        <svg width="17" height="17" fill="currentColor" viewBox="0 0 24 24" className="text-white">
-                                                            <g fill="none">
-                                                                <path d="M9 6a1 1 0 0 1 1 1v10a1 1 0 1 1-2 0V7a1 1 0 0 1 1-1zm6 0a1 1 0 0 1 1 1v10a1 1 0 1 1-2 0V7a1 1 0 0 1 1-1z" fill="currentColor">
-                                                                </path>
-                                                            </g>
-                                                        </svg>
-                                                    </button>
-                                                </div>
-                                            </div>
-                                            <div className="flex items-center justify-between p-4 border-b-2 border-gray-100">
-                                                <p className="font-bold text-black text-md dark:text-white">
-                                                    Slack
-                                                </p>
-                                                <button className="p-1 mr-4 text-sm text-gray-400 border border-gray-400 rounded">
-                                                    <svg width="15" height="15" fill="currentColor" viewBox="0 0 20 20">
-                                                        <g fill="none">
-                                                            <path d="M17.222 8.685a1.5 1.5 0 0 1 0 2.628l-10 5.498A1.5 1.5 0 0 1 5 15.496V4.502a1.5 1.5 0 0 1 2.223-1.314l10 5.497z" fill="currentColor">
-                                                            </path>
-                                                        </g>
-                                                    </svg>
-                                                </button>
-                                            </div>
-                                            <div className="flex items-center justify-between px-4 py-2 text-gray-600 border-b-2 border-gray-100">
-                                                <p className="flex items-center text-xs dark:text-white">
-                                                    <svg width="20" height="20" fill="currentColor" className="mr-2" viewBox="0 0 24 24">
-                                                        <g fill="none">
-                                                            <path d="M12 5a8.5 8.5 0 1 1 0 17a8.5 8.5 0 0 1 0-17zm0 3a.75.75 0 0 0-.743.648l-.007.102v4.5l.007.102a.75.75 0 0 0 1.486 0l.007-.102v-4.5l-.007-.102A.75.75 0 0 0 12 8zm7.17-2.877l.082.061l1.149 1a.75.75 0 0 1-.904 1.193l-.081-.061l-1.149-1a.75.75 0 0 1 .903-1.193zM14.25 2.5a.75.75 0 0 1 .102 1.493L14.25 4h-4.5a.75.75 0 0 1-.102-1.493L9.75 2.5h4.5z" fill="currentColor">
-                                                            </path>
-                                                        </g>
-                                                    </svg>
-                                                    International
-                                                </p>
-                                                <div className="flex items-center">
-                                                    <span className="ml-2 mr-2 text-xs text-gray-400 md:ml-4">
-                                                        30 min
-                                                    </span>
-                                                    <button className="p-1 mr-4 text-sm text-gray-400 border border-gray-400 rounded">
-                                                        <svg width="15" height="15" fill="currentColor" viewBox="0 0 20 20">
-                                                            <g fill="none">
-                                                                <path d="M17.222 8.685a1.5 1.5 0 0 1 0 2.628l-10 5.498A1.5 1.5 0 0 1 5 15.496V4.502a1.5 1.5 0 0 1 2.223-1.314l10 5.497z" fill="currentColor">
-                                                                </path>
-                                                            </g>
-                                                        </svg>
-                                                    </button>
-                                                </div>
-                                            </div>
-                                            <div className="flex items-center justify-between px-4 py-2 text-gray-600 border-b-2 border-gray-100">
-                                                <p className="flex items-center text-xs dark:text-white">
-                                                    <svg width="20" height="20" fill="currentColor" className="mr-2" viewBox="0 0 24 24">
-                                                        <g fill="none">
-                                                            <path d="M12 5a8.5 8.5 0 1 1 0 17a8.5 8.5 0 0 1 0-17zm0 3a.75.75 0 0 0-.743.648l-.007.102v4.5l.007.102a.75.75 0 0 0 1.486 0l.007-.102v-4.5l-.007-.102A.75.75 0 0 0 12 8zm7.17-2.877l.082.061l1.149 1a.75.75 0 0 1-.904 1.193l-.081-.061l-1.149-1a.75.75 0 0 1 .903-1.193zM14.25 2.5a.75.75 0 0 1 .102 1.493L14.25 4h-4.5a.75.75 0 0 1-.102-1.493L9.75 2.5h4.5z" fill="currentColor">
-                                                            </path>
-                                                        </g>
-                                                    </svg>
-                                                    Slack logo design
-                                                </p>
-                                                <div className="flex items-center">
-                                                    <span className="ml-2 mr-2 text-xs text-gray-400 md:ml-4">
-                                                        30 min
-                                                    </span>
-                                                    <button className="p-1 mr-4 text-sm text-gray-400 border border-gray-400 rounded">
-                                                        <svg width="15" height="15" fill="currentColor" viewBox="0 0 20 20">
-                                                            <g fill="none">
-                                                                <path d="M17.222 8.685a1.5 1.5 0 0 1 0 2.628l-10 5.498A1.5 1.5 0 0 1 5 15.496V4.502a1.5 1.5 0 0 1 2.223-1.314l10 5.497z" fill="currentColor">
-                                                                </path>
-                                                            </g>
-                                                        </svg>
-                                                    </button>
-                                                </div>
-                                            </div>
-                                            <div className="flex items-center justify-between px-4 py-2 text-gray-600">
-                                                <p className="flex items-center text-xs dark:text-white">
-                                                    <svg width="20" height="20" fill="currentColor" className="mr-2" viewBox="0 0 24 24">
-                                                        <g fill="none">
-                                                            <path d="M12 5a8.5 8.5 0 1 1 0 17a8.5 8.5 0 0 1 0-17zm0 3a.75.75 0 0 0-.743.648l-.007.102v4.5l.007.102a.75.75 0 0 0 1.486 0l.007-.102v-4.5l-.007-.102A.75.75 0 0 0 12 8zm7.17-2.877l.082.061l1.149 1a.75.75 0 0 1-.904 1.193l-.081-.061l-1.149-1a.75.75 0 0 1 .903-1.193zM14.25 2.5a.75.75 0 0 1 .102 1.493L14.25 4h-4.5a.75.75 0 0 1-.102-1.493L9.75 2.5h4.5z" fill="currentColor">
-                                                            </path>
-                                                        </g>
-                                                    </svg>
-                                                    Dahboard template
-                                                </p>
-                                                <div className="flex items-center">
-                                                    <span className="ml-2 mr-2 text-xs text-gray-400 md:ml-4">
-                                                        30 min
-                                                    </span>
-                                                    <button className="p-1 mr-4 text-sm text-gray-400 border border-gray-400 rounded">
-                                                        <svg width="15" height="15" fill="currentColor" viewBox="0 0 20 20">
-                                                            <g fill="none">
-                                                                <path d="M17.222 8.685a1.5 1.5 0 0 1 0 2.628l-10 5.498A1.5 1.5 0 0 1 5 15.496V4.502a1.5 1.5 0 0 1 2.223-1.314l10 5.497z" fill="currentColor">
-                                                                </path>
-                                                            </g>
-                                                        </svg>
-                                                    </button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-
-                                <div className="mb-4">
-                                    <div className="w-full p-4 bg-white shadow-lg rounded-2xl dark:bg-gray-700">
-                                        <p className="font-bold text-black text-md dark:text-white">
-                                            Messages
-                                        </p>
-                                        <ul>
-                                            <li className="flex items-center my-6 space-x-2">
-                                                <a href="#" className="relative block">
-                                                    <img alt="profil" src="/images/person/1.jpg" className="mx-auto object-cover rounded-full h-10 w-10 " />
-                                                </a>
-                                                <div className="flex flex-col">
-                                                    <span className="ml-2 text-sm font-semibold text-gray-900 dark:text-white">
-                                                        Charlie Rabiller
-                                                    </span>
-                                                    <span className="ml-2 text-sm text-gray-400 dark:text-gray-300">
-                                                        Hey John ! Do you read the NextJS doc ?
-                                                    </span>
-                                                </div>
-                                            </li>
-                                            <li className="flex items-center my-6 space-x-2">
-                                                <a href="#" className="relative block">
-                                                    <img alt="profil" src="/images/person/5.jpg" className="mx-auto object-cover rounded-full h-10 w-10 " />
-                                                </a>
-                                                <div className="flex flex-col">
-                                                    <span className="ml-2 text-sm font-semibold text-gray-900 dark:text-white">
-                                                        Marie Lou
-                                                    </span>
-                                                    <span className="ml-2 text-sm text-gray-400 dark:text-gray-300">
-                                                        No I think the dog is better...
-                                                    </span>
-                                                </div>
-                                            </li>
-                                            <li className="flex items-center my-6 space-x-2">
-                                                <a href="#" className="relative block">
-                                                    <img alt="profil" src="/images/person/6.jpg" className="mx-auto object-cover rounded-full h-10 w-10 " />
-                                                </a>
-                                                <div className="flex flex-col">
-                                                    <span className="ml-2 text-sm font-semibold text-gray-900 dark:text-white">
-                                                        Ivan Buck
-                                                    </span>
-                                                    <span className="ml-2 text-sm text-gray-400 dark:text-gray-300">
-                                                        Seriously ? haha Bob is not a child !
-                                                    </span>
-                                                </div>
-                                            </li>
-                                            <li className="flex items-center my-6 space-x-2">
-                                                <a href="#" className="relative block">
-                                                    <img alt="profil" src="/images/person/7.jpg" className="mx-auto object-cover rounded-full h-10 w-10 " />
-                                                </a>
-                                                <div className="flex flex-col">
-                                                    <span className="ml-2 text-sm font-semibold text-gray-900 dark:text-white">
-                                                        Marina Farga
-                                                    </span>
-                                                    <span className="ml-2 text-sm text-gray-400 dark:text-gray-300">
-                                                        Do you need that design ?
-                                                    </span>
-                                                </div>
-                                            </li>
-                                        </ul>
-                                    </div>
                                 </div>
                             </div>
                         </div>
+
                     </div>
-
-
                 )}
+
 
                 {/* Vista contrataciones */}
                 {showCalendar && (
@@ -577,7 +345,7 @@ export const Profilepro = () => {
 
                 {/* Vista contrataciones */}
                 {showContracts && (
-                    <div></div>
+                    <Contractprofesionaldcard />
 
                 )}
 

@@ -14,6 +14,7 @@ import { Sobrenosotros } from "./pages/sobrenosotros";
 import { TablonDeAnuncios } from "./pages/tablonDeAnuncios";
 import { Vista } from "./pages/map"
 import { Messages } from "./component/messages";
+import { Profileproview } from "./pages/profileproview";
 import injectContext from "./store/appContext";
 import { Context } from "./store/appContext";
 
@@ -38,24 +39,29 @@ const Layout = () => {
                     <Navbar isLoggedIn={isLoggedIn} />
                     <Routes>
                         <Route element={<Vista />} path="/map" />
-                        {isLoggedIn && store.role === "Empresa" && (
+                        {isLoggedIn && store.role === "profesional" && (
                             <Route element={<TablonDeAnuncios />} path="/tablon-de-anuncios" />
                         )}
                         <Route element={<Home isLoggedIn={isLoggedIn} />} path="/" />
                         <Route element={<Messages />} path="/mensajes" />
                         <Route element={<Demo />} path="/demo" />
 
-                        {isLoggedIn && store.role === "Empresa" && (<Route element={<Profilepro />} path="/perfil-profesional" />
+                        {isLoggedIn && store.role === "profesional" && (<Route element={<Profilepro />} path="/mi-perfil-profesional" />
                         )}
 
-                        {isLoggedIn && store.role === "Cliente" && (<Route element={<Profileclient />} path="/perfil-cliente" />
+                        {isLoggedIn && store.role === "cliente" && (<Route element={<Profileclient />} path="/mi-perfil-cliente" />
                         )}
 
                         {/* <Route element={<Profile />} path="/profile/:theid" /> */}
 
-                        {(isLoggedIn || store.role === "Cliente") && (
+                        {(isLoggedIn || store.role === "cliente") && (
                             <Route element={<Busqueda />} path="/buscador" />
                         )}
+
+                        {(isLoggedIn || store.role === "cliente") && (
+                            <Route element={<Profileproview />} path="/perfil-profesional" />
+                        )}
+
 
                         <Route element={<Faq />} path="/preguntas-frecuentes" />
                         <Route element={<Sobrenosotros />} path="/sobre-nosotros" />

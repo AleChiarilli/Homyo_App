@@ -102,12 +102,12 @@ const getState = ({ getStore, getActions, setStore }) => {
         let updatedRole = '';
 
         switch (role) {
-          case 'empresa':
-            updatedRole = 'Empresa';
+          case 'profesional':
+            updatedRole = 'profesional';
             break;
           case 'cliente':
           default:
-            updatedRole = 'Cliente';
+            updatedRole = 'cliente';
             break;
         }
 
