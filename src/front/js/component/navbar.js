@@ -97,9 +97,9 @@ export const Navbar = ({ isLoggedIn }) => {
           to="/"
         >
           <img
-            src="https://flowbite.com/docs/images/logo.svg"
-            className="h-8 mr-3"
-            alt="Flowbite Logo"
+            src="https://cdn.discordapp.com/attachments/1103746622493577246/1117017298050486292/Pngtree_real_estate_simple_logo_design_3621497__1_-removebg-preview.png"
+            className="h-14 mr-2"
+            alt="HOMYO Logo"
           />
           <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white text-indigo-500">
             HOMYO
