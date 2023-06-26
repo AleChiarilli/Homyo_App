@@ -5,45 +5,45 @@ from flask import Flask, request, jsonify, url_for, Blueprint, json
 from api.models import db, User, Role, User_role, Pro_profile, Cmr_profile, Skill, Pro_profile_skill, Home,Habitant, Home_habitant, Room, Contract, Pro_review, Cmr_review, Message, Message_receiver
 from api.utils import generate_sitemap, APIException
 from flask_jwt_extended import create_access_token, get_jwt_identity, jwt_required
-from geopy.geocoders import Nominatim
-import cloudinary
+#from geopy.geocoders import Nominatim
+#import cloudinary
 
 api = Blueprint('api', __name__)
 
 # ÉSTA ES LA RUTA PARA SUBIR IMAGENES A CLOUDINARY
 
-Cloud.config.update = ({
-    'cloud_name':os.environ.get('CLOUDINARY_CLOUD_NAME'),
-    'api_key': os.environ.get('CLOUDINARY_API_KEY'),
-    'api_secret': os.environ.get('CLOUDINARY_API_SECRET')
-})
+# Cloud.config.update = ({
+    #'cloud_name':os.environ.get('CLOUDINARY_CLOUD_NAME'),
+   # 'api_key': os.environ.get('CLOUDINARY_API_KEY'),
+   # 'api_secret': os.environ.get('CLOUDINARY_API_SECRET')
+# # })
 
-@api.route("/upload", methods=['POST'])
-def upload_file():
-  api.logger.info('in upload route')
+# # @api.route("/upload", methods=['POST'])
+# # def upload_file():
+# #   api.logger.info('in upload route')
 
-  cloudinary.config(cloud_name = os.getenv('CLOUD_NAME'), api_key=os.getenv('API_KEY'), 
-    api_secret=os.getenv('API_SECRET'))
-  upload_result = None
-  if request.method == 'POST':
-    file_to_upload = request.files['file']
-    api.logger.info('%s file_to_upload', file_to_upload)
-    if file_to_upload:
-      upload_result = cloudinary.uploader.upload(file_to_upload)
-      api.logger.info(upload_result)
-      return jsonify(upload_result)
+# #   cloudinary.config(cloud_name = os.getenv('CLOUD_NAME'), api_key=os.getenv('API_KEY'), 
+# #     api_secret=os.getenv('API_SECRET'))
+# #   upload_result = None
+# #   if request.method == 'POST':
+# #     file_to_upload = request.files['file']
+# #     api.logger.info('%s file_to_upload', file_to_upload)
+# #     if file_to_upload:
+# #       upload_result = cloudinary.uploader.upload(file_to_upload)
+# #       api.logger.info(upload_result)
+# #       return jsonify(upload_result)
 
 #  ÉSTA ES LA RUTA PARA LA OBTENCIÓN DE LOCALIZACIONES (NO BORRAR ÉSTE)
 # https://alechiarilli-laughing-memory-pvvpx9v9wp9276xv-3001.preview.app.github.dev/api/pruebageopy
-@api.route('/pruebageopy', methods=['POST'])
-def handle_address_geopy():
-    direction = request.json.get('direction', None)
-    geolocator = Nominatim(user_agent="my_geocoder")
-    location = geolocator.geocode(direction)
-    latitude = location.latitude
-    longitude = location.longitude
+# @api.route('/pruebageopy', methods=['POST'])
+# def handle_address_geopy():
+#     direction = request.json.get('direction', None)
+#     geolocator = Nominatim(user_agent="my_geocoder")
+#     location = geolocator.geocode(direction)
+#     latitude = location.latitude
+#     longitude = location.longitude
 
-    return jsonify({'longitud':longitude, 'latitude':latitude}), 200
+#     return jsonify({'longitud':longitude, 'latitude':latitude}), 200
 
 @api.route('/hello', methods=['POST', 'GET'])
 def handle_hello():
