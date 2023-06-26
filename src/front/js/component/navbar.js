@@ -311,8 +311,9 @@ export const Navbar = ({ isLoggedIn }) => {
                       </li>
 
                       <li>
-                        <a href="#"
-                          className="block px-4 py-2 hover:bg-indigo-100 dark:hover:bg-indigo-600 dark:hover:text-white">Mensajes</a>
+                        <Link
+                        to = "/mensajes"
+                          className="block px-4 py-2 hover:bg-indigo-100 dark:hover:bg-indigo-600 dark:hover:text-white">Mensajes</Link>
                       </li>
                       <li>
                         <a href="#"

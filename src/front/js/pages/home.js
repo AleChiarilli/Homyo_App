@@ -31,7 +31,7 @@ export const Home = ({ isLoggedIn }) => {
     return (
 
 
-        <div className="max-w-screen-xl bg-white dark:bg-gray-800 p-4 mx-auto mt-20 ">
+        <div className="max-w-screen-xl bg-white dark:bg-gray-800 p-4 mx-auto mt-10 ">
             <div className="flex justify-center">
                 <main>
                     <ul id="cards" className="flex justify-center mx-auto">
