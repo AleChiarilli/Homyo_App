@@ -2,7 +2,7 @@
 This module takes care of starting the API Server, Loading the DB and Adding the endpoints
 """
 from flask import Flask, request, jsonify, url_for, Blueprint, json
-from api.models import db, User, Role, User_role, Pro_profile, Cmr_profile, Skill, Pro_profile_skill, Home,Habitant, Home_habitant, Room, Contract, Pro_review, Cmr_review, Message, Message_receiver
+from api.models import db, User, Role, User_role, Pro_profile, Cmr_profile, Skill, Pro_profile_skill, Home, Contract, Pro_review, Cmr_review, Message, Message_receiver
 from api.utils import generate_sitemap, APIException
 from flask_jwt_extended import create_access_token, get_jwt_identity, jwt_required
 
@@ -712,259 +712,259 @@ def delete_home(id):
 
     return jsonify(response_body), 200
 
-#----------------ENDPOINTS HABITANT---------------
-@api.route('/habitant', methods=['GET'])
-# Acceso protegido
-# @jwt_required()
-def get_habitant():
+# #----------------ENDPOINTS HABITANT---------------
+# @api.route('/habitant', methods=['GET'])
+# # Acceso protegido
+# # @jwt_required()
+# def get_habitant():
 
-    results = Habitant.query.all()
-    habitants_list = list(map(lambda item: item.serialize(),results))
-
-
-    response_body = {
-        "msg": "Hello, this is your GET /habitant response ",
-        "results": habitants_list
-    }
-
-    return jsonify(response_body), 200
-
-# endpoint para consultar un dato en HABITANT
-@api.route('/habitant/<int:id>', methods=['GET'])
-# Acceso protegido
-# @jwt_required()
-def get_single_habitant(id):
-    print(id)
-
-    habitant = Habitant.query.filter_by(id=id).first()
-    print(habitant)
-# comprobamos que existe un HABITANT con ese id, si no es asi, respondemos un mensaje de error
-    if habitant is None:
-        raise APIException("No hay una casa con ese ID", status_code=404)
+#     results = Habitant.query.all()
+#     habitants_list = list(map(lambda item: item.serialize(),results))
 
 
-    response_body = {
-        "msg": "Hello, this is your SINGLE GET /habitant response ",
-        "result": habitant.serialize()
-    }
+#     response_body = {
+#         "msg": "Hello, this is your GET /habitant response ",
+#         "results": habitants_list
+#     }
 
-    return jsonify(response_body), 200
+#     return jsonify(response_body), 200
 
-# endpoint para crear un dato en tabla HABITANT
-@api.route('/habitant', methods=['POST'])
-# Acceso protegido
-# @jwt_required()
-def create_habitant():
+# # endpoint para consultar un dato en HABITANT
+# @api.route('/habitant/<int:id>', methods=['GET'])
+# # Acceso protegido
+# # @jwt_required()
+# def get_single_habitant(id):
+#     print(id)
 
-    body = json.loads(request.data)
-    # json.loads(request.body.decode(encoding='UTF-8'))
-
-    if body is None:
-        raise APIException("You need to specify the request body as a json object", status_code=400)
-    if 'type' not in body:
-        raise APIException('Te falta añadir un tipo(anciano, niño, adulto, mascota)', status_code=400)
-    if 'description' not in body:
-        raise APIException('Te falta añadir una descripción', status_code=400)
-
-    
-    print(body)
-    habitant = Habitant(type=body["type"], description=body["description"])
-    db.session.add(habitant)
-    db.session.commit()
-
-    response_body = {
-        "msg": "La casa ha sido creada",
-    }
-
-    return jsonify(response_body), 200
-
-# endpoint para BORRAR un dato en HABITANT 
-@api.route('/habitant/<int:id>', methods=['DELETE'])
-# Acceso protegido
-# @jwt_required()
-def delete_habitant(id):
-    print(id)
-
-    habitant = Habitant.query.filter_by(id=id).first()
+#     habitant = Habitant.query.filter_by(id=id).first()
+#     print(habitant)
 # # comprobamos que existe un HABITANT con ese id, si no es asi, respondemos un mensaje de error
-    if habitant is None:
-        raise APIException("No hay un habitante con ese ID", status_code=404)
-
-    db.session.delete(habitant)
-    db.session.commit()
-
-    response_body = {
-        "msg": "El habitante ha sido borrado",
-    }
-
-    return jsonify(response_body), 200
-
-#----------------ENDPOINTS ROOM---------------
-@api.route('/room', methods=['GET'])
-# Acceso protegido
-# @jwt_required()
-def get_room():
-
-    results = Room.query.all()
-    room_list = list(map(lambda item: item.serialize(),results))
-@api.route('/room/<int:id>', methods=['GET'])
-# Acceso protegido
-# @jwt_required()
-def get_single_room(id):
-    print(id)
-
-    room = Room.query.filter_by(id=id).first()
-    print(room)
-# comprobamos que existe un ROOM con ese id, si no es asi, respondemos un mensaje de error
-    if room is None:
-        raise APIException("No hay una casa con ese ID", status_code=404)
+#     if habitant is None:
+#         raise APIException("No hay una casa con ese ID", status_code=404)
 
 
-    response_body = {
-        "msg": "Hello, this is your SINGLE GET /room response ",
-        "result": room.serialize()
-    }
+#     response_body = {
+#         "msg": "Hello, this is your SINGLE GET /habitant response ",
+#         "result": habitant.serialize()
+#     }
 
-    return jsonify(response_body), 200
+#     return jsonify(response_body), 200
 
-# endpoint para crear un dato en tabla ROOM
-@api.route('/room', methods=['POST'])
-# Acceso protegido
-# @jwt_required()
-def create_room():
+# # endpoint para crear un dato en tabla HABITANT
+# @api.route('/habitant', methods=['POST'])
+# # Acceso protegido
+# # @jwt_required()
+# def create_habitant():
 
-    body = json.loads(request.data)
-    # json.loads(request.body.decode(encoding='UTF-8'))
+#     body = json.loads(request.data)
+#     # json.loads(request.body.decode(encoding='UTF-8'))
 
-    if body is None:
-        raise APIException("You need to specify the request body as a json object", status_code=400)
-    if 'type' not in body:
-        raise APIException('Te falta añadir un tipo(anciano, niño, adulto, mascota)', status_code=400)
-    if 'size_sqm' not in body:
-        raise APIException('Te falta añadir el tamaño en m2', status_code=400)
-    if 'description' not in body:
-        raise APIException('Te falta añadir una descripción', status_code=400)
-    if 'home_id' not in body:
-        raise APIException('Te falta añadir un id de casa', status_code=400)
+#     if body is None:
+#         raise APIException("You need to specify the request body as a json object", status_code=400)
+#     if 'type' not in body:
+#         raise APIException('Te falta añadir un tipo(anciano, niño, adulto, mascota)', status_code=400)
+#     if 'description' not in body:
+#         raise APIException('Te falta añadir una descripción', status_code=400)
 
     
-    print(body)
-    room = Room(type=body["type"], size_sqm=body["size_sqm"], description=body["description"], home_id=body["home_id"])
-    db.session.add(room)
-    db.session.commit()
+#     print(body)
+#     habitant = Habitant(type=body["type"], description=body["description"])
+#     db.session.add(habitant)
+#     db.session.commit()
 
-    response_body = {
-        "msg": "La habitación ha sido creada",
-    }
+#     response_body = {
+#         "msg": "La casa ha sido creada",
+#     }
 
-    return jsonify(response_body), 200
+#     return jsonify(response_body), 200
 
-# endpoint para BORRAR un dato en ROOM 
-@api.route('/room/<int:id>', methods=['DELETE'])
-# Acceso protegido
-# @jwt_required()
-def delete_room(id):
-    print(id)
+# # endpoint para BORRAR un dato en HABITANT 
+# @api.route('/habitant/<int:id>', methods=['DELETE'])
+# # Acceso protegido
+# # @jwt_required()
+# def delete_habitant(id):
+#     print(id)
 
-    room = Room.query.filter_by(id=id).first()
+#     habitant = Habitant.query.filter_by(id=id).first()
+# # # comprobamos que existe un HABITANT con ese id, si no es asi, respondemos un mensaje de error
+#     if habitant is None:
+#         raise APIException("No hay un habitante con ese ID", status_code=404)
+
+#     db.session.delete(habitant)
+#     db.session.commit()
+
+#     response_body = {
+#         "msg": "El habitante ha sido borrado",
+#     }
+
+#     return jsonify(response_body), 200
+
+# #----------------ENDPOINTS ROOM---------------
+# @api.route('/room', methods=['GET'])
+# # Acceso protegido
+# # @jwt_required()
+# def get_room():
+
+#     results = Room.query.all()
+#     room_list = list(map(lambda item: item.serialize(),results))
+# @api.route('/room/<int:id>', methods=['GET'])
+# # Acceso protegido
+# # @jwt_required()
+# def get_single_room(id):
+#     print(id)
+
+#     room = Room.query.filter_by(id=id).first()
+#     print(room)
 # # comprobamos que existe un ROOM con ese id, si no es asi, respondemos un mensaje de error
-    if room is None:
-        raise APIException("No hay una casa con ese ID", status_code=404)
-
-    db.session.delete(room)
-    db.session.commit()
-
-    response_body = {
-        "msg": "La habitación ha sido borrada",
-    }
-
-    return jsonify(response_body), 200
-
-#----------------ENDPOINTS HOME_HABITANT-----------
-
-@api.route('/home_habitant', methods=['GET'])
-# Acceso protegido
-# @jwt_required()
-def get_home_habitant():
-
-    results = Home_habitant.query.all()
-    home_habitants_list = list(map(lambda item: item.serialize(),results))
+#     if room is None:
+#         raise APIException("No hay una casa con ese ID", status_code=404)
 
 
-    response_body = {
-        "msg": "Hello, this is your GET /pro_user_profile response ",
-        "results": home_habitants_list
-    }
+#     response_body = {
+#         "msg": "Hello, this is your SINGLE GET /room response ",
+#         "result": room.serialize()
+#     }
 
-    return jsonify(response_body), 200
+#     return jsonify(response_body), 200
 
-#enpoint de una relacion HOME_HABITANT en concreto
+# # endpoint para crear un dato en tabla ROOM
+# @api.route('/room', methods=['POST'])
+# # Acceso protegido
+# # @jwt_required()
+# def create_room():
 
-@api.route('/home_habitant/<int:id>', methods=['GET'])
-# Acceso protegido
-# @jwt_required()
-def get_single_home_habitant(id):
-    print(id)
+#     body = json.loads(request.data)
+#     # json.loads(request.body.decode(encoding='UTF-8'))
 
-    home_habitant = Home_habitant.query.filter_by(id=id).first()
-    print(home_habitant)
-# comprobamos que existe un HOME_HABITANT con ese id, si no es asi, respondemos un mensaje de error
-    if home_habitant is None:
-        raise APIException("No hay un usuario_rol con ese ID", status_code=404)
+#     if body is None:
+#         raise APIException("You need to specify the request body as a json object", status_code=400)
+#     if 'type' not in body:
+#         raise APIException('Te falta añadir un tipo(anciano, niño, adulto, mascota)', status_code=400)
+#     if 'size_sqm' not in body:
+#         raise APIException('Te falta añadir el tamaño en m2', status_code=400)
+#     if 'description' not in body:
+#         raise APIException('Te falta añadir una descripción', status_code=400)
+#     if 'home_id' not in body:
+#         raise APIException('Te falta añadir un id de casa', status_code=400)
 
-
-    response_body = {
-        "msg": "Hello, this is your SINGLE GET /pro_user_profile response ",
-        "result": home_habitant.serialize()
-    }
-
-    return jsonify(response_body), 200
-
-# endpoint para crear un dato en tabla HOME_HABITANT
-@api.route('/home_habitant', methods=['POST'])
-# Acceso protegido
-# @jwt_required()
-def create_home_habitant():
-
-    body = json.loads(request.data)
-    # json.loads(request.body.decode(encoding='UTF-8'))
-
-    if body is None:
-        raise APIException("You need to specify the request body as a json object", status_code=400)
-    if 'habitant_id' not in body:
-        raise APIException('Te falta añadir un id de habitante', status_code=400)
-    if 'home_id' not in body:
-        raise APIException('Te falta añadir un id de casa', status_code=400)
     
-    print(body)
-    home_habitant = Home_habitant(habitant_id=body["habitant_id"], home_id=body["home_id"])
-    db.session.add(home_habitant)
-    db.session.commit()
+#     print(body)
+#     room = Room(type=body["type"], size_sqm=body["size_sqm"], description=body["description"], home_id=body["home_id"])
+#     db.session.add(room)
+#     db.session.commit()
 
-    response_body = {
-        "msg": "La relación home_habitant ha sido creado",
-    }
+#     response_body = {
+#         "msg": "La habitación ha sido creada",
+#     }
 
-    return jsonify(response_body), 200
+#     return jsonify(response_body), 200
 
-# endpoint para BORRAR un dato en HOME_HABITANT 
-@api.route('/home_habitant/<int:id>', methods=['DELETE'])
-# Acceso protegido
-# @jwt_required()
-def delete_home_habitant(id):
-    print(id)
+# # endpoint para BORRAR un dato en ROOM 
+# @api.route('/room/<int:id>', methods=['DELETE'])
+# # Acceso protegido
+# # @jwt_required()
+# def delete_room(id):
+#     print(id)
 
-    home_habitant = Home_habitant.query.filter_by(id=id).first()
-# # comprobamos que existe un home_habitant con ese id, si no es asi, respondemos un mensaje de error
-    if home_habitant is None:
-        raise APIException("No hay un home_habitant con ese ID", status_code=404)
+#     room = Room.query.filter_by(id=id).first()
+# # # comprobamos que existe un ROOM con ese id, si no es asi, respondemos un mensaje de error
+#     if room is None:
+#         raise APIException("No hay una casa con ese ID", status_code=404)
 
-    db.session.delete(home_habitant)
-    db.session.commit()
+#     db.session.delete(room)
+#     db.session.commit()
 
-    response_body = {
-        "msg": "El home_habitant ha sido borrado",
-    }
+#     response_body = {
+#         "msg": "La habitación ha sido borrada",
+#     }
+
+#     return jsonify(response_body), 200
+
+# #----------------ENDPOINTS HOME_HABITANT-----------
+
+# @api.route('/home_habitant', methods=['GET'])
+# # Acceso protegido
+# # @jwt_required()
+# def get_home_habitant():
+
+#     results = Home_habitant.query.all()
+#     home_habitants_list = list(map(lambda item: item.serialize(),results))
+
+
+#     response_body = {
+#         "msg": "Hello, this is your GET /pro_user_profile response ",
+#         "results": home_habitants_list
+#     }
+
+#     return jsonify(response_body), 200
+
+# #enpoint de una relacion HOME_HABITANT en concreto
+
+# @api.route('/home_habitant/<int:id>', methods=['GET'])
+# # Acceso protegido
+# # @jwt_required()
+# def get_single_home_habitant(id):
+#     print(id)
+
+#     home_habitant = Home_habitant.query.filter_by(id=id).first()
+#     print(home_habitant)
+# # comprobamos que existe un HOME_HABITANT con ese id, si no es asi, respondemos un mensaje de error
+#     if home_habitant is None:
+#         raise APIException("No hay un usuario_rol con ese ID", status_code=404)
+
+
+#     response_body = {
+#         "msg": "Hello, this is your SINGLE GET /pro_user_profile response ",
+#         "result": home_habitant.serialize()
+#     }
+
+#     return jsonify(response_body), 200
+
+# # endpoint para crear un dato en tabla HOME_HABITANT
+# @api.route('/home_habitant', methods=['POST'])
+# # Acceso protegido
+# # @jwt_required()
+# def create_home_habitant():
+
+#     body = json.loads(request.data)
+#     # json.loads(request.body.decode(encoding='UTF-8'))
+
+#     if body is None:
+#         raise APIException("You need to specify the request body as a json object", status_code=400)
+#     if 'habitant_id' not in body:
+#         raise APIException('Te falta añadir un id de habitante', status_code=400)
+#     if 'home_id' not in body:
+#         raise APIException('Te falta añadir un id de casa', status_code=400)
+    
+#     print(body)
+#     home_habitant = Home_habitant(habitant_id=body["habitant_id"], home_id=body["home_id"])
+#     db.session.add(home_habitant)
+#     db.session.commit()
+
+#     response_body = {
+#         "msg": "La relación home_habitant ha sido creado",
+#     }
+
+#     return jsonify(response_body), 200
+
+# # endpoint para BORRAR un dato en HOME_HABITANT 
+# @api.route('/home_habitant/<int:id>', methods=['DELETE'])
+# # Acceso protegido
+# # @jwt_required()
+# def delete_home_habitant(id):
+#     print(id)
+
+#     home_habitant = Home_habitant.query.filter_by(id=id).first()
+# # # comprobamos que existe un home_habitant con ese id, si no es asi, respondemos un mensaje de error
+#     if home_habitant is None:
+#         raise APIException("No hay un home_habitant con ese ID", status_code=404)
+
+#     db.session.delete(home_habitant)
+#     db.session.commit()
+
+#     response_body = {
+#         "msg": "El home_habitant ha sido borrado",
+#     }
 
 #----------------ENDPOINTS CONTRACT-----------
 

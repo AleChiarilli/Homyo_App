@@ -1,7 +1,7 @@
   
 import os
 from flask_admin import Admin
-from .models import db, User, Role, User_role, Pro_profile, Skill, Pro_profile_skill, Cmr_profile, Home, Room, Habitant, Home_habitant, Contract, Cmr_review, Pro_review, Message, Message_receiver
+from .models import db, User, Role, User_role, Pro_profile, Skill, Pro_profile_skill, Cmr_profile, Home, Home_Post, Post_skills, Contract, Cmr_review, Pro_review, Message, Message_receiver
 from flask_admin.contrib.sqla import ModelView
 
 def setup_admin(app):
@@ -19,9 +19,11 @@ def setup_admin(app):
     admin.add_view(ModelView(Pro_profile_skill, db.session))
     admin.add_view(ModelView(Cmr_profile, db.session))
     admin.add_view(ModelView(Home, db.session))
-    admin.add_view(ModelView(Room, db.session))
-    admin.add_view(ModelView(Habitant, db.session))
-    admin.add_view(ModelView(Home_habitant, db.session))
+    admin.add_view(ModelView(Home_Post, db.session))
+    admin.add_view(ModelView(Post_skills, db.session))               
+    # admin.add_view(ModelView(Room, db.session))
+    # admin.add_view(ModelView(Habitant, db.session))
+    # admin.add_view(ModelView(Home_habitant, db.session))
     admin.add_view(ModelView(Contract, db.session))
     admin.add_view(ModelView(Cmr_review, db.session))
     admin.add_view(ModelView(Pro_review, db.session))
