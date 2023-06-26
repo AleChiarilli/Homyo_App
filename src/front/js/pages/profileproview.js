@@ -38,10 +38,10 @@ export const Profileproview = () => {
                   <path
                     d="M11.001 6L6.00098 1L1.00098 6"
                     stroke="black"
-                    stroke-opacity="0.4"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
+                    strokeOpacity="0.4"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
                   />
                 </svg>
               </div>
@@ -59,10 +59,10 @@ export const Profileproview = () => {
                   <path
                     d="M11.001 6L6.00098 1L1.00098 6"
                     stroke="black"
-                    stroke-opacity="0.4"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
+                    strokeOpacity="0.4"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
                   />
                 </svg>
               </div>
@@ -109,19 +109,19 @@ export const Profileproview = () => {
             {isModalOpen8 && (
                 <div tabIndex="-1"
                     aria-hidden="true"
-                    className="fixed top-0 left-0 right-0 bottom-0 flex items-center justify-center bg-black bg-opacity-50"
+                    className="fixed top-0 left-0 right-0 bottom-0 flex items-center justify-center bg-black bg-opacity-50 z-50"
                 >
                     <div className="py-3 sm:max-w-xl sm:mx-auto">
                         <div className="bg-white min-w-1xl flex flex-col rounded-xl shadow-lg">
                             <div className="px-12 py-5">
-                                <h2 className="text-gray-800 text-3xl font-semibold">Deja una reseña</h2>
+                                <h2 className="text-gray-800 text-3xl font-semibold">Reserva el servicio</h2>
                             </div>
                             <div className="bg-gray-200 w-full flex flex-col items-center">
                                 <div className="flex flex-col items-center py-6 space-y-3">
                                     <span className="text-lg text-gray-800">Elige el espacio</span>
                                     <div className="flex space-x-3">
                                                         <select id="espacio" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                                                            <option selected>Elige espacio</option>
+                                                            <option defaultValue>Elige espacio</option>
                                                             <option value="1">Casa de la playa</option>
                                                             <option value="2">Casa de los abuelos</option>
                                                             <option value="3">Casa principal</option>

@@ -35,15 +35,15 @@ api = Blueprint('api', __name__)
 
 #  ÉSTA ES LA RUTA PARA LA OBTENCIÓN DE LOCALIZACIONES (NO BORRAR ÉSTE)
 # https://alechiarilli-laughing-memory-pvvpx9v9wp9276xv-3001.preview.app.github.dev/api/pruebageopy
-@api.route('/pruebageopy', methods=['POST'])
-def handle_address_geopy():
-    direction = request.json.get('direction', None)
-    geolocator = Nominatim(user_agent="my_geocoder")
-    location = geolocator.geocode(direction)
-    latitude = location.latitude
-    longitude = location.longitude
+# @api.route('/pruebageopy', methods=['POST'])
+# def handle_address_geopy():
+#     direction = request.json.get('direction', None)
+#     geolocator = Nominatim(user_agent="my_geocoder")
+#     location = geolocator.geocode(direction)
+#     latitude = location.latitude
+#     longitude = location.longitude
 
-    return jsonify({'longitud':longitude, 'latitude':latitude}), 200
+#     return jsonify({'longitud':longitude, 'latitude':latitude}), 200
 
 @api.route('/hello', methods=['POST', 'GET'])
 def handle_hello():

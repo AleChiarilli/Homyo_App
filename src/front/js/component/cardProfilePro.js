@@ -10,12 +10,12 @@ import chef from "../../img/chef.png";
 export const Cardprofilepro = () => {
 
     return (
-        <div className="flex flex-col justify-center mb-3">
-            <div className="relative flex flex-col md:flex-row md:space-x-5 space-y-3 md:space-y-0 rounded-xl shadow-lg p-3 max-w-xs md:max-w-3xl mx-auto border border-white bg-white">
-                <div className="w-full md:w-1/3 bg-white grid place-items-center">
+        <div className="w-full flex flex-col justify-center mb-3">
+            <div className="relative flex flex-col md:flex-row md:space-x-5 space-y-3 md:space-y-0 rounded-xl shadow-lg p-3 mx-auto border border-white bg-white">
+                <div className="md:w-1/4 bg-white grid place-items-center">
                     <img src={avatar} className="rounded-full" />
                 </div>
-                <div className="w-full md:w-2/3 bg-white flex flex-col space-y-2 p-3">
+                <div className="md:w-2/3 bg-white flex flex-col space-y-2 p-3">
                     <div className="flex justify-between item-center">
                         <div className="flex items-center">
                             <svg xmlns="http://www.w3.org/2000/svg" className="h-10 w-10 text-yellow-500" viewBox="0 0 20 20"
