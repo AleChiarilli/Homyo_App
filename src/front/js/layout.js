@@ -13,7 +13,6 @@ import { Faq } from "./pages/faq";
 import { Sobrenosotros } from "./pages/sobrenosotros";
 import { TablonDeAnuncios } from "./pages/tablonDeAnuncios";
 import { SimpleMap } from "./component/mapComponent";
-import { Messages } from "./component/messages"; 
 import { Vista } from "./pages/map"
 import { Messages } from "./component/messages";
 import { Profileproview } from "./pages/profileproview";
