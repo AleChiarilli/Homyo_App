@@ -52,66 +52,8 @@ export const Valoraciones = () => {
                 ref={containerRef}
                 className="valoraciones py-8 px-4 mx-auto lg:py-16 flex overflow-x-hidden space-x-4"
             >
-                <div className="bg-white dark:bg-gray-800 w-72 shadow-lg mx-auto rounded-xl p-4">
-                    <p className="text-gray-600 dark:text-white">
-                        <span className="text-lg font-bold text-indigo-500">
-                            “
-                        </span>
-                        To get social media testimonials like these, keep your customers engaged with your social media accounts by posting regularly yourself
-                        <span className="text-lg font-bold text-indigo-500">
-                            ”
-                        </span>
-                    </p>
-                    <div className="flex items-center mt-4">
-                            <img alt="profil" src="https://is2-ssl.mzstatic.com/image/thumb/Purple30/v4/e1/27/30/e127305d-97be-eb78-f9c7-a3dc9ac061a9/source/256x256bb.jpg" className="mx-auto object-cover rounded-full h-10 w-10 " />
-                        <div className="flex flex-col justify-between ml-2">
-                            <span className="text-sm font-semibold text-indigo-500">
-                                USERRRRRRR
-                            </span>
-                            <span className="flex items-center text-xs dark:text-gray-400">
-                                User of Tail-Kit
-                                <img src="/icons/rocket.svg" className="w-4 h-4 ml-2" />
-                            </span>
-                            <div className="flex items-center mt-1">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" className="w-4 h-4 text-yellow-500" fill="currentColor" viewBox="0 0 1792 1792">
-                                    <path d="M1728 647q0 22-26 48l-363 354 86 500q1 7 1 20 0 21-10.5 35.5t-30.5 14.5q-19 0-40-12l-449-236-449 236q-22 12-40 12-21 0-31.5-14.5t-10.5-35.5q0-6 2-20l86-500-364-354q-25-27-25-48 0-37 56-46l502-73 225-455q19-41 49-41t49 41l225 455 502 73q56 9 56 46z">
-                                    </path>
-                                </svg>
-                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" className="w-4 h-4 text-yellow-500" fill="currentColor" viewBox="0 0 1792 1792">
-                                    <path d="M1728 647q0 22-26 48l-363 354 86 500q1 7 1 20 0 21-10.5 35.5t-30.5 14.5q-19 0-40-12l-449-236-449 236q-22 12-40 12-21 0-31.5-14.5t-10.5-35.5q0-6 2-20l86-500-364-354q-25-27-25-48 0-37 56-46l502-73 225-455q19-41 49-41t49 41l225 455 502 73q56 9 56 46z">
-                                    </path>
-                                </svg>
-                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" className="w-4 h-4 text-yellow-500" fill="currentColor" viewBox="0 0 1792 1792">
-                                    <path d="M1728 647q0 22-26 48l-363 354 86 500q1 7 1 20 0 21-10.5 35.5t-30.5 14.5q-19 0-40-12l-449-236-449 236q-22 12-40 12-21 0-31.5-14.5t-10.5-35.5q0-6 2-20l86-500-364-354q-25-27-25-48 0-37 56-46l502-73 225-455q19-41 49-41t49 41l225 455 502 73q56 9 56 46z">
-                                    </path>
-                                </svg>
-                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" className="w-4 h-4 text-yellow-500" fill="currentColor" viewBox="0 0 1792 1792">
-                                    <path d="M1728 647q0 22-26 48l-363 354 86 500q1 7 1 20 0 21-10.5 35.5t-30.5 14.5q-19 0-40-12l-449-236-449 236q-22 12-40 12-21 0-31.5-14.5t-10.5-35.5q0-6 2-20l86-500-364-354q-25-27-25-48 0-37 56-46l502-73 225-455q19-41 49-41t49 41l225 455 502 73q56 9 56 46z">
-                                    </path>
-                                </svg>
-                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" className="w-4 h-4 text-yellow-500" fill="currentColor" viewBox="0 0 1792 1792">
-                                    <path d="M1728 647q0 22-26 48l-363 354 86 500q1 7 1 20 0 21-10.5 35.5t-30.5 14.5q-19 0-40-12l-449-236-449 236q-22 12-40 12-21 0-31.5-14.5t-10.5-35.5q0-6 2-20l86-500-364-354q-25-27-25-48 0-37 56-46l502-73 225-455q19-41 49-41t49 41l225 455 502 73q56 9 56 46z">
-                                    </path>
-                                </svg>
-                            </div>
-                        </div>
-                        <div className="flex items-start mt-6 text-indigo-500">
-                            <button className="mr-4 hover:text-red-900">
-                                <svg width="25" height="25" fill="currentColor" viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M1664 596q0-81-21.5-143t-55-98.5-81.5-59.5-94-31-98-8-112 25.5-110.5 64-86.5 72-60 61.5q-18 22-49 22t-49-22q-24-28-60-61.5t-86.5-72-110.5-64-112-25.5-98 8-94 31-81.5 59.5-55 98.5-21.5 143q0 168 187 355l581 560 580-559q188-188 188-356zm128 0q0 221-229 450l-623 600q-18 18-44 18t-44-18l-624-602q-10-8-27.5-26t-55.5-65.5-68-97.5-53.5-121-23.5-138q0-220 127-344t351-124q62 0 126.5 21.5t120 58 95.5 68.5 76 68q36-36 76-68t95.5-68.5 120-58 126.5-21.5q224 0 351 124t127 344z">
-                                    </path>
-                                </svg>
-                            </button>
-                            <button className="hover:text-green-900">
-                                <svg width="25" height="25" fill="currentColor" viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M1344 1024q133 0 226.5 93.5t93.5 226.5-93.5 226.5-226.5 93.5-226.5-93.5-93.5-226.5q0-12 2-34l-360-180q-92 86-218 86-133 0-226.5-93.5t-93.5-226.5 93.5-226.5 226.5-93.5q126 0 218 86l360-180q-2-22-2-34 0-133 93.5-226.5t226.5-93.5 226.5 93.5 93.5 226.5-93.5 226.5-226.5 93.5q-126 0-218-86l-360 180q2 22 2 34t-2 34l360 180q92-86 218-86z">
-                                    </path>
-                                </svg>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-                <div className="bg-white dark:bg-gray-800 w-72 shadow-lg mx-auto rounded-xl p-4">
+
+                {/* <div className="bg-white dark:bg-gray-800 w-72 shadow-lg mx-auto rounded-xl p-4">
                     <p className="text-gray-600 dark:text-white">
                         <span className="text-lg font-bold text-indigo-500">
                             “
@@ -171,28 +113,28 @@ export const Valoraciones = () => {
                             </button>
                         </div>
                     </div>
-                </div>
+                </div> ESTE ES EL ORIGINAL */}
 
                 <div className="bg-white dark:bg-gray-800 w-72 shadow-lg mx-auto rounded-xl p-4">
                     <p className="text-gray-600 dark:text-white">
                         <span className="text-lg font-bold text-indigo-500">
                             “
                         </span>
-                        To get social media testimonials like these, keep your customers engaged with your social media accounts by posting regularly yourself
+                        Excelente servicio. Mi casa quedó impecable y mis perros bien cuidados. ¡Recomendado!
                         <span className="text-lg font-bold text-indigo-500">
                             ”
                         </span>
                     </p>
-                    <div className="flex items-center mt-4">
-                        <a href="#" className="relative block">
-                            <img alt="profil" src="/images/person/1.jpg" className="mx-auto object-cover rounded-full h-10 w-10 " />
-                        </a>
-                        <div className="flex flex-col justify-between ml-2">
+                    <div className="flex items-center mt-7 mx-8">
+
+                        <img alt="profil" src="https://ps.w.org/simple-user-avatar/assets/icon-256x256.png?rev=2413146" className="mx-auto object-cover rounded-full h-10 w-10 " />
+
+                        <div className="flex flex-col justify-between">
                             <span className="text-sm font-semibold text-indigo-500">
-                                Jean Miguel
+                            Santiago Gómez
                             </span>
                             <span className="flex items-center text-xs dark:text-gray-400">
-                                User of Tail-Kit
+                                Usuario de HOMYO
                                 <img src="/icons/rocket.svg" className="w-4 h-4 ml-2" />
                             </span>
                             <div className="flex items-center mt-1">
@@ -219,13 +161,7 @@ export const Valoraciones = () => {
                             </div>
                         </div>
                         <div className="flex items-start mt-6 text-indigo-500">
-                            <button className="mr-4 hover:text-red-900">
-                                <svg width="25" height="25" fill="currentColor" viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M1664 596q0-81-21.5-143t-55-98.5-81.5-59.5-94-31-98-8-112 25.5-110.5 64-86.5 72-60 61.5q-18 22-49 22t-49-22q-24-28-60-61.5t-86.5-72-110.5-64-112-25.5-98 8-94 31-81.5 59.5-55 98.5-21.5 143q0 168 187 355l581 560 580-559q188-188 188-356zm128 0q0 221-229 450l-623 600q-18 18-44 18t-44-18l-624-602q-10-8-27.5-26t-55.5-65.5-68-97.5-53.5-121-23.5-138q0-220 127-344t351-124q62 0 126.5 21.5t120 58 95.5 68.5 76 68q36-36 76-68t95.5-68.5 120-58 126.5-21.5q224 0 351 124t127 344z">
-                                    </path>
-                                </svg>
-                            </button>
-                            <button className="hover:text-green-900">
+                            <button className="hover:text-green-900 mr-6">
                                 <svg width="25" height="25" fill="currentColor" viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg">
                                     <path d="M1344 1024q133 0 226.5 93.5t93.5 226.5-93.5 226.5-226.5 93.5-226.5-93.5-93.5-226.5q0-12 2-34l-360-180q-92 86-218 86-133 0-226.5-93.5t-93.5-226.5 93.5-226.5 226.5-93.5q126 0 218 86l360-180q-2-22-2-34 0-133 93.5-226.5t226.5-93.5 226.5 93.5 93.5 226.5-93.5 226.5-226.5 93.5q-126 0-218-86l-360 180q2 22 2 34t-2 34l360 180q92-86 218-86z">
                                     </path>
@@ -239,21 +175,21 @@ export const Valoraciones = () => {
                         <span className="text-lg font-bold text-indigo-500">
                             “
                         </span>
-                        To get social media testimonials like these, keep your customers engaged with your social media accounts by posting regularly yourself
+                        Niñera confiable y divertida. Mis hijos la adoran. ¡Muy feliz con el servicio!
                         <span className="text-lg font-bold text-indigo-500">
                             ”
                         </span>
                     </p>
-                    <div className="flex items-center mt-4">
-                        <a href="#" className="relative block">
-                            <img alt="profil" src="/images/person/1.jpg" className="mx-auto object-cover rounded-full h-10 w-10 " />
-                        </a>
-                        <div className="flex flex-col justify-between ml-2">
+                    <div className="flex items-center mt-7 mx-8">
+
+                        <img alt="profil" src="https://pfpmaker.com/_nuxt/img/blog-preview-2.db10f37.webp" className="mx-auto object-cover rounded-full h-10 w-10 " />
+
+                        <div className="flex flex-col justify-between">
                             <span className="text-sm font-semibold text-indigo-500">
-                                Jean Miguel
+                            Valeria Torres
                             </span>
                             <span className="flex items-center text-xs dark:text-gray-400">
-                                User of Tail-Kit
+                                Usuario de HOMYO
                                 <img src="/icons/rocket.svg" className="w-4 h-4 ml-2" />
                             </span>
                             <div className="flex items-center mt-1">
@@ -280,13 +216,7 @@ export const Valoraciones = () => {
                             </div>
                         </div>
                         <div className="flex items-start mt-6 text-indigo-500">
-                            <button className="mr-4 hover:text-red-900">
-                                <svg width="25" height="25" fill="currentColor" viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M1664 596q0-81-21.5-143t-55-98.5-81.5-59.5-94-31-98-8-112 25.5-110.5 64-86.5 72-60 61.5q-18 22-49 22t-49-22q-24-28-60-61.5t-86.5-72-110.5-64-112-25.5-98 8-94 31-81.5 59.5-55 98.5-21.5 143q0 168 187 355l581 560 580-559q188-188 188-356zm128 0q0 221-229 450l-623 600q-18 18-44 18t-44-18l-624-602q-10-8-27.5-26t-55.5-65.5-68-97.5-53.5-121-23.5-138q0-220 127-344t351-124q62 0 126.5 21.5t120 58 95.5 68.5 76 68q36-36 76-68t95.5-68.5 120-58 126.5-21.5q224 0 351 124t127 344z">
-                                    </path>
-                                </svg>
-                            </button>
-                            <button className="hover:text-green-900">
+                            <button className="hover:text-green-900 mr-6">
                                 <svg width="25" height="25" fill="currentColor" viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg">
                                     <path d="M1344 1024q133 0 226.5 93.5t93.5 226.5-93.5 226.5-226.5 93.5-226.5-93.5-93.5-226.5q0-12 2-34l-360-180q-92 86-218 86-133 0-226.5-93.5t-93.5-226.5 93.5-226.5 226.5-93.5q126 0 218 86l360-180q-2-22-2-34 0-133 93.5-226.5t226.5-93.5 226.5 93.5 93.5 226.5-93.5 226.5-226.5 93.5q-126 0-218-86l-360 180q2 22 2 34t-2 34l360 180q92-86 218-86z">
                                     </path>
@@ -300,21 +230,21 @@ export const Valoraciones = () => {
                         <span className="text-lg font-bold text-indigo-500">
                             “
                         </span>
-                        To get social media testimonials like these, keep your customers engaged with your social media accounts by posting regularly yourself
+                        Jardinero profesional y amable. Mi jardín nunca se vio mejor. Recomendado.
                         <span className="text-lg font-bold text-indigo-500">
                             ”
                         </span>
                     </p>
-                    <div className="flex items-center mt-4">
-                        <a href="#" className="relative block">
-                            <img alt="profil" src="/images/person/1.jpg" className="mx-auto object-cover rounded-full h-10 w-10 " />
-                        </a>
-                        <div className="flex flex-col justify-between ml-2">
+                    <div className="flex items-center mt-7 mx-8">
+
+                            <img alt="profil" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQBcg5OV7m4Ojt-6P7o0JwzgBcZosZwisJw0A&usqp=CAU" className="mx-auto object-cover rounded-full h-10 w-10 " />
+
+                        <div className="flex flex-col justify-between">
                             <span className="text-sm font-semibold text-indigo-500">
-                                Jean Miguel
+                            Adriana Vargas
                             </span>
                             <span className="flex items-center text-xs dark:text-gray-400">
-                                User of Tail-Kit
+                                Usuario de HOMYO
                                 <img src="/icons/rocket.svg" className="w-4 h-4 ml-2" />
                             </span>
                             <div className="flex items-center mt-1">
@@ -341,13 +271,7 @@ export const Valoraciones = () => {
                             </div>
                         </div>
                         <div className="flex items-start mt-6 text-indigo-500">
-                            <button className="mr-4 hover:text-red-900">
-                                <svg width="25" height="25" fill="currentColor" viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M1664 596q0-81-21.5-143t-55-98.5-81.5-59.5-94-31-98-8-112 25.5-110.5 64-86.5 72-60 61.5q-18 22-49 22t-49-22q-24-28-60-61.5t-86.5-72-110.5-64-112-25.5-98 8-94 31-81.5 59.5-55 98.5-21.5 143q0 168 187 355l581 560 580-559q188-188 188-356zm128 0q0 221-229 450l-623 600q-18 18-44 18t-44-18l-624-602q-10-8-27.5-26t-55.5-65.5-68-97.5-53.5-121-23.5-138q0-220 127-344t351-124q62 0 126.5 21.5t120 58 95.5 68.5 76 68q36-36 76-68t95.5-68.5 120-58 126.5-21.5q224 0 351 124t127 344z">
-                                    </path>
-                                </svg>
-                            </button>
-                            <button className="hover:text-green-900">
+                            <button className="hover:text-green-900 mr-6">
                                 <svg width="25" height="25" fill="currentColor" viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg">
                                     <path d="M1344 1024q133 0 226.5 93.5t93.5 226.5-93.5 226.5-226.5 93.5-226.5-93.5-93.5-226.5q0-12 2-34l-360-180q-92 86-218 86-133 0-226.5-93.5t-93.5-226.5 93.5-226.5 226.5-93.5q126 0 218 86l360-180q-2-22-2-34 0-133 93.5-226.5t226.5-93.5 226.5 93.5 93.5 226.5-93.5 226.5-226.5 93.5q-126 0-218-86l-360 180q2 22 2 34t-2 34l360 180q92-86 218-86z">
                                     </path>
@@ -361,21 +285,21 @@ export const Valoraciones = () => {
                         <span className="text-lg font-bold text-indigo-500">
                             “
                         </span>
-                        To get social media testimonials like these, keep your customers engaged with your social media accounts by posting regularly yourself
+                        Servicio genial para cuidar a mi perro mientras estaba fuera. ¡Gracias!
                         <span className="text-lg font-bold text-indigo-500">
                             ”
                         </span>
                     </p>
-                    <div className="flex items-center mt-4">
-                        <a href="#" className="relative block">
-                            <img alt="profil" src="/images/person/1.jpg" className="mx-auto object-cover rounded-full h-10 w-10 " />
-                        </a>
-                        <div className="flex flex-col justify-between ml-2">
+                    <div className="flex items-center mt-7 mx-8">
+
+                            <img alt="profil" src="https://zipmex.com/static/d1af016df3c4adadee8d863e54e82331/Twitter-NFT-profile.jpg" className="mx-auto object-cover rounded-full h-10 w-10 " />
+
+                        <div className="flex flex-col justify-between">
                             <span className="text-sm font-semibold text-indigo-500">
-                                Jean Miguel
+                            Mateo García
                             </span>
                             <span className="flex items-center text-xs dark:text-gray-400">
-                                User of Tail-Kit
+                            Usuario de HOMYO
                                 <img src="/icons/rocket.svg" className="w-4 h-4 ml-2" />
                             </span>
                             <div className="flex items-center mt-1">
@@ -402,13 +326,7 @@ export const Valoraciones = () => {
                             </div>
                         </div>
                         <div className="flex items-start mt-6 text-indigo-500">
-                            <button className="mr-4 hover:text-red-900">
-                                <svg width="25" height="25" fill="currentColor" viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M1664 596q0-81-21.5-143t-55-98.5-81.5-59.5-94-31-98-8-112 25.5-110.5 64-86.5 72-60 61.5q-18 22-49 22t-49-22q-24-28-60-61.5t-86.5-72-110.5-64-112-25.5-98 8-94 31-81.5 59.5-55 98.5-21.5 143q0 168 187 355l581 560 580-559q188-188 188-356zm128 0q0 221-229 450l-623 600q-18 18-44 18t-44-18l-624-602q-10-8-27.5-26t-55.5-65.5-68-97.5-53.5-121-23.5-138q0-220 127-344t351-124q62 0 126.5 21.5t120 58 95.5 68.5 76 68q36-36 76-68t95.5-68.5 120-58 126.5-21.5q224 0 351 124t127 344z">
-                                    </path>
-                                </svg>
-                            </button>
-                            <button className="hover:text-green-900">
+                            <button className="hover:text-green-900 mr-6">
                                 <svg width="25" height="25" fill="currentColor" viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg">
                                     <path d="M1344 1024q133 0 226.5 93.5t93.5 226.5-93.5 226.5-226.5 93.5-226.5-93.5-93.5-226.5q0-12 2-34l-360-180q-92 86-218 86-133 0-226.5-93.5t-93.5-226.5 93.5-226.5 226.5-93.5q126 0 218 86l360-180q-2-22-2-34 0-133 93.5-226.5t226.5-93.5 226.5 93.5 93.5 226.5-93.5 226.5-226.5 93.5q-126 0-218-86l-360 180q2 22 2 34t-2 34l360 180q92-86 218-86z">
                                     </path>
@@ -422,21 +340,20 @@ export const Valoraciones = () => {
                         <span className="text-lg font-bold text-indigo-500">
                             “
                         </span>
-                        To get social media testimonials like these, keep your customers engaged with your social media accounts by posting regularly yourself
-                        <span className="text-lg font-bold text-indigo-500">
+                        Mi casa está impecable. Excelente servicio de limpieza. Muy satisfecho.                        <span className="text-lg font-bold text-indigo-500">
                             ”
                         </span>
                     </p>
-                    <div className="flex items-center mt-4">
-                        <a href="#" className="relative block">
-                            <img alt="profil" src="/images/person/1.jpg" className="mx-auto object-cover rounded-full h-10 w-10 " />
-                        </a>
-                        <div className="flex flex-col justify-between ml-2">
+                    <div className="flex items-center mt-7 mx-8">
+
+                            <img alt="profil" src="https://cdn140.picsart.com/c5919f8b-adef-45f5-acdf-8bd2e09c21be/380998721040203.jpg?type=webp&to=crop&r=256" className="mx-auto object-cover rounded-full h-10 w-10 " />
+
+                        <div className="flex flex-col justify-between">
                             <span className="text-sm font-semibold text-indigo-500">
-                                Jean Miguel
+                            Isabella López
                             </span>
                             <span className="flex items-center text-xs dark:text-gray-400">
-                                User of Tail-Kit
+                            Usuario de HOMYO
                                 <img src="/icons/rocket.svg" className="w-4 h-4 ml-2" />
                             </span>
                             <div className="flex items-center mt-1">
@@ -463,13 +380,7 @@ export const Valoraciones = () => {
                             </div>
                         </div>
                         <div className="flex items-start mt-6 text-indigo-500">
-                            <button className="mr-4 hover:text-red-900">
-                                <svg width="25" height="25" fill="currentColor" viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M1664 596q0-81-21.5-143t-55-98.5-81.5-59.5-94-31-98-8-112 25.5-110.5 64-86.5 72-60 61.5q-18 22-49 22t-49-22q-24-28-60-61.5t-86.5-72-110.5-64-112-25.5-98 8-94 31-81.5 59.5-55 98.5-21.5 143q0 168 187 355l581 560 580-559q188-188 188-356zm128 0q0 221-229 450l-623 600q-18 18-44 18t-44-18l-624-602q-10-8-27.5-26t-55.5-65.5-68-97.5-53.5-121-23.5-138q0-220 127-344t351-124q62 0 126.5 21.5t120 58 95.5 68.5 76 68q36-36 76-68t95.5-68.5 120-58 126.5-21.5q224 0 351 124t127 344z">
-                                    </path>
-                                </svg>
-                            </button>
-                            <button className="hover:text-green-900">
+                            <button className="hover:text-green-900 mr-6">
                                 <svg width="25" height="25" fill="currentColor" viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg">
                                     <path d="M1344 1024q133 0 226.5 93.5t93.5 226.5-93.5 226.5-226.5 93.5-226.5-93.5-93.5-226.5q0-12 2-34l-360-180q-92 86-218 86-133 0-226.5-93.5t-93.5-226.5 93.5-226.5 226.5-93.5q126 0 218 86l360-180q-2-22-2-34 0-133 93.5-226.5t226.5-93.5 226.5 93.5 93.5 226.5-93.5 226.5-226.5 93.5q-126 0-218-86l-360 180q2 22 2 34t-2 34l360 180q92-86 218-86z">
                                     </path>
@@ -483,21 +394,20 @@ export const Valoraciones = () => {
                         <span className="text-lg font-bold text-indigo-500">
                             “
                         </span>
-                        To get social media testimonials like these, keep your customers engaged with your social media accounts by posting regularly yourself
-                        <span className="text-lg font-bold text-indigo-500">
+                        Encontré una niñera increíble para mis hijos. Feliz con el servicio.                        <span className="text-lg font-bold text-indigo-500">
                             ”
                         </span>
                     </p>
-                    <div className="flex items-center mt-4">
-                        <a href="#" className="relative block">
-                            <img alt="profil" src="/images/person/1.jpg" className="mx-auto object-cover rounded-full h-10 w-10 " />
-                        </a>
-                        <div className="flex flex-col justify-between ml-2">
+                    <div className="flex items-center mt-7 mx-8">
+
+                            <img alt="profil" src="https://pbs.twimg.com/profile_images/681043172412243968/c0gJmuua_400x400.jpg" className="mx-auto object-cover rounded-full h-10 w-10 " />
+
+                        <div className="flex flex-col justify-between">
                             <span className="text-sm font-semibold text-indigo-500">
-                                Jean Miguel
+                            Akjhat Nayeem
                             </span>
                             <span className="flex items-center text-xs dark:text-gray-400">
-                                User of Tail-Kit
+                                Usuario de HOMYO
                                 <img src="/icons/rocket.svg" className="w-4 h-4 ml-2" />
                             </span>
                             <div className="flex items-center mt-1">
@@ -524,13 +434,61 @@ export const Valoraciones = () => {
                             </div>
                         </div>
                         <div className="flex items-start mt-6 text-indigo-500">
-                            <button className="mr-4 hover:text-red-900">
+                            <button className="hover:text-green-900 mr-6">
                                 <svg width="25" height="25" fill="currentColor" viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M1664 596q0-81-21.5-143t-55-98.5-81.5-59.5-94-31-98-8-112 25.5-110.5 64-86.5 72-60 61.5q-18 22-49 22t-49-22q-24-28-60-61.5t-86.5-72-110.5-64-112-25.5-98 8-94 31-81.5 59.5-55 98.5-21.5 143q0 168 187 355l581 560 580-559q188-188 188-356zm128 0q0 221-229 450l-623 600q-18 18-44 18t-44-18l-624-602q-10-8-27.5-26t-55.5-65.5-68-97.5-53.5-121-23.5-138q0-220 127-344t351-124q62 0 126.5 21.5t120 58 95.5 68.5 76 68q36-36 76-68t95.5-68.5 120-58 126.5-21.5q224 0 351 124t127 344z">
+                                    <path d="M1344 1024q133 0 226.5 93.5t93.5 226.5-93.5 226.5-226.5 93.5-226.5-93.5-93.5-226.5q0-12 2-34l-360-180q-92 86-218 86-133 0-226.5-93.5t-93.5-226.5 93.5-226.5 226.5-93.5q126 0 218 86l360-180q-2-22-2-34 0-133 93.5-226.5t226.5-93.5 226.5 93.5 93.5 226.5-93.5 226.5-226.5 93.5q-126 0-218-86l-360 180q2 22 2 34t-2 34l360 180q92-86 218-86z">
                                     </path>
                                 </svg>
                             </button>
-                            <button className="hover:text-green-900">
+                        </div>
+                    </div>
+                </div>
+                <div className="bg-white dark:bg-gray-800 w-72 shadow-lg mx-auto rounded-xl p-4">
+                    <p className="text-gray-600 dark:text-white">
+                        <span className="text-lg font-bold text-indigo-500">
+                            “
+                        </span>
+                        Equipo de jardinería profesional y puntual. Recomiendo sus servicios.                        <span className="text-lg font-bold text-indigo-500">
+                            ”
+                        </span>
+                    </p>
+                    <div className="flex items-center mt-7 mx-8">
+
+                            <img alt="profil" src="https://xsgames.co/randomusers/assets/avatars/male/46.jpg" className="mx-auto object-cover rounded-full h-10 w-10 " />
+
+                        <div className="flex flex-col justify-between">
+                            <span className="text-sm font-semibold text-indigo-500">
+                                Charles Mendez
+                            </span>
+                            <span className="flex items-center text-xs dark:text-gray-400">
+                                Usuario de HOMYO
+                                <img src="/icons/rocket.svg" className="w-4 h-4 ml-2" />
+                            </span>
+                            <div className="flex items-center mt-1">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" className="w-4 h-4 text-yellow-500" fill="currentColor" viewBox="0 0 1792 1792">
+                                    <path d="M1728 647q0 22-26 48l-363 354 86 500q1 7 1 20 0 21-10.5 35.5t-30.5 14.5q-19 0-40-12l-449-236-449 236q-22 12-40 12-21 0-31.5-14.5t-10.5-35.5q0-6 2-20l86-500-364-354q-25-27-25-48 0-37 56-46l502-73 225-455q19-41 49-41t49 41l225 455 502 73q56 9 56 46z">
+                                    </path>
+                                </svg>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" className="w-4 h-4 text-yellow-500" fill="currentColor" viewBox="0 0 1792 1792">
+                                    <path d="M1728 647q0 22-26 48l-363 354 86 500q1 7 1 20 0 21-10.5 35.5t-30.5 14.5q-19 0-40-12l-449-236-449 236q-22 12-40 12-21 0-31.5-14.5t-10.5-35.5q0-6 2-20l86-500-364-354q-25-27-25-48 0-37 56-46l502-73 225-455q19-41 49-41t49 41l225 455 502 73q56 9 56 46z">
+                                    </path>
+                                </svg>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" className="w-4 h-4 text-yellow-500" fill="currentColor" viewBox="0 0 1792 1792">
+                                    <path d="M1728 647q0 22-26 48l-363 354 86 500q1 7 1 20 0 21-10.5 35.5t-30.5 14.5q-19 0-40-12l-449-236-449 236q-22 12-40 12-21 0-31.5-14.5t-10.5-35.5q0-6 2-20l86-500-364-354q-25-27-25-48 0-37 56-46l502-73 225-455q19-41 49-41t49 41l225 455 502 73q56 9 56 46z">
+                                    </path>
+                                </svg>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" className="w-4 h-4 text-yellow-500" fill="currentColor" viewBox="0 0 1792 1792">
+                                    <path d="M1728 647q0 22-26 48l-363 354 86 500q1 7 1 20 0 21-10.5 35.5t-30.5 14.5q-19 0-40-12l-449-236-449 236q-22 12-40 12-21 0-31.5-14.5t-10.5-35.5q0-6 2-20l86-500-364-354q-25-27-25-48 0-37 56-46l502-73 225-455q19-41 49-41t49 41l225 455 502 73q56 9 56 46z">
+                                    </path>
+                                </svg>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" className="w-4 h-4 text-yellow-500" fill="currentColor" viewBox="0 0 1792 1792">
+                                    <path d="M1728 647q0 22-26 48l-363 354 86 500q1 7 1 20 0 21-10.5 35.5t-30.5 14.5q-19 0-40-12l-449-236-449 236q-22 12-40 12-21 0-31.5-14.5t-10.5-35.5q0-6 2-20l86-500-364-354q-25-27-25-48 0-37 56-46l502-73 225-455q19-41 49-41t49 41l225 455 502 73q56 9 56 46z">
+                                    </path>
+                                </svg>
+                            </div>
+                        </div>
+                        <div className="flex items-start mt-6 text-indigo-500">
+                            <button className="hover:text-green-900 mr-6">
                                 <svg width="25" height="25" fill="currentColor" viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg">
                                     <path d="M1344 1024q133 0 226.5 93.5t93.5 226.5-93.5 226.5-226.5 93.5-226.5-93.5-93.5-226.5q0-12 2-34l-360-180q-92 86-218 86-133 0-226.5-93.5t-93.5-226.5 93.5-226.5 226.5-93.5q126 0 218 86l360-180q-2-22-2-34 0-133 93.5-226.5t226.5-93.5 226.5 93.5 93.5 226.5-93.5 226.5-226.5 93.5q-126 0-218-86l-360 180q2 22 2 34t-2 34l360 180q92-86 218-86z">
                                     </path>
