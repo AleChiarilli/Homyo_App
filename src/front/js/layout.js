@@ -12,6 +12,7 @@ import { Busqueda } from "./pages/busqueda";
 import { Faq } from "./pages/faq";
 import { Sobrenosotros } from "./pages/sobrenosotros";
 import { TablonDeAnuncios } from "./pages/tablonDeAnuncios";
+import { SimpleMap } from "./component/mapComponent";
 import { Vista } from "./pages/map"
 import { Messages } from "./component/messages";
 import { Profileproview } from "./pages/profileproview";
@@ -38,12 +39,12 @@ const Layout = () => {
                 <ScrollToTop>
                     <Navbar isLoggedIn={isLoggedIn} />
                     <Routes>
+                        <Route element={<Home isLoggedIn={isLoggedIn}/>} path="/" />
+                        <Route element={<Messages />}path="/mensajes" />
                         <Route element={<Vista />} path="/map" />
                         {isLoggedIn && store.role === "profesional" && (
                             <Route element={<TablonDeAnuncios />} path="/tablon-de-anuncios" />
                         )}
-                        <Route element={<Home isLoggedIn={isLoggedIn} />} path="/" />
-                        <Route element={<Messages />} path="/mensajes" />
                         <Route element={<Demo />} path="/demo" />
 
                         {isLoggedIn && store.role === "profesional" && (<Route element={<Profilepro />} path="/mi-perfil-profesional" />

@@ -97,9 +97,9 @@ export const Navbar = ({ isLoggedIn }) => {
           to="/"
         >
           <img
-            src="https://flowbite.com/docs/images/logo.svg"
-            className="h-8 mr-3"
-            alt="Flowbite Logo"
+            src="https://cdn.discordapp.com/attachments/1103746622493577246/1117017298050486292/Pngtree_real_estate_simple_logo_design_3621497__1_-removebg-preview.png"
+            className="h-14 mr-2"
+            alt="HOMYO Logo"
           />
           <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white text-indigo-500">
             HOMYO
@@ -311,8 +311,9 @@ export const Navbar = ({ isLoggedIn }) => {
                       </li>
 
                       <li>
-                        <a href="#"
-                          className="block px-4 py-2 hover:bg-indigo-100 dark:hover:bg-indigo-600 dark:hover:text-white">Mensajes</a>
+                        <Link
+                        to = "/mensajes"
+                          className="block px-4 py-2 hover:bg-indigo-100 dark:hover:bg-indigo-600 dark:hover:text-white">Mensajes</Link>
                       </li>
                       <li>
                         <a href="#"
@@ -404,6 +405,23 @@ export const Navbar = ({ isLoggedIn }) => {
                               <input type="password" id="sign-in-password" className=" rounded-r-lg flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent" placeholder="Contraseña" onChange={(event) => setPassword(event.target.value)} />
                             </div>
                           </div>
+
+                          <div className="flex justify-center items-center">
+                          <p>Registrate como:</p>
+            <label className="relative inline-flex items-center cursor-pointer mb-5">
+              <input
+                type="checkbox"
+                value=""
+                className="sr-only peer"
+                checked={toggleActive}
+                onChange={handleToggleActive}
+              />
+              <div className="w-11 h-6 bg-gray-200 rounded-full peer peer-focus:ring-4 peer-focus:ring-indigo-300 dark:peer-focus:ring-indigo-800 dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-indigo-600"></div>
+              <span className={`ml-3 text-sm font-medium ${toggleActive ? 'text-gray-900' : 'text-red-500'} dark:text-gray-300`}>
+                {toggleActive ? 'Cliente' : 'Profesional'}
+              </span>
+            </label>
+          </div>
 
                           <div className="flex w-full">
                             <button type="submit" className="py-2 px-4  bg-indigo-500 hover:bg-indigo-700 focus:ring-indigo-500 focus:ring-offset-purple-200 text-white w-full transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-lg"  >

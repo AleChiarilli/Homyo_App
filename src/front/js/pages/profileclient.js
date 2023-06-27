@@ -11,7 +11,8 @@ import niños from "../../img/niños.png";
 import chef from "../../img/chef.png";
 import { Cardspaces } from "../component/cardSpaces";
 import { Cardannounces } from "../component/cardAnnounces";
-import { Contractclientcard } from "../component/contractClientCard";
+import { Acceptedcontractclientcard } from "../component/acceptedContractClientCard";
+import { Contractofferprofesionaltoclientcard } from "../component/contractOfferProfesionalToClientCard";
 
 export const Profileclient = () => {
     const [showProfile, setShowProfile] = useState(true);
@@ -78,13 +79,22 @@ export const Profileclient = () => {
     };
 
 
+    const [seleccionados, setSeleccionados] = useState([]);
+
+    const handleSeleccionar = (id) => {
+        if (seleccionados.includes(id)) {
+            setSeleccionados(seleccionados.filter((item) => item !== id));
+        } else {
+            setSeleccionados([...seleccionados, id]);
+        }
+    };
 
 
     return (
 
         <main className="max-w-screen-xl overflow-hidden dark:bg-gray-800 rounded-2xl mt-20 mx-auto">
             <div className="flex items-start justify-between">
-                <div className="relative hidden h-screen my-4 ml-4 shadow-lg lg:block w-80">
+                <div className="relative hidden my-4 ml-4 shadow-lg lg:block w-80">
                     <div className="h-full bg-white rounded-2xl dark:bg-gray-700">
                         <div className="flex items-center justify-center pt-6 ">
                             <img alt="limpieza" src={limpieza} className="mx-auto object-fit rounded-full h-16 w-16 " />
@@ -250,7 +260,7 @@ export const Profileclient = () => {
                 {/* Vista de mis espacios */}
                 {showSpaces && (
                     <div className="flex flex-col w-full pl-0 md:p-4 md:space-y-4">
-                        <div className="h-screen pt-2 pb-24 pl-2 pr-2 overflow-auto md:pt-0 md:pr-0 md:pl-0">
+                        <div className="h-screen pt-2 pb-24 pl-2 pr-2 overflow-auto md:pt-0 md:pr-0 md:pl-0 custom-scrollbar">
                             <div className="flex flex-col flex-wrap sm:flex-row ">
                                 <div className="w-full">
                                     <div className="mb-4">
@@ -279,7 +289,7 @@ export const Profileclient = () => {
                                                     <li>
                                                         <label htmlFor="dormitorios" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Dormitorios</label>
                                                         <select id="dormitorios" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                                                            <option selected>Elige el número de dormitorios</option>
+                                                            <option defaultValue>Elige el número de dormitorios</option>
                                                             <option value="1">1</option>
                                                             <option value="2">2</option>
                                                             <option value="3">3</option>
@@ -290,7 +300,7 @@ export const Profileclient = () => {
                                                     <li>
                                                         <label htmlFor="salon" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Salón</label>
                                                         <select id="salon" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                                                            <option selected>Elige el número de salones</option>
+                                                            <option defaultValue>Elige el número de salones</option>
                                                             <option value="1">1</option>
                                                             <option value="2">2</option>
                                                             <option value="+2">+2</option>
@@ -299,7 +309,7 @@ export const Profileclient = () => {
                                                     <li>
                                                         <label htmlFor="cocina" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Cocina</label>
                                                         <select id="cocina" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                                                            <option selected>Elige el número de cocinas</option>
+                                                            <option defaultValue>Elige el número de cocinas</option>
                                                             <option value="1">1</option>
                                                             <option value="2">2</option>
                                                             <option value="+2">+2</option>
@@ -308,7 +318,7 @@ export const Profileclient = () => {
                                                     <li>
                                                         <label htmlFor="banos" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Baños</label>
                                                         <select id="banos" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                                                            <option selected>Elige el número de baños</option>
+                                                            <option defaultValue>Elige el número de baños</option>
                                                             <option value="1">1</option>
                                                             <option value="2">2</option>
                                                             <option value="3">3</option>
@@ -318,7 +328,7 @@ export const Profileclient = () => {
                                                     <li>
                                                         <label htmlFor="terraza" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Terraza</label>
                                                         <select id="terraza" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                                                            <option selected>Elige el número de terrazas</option>
+                                                            <option defaultValue>Elige el número de terrazas</option>
                                                             <option value="1">1</option>
                                                             <option value="2">2</option>
                                                             <option value="3">3</option>
@@ -328,7 +338,7 @@ export const Profileclient = () => {
                                                     <li>
                                                         <label htmlFor="jardin" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Jardín</label>
                                                         <select id="jardin" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                                                            <option selected>Jardín</option>
+                                                            <option defaultValue>Jardín</option>
                                                             <option value="si">Sí</option>
                                                             <option value="no">No</option>
                                                         </select>
@@ -336,7 +346,7 @@ export const Profileclient = () => {
                                                     <li>
                                                         <label htmlFor="niños" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Niños</label>
                                                         <select id="niños" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                                                            <option selected>Niños</option>
+                                                            <option defaultValue>Niños</option>
                                                             <option value="1">1</option>
                                                             <option value="2">2</option>
                                                             <option value="3">3</option>
@@ -346,7 +356,7 @@ export const Profileclient = () => {
                                                     <li>
                                                         <label htmlFor="animales" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Animales</label>
                                                         <select id="animales" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                                                            <option selected>Animales</option>
+                                                            <option defaultValue>Animales</option>
                                                             <option value="1">1</option>
                                                             <option value="2">2</option>
                                                             <option value="3">3</option>
@@ -380,7 +390,7 @@ export const Profileclient = () => {
                 {/* Vista de mis anuncios */}
                 {showAnnounces && (
                     <div className="flex flex-col w-full pl-0 md:p-4 md:space-y-4">
-                        <div className="h-screen pt-2 pb-24 pl-2 pr-2 overflow-auto md:pt-0 md:pr-0 md:pl-0">
+                        <div className="h-screen pt-2 pb-24 pl-2 pr-2 overflow-auto md:pt-0 md:pr-0 md:pl-0 custom-scrollbar">
                             <div className="flex flex-col flex-wrap sm:flex-row ">
                                 <div className="w-full">
                                     <div className="mb-4">
@@ -390,15 +400,15 @@ export const Profileclient = () => {
                                                     Crear Anuncio
                                                 </p>
                                                 <div className="dark:bg-gray-700">
-                                                <p className="p-4 text-black text-md text-center dark:text-white">
+                                                    <p className="p-4 text-black text-md text-center dark:text-white">
                                                         ¿Donde necesitas el servicio?
                                                     </p>
-                                                        <select id="espacio" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                                                            <option selected>Elige el lugar</option>
-                                                            <option value="1">Casa Principal</option>
-                                                            <option value="2">Casa de la Playa</option>
-                                                            <option value="3">Casa de los Abuelos</option>
-                                                        </select>
+                                                    <select id="espacio" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                                                        <option defaultValue>Elige el lugar</option>
+                                                        <option value="1">Casa Principal</option>
+                                                        <option value="2">Casa de la Playa</option>
+                                                        <option value="3">Casa de los Abuelos</option>
+                                                    </select>
                                                     <p className="p-4 text-black text-md text-center dark:text-white">
                                                         ¿Qué servicios necesitas?
                                                     </p>
@@ -406,12 +416,19 @@ export const Profileclient = () => {
                                                         <li>
                                                             <button
                                                                 type="button"
-                                                                className="flex h-[50px] items-center px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-indigo-200 rounded-full mx-1 hover:bg-indigo-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-indigo-500 focus:text-blue-700 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-blue-500 dark:focus:text-white"
+                                                                id="limpieza"
+                                                                className={`flex h-[50px] items-center px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-indigo-200 rounded-full mx-1 hover:bg-indigo-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-indigo-500 focus:text-blue-700 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-blue-500 dark:focus:text-white ${seleccionados.includes("limpieza") ? "bg-indigo-100 text-blue-700" : ""
+                                                                    }`}
+                                                                onClick={() => handleSeleccionar("limpieza")}
                                                             >
                                                                 <div className="flex-row gap-4 flex justify-center items-center">
                                                                     <div className="flex-shrink-0">
                                                                         <a href="#" className="relative block">
-                                                                            <img alt="limpieza" src={limpieza} className="mx-auto object-fit rounded-full h-8 w-8" />
+                                                                            <img
+                                                                                alt="limpieza"
+                                                                                src={limpieza}
+                                                                                className="mx-auto object-fit rounded-full h-8 w-8"
+                                                                            />
                                                                         </a>
                                                                     </div>
                                                                     <div className="flex flex-col">
@@ -425,12 +442,19 @@ export const Profileclient = () => {
                                                         <li>
                                                             <button
                                                                 type="button"
-                                                                className="flex h-[50px] items-center px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-indigo-200 rounded-full mx-1 hover:bg-indigo-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-indigo-500 focus:text-blue-700 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-blue-500 dark:focus:text-white"
+                                                                id="cocina"
+                                                                className={`flex h-[50px] items-center px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-indigo-200 rounded-full mx-1 hover:bg-indigo-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-indigo-500 focus:text-blue-700 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-blue-500 dark:focus:text-white ${seleccionados.includes("cocina") ? "bg-indigo-100 text-blue-700" : ""
+                                                                    }`}
+                                                                onClick={() => handleSeleccionar("cocina")}
                                                             >
                                                                 <div className="flex-row gap-4 flex justify-center items-center">
                                                                     <div className="flex-shrink-0">
                                                                         <a href="#" className="relative block">
-                                                                            <img alt="cocina" src={chef} className="mx-auto object-fit rounded-full h-8 w-8" />
+                                                                            <img
+                                                                                alt="cocina"
+                                                                                src={chef}
+                                                                                className="mx-auto object-fit rounded-full h-8 w-8"
+                                                                            />
                                                                         </a>
                                                                     </div>
                                                                     <div className="flex flex-col">
@@ -444,15 +468,22 @@ export const Profileclient = () => {
                                                         <li>
                                                             <button
                                                                 type="button"
-                                                                className="flex h-[50px] items-center px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-indigo-200 rounded-full mx-1 hover:bg-indigo-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-indigo-500 focus:text-blue-700 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-blue-500 dark:focus:text-white"
+                                                                id="niños"
+                                                                className={`flex h-[50px] items-center px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-indigo-200 rounded-full mx-1 hover:bg-indigo-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-indigo-500 focus:text-blue-700 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-blue-500 dark:focus:text-white ${seleccionados.includes("niños") ? "bg-indigo-100 text-blue-700" : ""
+                                                                    }`}
+                                                                onClick={() => handleSeleccionar("niños")}
                                                             >
                                                                 <div className="flex-row gap-4 flex justify-center items-center">
                                                                     <div className="flex-shrink-0">
                                                                         <a href="#" className="relative block">
-                                                                            <img alt="cuidad de niños" src={niños} className="mx-auto object-fit rounded-full h-8 w-8 " />
+                                                                            <img
+                                                                                alt="cuidado de niños"
+                                                                                src={niños}
+                                                                                className="mx-auto object-fit rounded-full h-8 w-8"
+                                                                            />
                                                                         </a>
                                                                     </div>
-                                                                    <div className=" flex flex-col">
+                                                                    <div className="flex flex-col">
                                                                         <span className="text-lg font-medium text-gray-600 dark:text-white">
                                                                             Cuidado de niños
                                                                         </span>
@@ -463,15 +494,22 @@ export const Profileclient = () => {
                                                         <li>
                                                             <button
                                                                 type="button"
-                                                                className="flex h-[50px] items-center px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-indigo-200 rounded-full mx-1 hover:bg-indigo-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-indigo-500 focus:text-blue-700 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-blue-500 dark:focus:text-white"
+                                                                id="animales"
+                                                                className={`flex h-[50px] items-center px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-indigo-200 rounded-full mx-1 hover:bg-indigo-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-indigo-500 focus:text-blue-700 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-blue-500 dark:focus:text-white ${seleccionados.includes("animales") ? "bg-indigo-100 text-blue-700" : ""
+                                                                    }`}
+                                                                onClick={() => handleSeleccionar("animales")}
                                                             >
                                                                 <div className="flex-row gap-4 flex justify-center items-center">
                                                                     <div className="flex-shrink-0">
                                                                         <a href="#" className="relative block">
-                                                                            <img alt="cuidado de animales" src={animales} className="mx-auto object-fit rounded-full h-8 w-8 " />
+                                                                            <img
+                                                                                alt="cuidado de animales"
+                                                                                src={animales}
+                                                                                className="mx-auto object-fit rounded-full h-8 w-8"
+                                                                            />
                                                                         </a>
                                                                     </div>
-                                                                    <div className=" flex flex-col">
+                                                                    <div className="flex flex-col">
                                                                         <span className="text-lg font-medium text-gray-600 dark:text-white">
                                                                             Cuidado de animales
                                                                         </span>
@@ -482,15 +520,22 @@ export const Profileclient = () => {
                                                         <li>
                                                             <button
                                                                 type="button"
-                                                                className="flex h-[50px] items-center px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-indigo-200 rounded-full mx-1 hover:bg-indigo-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-indigo-500 focus:text-blue-700 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-blue-500 dark:focus:text-white"
+                                                                id="jardineria"
+                                                                className={`flex h-[50px] items-center px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-indigo-200 rounded-full mx-1 hover:bg-indigo-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-indigo-500 focus:text-blue-700 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-blue-500 dark:focus:text-white ${seleccionados.includes("jardineria") ? "bg-indigo-100 text-blue-700" : ""
+                                                                    }`}
+                                                                onClick={() => handleSeleccionar("jardineria")}
                                                             >
                                                                 <div className="flex-row gap-4 flex justify-center items-center">
                                                                     <div className="flex-shrink-0">
                                                                         <a href="#" className="relative block">
-                                                                            <img alt="jardineria" src={jardineria} className="mx-auto object-fit rounded-full h-8 w-8 " />
+                                                                            <img
+                                                                                alt="jardineria"
+                                                                                src={jardineria}
+                                                                                className="mx-auto object-fit rounded-full h-8 w-8"
+                                                                            />
                                                                         </a>
                                                                     </div>
-                                                                    <div className=" flex flex-col">
+                                                                    <div className="flex flex-col">
                                                                         <span className="text-lg font-medium text-gray-600 dark:text-white">
                                                                             Jardineria
                                                                         </span>
@@ -500,20 +545,24 @@ export const Profileclient = () => {
                                                         </li>
                                                     </ul>
                                                     <p className="p-4 text-black text-md text-center dark:text-white">
-                                                        Dinos la fecha 
+                                                        Dinos la fecha
                                                     </p>
-                                                    <textarea id="date" rows="1" className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder=""></textarea>
+                                                    <textarea id="date" rows="1" defaultValue="" className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder=""></textarea>
 
                                                     <p className="p-4 text-black text-md text-center dark:text-white">
-                                                        Dinos la hora 
+                                                        Dinos la hora de inicio
                                                     </p>
-                                                    <textarea id="hour" rows="1" className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder=""></textarea>
+                                                    <textarea id="hour" rows="1" defaultValue="" className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder=""></textarea>
 
                                                     <p className="p-4 text-black text-md text-center dark:text-white">
-                                                        Especifica las tareas  
+                                                        Dinos la hora de fin
                                                     </p>
-                                                    <textarea id="tasks" rows="4" className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder=""></textarea>
+                                                    <textarea id="endHour" rows="1" defaultValue="" className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder=""></textarea>
 
+                                                    <p className="p-4 text-black text-md text-center dark:text-white">
+                                                        Especifica las tareas
+                                                    </p>
+                                                    <textarea id="tasks" rows="4" defaultValue="" className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder=""></textarea>
                                                 </div>
                                             </div>
                                             <div className="text-center">
@@ -537,6 +586,7 @@ export const Profileclient = () => {
 
                 {/* Vista contrataciones */}
                 {showCalendar && (
+
                     <Calendar />
 
                 )}
@@ -544,12 +594,28 @@ export const Profileclient = () => {
 
                 {/* Vista contrataciones */}
                 {showContracts && (
-                    <Contractclientcard/>
-
+      <div className="h-screen pt-2 pb-24 pl-2 pr-2 overflow-auto md:pt-0 md:pr-0 md:pl-0 custom-scrollbar">
+      <div className="mx-0 mb-4">
+        <p className="p-4 font-bold text-black text-md text-center dark:text-white">
+          Tus Contratos Confirmados
+        </p>
+        <Acceptedcontractclientcard />
+    
+        <p className="p-4 font-bold text-black text-md text-center dark:text-white">
+          Ofertas para tus anuncios
+        </p>
+        <Contractofferprofesionaltoclientcard />
+      </div>
+    </div>
+    
                 )}
 
                 {showMessages && (
+                    <div className="h-screen pt-2 pb-24 pl-2 pr-2 overflow-auto md:pt-0 md:pr-0 md:pl-0 custom-scrollbar">
+
                     <Messages />
+                </div>
+
                 )}
 
             </div>

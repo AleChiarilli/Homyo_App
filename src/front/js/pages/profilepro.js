@@ -9,9 +9,9 @@ import animales from "../../img/animales.png";
 import jardineria from "../../img/jardineria.png";
 import niños from "../../img/niños.png";
 import chef from "../../img/chef.png";
-import { Contractprofesionaldcard } from "../component/contractProfesionalCard";
-
-
+import { Cardprofilepro } from "../component/cardProfilePro";
+import { Acceptedcontractprofesionaldcard } from "../component/acceptedContractProfesionalCard";
+import { Contractofferclienttoprofesionaldcard } from "../component/contractOfferClientToProfesionalCard";
 
 export const Profilepro = () => {
     // const [profile_pic, setProfile_pic] = useState("");
@@ -69,12 +69,22 @@ export const Profilepro = () => {
     //     await actions.login(profile_pic,description,address,postal_code,phone_number,hourly_rate)
     // }
 
+    const [seleccionados, setSeleccionados] = useState([]);
+
+    const handleSeleccionar = (id) => {
+        if (seleccionados.includes(id)) {
+            setSeleccionados(seleccionados.filter((item) => item !== id));
+        } else {
+            setSeleccionados([...seleccionados, id]);
+        }
+    };
+
 
     return (
 
         <main className="max-w-screen-xl overflow-hidden dark:bg-gray-800 rounded-2xl mt-20 mx-auto">
             <div className="flex items-start justify-between">
-                <div className="relative hidden h-screen my-4 ml-4 shadow-lg lg:block w-80">
+                <div className="relative hidden my-4 ml-4 shadow-lg lg:block w-80">
                     <div className="h-full bg-white rounded-2xl dark:bg-gray-700">
                         <div className="flex items-center justify-center pt-6 ">
                             <img alt="limpieza" src={limpieza} className="mx-auto object-fit rounded-full h-16 w-16 " />
@@ -152,7 +162,7 @@ export const Profilepro = () => {
                 {/* Vista de mi perfil */}
                 {showProfile && (
                     <div className="flex flex-col w-full pl-0 md:p-4 md:space-y-4">
-                        <div className="h-screen pt-2 pb-24 pl-2 pr-2 overflow-auto md:pt-0 md:pr-0 md:pl-0">
+                        <div className="h-screen pt-2 pb-24 pl-2 pr-2 overflow-auto md:pt-0 md:pr-0 md:pl-0 custom-scrollbar">
                             <div className="flex flex-col flex-wrap sm:flex-row ">
                                 <div className="w-full">
                                     <div className="mb-4">
@@ -161,13 +171,17 @@ export const Profilepro = () => {
                                                 <p className="text-center font-bold text-black text-md dark:text-white">
                                                     Mis Datos
                                                 </p>
-                                                <div className="grid md:grid-cols-2 md:gap-6">
+                                                <div className="grid md:grid-cols-3 md:gap-6">
                                                     <div className="relative z-0 w-full mb-6 group">
                                                         <input type="text" name="floating_first_name" id="floating_first_name" className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder="Nombre " required />
                                                         <label htmlFor="floating_first_name" className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"></label>
                                                     </div>
                                                     <div className="relative z-0 w-full mb-6 group">
-                                                        <input type="text" name="floating_last_name" id="floating_last_name" className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder="Apellido" required />
+                                                        <input type="text" name="floating_last_name" id="floating_last_name" className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder="Apellido 1" required />
+                                                        <label htmlFor="floating_last_name" className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"></label>
+                                                    </div>
+                                                    <div className="relative z-0 w-full mb-6 group">
+                                                        <input type="text" name="floating_last_name" id="floating_last_name" className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder="Apellido 2" required />
                                                         <label htmlFor="floating_last_name" className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"></label>
                                                     </div>
                                                 </div>
@@ -179,7 +193,7 @@ export const Profilepro = () => {
                                                     <input type="text" name="floating_id" id="floating_id" className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder="DNI" required />
                                                     <label htmlFor="floating_id" className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"></label>
                                                 </div>
-                                                <div className="grid md:grid-cols-2 md:gap-6">
+                                                <div className="grid md:grid-cols-3 md:gap-6">
                                                     <div className="relative z-0 w-full mb-6 group">
                                                         <input type="text" name="floating_adress" id="floating_adress" className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder="Dirección " required />
                                                         <label htmlFor="floating_adress" className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"></label>
@@ -196,13 +210,16 @@ export const Profilepro = () => {
                                                         <input type="text" name="floating_radio" id="floating_radio" className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder="Ciudad" required />
                                                         <label htmlFor="floating_radio" className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"></label>
                                                     </div>
+                                                    <div className="relative z-0 w-full mb-6 group">
+                                                        <input type="text" name="floating_price" id="floating_price" className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder="Precio/hora" required />
+                                                        <label htmlFor="floating_price" className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"></label>
+                                                    </div>
                                                 </div>
                                                 <div className="grid md:grid-cols-1 md:gap-6">
                                                     <div className="relative z-0 w-full mb-6 group">
                                                         <input type="tel" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" name="floating_phone" id="floating_phone" className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder="Teléfono " required />
                                                         <label htmlFor="floating_phone" className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"></label>
                                                     </div>
-
                                                 </div>
 
                                                 <div className="mb-4">
@@ -229,12 +246,19 @@ export const Profilepro = () => {
                                                     <li>
                                                         <button
                                                             type="button"
-                                                            className="flex h-[50px] items-center px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-indigo-200 rounded-full mx-1 hover:bg-indigo-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-indigo-500 focus:text-blue-700 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-blue-500 dark:focus:text-white"
+                                                            id="limpieza"
+                                                            className={`flex h-[50px] items-center px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-indigo-200 rounded-full mx-1 hover:bg-indigo-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-indigo-500 focus:text-blue-700 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-blue-500 dark:focus:text-white ${seleccionados.includes("limpieza") ? "bg-indigo-100 text-blue-700" : ""
+                                                                }`}
+                                                            onClick={() => handleSeleccionar("limpieza")}
                                                         >
                                                             <div className="flex-row gap-4 flex justify-center items-center">
                                                                 <div className="flex-shrink-0">
                                                                     <a href="#" className="relative block">
-                                                                        <img alt="limpieza" src={limpieza} className="mx-auto object-fit rounded-full h-8 w-8" />
+                                                                        <img
+                                                                            alt="limpieza"
+                                                                            src={limpieza}
+                                                                            className="mx-auto object-fit rounded-full h-8 w-8"
+                                                                        />
                                                                     </a>
                                                                 </div>
                                                                 <div className="flex flex-col">
@@ -248,12 +272,19 @@ export const Profilepro = () => {
                                                     <li>
                                                         <button
                                                             type="button"
-                                                            className="flex h-[50px] items-center px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-indigo-200 rounded-full mx-1 hover:bg-indigo-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-indigo-500 focus:text-blue-700 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-blue-500 dark:focus:text-white"
+                                                            id="cocina"
+                                                            className={`flex h-[50px] items-center px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-indigo-200 rounded-full mx-1 hover:bg-indigo-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-indigo-500 focus:text-blue-700 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-blue-500 dark:focus:text-white ${seleccionados.includes("cocina") ? "bg-indigo-100 text-blue-700" : ""
+                                                                }`}
+                                                            onClick={() => handleSeleccionar("cocina")}
                                                         >
                                                             <div className="flex-row gap-4 flex justify-center items-center">
                                                                 <div className="flex-shrink-0">
                                                                     <a href="#" className="relative block">
-                                                                        <img alt="cocina" src={chef} className="mx-auto object-fit rounded-full h-8 w-8" />
+                                                                        <img
+                                                                            alt="cocina"
+                                                                            src={chef}
+                                                                            className="mx-auto object-fit rounded-full h-8 w-8"
+                                                                        />
                                                                     </a>
                                                                 </div>
                                                                 <div className="flex flex-col">
@@ -267,15 +298,22 @@ export const Profilepro = () => {
                                                     <li>
                                                         <button
                                                             type="button"
-                                                            className="flex h-[50px] items-center px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-indigo-200 rounded-full mx-1 hover:bg-indigo-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-indigo-500 focus:text-blue-700 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-blue-500 dark:focus:text-white"
+                                                            id="niños"
+                                                            className={`flex h-[50px] items-center px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-indigo-200 rounded-full mx-1 hover:bg-indigo-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-indigo-500 focus:text-blue-700 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-blue-500 dark:focus:text-white ${seleccionados.includes("niños") ? "bg-indigo-100 text-blue-700" : ""
+                                                                }`}
+                                                            onClick={() => handleSeleccionar("niños")}
                                                         >
                                                             <div className="flex-row gap-4 flex justify-center items-center">
                                                                 <div className="flex-shrink-0">
                                                                     <a href="#" className="relative block">
-                                                                        <img alt="cuidad de niños" src={niños} className="mx-auto object-fit rounded-full h-8 w-8 " />
+                                                                        <img
+                                                                            alt="cuidado de niños"
+                                                                            src={niños}
+                                                                            className="mx-auto object-fit rounded-full h-8 w-8"
+                                                                        />
                                                                     </a>
                                                                 </div>
-                                                                <div className=" flex flex-col">
+                                                                <div className="flex flex-col">
                                                                     <span className="text-lg font-medium text-gray-600 dark:text-white">
                                                                         Cuidado de niños
                                                                     </span>
@@ -286,15 +324,22 @@ export const Profilepro = () => {
                                                     <li>
                                                         <button
                                                             type="button"
-                                                            className="flex h-[50px] items-center px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-indigo-200 rounded-full mx-1 hover:bg-indigo-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-indigo-500 focus:text-blue-700 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-blue-500 dark:focus:text-white"
+                                                            id="animales"
+                                                            className={`flex h-[50px] items-center px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-indigo-200 rounded-full mx-1 hover:bg-indigo-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-indigo-500 focus:text-blue-700 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-blue-500 dark:focus:text-white ${seleccionados.includes("animales") ? "bg-indigo-100 text-blue-700" : ""
+                                                                }`}
+                                                            onClick={() => handleSeleccionar("animales")}
                                                         >
                                                             <div className="flex-row gap-4 flex justify-center items-center">
                                                                 <div className="flex-shrink-0">
                                                                     <a href="#" className="relative block">
-                                                                        <img alt="cuidado de animales" src={animales} className="mx-auto object-fit rounded-full h-8 w-8 " />
+                                                                        <img
+                                                                            alt="cuidado de animales"
+                                                                            src={animales}
+                                                                            className="mx-auto object-fit rounded-full h-8 w-8"
+                                                                        />
                                                                     </a>
                                                                 </div>
-                                                                <div className=" flex flex-col">
+                                                                <div className="flex flex-col">
                                                                     <span className="text-lg font-medium text-gray-600 dark:text-white">
                                                                         Cuidado de animales
                                                                     </span>
@@ -305,15 +350,22 @@ export const Profilepro = () => {
                                                     <li>
                                                         <button
                                                             type="button"
-                                                            className="flex h-[50px] items-center px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-indigo-200 rounded-full mx-1 hover:bg-indigo-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-indigo-500 focus:text-blue-700 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-blue-500 dark:focus:text-white"
+                                                            id="jardineria"
+                                                            className={`flex h-[50px] items-center px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-indigo-200 rounded-full mx-1 hover:bg-indigo-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-indigo-500 focus:text-blue-700 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-blue-500 dark:focus:text-white ${seleccionados.includes("jardineria") ? "bg-indigo-100 text-blue-700" : ""
+                                                                }`}
+                                                            onClick={() => handleSeleccionar("jardineria")}
                                                         >
                                                             <div className="flex-row gap-4 flex justify-center items-center">
                                                                 <div className="flex-shrink-0">
                                                                     <a href="#" className="relative block">
-                                                                        <img alt="jardineria" src={jardineria} className="mx-auto object-fit rounded-full h-8 w-8 " />
+                                                                        <img
+                                                                            alt="jardineria"
+                                                                            src={jardineria}
+                                                                            className="mx-auto object-fit rounded-full h-8 w-8"
+                                                                        />
                                                                     </a>
                                                                 </div>
-                                                                <div className=" flex flex-col">
+                                                                <div className="flex flex-col">
                                                                     <span className="text-lg font-medium text-gray-600 dark:text-white">
                                                                         Jardineria
                                                                     </span>
@@ -327,6 +379,10 @@ export const Profilepro = () => {
                                                 </div>
                                             </form>
                                         </div>
+                                        <p className="p-4 font-bold text-black text-md text-center dark:text-white">
+                                            Mi Perfil
+                                        </p>
+                                        <Cardprofilepro />
                                     </div>
                                 </div>
                             </div>
@@ -337,20 +393,38 @@ export const Profilepro = () => {
 
 
                 {/* Vista contrataciones */}
-                {showCalendar && (
-                    <Calendar />
 
+                {showCalendar && (
+                    <div className="w-screen pt-2 pb-24 pl-2 pr-2 overflow-auto md:pt-0 md:pr-0 md:pl-0">
+
+                        <Calendar />
+                    </div>
                 )}
 
 
                 {/* Vista contrataciones */}
                 {showContracts && (
-                    <Contractprofesionaldcard />
+                    <div className="h-screen pt-2 pb-24 pl-2 pr-2 overflow-auto md:pt-0 md:pr-0 md:pl-0 custom-scrollbar">
+                        <div className="mx-0 mb-4 ">
+                            <p className="p-4 font-bold text-black text-md text-center dark:text-white">
+                                Tus Contratos Confirmados </p>
+                            <Acceptedcontractprofesionaldcard />
+
+                            <p className="p-4 font-bold text-black text-md text-center dark:text-white">
+                                Contratos por aceptar </p>
+                            <Contractofferclienttoprofesionaldcard />
+                        </div>
+                    </div>
+
 
                 )}
 
                 {showMessages && (
-                    <Messages />
+                    <div className="h-screen pt-2 pb-24 pl-2 pr-2 overflow-auto md:pt-0 md:pr-0 md:pl-0 custom-scrollbar">
+
+                        <Messages />
+                    </div>
+
                 )}
 
             </div>
