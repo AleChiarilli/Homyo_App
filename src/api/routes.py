@@ -2,7 +2,7 @@
 This module takes care of starting the API Server, Loading the DB and Adding the endpoints
 """
 from flask import Flask, request, jsonify, url_for, Blueprint, json
-from api.models import db, User, Role, User_role, Pro_profile, Cmr_profile, Skill, Pro_profile_skill, Home, Contract, Pro_review, Cmr_review, Message, Message_receiver
+from api.models import db, User, Role, User_role, Pro_profile, Cmr_profile, Skill, Pro_profile_skill, Home, Home_Post, Contract, Pro_review, Cmr_review, Message, Message_receiver
 from api.utils import generate_sitemap, APIException
 from flask_jwt_extended import create_access_token, get_jwt_identity, jwt_required
 
@@ -31,7 +31,8 @@ def login():
     password = request.json.get("password", None)
 
     user = User.query.filter_by(email=email).first()
-    print(user)
+    print(user.serialize())
+    
 
     if user is None:
         return jsonify({"msg": "User does not exists"}), 404 
@@ -40,7 +41,13 @@ def login():
 
 
     access_token = create_access_token(identity=email)
-    return jsonify(access_token=access_token)
+
+    response_body = {
+        "token": access_token,
+        "user": user.serialize(),
+    } 
+    print(response_body)
+    return jsonify(response_body)
 
 @api.route('/user', methods=['GET'])
 def get_users():
@@ -97,7 +104,7 @@ def create_user():
         raise APIException('Ese ya Email ya esta en uso', status_code=400)
     
     print(body)
-    user = User(username=body["username"], email=body["email"], password=body["password"], profile_pic=body["profile_pic"])
+    user = User(username=body["username"], surname1=body["surname1"], surname2=body["surname2"], email=body["email"], password=body["password"], profile_pic=body["profile_pic"])
     db.session.add(user)
     db.session.commit()
 
@@ -154,7 +161,7 @@ def get_single_role(id):
 
     role = Role.query.filter_by(id=id).first()
     print(role)
-# endpoint para crear un dato en tabla USER
+# endpoint para crear un dato en tabla ROL
 @api.route('/role', methods=['POST'])
 def create_role():
 
@@ -198,7 +205,7 @@ def get_user_roles():
 
     results = User_role.query.all()
     user_roles_list = list(map(lambda item: item.serialize(),results))
-
+    print(user_roles_list)
 
     response_body = {
         "msg": "Hello, this is your GET /user_role response ",
@@ -965,6 +972,99 @@ def delete_home(id):
 #     response_body = {
 #         "msg": "El home_habitant ha sido borrado",
 #     }
+#----------------ENDPOINTS HOME_POST-----------
+
+@api.route('/home_post', methods=['GET'])
+# Acceso protegido
+# @jwt_required()
+def get_home_post():
+
+    results = Home_Post.query.all()
+    home_posts_list = list(map(lambda item: item.serialize(),results))
+
+
+    response_body = {
+        "msg": "Hello, this is your GET /pro_user_profile response ",
+        "results": home_posts_list
+    }
+
+    return jsonify(response_body), 200
+
+#enpoint de una relacion home_post en concreto
+
+@api.route('/home_post/<int:id>', methods=['GET'])
+# Acceso protegido
+# @jwt_required()
+def get_single_home_post(id):
+    print(id)
+
+    home_post = Home_Post.query.filter_by(id=id).first()
+    print(home_post)
+# comprobamos que existe un HOME_POST con ese id, si no es asi, respondemos un mensaje de error
+    if home_post is None:
+        raise APIException("No hay un usuario_rol con ese ID", status_code=404)
+
+
+    response_body = {
+        "msg": "Hello, this is your SINGLE GET /pro_user_profile response ",
+        "result": home_post.serialize()
+    }
+
+    return jsonify(response_body), 200
+
+# endpoint para crear un dato en tabla CONTRACT
+@api.route('/home_post', methods=['POST'])
+# Acceso protegido
+# @jwt_required()
+def create_home_post():
+
+    body = json.loads(request.data)
+    # json.loads(request.body.decode(encoding='UTF-8'))
+
+    if body is None:
+        raise APIException("You need to specify the request body as a json object", status_code=400)
+    if 'home_id' not in body:
+        raise APIException('Te falta añadir un id de casa', status_code=400)
+    if 'pro_profile_id ' not in body:
+        raise APIException('Te falta añadir un id de profesional', status_code=400)
+    if 'cmr_profile_id' not in body:
+        raise APIException('Te falta añadir un id de cliente', status_code=400)
+    if 'job_status' not in body:
+        raise APIException('Te falta añadir un estado del trabajo', status_code=400)
+    if 'payment_status' not in body:
+        raise APIException('Te falta añadir un estado del trabajo', status_code=400)
+    if 'job_date' not in body:
+        raise APIException('Te falta añadir una fecha', status_code=400)
+    
+    print(body)
+    home_post = Home_Post(pro_profile_id=body["pro_profile_id"],cmr_profile_id=body["cmr_profile_id"],job_status=body["job_status"], payment_status=body["payment_status"],job_date=body["job_date"], home_id=body["home_id"])
+    db.session.add(home_post)
+    db.session.commit()
+
+    response_body = {
+        "msg": "La relación contrato ha sido creado",
+    }
+
+    return jsonify(response_body), 200
+
+# endpoint para BORRAR un dato en HOME_POST 
+@api.route('/home_post/<int:id>', methods=['DELETE'])
+# Acceso protegido
+# @jwt_required()
+def delete_home_post(id):
+    print(id)
+
+    home_post = Home_Post.query.filter_by(id=id).first()
+# # comprobamos que existe un anuncio con ese id, si no es asi, respondemos un mensaje de error
+    if home_post is None:
+        raise APIException("No hay un contrato con ese ID", status_code=404)
+
+    db.session.delete(home_post)
+    db.session.commit()
+
+    response_body = {
+        "msg": "El contrato ha sido borrado",
+    }
 
 #----------------ENDPOINTS CONTRACT-----------
 
