@@ -51,8 +51,7 @@ class User_role(db.Model):
     role = db.relationship(Role)
 
     # def serialize(self):
-        
-
+    
     def __repr__(self):
         return f'<Role {self.id}>'
 
@@ -152,6 +151,7 @@ class Home(db.Model):
     description = db.Column(db.String(255), unique=False, nullable=False)
     cmr_profile_id = db.Column(db.Integer, db.ForeignKey('cmr_profile.id'))
     cmr_profile = db.relationship("Cmr_profile", backref="Home", lazy=True)
+    cmr_profile = db.relationship("Cmr_profile", backref="Home", lazy=True)
     #aqui se modifico
 
     def __repr__(self):
@@ -245,6 +245,7 @@ class TimestampMixin(db.Model):
     updated = db.Column(db.DateTime, onupdate=datetime.utcnow)
 
 class Home_Post(TimestampMixin,db.Model):
+    __tablename__="home_post"
     id = db.Column(db.Integer, primary_key=True)
     is_visible = db.Column(db.Boolean(), unique=False, nullable=False, default=False)
     home_id = db.Column(db.Integer, db.ForeignKey('home.id'))
@@ -256,37 +257,39 @@ class Home_Post(TimestampMixin,db.Model):
     cmr_profile = db.relationship(Cmr_profile)
     starting_time = db.Column(db.DateTime)
     finishing_time = db.Column(db.DateTime)
+    skills = db.relationship('Post_skills', backref='home_post', lazy=True)
     
-
     def __repr__(self):
         return f'<Home_Post {self.id}>'
 
     def serialize(self):
         return {
             "id": self.id,
-            "home":self.home.serialize(),
+            "home_id":self.home.id,
             "latitude": self.latitude,
             "longitude": self.longitude,
             "description": self.description,
-            "cmr_profile_id": self.cmr_profile.serialize()
+            "cmr_profile_id": self.cmr_profile_id,
+            "skills" : list(map(lambda item:item.serialize(),self.skills))
         }
 
-# class Post_skills(db.Model):
-#     id = db.Column(db.Integer, primary_key=True)
-#     skill_id = db.Column(db.Integer, db.ForeignKey('skill.id'))
-#     skill = db.relationship(Skill)
-#     homepost_id = db.Column(db.Integer, db.ForeignKey('home_post.id'))
-#     home_post = db.relationship(Home_Post)
+class Post_skills(db.Model):
+    __tablename__="post_skills"
+    id = db.Column(db.Integer, primary_key=True)
+    skill_id = db.Column(db.Integer, db.ForeignKey('skill.id'))
+    skill = db.relationship(Skill)
+    homepost_id = db.Column(db.Integer, db.ForeignKey('home_post.id'))
+    # home_post = db.relationship(Home_Post)
 
-#     def __repr__(self):
-#         return f'<Post_skills {self.id}>'
+    def __repr__(self):
+        return f'<Post_skills {self.id}>'
 
-#     def serialize(self):
-#         return {
-#             "id": self.id,
-#             "skill":self.skill.serialize(),
-#             "homepost_id": self.home_post.serialize()
-#         }
+    def serialize(self):
+        return {
+            "id": self.id,
+            "skill":self.skill.serialize()["name"],
+            "homepost_id": self.homepost_id
+        }
 
 class JobStatus(Enum):
     PENDING = 'Pending'

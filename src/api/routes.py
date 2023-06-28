@@ -133,7 +133,7 @@ def create_user():
         raise APIException('Te falta añadir un correo electrónico', status_code=400)
     if 'password' not in body:
         raise APIException('Te falta añadir una contraseña', status_code=400)
-   # comprobamos si existe un usuario con ese email, si es asi, respondemos un mensaje de error 
+# comprobamos si existe un usuario con ese email, si es asi, respondemos un mensaje de error 
     email = body["email"]
     existing_user = User.query.filter_by(email=email).first()
     if existing_user:
@@ -372,17 +372,14 @@ def create_pro_profile():
 
     if body is None:
         raise APIException("You need to specify the request body as a json object", status_code=400)
-    if 'user_id' not in body:
+    if 'home' not in body:
         raise APIException('Te falta añadir una id de usuario', status_code=400)
-    if 'description' not in body:
+    if 'latitude' not in body:
         raise APIException('Te falta añadir una descripción', status_code=400)
-    if 'postal_code' not in body:
+    if 'longitude' not in body:
         raise APIException('Te falta añadir un código postal', status_code=400)
-    if 'hourly_rate' not in body:
-        raise APIException('Te falta añadir una tarifa por horas', status_code=400)
-    
-    print(body)
-    pro_profile = Pro_profile(user_id=body["user_id"], description=body["description"], address=body["address"], postal_code=body["postal_code"], phone_number=body["phone_number"], hourly_rate=body["hourly_rate"])
+
+    pro_profile = Pro_profile(home=body["home"], description=body["description"], latitude=body["latitude"], longitude=body["longitude"], cmr_profile_id=body["cmr_profile_id"])
     db.session.add(pro_profile)
     db.session.commit()
 
@@ -1021,6 +1018,7 @@ def get_home_post():
 
     results = Home_Post.query.all()
     home_posts_list = list(map(lambda item: item.serialize(),results))
+    print(home_posts_list)
 
 
     response_body = {
@@ -1040,6 +1038,7 @@ def get_single_home_post(id):
 
     home_post = Home_Post.query.filter_by(id=id).first()
     print(home_post)
+    
 # comprobamos que existe un HOME_POST con ese id, si no es asi, respondemos un mensaje de error
     if home_post is None:
         raise APIException("No hay un usuario_rol con ese ID", status_code=404)
