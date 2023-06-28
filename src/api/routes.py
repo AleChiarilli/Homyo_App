@@ -35,7 +35,9 @@ api = Blueprint('api', __name__)
 
 #  ÉSTA ES LA RUTA PARA LA OBTENCIÓN DE LOCALIZACIONES (NO BORRAR ÉSTE)
 # https://alechiarilli-laughing-memory-pvvpx9v9wp9276xv-3001.preview.app.github.dev/api/pruebageopy
-@api.route('/pruebageopy', methods=['POST'])
+
+
+@api.route('/coordinates', methods=['POST'])
 def handle_address_geopy():
     direction = request.json.get('direction', None)
     geolocator = Nominatim(user_agent="my_geocoder")
@@ -53,6 +55,23 @@ def handle_hello():
     }
 
     return jsonify(response_body), 200
+
+
+# RUTA DE PRUEBA
+@api.route('/publications/<postal_code>', methods=['GET'])
+def get_publications(postal_code):
+    publications = Home.query.filter_by(postal_code=postal_code).all()
+
+    # Convert the list of publications to a dictionary representation
+    publications_dict = [publication.to_dict() for publication in publications]
+
+    # Create a JSON response with the publications
+    response = jsonify(publications=publications_dict)
+
+    # Optionally, you can set the response headers if needed
+    # response.headers['Header-Name'] = 'Header-Value'
+
+    return response
 
 #----------------ENDPOINTS---------------
 #----------------ENDPOINTS USER---------------
@@ -1459,4 +1478,3 @@ def delete_message_receiver(id):
     response_body = {
         "msg": "El mensaje ha sido borrado",
     }
-

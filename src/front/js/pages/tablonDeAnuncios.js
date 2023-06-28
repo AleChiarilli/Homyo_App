@@ -1,144 +1,235 @@
-import React, { useCallback } from "react";
+import React, { useCallback, useEffect, useContext, useState } from "react";
 import { SimpleMap } from "../component/mapComponent";
+import { Context } from "../store/appContext";
 
+import limpieza from "../../img/limpieza.png";
+import animales from "../../img/animales.png";
+import jardineria from "../../img/jardineria.png";
+import niños from "../../img/niños.png";
+import chef from "../../img/chef.png";
+import { CardAnnounce } from "../component/cardAnnounce";
+
+// ESTE ES UNA PRUEBA PARA OBTENER LOS ANUNCIOS DEL STORE
+// export const TablonDeAnuncios = () => {
+//     const { actions, store } = useContext(Context);
+//     useEffect(() => {
+//         actions.getPublications("28017")
+//     }, [])
+
+
+//     const infoUser = store.publications
 
 export const TablonDeAnuncios = () => {
-    const infoUser = [{ name: "Neil Sims", descripcion: "hago cosas", servicios: "Servicios que ofrece", reseñas: 2, email: "asd@gmail.com", direccion: [51.505, -0.09] },
-    { name: "Bonnie Green", descripcion: "hago cosas", servicios: "Servicios que ofrece", reseñas: 2, email: "asd@gmail.com", direccion: [51.51, -0.09] },
-    { name: "Jese Leos", descripcion: "hago cosas", servicios: "Servicios que ofrece", reseñas: 2, email: "asd@gmail.com", direccion: [51.52, -0.09] },
-    { name: "Alejandro Chiarilli", descripcion: "NO hago cosas", servicios: "besitos", reseñas: 2, email: "asd@gmail.com", direccion: [51.52, -0.10] },
-    { name: "Alejandro Chiarilli", descripcion: "NO hago cosas", servicios: "besitos", reseñas: 2, email: "asd@gmail.com", direccion: [51.52, -0.10] }]
+    const [filledStars, setFilledStars] = useState(0);
+
+    const handleStarMouseEnter = (index) => {
+        setFilledStars(index + 1);
+    };
+
+    const handleStarMouseLeave = () => {
+        setFilledStars(0);
+    };
+
+    const [rangeValue, setRangeValue] = useState(50);
+
+    const handleRangeChange = (event) => {
+        setRangeValue(event.target.value);
+    };
+
+
 
     return (
-        <div className="mt-20">
-            <div className="max-w-screen-xl m-10 relative overflow-x-auto shadow-md sm:rounded-lg mx-auto">
-                <div className="flex items-center justify-center pb-4 bg-white dark:bg-gray-900">
-                    <div>
-                        {/* AQUÍ ESTAN LOS DROPDOWNS PARA FILTRAR BÚSQUEDAS */}
-                        <button id="dropdownBgHoverButton" data-dropdown-toggle="dropdownBgHover" className="mr-10 text-white bg-indigo-600 hover:bg-indigo-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2.5 text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" type="button">Busco ofertas de... <svg className="w-4 h-4 ml-2" aria-hidden="true" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7"></path></svg></button>
-                        <div id="dropdownBgHover" className="z-10 hidden w-48 bg-white rounded-lg shadow dark:bg-gray-700">
-                            <ul className="p-3 space-y-1 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownBgHoverButton">
+
+        <div className="flex justify-center mt-20">
+            <aside id="sidebar-multi-level-sidebar" className="w-full sm:w-64">
+                <div className=" px-3 py-4 overflow-y-auto sticky top-20">
+                    <ul className="space-y-2 font-medium">
+                        <li>
+                            <button type="button" className="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg group hover:bg-indigo-100 dark:text-white dark:hover:bg-gray-700" aria-controls="dropdown-example" data-collapse-toggle="dropdown-example">
+                                <svg aria-hidden="true" className="flex-shrink-0 w-6 h-6 text-indigo-500 transition duration-75 group-hover:text-gray-900 dark:text-gray-400 dark:group-hover:text-white" fill="currentColor" strokeWidth="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <path strokeLinecap="round" stroke-linejoin="round" d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 00-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 00-16.536-1.84M7.5 14.25L5.106 5.272M6 20.25a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm12.75 0a.75.75 0 11-1.5 0 .75.75 0 011.5 0z">
+                                    </path>
+                                </svg>
+                                <span className="flex-1 ml-3 text-left whitespace-nowrap" sidebar-toggle-item>Servicios</span>
+                                <svg sidebar-toggle-item className="w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fillRule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clipRule="evenodd"></path></svg>
+                            </button>
+                            <ul id="dropdown-example" className="hidden py-2 space-y-2">
                                 <li>
-                                    <div className="flex items-center p-2 rounded hover:bg-gray-100 dark:hover:bg-gray-600">
-                                        <input id="checkbox-item-4" type="checkbox" value="" className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500" />
-                                        <label htmlFor="checkbox-item-4" className="w-full ml-2 text-sm font-medium text-gray-900 rounded dark:text-gray-300">Limpieza</label>
-                                    </div>
+                                    <button
+                                        type="button"
+                                        className="w-full inline-flex items-center px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-indigo-200 rounded-full mx-1 hover:bg-indigo-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-indigo-500 focus:text-blue-700 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-blue-500 dark:focus:text-white">
+                                        <div className="flex-row gap-4 flex justify-center items-center">
+                                            <div className="flex-shrink-0">
+                                                <a href="#" className="relative block">
+                                                    <img alt="limpieza" src={limpieza} className="mx-auto object-fit rounded-full h-8 w-8 " />
+                                                </a>
+                                            </div>
+                                            <div className=" flex flex-col">
+                                                <span className="text-lg font-medium text-gray-600 dark:text-white">
+                                                    Limpieza
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </button>
                                 </li>
                                 <li>
-                                    <div className="flex items-center p-2 rounded hover:bg-gray-100 dark:hover:bg-gray-600">
-                                        <input id="checkbox-item-5" type="checkbox" value="" className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500" />
-                                        <label htmlFor="checkbox-item-5" className="w-full ml-2 text-sm font-medium text-gray-900 rounded dark:text-gray-300">Cocina</label>
-                                    </div>
+                                    <button
+                                        type="button"
+                                        className="w-full inline-flex items-center px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-indigo-200 rounded-full mx-1 hover:bg-indigo-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-indigo-500 focus:text-blue-700 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-blue-500 dark:focus:text-white"
+                                    >
+
+                                        <div className="flex-row gap-4 flex justify-center items-center">
+                                            <div className="flex-shrink-0">
+                                                <a href="#" className="relative block">
+                                                    <img alt="cocina" src={chef} className="mx-auto object-fit rounded-full h-8 w-8 " />
+                                                </a>
+                                            </div>
+                                            <div className=" flex flex-col">
+                                                <span className="text-lg font-medium text-gray-600 dark:text-white">
+                                                    Cocina
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </button>
                                 </li>
                                 <li>
-                                    <div className="flex items-center p-2 rounded hover:bg-gray-100 dark:hover:bg-gray-600">
-                                        <input id="checkbox-item-6" type="checkbox" value="" className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500" />
-                                        <label htmlFor="checkbox-item-6" className="w-full ml-2 text-sm font-medium text-gray-900 rounded dark:text-gray-300">Cuidado de niños</label>
-                                    </div>
+                                    <button
+                                        type="button"
+                                        className=" w-full inline-flex items-center px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-indigo-200 rounded-full mx-1 hover:bg-indigo-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-indigo-500 focus:text-blue-700 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-blue-500 dark:focus:text-white"
+                                    >
+
+                                        <div className="flex-row gap-4 flex justify-center items-center">
+                                            <div className="flex-shrink-0">
+                                                <a href="#" className="relative block">
+                                                    <img alt="cuidad de niños" src={niños} className="mx-auto object-fit rounded-full h-8 w-8 " />
+                                                </a>
+                                            </div>
+                                            <div className=" flex flex-col">
+                                                <span className="text-lg font-medium text-gray-600 dark:text-white">
+                                                    Cuidado de niños
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </button>
                                 </li>
                                 <li>
-                                    <div className="flex items-center p-2 rounded hover:bg-gray-100 dark:hover:bg-gray-600">
-                                        <input id="checkbox-item-6" type="checkbox" value="" className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500" />
-                                        <label htmlFor="checkbox-item-6" className="w-full ml-2 text-sm font-medium text-gray-900 rounded dark:text-gray-300">Cuidado de mascotas</label>
-                                    </div>
+                                    <button
+                                        type="button"
+                                        className="w-full inline-flex items-center px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-indigo-200 rounded-full mx-1 hover:bg-indigo-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-indigo-500 focus:text-blue-700 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-blue-500 dark:focus:text-white"
+                                    >
+
+                                        <div className="flex-row gap-4 flex justify-center items-center">
+                                            <div className="flex-shrink-0">
+                                                <a href="#" className="relative block">
+                                                    <img alt="cuidado de animales" src={animales} className="mx-auto object-fit rounded-full h-8 w-8 " />
+                                                </a>
+                                            </div>
+                                            <div className=" flex flex-col">
+                                                <span className="text-lg font-medium text-gray-600 dark:text-white">
+                                                    Cuidado de animales
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </button>
                                 </li>
                                 <li>
-                                    <div className="flex items-center p-2 rounded hover:bg-gray-100 dark:hover:bg-gray-600">
-                                        <input id="checkbox-item-6" type="checkbox" value="" className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500" />
-                                        <label htmlFor="checkbox-item-6" className="w-full ml-2 text-sm font-medium text-gray-900 rounded dark:text-gray-300">Jardinería</label>
+                                    <button
+                                        type="button"
+                                        className="w-full inline-flex items-center px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-indigo-200 rounded-full mx-1 hover:bg-indigo-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-indigo-500 focus:text-blue-700 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-blue-500 dark:focus:text-white"
+                                    >
+
+                                        <div className="flex-row gap-4 flex justify-center items-center">
+                                            <div className="flex-shrink-0">
+                                                <a href="#" className="relative block">
+                                                    <img alt="jardineria" src={jardineria} className="mx-auto object-fit rounded-full h-8 w-8 " />
+                                                </a>
+                                            </div>
+                                            <div className=" flex flex-col">
+                                                <span className="text-lg font-medium text-gray-600 dark:text-white">
+                                                    Jardineria
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </button>
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                            <button type="button" className="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg group hover:bg-indigo-100 dark:text-white dark:hover:bg-gray-700" aria-controls="dropdown-range" data-collapse-toggle="dropdown-range">
+                                <svg aria-hidden="true" className="flex-shrink-0 w-6 h-6 text-yellow-500 transition duration-75 group-hover:text-gray-900 dark:text-gray-400 dark:group-hover:text-white" fill="currentColor" strokeWidth="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"></path>
+                                </svg>
+                                <span className="flex-1 ml-3 text-left whitespace-nowrap" sidebar-toggle-item>Valoración</span>
+                                <svg sidebar-toggle-item className="w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fillRule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clipRule="evenodd"></path></svg>
+                            </button>
+                            <ul id="dropdown-range" className=" flex flex-center ml-10 busqueda-stars">
+                                {[...Array(5)].map((_, index) => (
+                                    <li key={index} onMouseEnter={() => handleStarMouseEnter(index)} onMouseLeave={handleStarMouseLeave}>
+                                        <svg
+                                            xmlns="http://www.w3.org/2000/svg"
+                                            fill={index < filledStars ? "currentColor" : "none"}
+                                            viewBox="0 0 24 24"
+                                            stroke="currentColor"
+                                            className="text-yellow-600 cursor-pointer peer peer-hover:text-yellow-400 hover:text-yellow-400 w-7 h-7"
+                                        >
+                                            <title>{"Star ${index + 1}"}</title>
+                                            <path
+                                                strokeLinecap="round"
+                                                strokeLinejoin="round"
+                                                strokeWidth="2"
+                                                d="M2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72z"
+                                            />
+                                        </svg>
+                                    </li>
+                                ))}
+                            </ul>
+
+                        </li>
+                        <li>
+                            <button type="button" className="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg group hover:bg-indigo-100 dark:text-white dark:hover:bg-gray-700" aria-controls="dropdown-example3" data-collapse-toggle="dropdown-example3">
+                                <svg fill="none" className="flex-shrink-0 w-6 h-6 text-yellow-500 transition duration-75 group-hover:text-gray-900 dark:text-gray-400 dark:group-hover:text-white" stroke="currentColor" strokeWidth="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                                    <path strokeLinecap="round" stroke-linejoin="round" d="M14.25 7.756a4.5 4.5 0 100 8.488M7.5 10.5h5.25m-5.25 3h5.25M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                </svg>
+                                <span className="flex-1 ml-3 text-left whitespace-nowrap" sidebar-toggle-item>€/hora</span>
+                                <svg sidebar-toggle-item className="w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fillRule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clipRule="evenodd"></path></svg>
+                            </button>
+                            <ul id="dropdown-example3" className="hidden py-2 space-y-2">
+                                <li>
+                                    <div>
+                                        <label
+                                            htmlFor="default-range"
+                                            className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                                        ></label>
+                                        <input
+                                            id="default-range"
+                                            type="range"
+                                            value={rangeValue}
+                                            onChange={handleRangeChange}
+                                            className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer dark:bg-gray-700"
+                                        ></input>
+                                        <div className="flex justify-between">
+                                            <span>{0}</span>
+                                            <span>{100}</span>
+                                        </div>
                                     </div>
                                 </li>
                             </ul>
+                        </li>
+                    </ul>
+                </div>
+            </aside>
+            <div className="w-full sm:w-auto">
+                <div className="flex flex-col items-center">
+                    <div className="max-w-3xl w-full mx-auto z-10">
+                        <div className="flex flex-col">
+                            <CardAnnounce />
+                            <CardAnnounce />
+                            <CardAnnounce />
+                            <CardAnnounce />
                         </div>
-
-                    </div>
-                    <label htmlFor="table-search" className="sr-only">Search</label>
-                    <div className="relative">
-                        <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-                            <svg className="w-5 h-5 text-gray-500 dark:text-gray-400" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fillRule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clipRule="evenodd"></path></svg>
-                        </div>
-                        <input type="text" id="table-search-users" className="block p-2 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg w-80 bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Buscar por código postal..." />
+                        <SimpleMap />
                     </div>
                 </div>
-                <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
-                    <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-                        <tr>
-                            <th scope="col" className="px-8 py-3">
-                                Espacio
-                            </th>
-                            <th scope="col" className="px-5 py-3">
-                                Servicios que busca
-                            </th>
-                            <th scope="col" className="px-5 py-3">
-                                Reseñas
-                            </th>
-                            <th scope="col" className="px-5 py-3">
-                                Dirección
-                            </th>
-
-                            <th scope="col" className="px-5 py-3">
-                                Contacto
-                            </th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {infoUser.map((data, index) => (<tr key={index} className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-                            <th scope="row" className="flex items-center px-6 py-4 text-gray-900 whitespace-nowrap dark:text-white">
-                                <img className="w-10 h-10 rounded-full" src="/docs/images/people/profile-picture-1.jpg" alt="Jese image" />
-                                <div className="pl-3">
-                                    <div className="text-base font-semibold">{data.name}</div>
-                                    <div className="font-normal text-gray-500">{data.descripcion}</div>
-                                </div>
-                            </th>
-                            <td className="px-6 py-4">
-                                {data.servicios}
-                            </td>
-                            <td className="px-6 py-4">
-                                <div className="flex items-center">
-                                    {data.reseñas}
-                                </div>
-                            </td>
-                            <td className="px-6 py-4">
-                                {data.direccion}
-                            </td>
-                            <td className="px-6 py-4">
-                                <a href="#" className="font-medium text-blue-600 dark:text-blue-500 hover:underline">
-                                    <button type="button" className="text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-                                        ✉️
-                                    </button>
-                                </a>
-                            </td>
-                        </tr>)
-                        )}
-                        <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-                            <th scope="row" className="flex items-center px-6 py-4 text-gray-900 whitespace-nowrap dark:text-white">
-                                <img className="w-10 h-10 rounded-full" src="/docs/images/people/profile-picture-1.jpg" alt="Jese image" />
-                                <div className="pl-3">
-                                    <div className="text-base font-semibold">Neil Sims</div>
-                                    <div className="font-normal text-gray-500">PEQUEÑA DESCRIPCIÓN</div>
-                                </div>
-                            </th>
-                            <td className="px-6 py-4">
-                                Servicios que ofrece
-                            </td>
-                            <td className="px-6 py-4">
-                                <div className="flex items-center">
-                                    ⭐⭐
-                                </div>
-                            </td>
-                            <td className="px-6 py-4">
-                                <a href="#" className="font-medium text-blue-600 dark:text-blue-500 hover:underline">
-                                    <button type="button" className="text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-                                        ✉️
-                                    </button>
-                                </a>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
             </div>
-            <SimpleMap />
         </div>
-
-    )
-}
+    );
+};
