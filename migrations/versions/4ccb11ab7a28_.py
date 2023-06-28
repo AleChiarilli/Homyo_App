@@ -1,14 +1,8 @@
 """empty message
 
-<<<<<<<< HEAD:migrations/versions/d88eef135990_.py
-Revision ID: d88eef135990
+Revision ID: 4ccb11ab7a28
 Revises: 
-Create Date: 2023-06-26 23:23:42.846883
-========
-Revision ID: ed66b6d164c0
-Revises: 
-Create Date: 2023-06-26 19:02:16.528431
->>>>>>>> 3339348a70ab5df772049e9bc46359ade0855af2:migrations/versions/ed66b6d164c0_.py
+Create Date: 2023-06-27 10:27:19.080544
 
 """
 from alembic import op
@@ -16,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = 'ed66b6d164c0'
+revision = '4ccb11ab7a28'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -60,11 +54,11 @@ def upgrade():
     sa.Column('user_id', sa.Integer(), nullable=True),
     sa.Column('dni', sa.String(length=255), nullable=False),
     sa.Column('description', sa.String(length=255), nullable=False),
-    sa.Column('address', sa.String(length=200), nullable=True),
-    sa.Column('city', sa.String(length=200), nullable=True),
+    sa.Column('address', sa.String(length=200), nullable=False),
+    sa.Column('city', sa.String(length=200), nullable=False),
     sa.Column('postal_code', sa.String(), nullable=False),
     sa.Column('km_radius', sa.Numeric(), nullable=False),
-    sa.Column('phone_number', sa.String(), nullable=True),
+    sa.Column('phone_number', sa.String(), nullable=False),
     sa.Column('hourly_rate', sa.Numeric(), nullable=False),
     sa.ForeignKeyConstraint(['user_id'], ['user.id'], ),
     sa.PrimaryKeyConstraint('id'),
@@ -80,7 +74,7 @@ def upgrade():
     )
     op.create_table('home',
     sa.Column('id', sa.Integer(), nullable=False),
-    sa.Column('name', sa.String(length=200), nullable=True),
+    sa.Column('name', sa.String(length=200), nullable=False),
     sa.Column('address', sa.String(length=200), nullable=True),
     sa.Column('postal_code', sa.Integer(), nullable=False),
     sa.Column('description', sa.String(length=255), nullable=False),
@@ -115,17 +109,22 @@ def upgrade():
     sa.Column('payment_status', sa.Enum('PENDING', 'PAYED', 'REFUNDED', name='paymentstatus'), nullable=True),
     sa.Column('comment', sa.String(length=255), nullable=True),
     sa.Column('job_date', sa.DateTime(), nullable=False),
+    sa.Column('finishing_time', sa.DateTime(), nullable=False),
     sa.ForeignKeyConstraint(['cmr_profile_id'], ['cmr_profile.id'], ),
     sa.ForeignKeyConstraint(['home_id'], ['home.id'], ),
     sa.ForeignKeyConstraint(['pro_profile_id'], ['pro_profile.id'], ),
     sa.PrimaryKeyConstraint('id')
     )
     op.create_table('home__post',
+    sa.Column('created', sa.DateTime(), nullable=False),
+    sa.Column('updated', sa.DateTime(), nullable=True),
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('is_visible', sa.Boolean(), nullable=False),
     sa.Column('home_id', sa.Integer(), nullable=True),
     sa.Column('description', sa.String(length=255), nullable=False),
     sa.Column('cmr_profile_id', sa.Integer(), nullable=True),
+    sa.Column('starting_time', sa.DateTime(), nullable=True),
+    sa.Column('finishing_time', sa.DateTime(), nullable=True),
     sa.ForeignKeyConstraint(['cmr_profile_id'], ['cmr_profile.id'], ),
     sa.ForeignKeyConstraint(['home_id'], ['home.id'], ),
     sa.PrimaryKeyConstraint('id')
