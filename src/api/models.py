@@ -13,7 +13,7 @@ class User(db.Model):
     password = db.Column(db.String(80), unique=False, nullable=False)
     user_roles = db.relationship('User_role', backref='user', lazy=True)
     # is_active = db.Column(db.Boolean(), unique=False, nullable=False) 
-
+    # SI O SI conectar con cmr_profile y Pro_profile
     def __repr__(self):
         return f'<User {self.email}>'
 
@@ -309,9 +309,10 @@ class Contract(TimestampMixin, db.Model):
     payment_status = db.Column(db.Enum(PaymentStatus), default=PaymentStatus.PENDING)
     comment = db.Column(db.String(255), unique=False, nullable=True)
     job_date = db.Column(db.DateTime, nullable=False)
-    job_date = db.Column(db.DateTime, nullable=False)
     finishing_time = db.Column(db.DateTime, nullable=False)
 
+    #chequear columnas! job_date
+    
     def __repr__(self):
         return f'<Contract {self.id}>'
 
@@ -323,7 +324,6 @@ class Contract(TimestampMixin, db.Model):
             "cmr_profile_id": self.cmr_profile.serialize(),
             "comment": self.comment,
             "job_date": self.job_date,
-            "job_time": self.job_time,
             "job_status": self.job_status,
             "payment_status": self.payment_status,
             "finishing_time": self.finishing_time
@@ -340,6 +340,7 @@ class Pro_review(TimestampMixin, db.Model):
     contract = db.relationship(Contract)
     comment = db.Column(db.String(255), unique=False, nullable=False)
 
+    #chequear columnas pro_receiver
 
     def __repr__(self):
         return f'<Pro_review {self.id}>'
@@ -365,6 +366,7 @@ class Cmr_review(TimestampMixin, db.Model):
     contract = db.relationship(Contract)
     comment = db.Column(db.String(255), unique=False, nullable=False)
 
+#chequear columnas pro_sender
 
     def __repr__(self):
         return f'<Cmr_review {self.id}>'
