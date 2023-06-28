@@ -54,6 +54,23 @@ def handle_hello():
 
     return jsonify(response_body), 200
 
+
+# RUTA DE PRUEBA
+@api.route('/publications/<postal_code>', methods=['GET'])
+def get_publications(postal_code):
+    publications = Home.query.filter_by(postal_code=postal_code).all()
+
+    # Convert the list of publications to a dictionary representation
+    publications_dict = [publication.to_dict() for publication in publications]
+
+    # Create a JSON response with the publications
+    response = jsonify(publications=publications_dict)
+
+    # Optionally, you can set the response headers if needed
+    # response.headers['Header-Name'] = 'Header-Value'
+
+    return response
+
 #----------------ENDPOINTS---------------
 #----------------ENDPOINTS USER---------------
 # LOG IN para recibir token JWT
@@ -89,7 +106,7 @@ def login():
 def get_users():
 
     results = User.query.all()
-    users_list = list(map(lambda item: item.serialize(),results))
+    users_list = [result.serialize() for result in results]
 
 
     response_body = {
@@ -133,7 +150,7 @@ def create_user():
         raise APIException('Te falta añadir un correo electrónico', status_code=400)
     if 'password' not in body:
         raise APIException('Te falta añadir una contraseña', status_code=400)
-   # comprobamos si existe un usuario con ese email, si es asi, respondemos un mensaje de error 
+# comprobamos si existe un usuario con ese email, si es asi, respondemos un mensaje de error 
     email = body["email"]
     existing_user = User.query.filter_by(email=email).first()
     if existing_user:
@@ -144,6 +161,9 @@ def create_user():
     db.session.add(user)
     db.session.commit()
 
+    #cmr_profile = CMR_profile(zip= null, user_id: user.id)
+    #crear tambien con el mismo ID, aunque este vacio los datos (en null)! el usuario en las otras tablas
+    #rol por defecto va a ser cliente
     response_body = {
         "msg": "El usuario ha sido creado",
     }
@@ -369,17 +389,14 @@ def create_pro_profile():
 
     if body is None:
         raise APIException("You need to specify the request body as a json object", status_code=400)
-    if 'user_id' not in body:
+    if 'home' not in body:
         raise APIException('Te falta añadir una id de usuario', status_code=400)
-    if 'description' not in body:
+    if 'latitude' not in body:
         raise APIException('Te falta añadir una descripción', status_code=400)
-    if 'postal_code' not in body:
+    if 'longitude' not in body:
         raise APIException('Te falta añadir un código postal', status_code=400)
-    if 'hourly_rate' not in body:
-        raise APIException('Te falta añadir una tarifa por horas', status_code=400)
-    
-    print(body)
-    pro_profile = Pro_profile(user_id=body["user_id"], description=body["description"], address=body["address"], postal_code=body["postal_code"], phone_number=body["phone_number"], hourly_rate=body["hourly_rate"])
+
+    pro_profile = Pro_profile(home=body["home"], description=body["description"], latitude=body["latitude"], longitude=body["longitude"], cmr_profile_id=body["cmr_profile_id"])
     db.session.add(pro_profile)
     db.session.commit()
 
@@ -675,7 +692,8 @@ def delete_pro_profile_skill(id):
 def get_home():
 
     results = Home.query.all()
-    home_list = list(map(lambda item: item.serialize(),results))
+    print("-----------------------------------------", results)
+    home_list = [result.serialize() for result in results]
 
 
     response_body = {
@@ -1017,6 +1035,7 @@ def get_home_post():
 
     results = Home_Post.query.all()
     home_posts_list = list(map(lambda item: item.serialize(),results))
+    print(home_posts_list)
 
 
     response_body = {
@@ -1036,6 +1055,7 @@ def get_single_home_post(id):
 
     home_post = Home_Post.query.filter_by(id=id).first()
     print(home_post)
+    
 # comprobamos que existe un HOME_POST con ese id, si no es asi, respondemos un mensaje de error
     if home_post is None:
         raise APIException("No hay un usuario_rol con ese ID", status_code=404)
@@ -1559,4 +1579,3 @@ def delete_message_receiver(id):
     response_body = {
         "msg": "El mensaje ha sido borrado",
     }
-

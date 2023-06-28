@@ -13,7 +13,7 @@ class User(db.Model):
     password = db.Column(db.String(80), unique=False, nullable=False)
     user_roles = db.relationship('User_role', backref='user', lazy=True)
     # is_active = db.Column(db.Boolean(), unique=False, nullable=False) 
-
+    # SI O SI conectar con cmr_profile y Pro_profile
     def __repr__(self):
         return f'<User {self.email}>'
 
@@ -43,6 +43,7 @@ class Role(db.Model):
         }
 # Tabla auxiliar para enlazar rol(role) y usuario(user)
 class User_role(db.Model):
+    __tablename__="user_role"
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
     # user = db.relationship(User)
@@ -50,8 +51,7 @@ class User_role(db.Model):
     role = db.relationship(Role)
 
     # def serialize(self):
-        
-
+    
     def __repr__(self):
         return f'<Role {self.id}>'
 
@@ -130,7 +130,7 @@ class Cmr_profile(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
     user = db.relationship(User)
     description = db.Column(db.String(255), unique=False, nullable=False)
-    phone_number = db.Column(db.Integer, unique=False, nullable=True)
+    phone_number = db.Column(db.String, unique=False, nullable=True)
 
     def __repr__(self):
         return f'<Cmr_profile {self.id}>'
@@ -150,8 +150,9 @@ class Home(db.Model):
     postal_code = db.Column(db.Integer, unique=False, nullable=False)
     description = db.Column(db.String(255), unique=False, nullable=False)
     cmr_profile_id = db.Column(db.Integer, db.ForeignKey('cmr_profile.id'))
-    cmr_profile = db.relationship(Cmr_profile)
-    
+    cmr_profile = db.relationship("Cmr_profile", backref="Home", lazy=True)
+    cmr_profile = db.relationship("Cmr_profile", backref="Home", lazy=True)
+    #aqui se modifico
 
     def __repr__(self):
         return f'<Home {self.id}>'
@@ -163,7 +164,7 @@ class Home(db.Model):
             "address": self.address,
             "postal_code": self.postal_code,
             "description": self.description,
-            "cmr_profile_id": self.cmr_profile_id.serialize()
+            "cmr_profile_id": self.cmr_profile_id
         }
     
 class Cmr_profile_home(db.Model):
@@ -244,44 +245,52 @@ class TimestampMixin(db.Model):
     updated = db.Column(db.DateTime, onupdate=datetime.utcnow)
 
 class Home_Post(TimestampMixin,db.Model):
+    __tablename__="home_post"
     id = db.Column(db.Integer, primary_key=True)
     is_visible = db.Column(db.Boolean(), unique=False, nullable=False, default=False)
     home_id = db.Column(db.Integer, db.ForeignKey('home.id'))
     home = db.relationship(Home)
     description = db.Column(db.String(255), unique=False, nullable=False)
+    latitude = db.Column(db.String(200), unique=False, nullable=True)
+    longitude = db.Column(db.String(200), unique=False, nullable=True)
     cmr_profile_id = db.Column(db.Integer, db.ForeignKey('cmr_profile.id'))
     cmr_profile = db.relationship(Cmr_profile)
     starting_time = db.Column(db.DateTime)
     finishing_time = db.Column(db.DateTime)
+    skills = db.relationship('Post_skills', backref='home_post', lazy=True)
     
-
     def __repr__(self):
         return f'<Home_Post {self.id}>'
 
     def serialize(self):
         return {
             "id": self.id,
-            "home":self.home.serialize(),
+            "home_address":self.home.serialize()["address"],
+            "home_postcode":self.home.serialize()["postal_code"],
+            "latitude": self.latitude,
+            "longitude": self.longitude,
             "description": self.description,
-            "cmr_profile_id": self.cmr_profile.serialize()
+            "cmr_profile_id": self.cmr_profile_id,
+            "skills" : list(map(lambda item:item.serialize(),self.skills))
         }
 
-# class Post_skills(db.Model):
-#     id = db.Column(db.Integer, primary_key=True)
-#     skill_id = db.Column(db.Integer, db.ForeignKey('skill.id'))
-#     skill = db.relationship(Skill)
-#     homepost_id = db.Column(db.Integer, db.ForeignKey('home_post.id'))
-#     home_post = db.relationship(Home_Post)
+class Post_skills(db.Model):
+    __tablename__="post_skills"
+    id = db.Column(db.Integer, primary_key=True)
+    skill_id = db.Column(db.Integer, db.ForeignKey('skill.id'))
+    skill = db.relationship(Skill)
+    homepost_id = db.Column(db.Integer, db.ForeignKey('home_post.id'))
+    # home_post = db.relationship(Home_Post)
 
-#     def __repr__(self):
-#         return f'<Post_skills {self.id}>'
+    def __repr__(self):
+        return f'<Post_skills {self.id}>'
 
-#     def serialize(self):
-#         return {
-#             "id": self.id,
-#             "skill":self.skill.serialize(),
-#             "homepost_id": self.home_post.serialize()
-#         }
+    def serialize(self):
+        return {
+            "id": self.id,
+            "skill":self.skill.serialize()["name"],
+            "homepost_id": self.homepost_id
+        }
 
 class JobStatus(Enum):
     PENDING = 'Pending'
@@ -306,10 +315,9 @@ class Contract(TimestampMixin, db.Model):
     job_status = db.Column(db.Enum(JobStatus), default=JobStatus.PENDING)
     payment_status = db.Column(db.Enum(PaymentStatus), default=PaymentStatus.PENDING)
     comment = db.Column(db.String(255), unique=False, nullable=True)
-    job_date = db.Column(db.DateTime, nullable=False)
-    job_date = db.Column(db.DateTime, nullable=False)
+    starting_time = db.Column(db.DateTime, nullable=False)
     finishing_time = db.Column(db.DateTime, nullable=False)
-
+    
     def __repr__(self):
         return f'<Contract {self.id}>'
 
@@ -320,10 +328,8 @@ class Contract(TimestampMixin, db.Model):
             "pro_profile_id": self.pro_profile.serialize(),
             "cmr_profile_id": self.cmr_profile.serialize(),
             "comment": self.comment,
-            "job_date": self.job_date,
-            "job_time": self.job_time,
-            "job_status": self.job_status,
             "payment_status": self.payment_status,
+            "starting_time": self.starting_time,
             "finishing_time": self.finishing_time
         }
 
@@ -338,6 +344,7 @@ class Pro_review(TimestampMixin, db.Model):
     contract = db.relationship(Contract)
     comment = db.Column(db.String(255), unique=False, nullable=False)
 
+    #chequear columnas pro_receiver
 
     def __repr__(self):
         return f'<Pro_review {self.id}>'
@@ -363,6 +370,7 @@ class Cmr_review(TimestampMixin, db.Model):
     contract = db.relationship(Contract)
     comment = db.Column(db.String(255), unique=False, nullable=False)
 
+#chequear columnas pro_sender
 
     def __repr__(self):
         return f'<Cmr_review {self.id}>'
