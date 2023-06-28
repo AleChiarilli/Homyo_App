@@ -131,7 +131,7 @@ class Cmr_profile(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
     user = db.relationship(User)
     description = db.Column(db.String(255), unique=False, nullable=False)
-    phone_number = db.Column(db.Integer, unique=False, nullable=True)
+    phone_number = db.Column(db.String, unique=False, nullable=True)
 
     def __repr__(self):
         return f'<Cmr_profile {self.id}>'
@@ -164,8 +164,7 @@ class Home(db.Model):
             "address": self.address,
             "postal_code": self.postal_code,
             "description": self.description,
-            #user
-            #"cmr_profile_id": self.cmr_profile_id.selialize() if self.cmr_profile_id else None,
+            "cmr_profile_id": self.cmr_profile_id
         }
     
 class Cmr_profile_home(db.Model):
@@ -251,6 +250,8 @@ class Home_Post(TimestampMixin,db.Model):
     home_id = db.Column(db.Integer, db.ForeignKey('home.id'))
     home = db.relationship(Home)
     description = db.Column(db.String(255), unique=False, nullable=False)
+    latitude = db.Column(db.String(200), unique=False, nullable=True)
+    longitude = db.Column(db.String(200), unique=False, nullable=True)
     cmr_profile_id = db.Column(db.Integer, db.ForeignKey('cmr_profile.id'))
     cmr_profile = db.relationship(Cmr_profile)
     starting_time = db.Column(db.DateTime)
@@ -264,6 +265,8 @@ class Home_Post(TimestampMixin,db.Model):
         return {
             "id": self.id,
             "home":self.home.serialize(),
+            "latitude": self.latitude,
+            "longitude": self.longitude,
             "description": self.description,
             "cmr_profile_id": self.cmr_profile.serialize()
         }
@@ -308,10 +311,8 @@ class Contract(TimestampMixin, db.Model):
     job_status = db.Column(db.Enum(JobStatus), default=JobStatus.PENDING)
     payment_status = db.Column(db.Enum(PaymentStatus), default=PaymentStatus.PENDING)
     comment = db.Column(db.String(255), unique=False, nullable=True)
-    job_date = db.Column(db.DateTime, nullable=False)
+    starting_time = db.Column(db.DateTime, nullable=False)
     finishing_time = db.Column(db.DateTime, nullable=False)
-
-    #chequear columnas! job_date
     
     def __repr__(self):
         return f'<Contract {self.id}>'
@@ -323,9 +324,8 @@ class Contract(TimestampMixin, db.Model):
             "pro_profile_id": self.pro_profile.serialize(),
             "cmr_profile_id": self.cmr_profile.serialize(),
             "comment": self.comment,
-            "job_date": self.job_date,
-            "job_status": self.job_status,
             "payment_status": self.payment_status,
+            "starting_time": self.starting_time,
             "finishing_time": self.finishing_time
         }
 
