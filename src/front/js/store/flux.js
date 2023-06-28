@@ -14,9 +14,23 @@ const getState = ({ getStore, getActions, setStore }) => {
           initial: 'white'
         }
       ],
-      role: 'cliente' // Establece el valor por defecto como 'cliente'
+      role: 'cliente', // Establece el valor por defecto como 'cliente',
+      publications: [],
+
     },
     actions: {
+      getPublications: async (postalCode) => {
+        try {
+          const response = await fetch(`${process.env.BACKEND_URL}publications/${postalCode}`)
+          const data = await response.json()
+          setStore({publications: data})
+        } catch (error) {
+          console.error(error)
+        }
+      },
+
+
+
       //NEW USER REGISTRATION
       addUser: async (user) => {
         console.log(user)

@@ -47,7 +47,7 @@ export const Navbar = ({ isLoggedIn }) => {
 
   const [isModalOpen1, setIsModalOpen1] = useState(false); // Estado del primer modal
   const [ismodalOpen2, setIsmodalOpen2] = useState(false); // Estado del segundo modal
-  
+
   const [username, setUsername] = useState(''); // Estado del nombre de usuario
   const [email, setEmail] = useState(''); // Estado del correo electrónico
   const [password, setPassword] = useState(''); // Estado de la contraseña
@@ -355,8 +355,8 @@ export const Navbar = ({ isLoggedIn }) => {
                       </svg>
                       <span className="sr-only">Close modal</span>
                     </button>
-                    <div className="px-6 py-6 lg:px-8 text-center">
                       {/* Modal content 1 */}
+                    <div className="px-6 py-6 lg:px-8 text-center">
                       <div className="self-center mb-6 text-xl font-light text-gray-600 sm:text-2xl dark:text-white">
                         Regístrate
                       </div>
@@ -369,7 +369,6 @@ export const Navbar = ({ isLoggedIn }) => {
                           Google
                         </button>
                       </div>
-
                       <div className="mt-8">
                         <form onSubmit={(e) => submitUser(e)} autoComplete="off">
                           <div className="flex flex-col mb-2">

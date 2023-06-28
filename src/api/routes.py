@@ -54,6 +54,23 @@ def handle_hello():
 
     return jsonify(response_body), 200
 
+
+# RUTA DE PRUEBA
+@api.route('/publications/<postal_code>', methods=['GET'])
+def get_publications(postal_code):
+    publications = Home.query.filter_by(postal_code=postal_code).all()
+
+    # Convert the list of publications to a dictionary representation
+    publications_dict = [publication.to_dict() for publication in publications]
+
+    # Create a JSON response with the publications
+    response = jsonify(publications=publications_dict)
+
+    # Optionally, you can set the response headers if needed
+    # response.headers['Header-Name'] = 'Header-Value'
+
+    return response
+
 #----------------ENDPOINTS---------------
 #----------------ENDPOINTS USER---------------
 # LOG IN para recibir token JWT
@@ -1562,4 +1579,3 @@ def delete_message_receiver(id):
     response_body = {
         "msg": "El mensaje ha sido borrado",
     }
-
