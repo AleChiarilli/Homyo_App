@@ -43,6 +43,7 @@ class Role(db.Model):
         }
 # Tabla auxiliar para enlazar rol(role) y usuario(user)
 class User_role(db.Model):
+    __tablename__="user_role"
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
     # user = db.relationship(User)
@@ -150,8 +151,8 @@ class Home(db.Model):
     postal_code = db.Column(db.Integer, unique=False, nullable=False)
     description = db.Column(db.String(255), unique=False, nullable=False)
     cmr_profile_id = db.Column(db.Integer, db.ForeignKey('cmr_profile.id'))
-    cmr_profile = db.relationship(Cmr_profile)
-    
+    cmr_profile = db.relationship("Cmr_profile", backref="Home", lazy=True)
+    #aqui se modifico
 
     def __repr__(self):
         return f'<Home {self.id}>'
@@ -163,7 +164,8 @@ class Home(db.Model):
             "address": self.address,
             "postal_code": self.postal_code,
             "description": self.description,
-            "cmr_profile_id": self.cmr_profile_id.serialize()
+            #user
+            #"cmr_profile_id": self.cmr_profile_id.selialize() if self.cmr_profile_id else None,
         }
     
 class Cmr_profile_home(db.Model):

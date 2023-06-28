@@ -89,7 +89,7 @@ def login():
 def get_users():
 
     results = User.query.all()
-    users_list = list(map(lambda item: item.serialize(),results))
+    users_list = [result.serialize() for result in results]
 
 
     response_body = {
@@ -144,6 +144,9 @@ def create_user():
     db.session.add(user)
     db.session.commit()
 
+    #cmr_profile = CMR_profile(zip= null, user_id: user.id)
+    #crear tambien con el mismo ID, aunque este vacio los datos (en null)! el usuario en las otras tablas
+    #rol por defecto va a ser cliente
     response_body = {
         "msg": "El usuario ha sido creado",
     }
@@ -675,7 +678,8 @@ def delete_pro_profile_skill(id):
 def get_home():
 
     results = Home.query.all()
-    home_list = list(map(lambda item: item.serialize(),results))
+    print("-----------------------------------------", results)
+    home_list = [result.serialize() for result in results]
 
 
     response_body = {
