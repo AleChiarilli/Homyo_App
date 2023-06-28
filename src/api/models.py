@@ -265,7 +265,8 @@ class Home_Post(TimestampMixin,db.Model):
     def serialize(self):
         return {
             "id": self.id,
-            "home_id":self.home.id,
+            "home_address":self.home.serialize()["address"],
+            "home_postcode":self.home.serialize()["postal_code"],
             "latitude": self.latitude,
             "longitude": self.longitude,
             "description": self.description,
