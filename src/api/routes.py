@@ -134,6 +134,7 @@ def create_user():
         raise APIException('Te falta añadir un correo electrónico', status_code=400)
     if 'password' not in body:
         raise APIException('Te falta añadir una contraseña', status_code=400)
+    
 # comprobamos si existe un usuario con ese email, si es asi, respondemos un mensaje de error 
     email = body["email"]
     existing_user = User.query.filter_by(email=email).first()
@@ -145,11 +146,27 @@ def create_user():
     db.session.add(user)
     db.session.commit()
 
+    # Create an empty Pro_profile for the new user
+    new_pro_profile = Pro_profile(user_id=user.id)
+
+    # Add the empty Pro_profile to the session
+    db.session.add(new_pro_profile)
+    db.session.commit()
+
+    # Create an empty Pro_profile for the new user
+    new_cmr_profile = Cmr_profile(user_id=user.id)
+
+    # Add the empty Pro_profile to the session
+    db.session.add(new_cmr_profile)
+    db.session.commit()
+
+
     #cmr_profile = CMR_profile(zip= null, user_id: user.id)
     #crear tambien con el mismo ID, aunque este vacio los datos (en null)! el usuario en las otras tablas
     #rol por defecto va a ser cliente
     response_body = {
         "msg": "El usuario ha sido creado",
+        "new_user": user.serialize()
     }
 
     return jsonify(response_body), 200
@@ -176,7 +193,13 @@ def update_user(user_id):
 
     db.session.commit()
 
-    return 'User updated successfully'
+    response_body = {
+        "msg": "El usuario ha sido editado con éxito",
+        "New data": user.serialize()
+    }
+
+    return jsonify(response_body), 200
+    
 
 # endpoint para BORRAR un dato en USER
 @api.route('/user/<int:id>', methods=['DELETE'])
@@ -349,7 +372,7 @@ def delete_user_role(id):
     return jsonify(response_body), 200
 
 #----------------ENDPOINTS PRO_PROFILE---------------
-@api.route('/pro_profile', methods=['GET'])
+@api.route('/pro_profile_list', methods=['GET'])
 # Acceso protegido
 # @jwt_required()
 def get_pro_profiles():
@@ -366,25 +389,19 @@ def get_pro_profiles():
     return jsonify(response_body), 200
 
 # endpoint para consultar un dato en PRO_PROFILE
-@api.route('/pro_profile/<int:id>', methods=['GET'])
+@api.route('/pro_profile', methods=['GET'])
 # Acceso protegido
-# @jwt_required()
-def get_single_pro_profile(user_id):
-    print(user_id)
-
-    pro_profile = Pro_profile.query.filter_by(user_id=id).first()
+@jwt_required()
+def get_single_pro_profile():
+    user_email = get_jwt_identity()
+    user = User.query.filter_by(email=user_email).first()
+    pro_profile = Pro_profile.query.filter_by(user_id=user.id).first()
     print(pro_profile)
 
 # comprobamos que existe un usuario con ese id, si no es asi, respondemos un mensaje de error
     if pro_profile is None:
         raise APIException("No hay un perfil profesional con ese ID", status_code=404)
-    if not pro_profile:
-        return 'Pro_profile not found', 404
 
-    user = pro_profile.user_id
-
-    if not user:
-        return 'User not found', 404
 
     response_body = {
         "msg": "Hello, this is your SINGLE GET /pro_profile response ",
@@ -432,13 +449,16 @@ def create_pro_profile():
 
 # enpoint para editar datos en PRO_PROFILE
 
-@api.route('/pro_profile/<int:user_id>', methods=['PUT'])
-def update_pro_profile(user_id):
+@api.route('/pro_profile/<int:id>', methods=['PUT'])
+def update_pro_profile(id):
     
-    pro_profile = Pro_profile.query.get(user_id)
+    pro_profile = Pro_profile.query.filter_by(id=id).first()
 
+    # comprobamos que existe un usuario con ese id, si no es asi, respondemos un mensaje de error
+    if pro_profile is None:
+        raise APIException("No hay un perfil profesional con ese ID", status_code=404)
     if not pro_profile:
-        return 'Usuario no encontrado', 404
+        return 'Pro_profile not found', 404
 
     # Retrieve the data to update from the request body
     data = request.json
@@ -455,7 +475,13 @@ def update_pro_profile(user_id):
 
     db.session.commit()
 
-    return 'Perfil editado con éxito'
+    response_body = {
+        "msg": "El perfil profesional ha sido editado con éxito",
+        "New data": pro_profile.serialize()
+    }
+
+    return jsonify(response_body), 200
+
 # endpoint para BORRAR un dato en PRO_PROFILE 
 @api.route('/pro_profile/<int:id>', methods=['DELETE'])
 # Acceso protegido
@@ -543,38 +569,16 @@ def create_cmr_profile():
     return jsonify(response_body), 200
 #edicion de CMR_PROFILE
 
-# @api.route('/cmr_profile/<int:user_id>', methods=['PUT'])
-# def update_cmr_profile(user_id):
-#     user = User.query.get(user_id)
-#     cmr_profile= user.cmr_profile
-
-#     if not user:
-#         return 'Usuario no encontrado', 404
-
-#     # Retrieve the data to update from the request body
-#     data = request.json
-
-#     # Update the cmr_profile attributes
-#     cmr_profile.description = data.get('description', cmr_profile.description)
-#     cmr_profile.phone_number = data.get('phone_number', cmr_profile.phone_number)
-
-
-#     db.session.commit()
-
-#     return 'User updated successfully'
-
-@api.route('/user/<int:user_id>/cmr_profile', methods=['PUT'])
-def update_cmr_profile(user_id):
+@api.route('/cmr_profile/<int:id>', methods=['PUT'])
+def update_cmr_profile(id):
     
-    user = User.query.get(user_id)
+    cmr_profile = Cmr_profile.query.filter_by(id=id).first()
 
-    if not user:
-        return 'Usuario no encontrado', 404
-
-    cmr_profile = user.cmr_profile
-
+    # comprobamos que existe un usuario con ese id, si no es asi, respondemos un mensaje de error
+    if cmr_profile is None:
+        raise APIException("No hay un perfil cliente con ese ID", status_code=404)
     if not cmr_profile:
-        return 'Perfil de cliente no encontrado o inexistente', 404
+        return 'cmr_profile not found', 404
 
     # Retrieve the data to update from the request body
     data = request.json
@@ -585,7 +589,13 @@ def update_cmr_profile(user_id):
 
     db.session.commit()
 
-    return 'Cmr_profile updated successfully'
+    response_body = {
+        "msg": "El perfil cliente ha sido editado con éxito",
+        "New data": cmr_profile.serialize()
+    }
+
+    return jsonify(response_body), 200
+
 # endpoint para BORRAR un dato en CMR_PROFILE 
 @api.route('/cmr_profile/<int:id>', methods=['DELETE'])
 # Acceso protegido
@@ -818,6 +828,7 @@ def get_single_home(id):
 
     return jsonify(response_body), 200
 
+
 # endpoint para crear un dato en tabla HOME
 @api.route('/home', methods=['POST'])
 # Acceso protegido
@@ -836,17 +847,45 @@ def create_home():
 
     
     print(body)
-    home = Home(postal_code=body["postal_code"], address=body["address"], description=body["description"])
+    home = Home(name=body["name"], postal_code=body["postal_code"], address=body["address"], description=body["description"])
     db.session.add(home)
     db.session.commit()
 
     response_body = {
         "msg": "La casa ha sido creada",
+        "casa": home.serialize()
     }
 
     return jsonify(response_body), 200
 
-# enpoint editar HOME
+#ENDPOINT EDICION HOME
+@api.route('/home/<int:id>', methods=['PUT'])
+def update_home(id):
+    
+    home = Home.query.filter_by(id=id).first()
+
+    # comprobamos que existe una casa con ese id, si no es asi, respondemos un mensaje de error
+    if home is None:
+        raise APIException("No hay una casa con ese ID", status_code=404)
+    if not home:
+        return 'home not found', 404
+
+    # Retrieve the data to update from the request body
+    data = request.json
+
+    # Update the home attributes
+    home.description = data.get('description', home.description)
+    home.postal_code = data.get('postal_code', home.postal_code)
+    home.address = data.get('address', home.address)
+
+    db.session.commit()
+
+    response_body = {
+        "msg": "La casa ha sido editada con éxito",
+        "New data": home.serialize()
+    }
+
+    return jsonify(response_body), 200
 
 # endpoint para BORRAR un dato en HOME 
 @api.route('/home/<int:id>', methods=['DELETE'])
@@ -924,28 +963,55 @@ def create_home_post():
         raise APIException("You need to specify the request body as a json object", status_code=400)
     if 'home_id' not in body:
         raise APIException('Te falta añadir un id de casa', status_code=400)
-    if 'pro_profile_id ' not in body:
-        raise APIException('Te falta añadir un id de profesional', status_code=400)
-    if 'cmr_profile_id' not in body:
-        raise APIException('Te falta añadir un id de cliente', status_code=400)
-    if 'job_status' not in body:
+    if 'description ' not in body:
+        raise APIException('Te falta añadir una descripción', status_code=400)
+    if 'cmr_profile' not in body:
         raise APIException('Te falta añadir un estado del trabajo', status_code=400)
-    if 'payment_status' not in body:
-        raise APIException('Te falta añadir un estado del trabajo', status_code=400)
-    if 'job_date' not in body:
+    if 'starting_time' not in body:
         raise APIException('Te falta añadir una fecha', status_code=400)
     
     print(body)
-    home_post = Home_Post(pro_profile_id=body["pro_profile_id"],cmr_profile_id=body["cmr_profile_id"],job_status=body["job_status"], payment_status=body["payment_status"],job_date=body["job_date"], home_id=body["home_id"])
+    home_post = Home_Post(home_id=body["home_id"],cmr_profile_id=body["cmr_profile_id"],description=body["description"], latitude=body["latitude"],longitude=body["longitude"],starting_time=body["starting_time"], finishing_time=body["finishing_time"])
     db.session.add(home_post)
     db.session.commit()
 
     response_body = {
-        "msg": "La relación contrato ha sido creado",
+        "msg": "Tu nuevo anuncio ha sido creado",
+        "your_new_post": home_post.serialize()
     }
 
     return jsonify(response_body), 200
 # enpoint editar HOME_POST
+@api.route('/home_post/<int:id>', methods=['PUT'])
+def update_home_post(id):
+    
+    home_post = Home_Post.query.filter_by(id=id).first()
+
+    # comprobamos que existe un anuncio con ese id, si no es asi, respondemos un mensaje de error
+    if home_post is None:
+        raise APIException("No hay un anuncio con ese ID", status_code=404)
+    if not home_post:
+        return 'home_post not found', 404
+
+    # Retrieve the data to update from the request body
+    data = request.json
+
+    # Update the home attributes
+    home_post.description = data.get('description', home_post.description)
+    home_post.latitude = data.get('latitude', home_post.latitude)
+    home_post.is_visible = data.get('is_visible', home_post.is_visible)
+    home_post.longitude = data.get('longitude', home_post.longitude)
+    home_post.starting_time = data.get('starting_time', home_post.starting_time)
+    home_post.finishing_time = data.get('finishing_time', home_post.finishing_time)
+
+    db.session.commit()
+
+    response_body = {
+        "msg": "El perfil cliente ha sido editado con éxito",
+        "New data": home_post.serialize()
+    }
+
+    return jsonify(response_body), 200
 
 # endpoint para BORRAR un dato en HOME_POST 
 @api.route('/home_post/<int:id>', methods=['DELETE'])

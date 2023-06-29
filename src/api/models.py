@@ -73,14 +73,14 @@ class Pro_profile(db.Model):
     verified = db.Column(db.Boolean(), unique=False, nullable=False, default=False) 
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
     # user = db.relationship(User)
-    dni = db.Column(db.String(255), unique=True, nullable=False)
-    description = db.Column(db.String(255), unique=False, nullable=False)
-    address = db.Column(db.String(200), unique=False, nullable=False)
-    city = db.Column(db.String(200), unique=False, nullable=False)
-    postal_code = db.Column(db.String, unique=False, nullable=False)
-    km_radius = db.Column(db.Numeric, unique=False, nullable=False)
-    phone_number = db.Column(db.String, unique=False, nullable=False)
-    hourly_rate = db.Column(db.Numeric, unique=False, nullable=False)
+    dni = db.Column(db.String(255), unique=True, nullable=True)
+    description = db.Column(db.String(255), unique=False, nullable=True)
+    address = db.Column(db.String(200), unique=False, nullable=True)
+    city = db.Column(db.String(200), unique=False, nullable=True)
+    postal_code = db.Column(db.String, unique=False, nullable=True)
+    km_radius = db.Column(db.Numeric, unique=False, nullable=True)
+    phone_number = db.Column(db.String, unique=False, nullable=True)
+    hourly_rate = db.Column(db.Numeric, unique=False, nullable=True)
 
     def __repr__(self):
         return f'<Pro_profile {self.id}>'
@@ -133,7 +133,7 @@ class Cmr_profile(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
     # user = db.relationship(User)
-    description = db.Column(db.String(255), unique=False, nullable=False)
+    description = db.Column(db.String(255), unique=False, nullable=True)
     phone_number = db.Column(db.String, unique=False, nullable=True)
     homes = db.relationship("Home", backref="cmr_profile", lazy=True)
 
