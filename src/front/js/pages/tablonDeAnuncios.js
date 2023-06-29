@@ -2,6 +2,7 @@ import React, { useCallback, useEffect, useContext, useState } from "react";
 import { SimpleMap } from "../component/mapComponent";
 import { Context } from "../store/appContext";
 
+
 import limpieza from "../../img/limpieza.png";
 import animales from "../../img/animales.png";
 import jardineria from "../../img/jardineria.png";
@@ -19,9 +20,11 @@ import { CardAnnounce } from "../component/cardAnnounce";
 
 //     const infoUser = store.publications
 
+
+
 export const TablonDeAnuncios = () => {
     const [filledStars, setFilledStars] = useState(0);
-
+    const {store,actions}=useContext(Context)
     const handleStarMouseEnter = (index) => {
         setFilledStars(index + 1);
     };
@@ -36,10 +39,13 @@ export const TablonDeAnuncios = () => {
         setRangeValue(event.target.value);
     };
 
-
-
+    useEffect(()=>{
+        //bloque de codigo a ejecutar
+        actions.getPostsOn();
+   },[])
+   console.log(store.homePost);
     return (
-
+        <>
         <div className="flex justify-center mt-20">
             <aside id="sidebar-multi-level-sidebar" className="w-full sm:w-64">
                 <div className=" px-3 py-4 overflow-y-auto sticky top-20">
@@ -162,7 +168,7 @@ export const TablonDeAnuncios = () => {
                                 <svg sidebar-toggle-item className="w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fillRule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clipRule="evenodd"></path></svg>
                             </button>
                             <ul id="dropdown-range" className=" flex flex-center ml-10 busqueda-stars">
-                                {[...Array(5)].map((_, index) => (
+                                {store.homePost.map((_, index) => (
                                     <li key={index} onMouseEnter={() => handleStarMouseEnter(index)} onMouseLeave={handleStarMouseLeave}>
                                         <svg
                                             xmlns="http://www.w3.org/2000/svg"
@@ -221,15 +227,18 @@ export const TablonDeAnuncios = () => {
                 <div className="flex flex-col items-center">
                     <div className="max-w-3xl w-full mx-auto z-10">
                         <div className="flex flex-col">
+                            {store.homePost.map((item, index) => (
+                                    <CardAnnounce key={index} description={item.description} address={item.home_address}/>
+                                ))}
+                            {/* <CardAnnounce />
                             <CardAnnounce />
-                            <CardAnnounce />
-                            <CardAnnounce />
-                            <CardAnnounce />
+                            <CardAnnounce /> */}
                         </div>
-                        <SimpleMap />
                     </div>
                 </div>
             </div>
         </div>
+        <SimpleMap />
+        </>
     );
 };
