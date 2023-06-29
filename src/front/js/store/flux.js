@@ -23,9 +23,33 @@ const getState = ({
             ],
             role: "cliente", // Establece el valor por defecto como 'cliente'
             token: "", //guardamos el token como un string vacio
-            isLoggedIn: false
-        },
-        actions: {
+            isLoggedIn: false,
+            role: 'cliente', // Establece el valor por defecto como 'cliente',
+            publications: [],
+            homePost: [] ,
+
+    },
+    actions: {
+      getPublications: async (postalCode) => {
+        try {
+          const response = await fetch(`${process.env.BACKEND_URL}api/home_post`)
+          const data = await response.json()
+          setStore({publications: data})
+        } catch (error) {
+          console.error(error)
+        }
+      },
+
+      getPostsOn: async () => {
+        try {
+          const response = await fetch(`${process.env.BACKEND_URL}api/home_post`)
+          const data = await response.json()
+          setStore({homePost: data.results})
+        } catch (error) {
+          console.error(error)
+        }
+      },
+
             //NEW USER REGISTRATION => FALTA IMPLEMENTARLO POR PARTE DEL BACK
             addUser: async (user) => {
                 console.log(user);
