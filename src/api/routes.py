@@ -396,7 +396,6 @@ def get_single_pro_profile():
     user_email = get_jwt_identity()
     user = User.query.filter_by(email=user_email).first()
     pro_profile = Pro_profile.query.filter_by(user_id=user.id).first()
-    print(pro_profile)
 
 # comprobamos que existe un usuario con ese id, si no es asi, respondemos un mensaje de error
     if pro_profile is None:

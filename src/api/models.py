@@ -171,7 +171,7 @@ class Home(db.Model):
             "postal_code": self.postal_code,
             "description": self.description,
             "cmr_profile_id": self.cmr_profile_id,
-            # "posts": list(map(lambda item:item.serialize(),self.posts))  DEBERIA TRAER LOS POSTS DE LA CASA DA ERROR POR list(map(lambda item:item.serialize(),self.homes))
+            "posts": list(map(lambda item:item.serialize(),self.posts)) # DEBERIA TRAER LOS POSTS DE LA CASA DA ERROR POR list(map(lambda item:item.serialize(),self.homes))
         }
 
 class TimestampMixin(db.Model):
@@ -188,8 +188,8 @@ class Home_Post(TimestampMixin,db.Model):
     description = db.Column(db.String(255), unique=False, nullable=False)
     latitude = db.Column(db.String(200), unique=False, nullable=True)
     longitude = db.Column(db.String(200), unique=False, nullable=True)
-    cmr_profile_id = db.Column(db.Integer, db.ForeignKey('cmr_profile.id'))
-    cmr_profile = db.relationship(Cmr_profile)
+    # cmr_profile_id = db.Column(db.Integer, db.ForeignKey('cmr_profile.id'))
+    # cmr_profile = db.relationship(Cmr_profile)
     starting_time = db.Column(db.DateTime)
     finishing_time = db.Column(db.DateTime)
     skills = db.relationship('Post_skills', backref='home_post', lazy=True)
@@ -201,11 +201,14 @@ class Home_Post(TimestampMixin,db.Model):
         return {
             "id": self.id,
             "home_address":self.home.serialize()["address"],
-            "home_postcode":self.home.serialize()["postal_code"],
+            "home_postcode":self.home.serialize()["postcode"],
             "latitude": self.latitude,
             "longitude": self.longitude,
+            "is_visible": self.is_visible,
             "description": self.description,
-            "cmr_profile_id": self.cmr_profile_id,
+            "starting_time": self.starting_time,
+            "finishing_time": self.finishing_time,
+            # "cmr_profile_id": self.cmr_profile_id,
             "skills" : list(map(lambda item:item.serialize(),self.skills))
         }
 
