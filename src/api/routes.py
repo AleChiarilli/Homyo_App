@@ -1583,8 +1583,8 @@ def delete_message_receiver(id):
         "msg": "El mensaje ha sido borrado",
     }
     
-# Protect a route with jwt_required, which will kick out requests
-# without a valid JWT present.
+# Proteja una ruta con jwt_required, que eliminará las solicitudes
+# sin un JWT válido presente.
 @api.route("/valide-token", methods=["GET"])
 @jwt_required()
 def get_info_profile():

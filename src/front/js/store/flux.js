@@ -8,6 +8,7 @@ const getState = ({
 }) => {
     return {
         store: {
+
             message: null,
             demo: [{
                     title: "FIRST",
@@ -22,6 +23,7 @@ const getState = ({
             ],
             role: "cliente", // Establece el valor por defecto como 'cliente'
             token: "", //guardamos el token como un string vacio
+            isLoggedIn: false
         },
         actions: {
             //NEW USER REGISTRATION => FALTA IMPLEMENTARLO POR PARTE DEL BACK
@@ -58,19 +60,20 @@ const getState = ({
                     const data = await resp.json();
                     if (resp.status === 200) {
                         console.log(data);
-                        localStorage.setItem("token", data.access_token);
+                        localStorage.setItem("token", data.token);
                         localStorage.setItem("id", data.user.id);
                         setStore({
-                            token: data.access_token,
+                            isLoggedIn: true,
                         });
                         return true;
-                    } else {
-                        return false;
                     }
                 } catch (error) {
-                    console.log("Error loading message from backend", error); //Si se produce algún error dentro del bloque try, se captura en el bloque catch. Aquí, se imprime un mensaje de erro
+                    console.log("Error loading message from backend", error)
+                    return true; //Si se produce algún error dentro del bloque try, se captura en el bloque catch. Aquí, se imprime un mensaje de erro
                 }
             },
+
+
 
 
             //INFORMACION DE PERFIL  DEL USUARIO-PROFESIONAL (INPUTS A LLENAR)
@@ -154,27 +157,39 @@ const getState = ({
             //VALIDACION DE TOKEN 
             valide_token: async () => {
                 const token = localStorage.getItem("token");
+                console.log(token)
                 try {
-                    const resp = await axios.get(process.env.BACKEND_URL + "/api/valide-token", {
+                    const data = await axios.get(process.env.BACKEND_URL + "/api/valide-token", {
                         headers: {
                             "Content-Type": "application/json",
                             "Authorization": `Bearer ${token}`
 
                         },
                     });
-                    const data = await resp.json();
-                    if (resp.status === 200) {
+                    //const data = await resp.json();
+                    if (data.status === 200) {
                         console.log(data);
                         // localStorage.setItem("token", data.access_token);
                         // localStorage.setItem("id", data.user.id);
-                        // setStore({
-                        //   token: data.access_token,
-                        // });
-                        return true;
+                        setStore({
+                            isLoggedIn: data.data.isLogged,
+                        })
                     }
+                    return true;
+                    //}
                 } catch (error) {
                     console.log(error); //Si se produce algún error dentro del bloque try, se captura en el bloque catch. Aquí, se imprime un mensaje de erro
                 }
+            },
+
+            //FUNCION CERRAR SESION 
+
+            logged_out: () => {
+                localStorage.removeItem("token")
+                localStorage.removeItem("id")
+                setStore({
+                    isLoggedIn: false,
+                });
             },
 
 
