@@ -2,9 +2,10 @@ import React, { useState, useContext, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Context } from "../store/appContext";
 
-export const Navbar = ({ isLoggedIn }) => {
-  const { actions } = useContext(Context);
-  const { store } = useContext(Context);
+export const Navbar = () => {
+  const [error, setError] = useState(false); // Establece el interruptor como activado por defecto
+
+  const { actions, store } = useContext(Context);
   const navigate = useNavigate();
 
   const [toggleActive, setToggleActive] = useState(true); // Establece el interruptor como activado por defecto
@@ -67,7 +68,12 @@ export const Navbar = ({ isLoggedIn }) => {
 
   const userLoggin = async (e) => {
     e.preventDefault();
-    await actions.login(email, password);
+    let auth = await actions.login(email, password);
+    if (auth) {
+      setIsmodalOpen2(false);
+    }
+    setIsmodalOpen2(true);
+    setError(true);
   };
 
   const toggleModal1 = () => {
@@ -151,7 +157,7 @@ export const Navbar = ({ isLoggedIn }) => {
         </div>
 
         {/* Switch empresa y cliente */}
-        {isLoggedIn && (
+        {store.isLoggedIn && (
           <div className="flex justify-center items-center">
             <label className="relative inline-flex items-center cursor-pointer">
               <input
@@ -177,7 +183,7 @@ export const Navbar = ({ isLoggedIn }) => {
           <div className="space-x-2">
             <div className="flex">
               {/* Modal toggle*/}
-              {!isLoggedIn && (
+              {!store.isLoggedIn && (
                 <div>
                   <button
                     id="dropdownHoverButton"
@@ -229,7 +235,7 @@ export const Navbar = ({ isLoggedIn }) => {
               )}
 
               {/* Notificaciones toggle */}
-              {isLoggedIn && (
+              {store.isLoggedIn && (
                 <div className="flex justify-center items-center">
                   <button
                     button
@@ -470,7 +476,7 @@ export const Navbar = ({ isLoggedIn }) => {
               )}
 
               {/* Mi Perfil toggle */}
-              {isLoggedIn && (
+              {store.isLoggedIn && (
                 <div>
                   <button
                     id="dropdownHoverButton"
@@ -511,12 +517,12 @@ export const Navbar = ({ isLoggedIn }) => {
                         </Link>
                       </li>
                       <li>
-                        <a
-                          href="#"
+                        <p
+                          onClick={() => actions.logged_out()}
                           className="block px-4 py-2 hover:bg-red-100 dark:hover:bg-red-600 dark:hover:text-white"
                         >
                           Salir
-                        </a>
+                        </p>
                       </li>
                     </ul>
                   </div>
@@ -552,7 +558,7 @@ export const Navbar = ({ isLoggedIn }) => {
                       </svg>
                       <span className="sr-only">Close modal</span>
                     </button>
-                      {/* Modal content 1 */}
+                    {/* Modal content 1 */}
                     <div className="px-6 py-6 lg:px-8 text-center">
                       <div className="self-center mb-6 text-xl font-light text-gray-600 sm:text-2xl dark:text-white">
                         Regístrate
@@ -817,6 +823,9 @@ export const Navbar = ({ isLoggedIn }) => {
                               className="py-2 px-4  bg-indigo-500 hover:bg-indigo-700 focus:ring-purple-500 focus:ring-offset-purple-200 text-white w-full transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-lg "
                               value="iniciar sesion"
                             />
+                            {error ? (
+                              <p>Usuario o contraseña no existe</p>
+                            ) : null}
                           </div>
                         </form>
                       </div>

@@ -29,18 +29,18 @@ const Layout = () => {
     return <BackendURL />;
 
   const { store } = useContext(Context);
-  const isLoggedIn = true; // Indica si el usuario está logueado
+  //const isLoggedIn = false; // Indica si el usuario está logueado
 
   return (
     <div>
       <BrowserRouter basename={basename}>
         <ScrollToTop>
-          <Navbar isLoggedIn={isLoggedIn} />
+          <Navbar />
           <Routes>
-            <Route element={<Home isLoggedIn={isLoggedIn} />} path="/" />
+            <Route element={<Home />} path="/" />
             <Route element={<Messages />} path="/mensajes" />
             <Route element={<Vista />} path="/map" />
-            {isLoggedIn && store.role === "profesional" && (
+            {store.isLoggedIn && store.role === "profesional" && (
               <Route
                 element={<TablonDeAnuncios />}
                 path="/tablon-de-anuncios"
@@ -48,21 +48,21 @@ const Layout = () => {
             )}
             <Route element={<Demo />} path="/demo" />
 
-            {isLoggedIn && store.role === "profesional" && (
+            {store.isLoggedIn && store.role === "profesional" && (
               <Route element={<Profilepro />} path="/mi-perfil-profesional" />
             )}
 
-            {isLoggedIn && store.role === "cliente" && (
+            {store.isLoggedIn && store.role === "cliente" && (
               <Route element={<Profileclient />} path="/mi-perfil-cliente" />
             )}
 
             {/* <Route element={<Profile />} path="/profile/:theid" /> */}
 
-            {(isLoggedIn || store.role === "cliente") && (
+            {(store.isLoggedIn || store.role === "cliente") && (
               <Route element={<Busqueda />} path="/buscador" />
             )}
 
-            {(isLoggedIn || store.role === "cliente") && (
+            {(store.isLoggedIn || store.role === "cliente") && (
               <Route element={<Profileproview />} path="/perfil-profesional" />
             )}
 
@@ -70,7 +70,7 @@ const Layout = () => {
             <Route element={<Sobrenosotros />} path="/sobre-nosotros" />
             <Route element={<h1>Not found!</h1>} />
           </Routes>
-          <Footer isLoggedIn={isLoggedIn} />
+          <Footer />
         </ScrollToTop>
       </BrowserRouter>
     </div>

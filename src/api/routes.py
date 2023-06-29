@@ -77,6 +77,9 @@ def get_publications(postal_code):
 
 # Create a route to authenticate your users and return JWTs. The
 # create_access_token() function is used to actually generate the JWT.
+
+
+
 @api.route("/login", methods=["POST"])
 def login():
 
@@ -1579,3 +1582,14 @@ def delete_message_receiver(id):
     response_body = {
         "msg": "El mensaje ha sido borrado",
     }
+    
+# Proteja una ruta con jwt_required, que eliminará las solicitudes
+# sin un JWT válido presente.
+@api.route("/valide-token", methods=["GET"])
+@jwt_required()
+def get_info_profile():
+    # Access the identity of the current user with get_jwt_identity
+    current_user = get_jwt_identity()
+    #user = User.query.filter_by(email=current_user).first()
+
+    return jsonify({"isLogged":True}), 200
