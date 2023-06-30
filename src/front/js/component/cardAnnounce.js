@@ -6,7 +6,7 @@ import niños from "../../img/niños.png";
 import chef from "../../img/chef.png";
 import house from "../../img/house.png";
 
-export const CardAnnounce = ({description, address}) => {
+export const CardAnnounce = ({description, address, startingTime, finishingTime}) => {
   return (
     <div className="w-full flex flex-col justify-center mt-10 mb-3 dark:bg-gray-700">
       <div className="relative flex flex-col md:flex-row md:space-x-5 space-y-3 md:space-y-0 rounded-xl shadow-lg p-3 bg-white dark:bg-gray-800 mx-auto border border-white">
@@ -16,13 +16,10 @@ export const CardAnnounce = ({description, address}) => {
         <div className="w-full md:w-2/3 bg-white dark:bg-gray-800 flex flex-col space-y-2 p-3">
           <div className="flex justify-between item-center">
             <div className="bg-gray-200 px-3 py-1 rounded-full text-xl font-medium text-gray-800 dark:text-white hidden md:block">
-              Fecha: 25/12/2023
+              Inicio: {startingTime}
             </div>
             <div className="bg-gray-200 px-3 py-1 rounded-full text-xl font-medium text-gray-800 dark:text-white hidden md:block">
-              Hora Inicio: 14:00
-            </div>
-            <div className="bg-gray-200 px-3 py-1 rounded-full text-xl font-medium text-gray-800 dark:text-white hidden md:block">
-              Hora fin: 16:00
+              Fin: {finishingTime}
             </div>
             <div className="bg-gray-200 px-3 py-1 rounded-full text-xl font-medium text-gray-800 dark:text-white hidden md:block">
               Horas: 4

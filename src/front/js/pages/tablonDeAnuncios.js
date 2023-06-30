@@ -378,11 +378,9 @@ export const TablonDeAnuncios = () => {
                             <div className="max-w-3xl w-full mx-auto z-10">
                                 <div className="flex flex-col">
                                     {store.homePost.map((item, index) => (
-                                        <CardAnnounce key={index} description={item.description} address={item.home_address} />
+                                        <CardAnnounce key={index} description={item.description} address={item.home_address} startingTime={item.starting_time} finishingTime={item.finishing_time}/>
                                     ))}
-                                    {/* <CardAnnounce />
-                            <CardAnnounce />
-                            <CardAnnounce /> */}
+                                    <CardAnnounce />
                                 </div>
                             </div>
                         </div>
