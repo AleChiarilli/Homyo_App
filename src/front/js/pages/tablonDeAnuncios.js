@@ -380,6 +380,7 @@ export const TablonDeAnuncios = () => {
                                     {store.homePost.map((item, index) => (
                                         <CardAnnounce key={index} description={item.description} address={item.home_address} startingTime={item.starting_time} finishingTime={item.finishing_time}/>
                                     ))}
+                                    <CardAnnounce />
                                 </div>
                             </div>
                         </div>
