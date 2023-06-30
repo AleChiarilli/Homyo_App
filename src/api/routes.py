@@ -54,12 +54,32 @@ def handle_hello():
 
     return jsonify(response_body), 200
 
+
+# RUTA DE PRUEBA
+@api.route('/publications/<postal_code>', methods=['GET'])
+def get_publications(postal_code):
+    publications = Home.query.filter_by(postal_code=postal_code).all()
+
+    # Convert the list of publications to a dictionary representation
+    publications_dict = [publication.to_dict() for publication in publications]
+
+    # Create a JSON response with the publications
+    response = jsonify(publications=publications_dict)
+
+    # Optionally, you can set the response headers if needed
+    # response.headers['Header-Name'] = 'Header-Value'
+
+    return response
+
 #----------------ENDPOINTS---------------
 #----------------ENDPOINTS USER---------------
 # LOG IN para recibir token JWT
 
 # Create a route to authenticate your users and return JWTs. The
 # create_access_token() function is used to actually generate the JWT.
+
+
+
 @api.route("/login", methods=["POST"])
 def login():
 
@@ -1518,4 +1538,14 @@ def delete_message_receiver(id):
     response_body = {
         "msg": "El mensaje ha sido borrado",
     }
+    
+# Proteja una ruta con jwt_required, que eliminará las solicitudes
+# sin un JWT válido presente.
+@api.route("/valide-token", methods=["GET"])
+@jwt_required()
+def get_info_profile():
+    # Access the identity of the current user with get_jwt_identity
+    current_user = get_jwt_identity()
+    #user = User.query.filter_by(email=current_user).first()
 
+    return jsonify({"isLogged":True}), 200
