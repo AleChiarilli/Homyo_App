@@ -1,8 +1,14 @@
 """empty message
 
+<<<<<<<< HEAD:migrations/versions/84923de81400_.py
+Revision ID: 84923de81400
+Revises: 
+Create Date: 2023-06-29 14:36:49.897896
+========
 Revision ID: 85af4aa46e8e
 Revises: 
 Create Date: 2023-06-29 17:04:08.088193
+>>>>>>>> main:migrations/versions/85af4aa46e8e_.py
 
 """
 from alembic import op
@@ -10,7 +16,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = '85af4aa46e8e'
+revision = '84923de81400'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -43,7 +49,7 @@ def upgrade():
     op.create_table('cmr_profile',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('user_id', sa.Integer(), nullable=True),
-    sa.Column('description', sa.String(length=255), nullable=False),
+    sa.Column('description', sa.String(length=255), nullable=True),
     sa.Column('phone_number', sa.String(), nullable=True),
     sa.ForeignKeyConstraint(['user_id'], ['user.id'], ),
     sa.PrimaryKeyConstraint('id')
@@ -52,14 +58,14 @@ def upgrade():
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('verified', sa.Boolean(), nullable=False),
     sa.Column('user_id', sa.Integer(), nullable=True),
-    sa.Column('dni', sa.String(length=255), nullable=False),
-    sa.Column('description', sa.String(length=255), nullable=False),
-    sa.Column('address', sa.String(length=200), nullable=False),
-    sa.Column('city', sa.String(length=200), nullable=False),
-    sa.Column('postal_code', sa.String(), nullable=False),
-    sa.Column('km_radius', sa.Numeric(), nullable=False),
-    sa.Column('phone_number', sa.String(), nullable=False),
-    sa.Column('hourly_rate', sa.Numeric(), nullable=False),
+    sa.Column('dni', sa.String(length=255), nullable=True),
+    sa.Column('description', sa.String(length=255), nullable=True),
+    sa.Column('address', sa.String(length=200), nullable=True),
+    sa.Column('city', sa.String(length=200), nullable=True),
+    sa.Column('postal_code', sa.String(), nullable=True),
+    sa.Column('km_radius', sa.Numeric(), nullable=True),
+    sa.Column('phone_number', sa.String(), nullable=True),
+    sa.Column('hourly_rate', sa.Numeric(), nullable=True),
     sa.ForeignKeyConstraint(['user_id'], ['user.id'], ),
     sa.PrimaryKeyConstraint('id'),
     sa.UniqueConstraint('dni')
@@ -88,14 +94,6 @@ def upgrade():
     sa.Column('pro_profile_id', sa.Integer(), nullable=True),
     sa.ForeignKeyConstraint(['pro_profile_id'], ['pro_profile.id'], ),
     sa.ForeignKeyConstraint(['skill_id'], ['skill.id'], ),
-    sa.PrimaryKeyConstraint('id')
-    )
-    op.create_table('cmr_profile_home',
-    sa.Column('id', sa.Integer(), nullable=False),
-    sa.Column('home_id', sa.Integer(), nullable=True),
-    sa.Column('cmr_profile_id', sa.Integer(), nullable=True),
-    sa.ForeignKeyConstraint(['cmr_profile_id'], ['cmr_profile.id'], ),
-    sa.ForeignKeyConstraint(['home_id'], ['home.id'], ),
     sa.PrimaryKeyConstraint('id')
     )
     op.create_table('contract',
@@ -200,7 +198,6 @@ def downgrade():
     op.drop_table('message')
     op.drop_table('home_post')
     op.drop_table('contract')
-    op.drop_table('cmr_profile_home')
     op.drop_table('pro_profile_skill')
     op.drop_table('home')
     op.drop_table('user_role')
