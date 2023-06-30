@@ -146,6 +146,18 @@ def create_user():
     db.session.add(user)
     db.session.commit()
 
+    # Assign the user role
+    role_id = body['role_id']
+    role = Role.query.get(role_id)
+    if role:
+        user_role = User_role(user=user, role=role)
+        db.session.add(user_role)
+
+    # Add the user to the session and commit the changes to the database
+    db.session.add(user)
+    db.session.commit()
+
+
     # Create an empty Pro_profile for the new user
     new_pro_profile = Pro_profile(user_id=user.id)
 
@@ -448,16 +460,28 @@ def create_pro_profile():
 
 # enpoint para editar datos en PRO_PROFILE
 
-@api.route('/pro_profile/<int:id>', methods=['PUT'])
-def update_pro_profile(id):
-    
-    pro_profile = Pro_profile.query.filter_by(id=id).first()
+@api.route('/pro_profile/', methods=['PUT'])
+@jwt_required()
+def update_pro_profile():
+
+
+    user_email = get_jwt_identity()
+    user = User.query.filter_by(email=user_email).first()
+    pro_profile = Pro_profile.query.filter_by(user_id=user.id).first()
 
     # comprobamos que existe un usuario con ese id, si no es asi, respondemos un mensaje de error
     if pro_profile is None:
         raise APIException("No hay un perfil profesional con ese ID", status_code=404)
     if not pro_profile:
         return 'Pro_profile not found', 404
+    
+    #adición de rol profesional no funca
+    role_id = 1
+    role = Role.query.get(role_id)
+    if role:
+        user_role = User_role(user=user, role=role)
+        db.session.add(user_role)
+    db.session.add(user_role)
 
     # Retrieve the data to update from the request body
     data = request.json
@@ -473,6 +497,10 @@ def update_pro_profile(id):
     pro_profile.hourly_rate = data.get('hourly_rate', pro_profile.hourly_rate)
 
     db.session.commit()
+
+    # role_id = 1
+    # user_role = User_role(user=user.id, role=role_id)
+    # db.session.add(user_role)
 
     response_body = {
         "msg": "El perfil profesional ha sido editado con éxito",

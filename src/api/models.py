@@ -171,13 +171,13 @@ class Home(db.Model):
             "postal_code": self.postal_code,
             "description": self.description,
             "cmr_profile_id": self.cmr_profile_id,
-            "posts": list(map(lambda item:item.serialize(),self.posts)) # DEBERIA TRAER LOS POSTS DE LA CASA DA ERROR POR list(map(lambda item:item.serialize(),self.homes))
+            # "posts": list(map(lambda item:item.serialize(),self.posts)) # DEBERIA TRAER LOS POSTS DE LA CASA DA ERROR POR list(map(lambda item:item.serialize(),self.homes))
         }
 
 class TimestampMixin(db.Model):
     __abstract__ = True
-    created = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
-    updated = db.Column(db.DateTime, onupdate=datetime.utcnow)
+    created = db.Column(db.DateTime(timezone=True), nullable=False, default=datetime.utcnow)
+    updated = db.Column(db.DateTime(timezone=True), onupdate=datetime.utcnow)
 
 class Home_Post(TimestampMixin,db.Model):
     __tablename__="home_post"
@@ -196,19 +196,35 @@ class Home_Post(TimestampMixin,db.Model):
     
     def __repr__(self):
         return f'<Home_Post {self.id}>'
+    
+    def calculate_time_difference(self):
+        if self.starting_time and self.finishing_time:
+            time_difference = self.finishing_time - self.starting_time
+            return str(time_difference)
+
+        return None
+    
 
     def serialize(self):
+        created = self.created.strftime("%d/%m/%Y %H:%M:%S") if self.created else None
+        updated = self.updated.strftime("%d/%m/%Y %H:%M:%S") if self.updated else None
+        starting_time = self.starting_time.strftime("%d/%m/%Y %H:%M:%S") if self.starting_time else None
+        finishing_time = self.finishing_time.strftime("%d/%m/%Y %H:%M:%S") if self.finishing_time else None
+        time_difference = self.calculate_time_difference()
         return {
             "id": self.id,
             "home_address":self.home.serialize()["address"],
-            "home_postcode":self.home.serialize()["postcode"],
+            "home_postal_code":self.home.serialize()["postal_code"],
             "latitude": self.latitude,
             "longitude": self.longitude,
+            "created": created,
+            "updated": updated,
             "is_visible": self.is_visible,
             "description": self.description,
-            "starting_time": self.starting_time,
-            "finishing_time": self.finishing_time,
-            # "cmr_profile_id": self.cmr_profile_id,
+            "starting_time": starting_time,
+            "finishing_time": finishing_time,
+            "time_difference": time_difference,
+            "cmr_profile_id": self.home.serialize()["cmr_profile_id"],
             "skills" : list(map(lambda item:item.serialize(),self.skills))
         }
 
@@ -258,17 +274,33 @@ class Contract(TimestampMixin, db.Model):
     
     def __repr__(self):
         return f'<Contract {self.id}>'
+    
+    def calculate_time_difference(self):
+        if self.starting_time and self.finishing_time:
+            time_difference = self.finishing_time - self.starting_time
+            return str(time_difference)
+
+        return None
 
     def serialize(self):
+        created = self.created.strftime("%d/%m/%Y %H:%M:%S") if self.created else None
+        updated = self.updated.strftime("%d/%m/%Y %H:%M:%S") if self.updated else None
+        starting_time = self.starting_time.strftime("%d/%m/%Y %H:%M:%S") if self.starting_time else None
+        finishing_time = self.finishing_time.strftime("%d/%m/%Y %H:%M:%S") if self.finishing_time else None
+        time_difference = self.calculate_time_difference()
+
         return {
             "id": self.id,
             "home_id": self.home.serialize(),
             "pro_profile_id": self.pro_profile.serialize(),
             "cmr_profile_id": self.cmr_profile.serialize(),
             "comment": self.comment,
+            "created": created,
+            "updated": updated,
             "payment_status": self.payment_status,
-            "starting_time": self.starting_time,
-            "finishing_time": self.finishing_time
+            "starting_time": starting_time,
+            "finishing_time": finishing_time,
+            "time_difference": time_difference
         }
 
 class Pro_review(TimestampMixin, db.Model):
@@ -288,12 +320,15 @@ class Pro_review(TimestampMixin, db.Model):
         return f'<Pro_review {self.id}>'
 
     def serialize(self):
+        created = self.created.strftime("%d/%m/%Y %H:%M:%S") if self.created else None
+        
         return {
             "id": self.id,
             "rating": self.rating,
             "pro_receiver_id": self.pro_receiver.serialize(),
             "cmr_sender_id": self.cmr_sender.serialize(),
             "contract_id": self.contract.serialize(),
+            "created": created,
             "comment": self.comment
         }
 
@@ -314,9 +349,12 @@ class Cmr_review(TimestampMixin, db.Model):
         return f'<Cmr_review {self.id}>'
 
     def serialize(self):
+        created = self.created.strftime("%d/%m/%Y %H:%M:%S") if self.created else None
+
         return {
             "id": self.id,
             "rating": self.rating,
+            "created": created,
             "pro_sender_id": self.pro_sender.serialize(),
             "cmr_receiver_id": self.cmr_receiver.serialize(),
             "contract_id": self.contract.serialize(),
@@ -342,17 +380,20 @@ class Message(TimestampMixin, db.Model):
         return f'<Message {self.id}>'
 
     def serialize(self):
+        created = self.created.strftime("%d/%m/%Y %H:%M:%S") if self.created else None
+
         return {
             "id": self.id,
             "home_id": self.home.serialize(),
             "title": self.rating,
             "content": self.content,
             "message_status": self.message_status,
-            "sender_id": self.user.serialize()
+            "sender_id": self.user.serialize(),
+            "created": created
         }
 
 
-class Message_receiver(db.Model):
+class Message_receiver(TimestampMixin,db.Model):
     id = db.Column(db.Integer, primary_key=True)
     message_id = db.Column(db.Integer, db.ForeignKey('message.id'))
     message = db.relationship(Message)
@@ -364,8 +405,10 @@ class Message_receiver(db.Model):
         return f'<Message_receiver {self.id}>'
 
     def serialize(self):
+        created = self.created.strftime("%d/%m/%Y %H:%M:%S") if self.created else None
         return {
             "id": self.id,
+            "created": created,
             "message_id": self.message_id,
             "receiver_id": self.user.serialize(),
         }
