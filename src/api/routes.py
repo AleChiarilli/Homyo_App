@@ -845,11 +845,34 @@ def get_home():
     results = Home.query.all()
     print("-----------------------------------------", results)
     home_list = [result.serialize() for result in results]
+    print(home_list)
 
 
     response_body = {
         "msg": "Hello, this is your GET /home response ",
         "results": home_list
+    }
+
+    return jsonify(response_body), 200
+
+@api.route('/home_post_list', methods=['GET'])
+# Acceso protegido
+@jwt_required()
+def get_home_post_list():
+
+    user_email = get_jwt_identity()
+    user = User.query.filter_by(email=user_email).first()
+    cmr_profile = Cmr_profile.query.filter_by(user_id=user.id).first()
+    home = Home.query.filter_by(cmr_profile_id=cmr_profile.id).first()
+    home_posts = Home_Post.query.filter_by(home_id=home.id).all()
+
+    print(home_posts)
+    home_posts = [post.serialize() for post in home_posts]
+
+
+    response_body = {
+        "msg": "Hello, this is your GET /home response",
+        "results": home_posts
     }
 
     return jsonify(response_body), 200
