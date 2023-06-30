@@ -6,7 +6,7 @@ import niños from "../../img/niños.png";
 import chef from "../../img/chef.png";
 import house from "../../img/house.png";
 
-export const CardAnnounce = () => {
+export const CardAnnounce = ({description, address}) => {
   return (
     <div className="w-full flex flex-col justify-center mt-10 mb-3 dark:bg-gray-700">
       <div className="relative flex flex-col md:flex-row md:space-x-5 space-y-3 md:space-y-0 rounded-xl shadow-lg p-3 bg-white dark:bg-gray-800 mx-auto border border-white">
@@ -29,6 +29,7 @@ export const CardAnnounce = () => {
             </div>
           </div>
           <h3 className="font-black text-gray-800 dark:text-white md:text-3xl text-xl">Casa de la playa</h3>
+          <p>{address}</p>
           <p className="md:text-lg text-gray-500 dark:text-white text-base">Servicios Contratados</p>
           <div className="flex justify-center">
             <ul className="flex flex-wrap">
@@ -125,7 +126,8 @@ export const CardAnnounce = () => {
             </ul>
           </div>
           <div>
-            <textarea rows="3" className="p-4 w-full text-gray-500 dark:text-white rounded-xl resize-none" placeholder="Mensaje del cliente detallando el servicio"></textarea>
+            {/* <textarea rows="3" className="p-4 w-full text-gray-500 dark:text-white rounded-xl resize-none" placeholder="Mensaje del cliente detallando el servicio"></textarea> */}
+            <p rows="3" className="p-4 w-full text-gray-500 dark:text-white rounded-xl resize-none">{description}</p>
           </div>
           <div className="text-right">
             <button

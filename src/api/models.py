@@ -271,7 +271,9 @@ class Home_Post(TimestampMixin,db.Model):
             "longitude": self.longitude,
             "description": self.description,
             "cmr_profile_id": self.cmr_profile_id,
-            "skills" : list(map(lambda item:item.serialize(),self.skills))
+            "skills" : list(map(lambda item:item.serialize(),self.skills)),
+            "starting_time": self.starting_time,
+            "finishing_time": self.finishing_time
         }
 
 class Post_skills(db.Model):
