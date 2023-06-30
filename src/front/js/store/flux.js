@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios from "axios"
 
 const getState = ({
 
@@ -23,9 +23,37 @@ const getState = ({
             ],
             role: "cliente", // Establece el valor por defecto como 'cliente'
             token: "", //guardamos el token como un string vacio
-            isLoggedIn: false
+            isLoggedIn: false,
+            role: 'cliente', // Establece el valor por defecto como 'cliente',
+            publications: [],
+            homePost: [],
+
         },
         actions: {
+            getPublications: async (postalCode) => {
+                try {
+                    const response = await fetch(`${process.env.BACKEND_URL}api/home_post`)
+                    const data = await response.json()
+                    setStore({
+                        publications: data
+                    })
+                } catch (error) {
+                    console.error(error)
+                }
+            },
+
+            getPostsOn: async () => {
+                try {
+                    const response = await fetch(`${process.env.BACKEND_URL}api/home_post`)
+                    const data = await response.json()
+                    setStore({
+                        homePost: data.results
+                    })
+                } catch (error) {
+                    console.error(error)
+                }
+            },
+
             //NEW USER REGISTRATION => FALTA IMPLEMENTARLO POR PARTE DEL BACK
             addUser: async (user) => {
                 console.log(user);
@@ -68,13 +96,15 @@ const getState = ({
                         return true;
                     }
                 } catch (error) {
-                    console.log("Error loading message from backend", error);
+                    console.log("Error loading message from backend", error)
                     return true; //Si se produce algún error dentro del bloque try, se captura en el bloque catch. Aquí, se imprime un mensaje de erro
                 }
             },
 
-            //INFORMACION DE PERFIL  DEL USUARIO-PROFESIONAL (INPUTS A LLENAR)
 
+
+
+            //INFORMACION DE PERFIL  DEL USUARIO-PROFESIONAL (INPUTS A LLENAR)
             profile_professional: async (
                 verified,
                 dni,
@@ -130,7 +160,6 @@ const getState = ({
             },
 
             //INFORMACION DE PERFIL DEL USUARIO-CLIENTE(INPUTS A LLENAR)
-
             profile_customer: async (description, phone_number) => {
                 console.log(profile_professional);
                 try {
@@ -153,39 +182,45 @@ const getState = ({
                 }
             },
 
-            //VALIDACION DE TOKEN
-
+            //VALIDACION DE TOKEN 
             valide_token: async () => {
                 const token = localStorage.getItem("token");
-                console.log(token);
+                console.log(token)
                 try {
-                    const data = await axios.get(
-                        process.env.BACKEND_URL + "/api/valide-token", {
-                            headers: {
-                                "Content-Type": "application/json",
-                                Authorization: `Bearer ${token}`,
-                            },
-                        }
-                    );
+                    const data = await axios.get(process.env.BACKEND_URL + "/api/valide-token", {
+                        headers: {
+                            "Content-Type": "application/json",
+                            "Authorization": `Bearer ${token}`
+
+                        },
+                    });
+                    //const data = await resp.json();
                     if (data.status === 200) {
                         console.log(data);
+                        // localStorage.setItem("token", data.access_token);
+                        // localStorage.setItem("id", data.user.id);
                         setStore({
                             isLoggedIn: data.data.isLogged,
-                        });
+                        })
                     }
                     return true;
+                    //}
                 } catch (error) {
                     console.log(error); //Si se produce algún error dentro del bloque try, se captura en el bloque catch. Aquí, se imprime un mensaje de erro
                 }
             },
-            //FUNCION CERRAR SESION
+
+            //FUNCION CERRAR SESION 
+
             logged_out: () => {
-                localStorage.removeItem("token");
-                localStorage.removeItem("id");
+                localStorage.removeItem("token")
+                localStorage.removeItem("id")
                 setStore({
                     isLoggedIn: false,
                 });
             },
+
+
 
             // establecer rol
             setRole: (role) => {
