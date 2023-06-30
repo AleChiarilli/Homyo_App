@@ -181,30 +181,29 @@ const getState = ({
             //VALIDACION DE TOKEN 
             valide_token: async () => {
                 const token = localStorage.getItem("token");
-                console.log(token)
+                console.log(token);
                 try {
-                    const data = await axios.get(process.env.BACKEND_URL + "/api/valide-token", {
-                        headers: {
-                            "Content-Type": "application/json",
-                            "Authorization": `Bearer ${token}`
-
-                        },
-                    });
-                    //const data = await resp.json();
-                    if (data.status === 200) {
-                        console.log(data);
-                        // localStorage.setItem("token", data.access_token);
-                        // localStorage.setItem("id", data.user.id);
-                        setStore({
-                            isLoggedIn: data.data.isLogged,
-                        })
+                  const data = await axios.get(
+                    process.env.BACKEND_URL + "/api/valide-token",
+                    {
+                      headers: {
+                        "Content-Type": "application/json",
+                        Authorization: `Bearer ${token}`,
+                      },
                     }
-                    return true;
-                    //}
+                  );
+                  if (data.status === 200) {
+                    console.log(data);
+                    setStore({
+                      isLoggedIn: data.data.isLogged,
+                    });
+                  }
+                  return true;
+                  //}
                 } catch (error) {
-                    console.log(error); //Si se produce algún error dentro del bloque try, se captura en el bloque catch. Aquí, se imprime un mensaje de erro
+                  console.log(error); //Si se produce algún error dentro del bloque try, se captura en el bloque catch. Aquí, se imprime un mensaje de erro
                 }
-            },
+              },
 
             //FUNCION CERRAR SESION 
 
