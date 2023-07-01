@@ -11,44 +11,44 @@ const getState = ({
 
             message: null,
             demo: [{
-                    title: "FIRST",
-                    background: "white",
-                    initial: "white",
-                },
-                {
-                    title: "SECOND",
-                    background: "white",
-                    initial: "white",
-                },
+                title: "FIRST",
+                background: "white",
+                initial: "white",
+            },
+            {
+                title: "SECOND",
+                background: "white",
+                initial: "white",
+            },
             ],
             role: "cliente", // Establece el valor por defecto como 'cliente'
             token: "", //guardamos el token como un string vacio
-            isLoggedIn: false,
-            role: 'cliente', // Establece el valor por defecto como 'cliente',
+            isLoggedIn: false, // si cambio esto a true si se abren los hover
+            role: 'cliente', // Establece el valor por defecto como 'cliente', ¿duplicado? linea 24
             publications: [],
-            homePost: [] ,
+            homePost: [],
 
-    },
-    actions: {
-      getPublications: async (postalCode) => {
-        try {
-          const response = await fetch(`${process.env.BACKEND_URL}api/home_post`)
-          const data = await response.json()
-          setStore({publications: data})
-        } catch (error) {
-          console.error(error)
-        }
-      },
+        },
+        actions: {
+            getPublications: async (postalCode) => {
+                try {
+                    const response = await fetch(`${process.env.BACKEND_URL}api/home_post`)
+                    const data = await response.json()
+                    setStore({ publications: data })
+                } catch (error) {
+                    console.error(error)
+                }
+            },
 
-      getPostsOn: async () => {
-        try {
-          const response = await fetch(`${process.env.BACKEND_URL}api/home_post`)
-          const data = await response.json()
-          setStore({homePost: data.results})
-        } catch (error) {
-          console.error(error)
-        }
-      },
+            getPostsOn: async () => {
+                try {
+                    const response = await fetch(`${process.env.BACKEND_URL}api/home_post`)
+                    const data = await response.json()
+                    setStore({ homePost: data.results })
+                } catch (error) {
+                    console.error(error)
+                }
+            },
 
             //NEW USER REGISTRATION => FALTA IMPLEMENTARLO POR PARTE DEL BACK
             addUser: async (user) => {
@@ -115,22 +115,22 @@ const getState = ({
                 try {
                     const response = await fetch(
                         process.env.BACKEND_URL + "/api/pro_profile", {
-                            method: "POST",
-                            body: JSON.stringify({
-                                verified: verified,
-                                dni: dni,
-                                description: description,
-                                address: address,
-                                city: city,
-                                postal_code: postal_code,
-                                km_radius: km_radius,
-                                phone_number: phone_number,
-                                hourly_rate: hourly_rate,
-                            }),
-                            headers: {
-                                "Content-Type": "application/json",
-                            },
-                        }
+                        method: "POST",
+                        body: JSON.stringify({
+                            verified: verified,
+                            dni: dni,
+                            description: description,
+                            address: address,
+                            city: city,
+                            postal_code: postal_code,
+                            km_radius: km_radius,
+                            phone_number: phone_number,
+                            hourly_rate: hourly_rate,
+                        }),
+                        headers: {
+                            "Content-Type": "application/json",
+                        },
+                    }
                     );
                     const data = await response.json();
                     console.log(data);
@@ -161,15 +161,15 @@ const getState = ({
                 try {
                     const response = await fetch(
                         process.env.BACKEND_URL + "/api/cmr_profile", {
-                            method: "POST",
-                            body: JSON.stringify({
-                                description: description,
-                                phone_number: phone_number,
-                            }),
-                            headers: {
-                                "Content-Type": "application/json",
-                            },
-                        }
+                        method: "POST",
+                        body: JSON.stringify({
+                            description: description,
+                            phone_number: phone_number,
+                        }),
+                        headers: {
+                            "Content-Type": "application/json",
+                        },
+                    }
                     );
                     const data = await response.json();
                     console.log(data);
@@ -183,27 +183,27 @@ const getState = ({
                 const token = localStorage.getItem("token");
                 console.log(token);
                 try {
-                  const data = await axios.get(
-                    process.env.BACKEND_URL + "/api/valide-token",
-                    {
-                      headers: {
-                        "Content-Type": "application/json",
-                        Authorization: `Bearer ${token}`,
-                      },
+                    const data = await axios.get(
+                        process.env.BACKEND_URL + "/api/valide-token",
+                        {
+                            headers: {
+                                "Content-Type": "application/json",
+                                Authorization: `Bearer ${token}`,
+                            },
+                        }
+                    );
+                    if (data.status === 200) {
+                        console.log(data);
+                        setStore({
+                            isLoggedIn: data.data.isLogged,
+                        });
                     }
-                  );
-                  if (data.status === 200) {
-                    console.log(data);
-                    setStore({
-                      isLoggedIn: data.data.isLogged,
-                    });
-                  }
-                  return true;
-                  //}
+                    return true;
+                    //}
                 } catch (error) {
-                  console.log(error); //Si se produce algún error dentro del bloque try, se captura en el bloque catch. Aquí, se imprime un mensaje de erro
+                    console.log(error); //Si se produce algún error dentro del bloque try, se captura en el bloque catch. Aquí, se imprime un mensaje de erro
                 }
-              },
+            },
 
             //FUNCION CERRAR SESION 
 
