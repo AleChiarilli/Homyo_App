@@ -21,7 +21,6 @@ const getState = ({
                 initial: "white",
             },
             ],
-            role: "cliente", // Establece el valor por defecto como 'cliente'
             token: "", //guardamos el token como un string vacio
             isLoggedIn: false, // si cambio esto a true si se abren los hover
             role: 'cliente', // Establece el valor por defecto como 'cliente', ¿duplicado? linea 24
@@ -96,8 +95,6 @@ const getState = ({
                     return true; //Si se produce algún error dentro del bloque try, se captura en el bloque catch. Aquí, se imprime un mensaje de erro
                 }
             },
-
-
 
 
             //INFORMACION DE PERFIL  DEL USUARIO-PROFESIONAL (INPUTS A LLENAR)
