@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { Context } from "../store/appContext";
 
 import "../../styles/profile.css";
@@ -35,6 +35,12 @@ export const Profileclient = () => {
       hourly_rate,
     }); // Envía los datos del usuario utilizando la acción addUser del objeto actions
   };
+
+  useEffect(()=>{
+    const emailInput = document.querySelector("#floating_email");
+    emailInput.value= store.user.email
+    console.log(emailInput)
+  },[]) 
 
   ///
   const [showProfile, setShowProfile] = useState(true);

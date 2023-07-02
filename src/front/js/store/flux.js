@@ -86,6 +86,7 @@ const getState = ({
                         console.log(data);
                         localStorage.setItem("token", data.token);
                         localStorage.setItem("id", data.user.id);
+                        console.log(data.user)
                         setStore({
                             ...getStore(),
                             isLoggedIn: true,
