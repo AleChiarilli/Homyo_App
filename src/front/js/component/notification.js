@@ -6,10 +6,10 @@ export const Notification = () => {
 
     return (
 
-        store.isLoggedIn && (
+        !!store.isLoggedIn && (
             <div className="flex justify-center items-center">
               <button
-                button
+              
                 id="dropdownHoverButton1"
                 data-dropdown-toggle="notificationPanel"
                 data-dropdown-trigger="hover"

@@ -26,6 +26,7 @@ const getState = ({
             role: 'cliente', // Establece el valor por defecto como 'cliente', ¿duplicado? linea 24
             publications: [],
             homePost: [],
+            user:{}
 
         },
         actions: {
@@ -86,7 +87,9 @@ const getState = ({
                         localStorage.setItem("token", data.token);
                         localStorage.setItem("id", data.user.id);
                         setStore({
+                            ...getStore(),
                             isLoggedIn: true,
+                            user:data.user
                         });
                         return true;
                     }
