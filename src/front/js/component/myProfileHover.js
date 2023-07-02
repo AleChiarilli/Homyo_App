@@ -16,7 +16,7 @@ export const Myprofilehover = () => {
                         <div>
                             <button
                                 id="dropdownHoverButton"
-                                data-dropdown-toggle="dropdownHover"
+                                data-dropdown-toggle="myProfileHoverPanel"
                                 data-dropdown-trigger="hover"
                                 className="px-6 py-2  transition ease-in duration-200 uppercase font-medium text-sm rounded-full hover:bg-indigo-800 hover:text-white border-2 border-indigo-900 focus:outline-none"
                                 type="button"
@@ -24,7 +24,7 @@ export const Myprofilehover = () => {
                                 Mi Perfil
                             </button>
                             <div
-                                id="dropdownHover"
+                                id="myProfileHoverPanel"
                                 className="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700"
                             >
                                 <ul

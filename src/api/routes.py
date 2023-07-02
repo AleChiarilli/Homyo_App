@@ -167,7 +167,7 @@ def create_user():
     db.session.commit()
 
     # Assign the user role
-    role_name = body['role_name'] #cambiamos la busqueda de sole_id por role_name para tenerlo en el admin. con nombre en lugar de numero de id.(si se deja por id el problema esatria en que 1 persona puede registrar al profesional primero y este tendria el id 1, pero otro compañero puede resgitrar primero al cliente por ende ahora el cliente en su proyecto con id 1) 
+    role_name = body['role_name'] #cambiamos la busqueda de role_id por role_name para tenerlo en el admin. con nombre en lugar de numero de id.(si se deja por id el problema estaria en que 1 persona puede registrar al profesional primero y este tendria el id 1, pero otro compañero puede resgitrar primero al cliente, por ende ahora el cliente en su proyecto estaria con el  con id 1) 
     role = Role.query.filter_by(name=role_name).first()
     if role:
         user_role = User_role(user=user, role=role)
