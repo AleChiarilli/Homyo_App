@@ -151,10 +151,11 @@ class Cmr_profile(db.Model):
     
 class Home(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(200), unique=False, nullable=False)
+    name = db.Column(db.String(200), unique=False, nullable=True)
     address = db.Column(db.String(200), unique=False, nullable=True)
-    postal_code = db.Column(db.Integer, unique=False, nullable=False)
-    description = db.Column(db.String(255), unique=False, nullable=False)
+    city = db.Column(db.String(200), unique=False, nullable=True)
+    postal_code = db.Column(db.Integer, unique=False, nullable=True)
+    description = db.Column(db.String(255), unique=False, nullable=True)
     cmr_profile_id = db.Column(db.Integer, db.ForeignKey('cmr_profile.id'))
     posts = db.relationship("Home_Post", backref="home", lazy=True)
     
@@ -168,6 +169,7 @@ class Home(db.Model):
             "id": self.id,
             "name":self.name,
             "address": self.address,
+            "city": self.city,
             "postal_code": self.postal_code,
             "description": self.description,
             "cmr_profile_id": self.cmr_profile_id,
@@ -215,6 +217,7 @@ class Home_Post(TimestampMixin,db.Model):
             "id": self.id,
             "home_address":self.home.serialize()["address"],
             "home_postal_code":self.home.serialize()["postal_code"],
+            "home_city":self.home.serialize()["city"],
             "latitude": self.latitude,
             "longitude": self.longitude,
             "created": created,
