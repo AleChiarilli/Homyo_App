@@ -1,31 +1,42 @@
-import React, {useContext} from "react";
-import { Link} from "react-router-dom";
+import React, { useContext, useState } from "react";
+import { Link } from "react-router-dom";
 import { Context } from "../store/appContext";
-
 
 export const Myprofilehover = () => {
     const { actions, store } = useContext(Context);
+    const [isHovered, setIsHovered] = useState(false); // estados para el hover del boton de perfil. 
 
+    const handleMouseEnter = () => { //si isLoggedIn es true y coloca el mouse encima del boton, se expandira la lista
+        setIsHovered(true);
+    };
+
+    const handleMouseLeave = () => { //si isLoggedIn es true y NO coloca el mouse encima del boton se permanecera cerrado.
+        setIsHovered(false);
+    };
 
     return (
         <div className="flex items-center">
             <div className="space-x-2">
                 <div className="flex">
-
                     {store.isLoggedIn && (
-                        <div>
+                        <div
+                            onMouseEnter={handleMouseEnter}
+                            onMouseLeave={handleMouseLeave}
+                        >
                             <button
                                 id="dropdownHoverButton"
                                 data-dropdown-toggle="myProfileHoverPanel"
                                 data-dropdown-trigger="hover"
-                                className="px-6 py-2  transition ease-in duration-200 uppercase font-medium text-sm rounded-full hover:bg-indigo-800 hover:text-white border-2 border-indigo-900 focus:outline-none"
+                                className="px-6 py-2 transition ease-in duration-200 uppercase font-medium text-sm rounded-full hover:bg-indigo-800 hover:text-white border-2 border-indigo-900 focus:outline-none"
                                 type="button"
                             >
                                 Mi Perfil
                             </button>
                             <div
                                 id="myProfileHoverPanel"
-                                className="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700"
+                                className={`${
+                                    isHovered ? "block" : "hidden"
+                                } bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700`}
                             >
                                 <ul
                                     className="py-2 text-sm text-gray-700 dark:text-gray-200"
@@ -43,7 +54,6 @@ export const Myprofilehover = () => {
                                             Panel de control
                                         </Link>
                                     </li>
-
                                     <li>
                                         <Link
                                             to="/mensajes"
@@ -67,6 +77,5 @@ export const Myprofilehover = () => {
                 </div>
             </div>
         </div>
-
     );
 };
