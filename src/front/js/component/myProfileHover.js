@@ -15,7 +15,7 @@ export const Myprofilehover = () => {
     };
 
     return (
-        <div className="flex items-center">
+        <div className="flex items-center ">
             <div className="space-x-2">
                 <div className="flex">
                     {store.isLoggedIn && (
@@ -27,7 +27,7 @@ export const Myprofilehover = () => {
                                 id="dropdownHoverButton"
                                 data-dropdown-toggle="myProfileHoverPanel"
                                 data-dropdown-trigger="hover"
-                                className="px-6 py-2 transition ease-in duration-200 uppercase font-medium text-sm rounded-full hover:bg-indigo-800 hover:text-white border-2 border-indigo-900 focus:outline-none"
+                                className="px-3 py-1 transition ease-in duration-200 uppercase font-medium text-sm rounded-full hover:bg-indigo-800 hover:text-white border-2 border-indigo-900 focus:outline-none whitespace-nowrap"
                                 type="button"
                             >
                                 Mi Perfil

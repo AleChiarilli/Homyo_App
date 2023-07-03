@@ -176,7 +176,7 @@ def create_user():
 
 
     # Add the user to the session and commit the changes to the database
-    #se elimina la linea 79 porque estaba duplicada
+    #se elimina la linea 179 porque estaba duplicada
 
     # Create an empty Pro_profile for the new user
     new_pro_profile = Pro_profile(user_id=user.id)
