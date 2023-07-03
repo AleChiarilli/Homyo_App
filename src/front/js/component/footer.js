@@ -6,6 +6,19 @@ export const Footer = () => {
   const [isModalOpen5, setIsModalOpen5] = useState(false);
   const [isModalOpen6, setIsModalOpen6] = useState(false);
   const { actions, store } = useContext(Context);
+  const [toggleActive, setToggleActive] = useState(true); // Establece el interruptor como activado por defecto
+
+  const handleToggleActive = () => {
+    setToggleActive(!toggleActive); // Invierte el estado del interruptor al hacer clic
+    const role = toggleActive ? "profesional" : "cliente"; // Determina el rol actual en función del estado del interruptor
+    handleRoleChange(role); // Llama a la función para cambiar el rol
+  };
+
+  const submitUser = async (e) => {
+    e.preventDefault();
+    await actions.addUser({ username, email, password, role }); // Envía los datos del usuario utilizando la acción addUser del objeto actions
+  };
+
 
   const toggleModal5 = () => {
     setIsModalOpen5(!isModalOpen5);
@@ -95,24 +108,7 @@ export const Footer = () => {
                     <div className="self-center mb-6 text-xl font-light text-gray-600 sm:text-2xl dark:text-white">
                       Regístrate
                     </div>
-                    <div className="flex gap-4 item-center">
-                      <button
-                        type="button"
-                        className="py-2 px-4 flex justify-center items-center  bg-red-600 hover:bg-red-700 focus:ring-red-500 focus:ring-offset-red-200 text-white w-full transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-lg "
-                      >
-                        <svg
-                          width="20"
-                          height="20"
-                          fill="currentColor"
-                          className="mr-2"
-                          viewBox="0 0 1792 1792"
-                          xmlns="http://www.w3.org/2000/svg"
-                        >
-                          <path d="M896 786h725q12 67 12 128 0 217-91 387.5t-259.5 266.5-386.5 96q-157 0-299-60.5t-245-163.5-163.5-245-60.5-299 60.5-299 163.5-245 245-163.5 299-60.5q300 0 515 201l-209 201q-123-119-306-119-129 0-238.5 65t-173.5 176.5-64 243.5 64 243.5 173.5 176.5 238.5 65q87 0 160-24t120-60 82-82 51.5-87 22.5-78h-436v-264z"></path>
-                        </svg>
-                        Google
-                      </button>
-                    </div>
+
 
                     <div className="mt-8">
                       <form onSubmit={(e) => submitUser(e)} autoComplete="off">
@@ -185,6 +181,28 @@ export const Footer = () => {
                               }
                             />
                           </div>
+                        </div>
+
+                        <div className="flex justify-center items-center flex-col">
+                          <p className="text-sm mb-1 text-center">Registrate como:</p>
+                          <label className="relative inline-flex items-center cursor-pointer mb-5">
+                            <input
+                              type="checkbox"
+                              value=""
+                              className="sr-only peer"
+                              checked={toggleActive}
+                              onChange={handleToggleActive}
+                            />
+                            <div className="w-11 h-6 bg-gray-200 rounded-full peer peer-focus:ring-4 peer-focus:ring-indigo-300 dark:peer-focus:ring-indigo-800 dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-indigo-600"></div>
+                            <span
+                              className={`ml-3 text-sm font-medium ${toggleActive
+                                ? "text-gray-900"
+                                : "text-red-500"
+                                } dark:text-gray-300`}
+                            >
+                              {toggleActive ? "Cliente" : "Profesional"}
+                            </span>
+                          </label>
                         </div>
 
                         <div className="flex w-full">

@@ -61,12 +61,10 @@ export const TablonDeAnuncios = () => {
   console.log(store.homePost);
   return (
     <>
-      <div className="flex flex-col justify-center mt-20">
+      <div className="max-w-screen-xl flex flex-col justify-center mx-auto mt-20">
         <div className="flex justify-center">
           <aside id="sidebar-multi-level-sidebar" className="w-full sm:w-64">
-
             <div className=" px-3 py-4 overflow-y-auto sticky top-20">
-
               <ul className="space-y-2 font-medium">
                 <li>
                   <button
@@ -373,17 +371,17 @@ export const TablonDeAnuncios = () => {
           <div className="w-full sm:w-auto">
             <div className="flex flex-col items-center">
               <div className="max-w-3xl w-full mx-auto z-10">
-                <div className="flex flex-col">
+              <div className="flex flex-col max-h-[1000px] overflow-y-auto">
                   {store.homePost.map((item, index) => (
                     <CardAnnounce key={index} description={item.description} address={item.home_address} startingTime={item.starting_time} finishingTime={item.finishing_time} />
                   ))}
+
                 </div>
               </div>
             </div>
           </div>
-<SimpleMap />
-
         </div>
+        <SimpleMap />
       </div>
     </>
   );
