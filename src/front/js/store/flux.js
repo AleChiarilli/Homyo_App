@@ -140,21 +140,6 @@ const getState = ({
                 }
             },
 
-            //GET PARA OBTENER LA INFORMACION DEL PERFIL USUARIO-PROFESIONAL
-            get_profile_info: async (id) => {
-                const userId = localStorage.getItem("id");
-                console.log(userId);
-                try {
-                    const response = await fetch(
-                        process.env.BACKEND_URL + "/api/pro_profile/" + userId
-                    );
-                    const data = await response.json();
-                    console.log(data);
-                } catch (error) {
-                    console.log("error loading message from backend", error);
-                }
-            },
-
             ///PUT PARA INFORMACION DEL USUARIO-PROFESIONAL
 
             modify_professional: async (
@@ -199,7 +184,21 @@ const getState = ({
                   // Realizar las acciones necesarias en caso de error
                 }
               },
-              
+
+            //GET PARA OBTENER LA INFORMACION DEL PERFIL USUARIO-PROFESIONAL
+            get_profile_info: async (id) => {
+                const userId = localStorage.getItem("id");
+                console.log(userId);
+                try {
+                    const response = await fetch(
+                        process.env.BACKEND_URL + "/api/pro_profile/" + userId
+                    );
+                    const data = await response.json();
+                    console.log(data);
+                } catch (error) {
+                    console.log("error loading message from backend", error);
+                }
+            },
 
             //AGREGAR INFORMACION DE PERFIL DEL USUARIO-CLIENTE(INPUTS A LLENAR)
             profile_customer: async (description, phone_number) => {
@@ -274,8 +273,6 @@ const getState = ({
                     isLoggedIn: false,
                 });
             },
-
-
 
             // establecer rol
             setRole: (role) => {
