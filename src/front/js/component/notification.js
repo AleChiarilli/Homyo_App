@@ -7,7 +7,7 @@ export const Notification = () => {
     return (
 
         store.isLoggedIn && (
-            <div className="flex justify-center items-center">
+            <div className="flex justify-center items-center hidden w-full md:block md:w-auto">
               <button
                 button
                 id="dropdownHoverButton1"
@@ -17,7 +17,7 @@ export const Notification = () => {
                 type="button"
               >
                 <svg
-                  className="w-10 h-10"
+                  className="w-8 h-8"
                   aria-hidden="true"
                   fill="currentColor"
                   viewBox="0 0 20 20"
