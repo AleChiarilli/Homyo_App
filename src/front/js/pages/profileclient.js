@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { Context } from "../store/appContext";
 import "../../styles/profile.css";
 import { Calendar } from "../component/calendar";
@@ -15,21 +15,19 @@ export const Profileclient = () => {
   //ESTADOS DE LOS INPUTS A RELLENAR POR EL CLIENTE
   const [description, setDescription] = useState("");
   const [phone_number, setPhone_number] = useState("");
+  
   //FUNCION PARA EL FORM (INFORMACION DEL CLIENTE)
   const info_customer = async (e) => {
     e.preventDefault();
-    await actions.profile_customer({
-      verified,
-      dni,
-      description,
-      address,
-      city,
-      postal_code,
-      km_radius,
-      phone_number,
-      hourly_rate,
-    }); // Envía los datos del usuario utilizando la acción addUser del objeto actions
+    await actions.profile_customer({description,phone_number
+    }); // Envía los datos del usuario
   };
+//gaurdamos su correo con el mismo que se registro por defecto
+  useEffect(()=>{
+    const emailInput = document.querySelector("#floating_email");
+    emailInput.value= store.user.email
+    console.log(emailInput)
+  },[]) 
 
   ///
   const [showProfile, setShowProfile] = useState(true);

@@ -2,16 +2,18 @@ import React, { useContext } from "react";
 import { Context } from "../store/appContext";
 
 export const Notification = () => {
-    const { store } = useContext(Context);
+    const { store, actions } = useContext(Context);
 
-    return (
+    return ( 
 
-        store.isLoggedIn && (
-            <div className="flex justify-center items-center hidden w-full md:block md:w-auto">
+        <>
+        {!!store.isLoggedIn && (
+
+            <div className="flex justify-center items-center hidden w-full md:block md:w-auto">  
               <button
-                button
+              
                 id="dropdownHoverButton1"
-                data-dropdown-toggle="dropdownHover1"
+                data-dropdown-toggle="notificationPanel"
                 data-dropdown-trigger="hover"
                 className="inline-flex items-center text-sm font-medium text-center text-indigo-500 hover:text-indigo-700 focus:outline-none dark:hover:text-white dark:text-gray-400"
                 type="button"
@@ -31,7 +33,7 @@ export const Notification = () => {
               </button>
 
               <div
-                id="dropdownHover1"
+                id="notificationPanel"
                 className="z-20 hidden w-full max-w-sm bg-white divide-y divide-gray-100 rounded-lg shadow dark:bg-gray-800 dark:divide-gray-700"
                 aria-labelledby="dropdownHoverButton1"
               >
@@ -244,7 +246,10 @@ export const Notification = () => {
                 </a>
               </div>
             </div>
-        )
+            
+        )}
+        </>
     )
+    
 
 }

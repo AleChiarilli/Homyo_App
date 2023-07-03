@@ -11,6 +11,8 @@ export const Accesbuttonhover = () => {
     const [username, setUsername] = useState(""); // Estado del nombre de usuario
     const [email, setEmail] = useState(""); // Estado del correo electrónico
     const [password, setPassword] = useState(""); // Estado de la contraseña
+    const [role, setRole] = useState(""); // Estado del role
+
 
     const handleToggleActive = () => {
         setToggleActive(!toggleActive); // Invierte el estado del interruptor al hacer clic
@@ -19,6 +21,7 @@ export const Accesbuttonhover = () => {
     };
 
     const handleRoleChange = (role) => {
+        setRole(role)
         actions.setRole(role); // Actualiza el rol en el contexto de la aplicación utilizando la función setRole del objeto actions
         console.log("Nuevo rol:", role); // Muestra el nuevo rol en la consola
     };
@@ -33,7 +36,8 @@ export const Accesbuttonhover = () => {
 
     const submitUser = async (e) => {
         e.preventDefault();
-        await actions.addUser({ username, email, password, role }); // Envía los datos del usuario utilizando la acción addUser del objeto actions
+        await actions.addUser({ username, email, password, role_name: role }); // Envía los datos del usuario utilizando la acción addUser del objeto actions
+        hideModal1(); // Cierra el modal
     };
 
     const userLoggin = async (e) => {
@@ -270,11 +274,6 @@ export const Accesbuttonhover = () => {
 
                                             <div className="flex w-full">
                                                 <button
-                                                    onClick={(e) => {
-                                                        e.preventDefault(); // Evita el envío del formulario por defecto
-                                                        hideModal1(); // Cierra el modal
-                                                        document.getElementById('signupForm').submit(); // Envía el formulario
-                                                    }}
                                                     type="submit"
                                                     className="py-2 px-4 bg-indigo-500 hover:bg-indigo-700 focus:ring-indigo-500 focus:ring-offset-purple-200 text-white w-full transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2 rounded-lg"
                                                 >
@@ -392,6 +391,7 @@ export const Accesbuttonhover = () => {
                                             </div>
                                             <div className="flex">
                                                 <input
+                                                    
                                                     type="submit"
                                                     className="py-2 px-4 bg-indigo-500 hover:bg-indigo-700 focus:ring-purple-500 focus:ring-offset-purple-200 text-white w-full transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2 rounded-lg"
                                                     value="Iniciar sesión"
