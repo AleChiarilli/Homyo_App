@@ -30,19 +30,19 @@ const getState = ({
 
         },
         actions: {
-            getPublications: async (postalCode) => {
-                try {
-                    const response = await fetch(`${process.env.BACKEND_URL}api/home_post`)
-                    const data = await response.json()
-                    setStore({ publications: data })
-                } catch (error) {
-                    console.error(error)
-                }
-            },
+            // getPublications: async (postalCode) => {
+            //     try {
+            //         const response = await fetch(`${process.env.BACKEND_URL}/api/home_post`)
+            //         const data = await response.json()
+            //         setStore({ publications: data })
+            //     } catch (error) {
+            //         console.error(error)
+            //     }
+            // },
 
             getPostsOn: async () => {
                 try {
-                    const response = await fetch(`${process.env.BACKEND_URL}api/home_post`)
+                    const response = await fetch(`${process.env.BACKEND_URL}/api/home_post`)
                     const data = await response.json()
                     setStore({ homePost: data.results })
                 } catch (error) {
@@ -96,7 +96,7 @@ const getState = ({
                     }
                 } catch (error) {
                     console.log("Error loading message from backend", error)
-                    return true; //Si se produce algún error dentro del bloque try, se captura en el bloque catch. Aquí, se imprime un mensaje de erro
+                    return false; //Si se produce algún error dentro del bloque try, se captura en el bloque catch. Aquí, se imprime un mensaje de erro
                 }
             },
 
