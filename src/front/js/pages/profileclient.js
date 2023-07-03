@@ -1,18 +1,13 @@
 import React, { useState, useContext } from "react";
 import { Context } from "../store/appContext";
-
 import "../../styles/profile.css";
 import { Calendar } from "../component/calendar";
 import { Messages } from "../component/messages";
 import limpieza from "../../img/limpieza.png";
-import animales from "../../img/animales.png";
-import jardineria from "../../img/jardineria.png";
-import niños from "../../img/niños.png";
-import chef from "../../img/chef.png";
-import { Cardspaces } from "../component/cardSpaces";
-import { Cardannounces } from "../component/cardAnnounces";
-import { Acceptedcontractclientcard } from "../component/acceptedContractClientCard";
-import { Contractofferprofesionaltoclientcard } from "../component/contractOfferProfesionalToClientCard";
+import { Profileclientshowprofile } from "../component/profileClientShowProfile";
+import { Profileclientshowspaces } from "../component/profileClientShowSpaces";
+import { Profileclientshowannounces } from "../component/profileClientShowAnnounces";
+import { Profileclientshowcontracts } from "../component/profileClientShowContracts";
 
 export const Profileclient = () => {
   const { store } = useContext(Context);
@@ -110,6 +105,33 @@ export const Profileclient = () => {
 
   return (
     <main className="max-w-screen-xl overflow-hidden dark:bg-gray-800 rounded-2xl mt-20 mx-auto">
+
+      <div className="flex md:hidden flex-wrap justify-center text-center mt-5">
+        <div className="flex">
+          <a href="#" aria-current="page" onClick={handleProfileClick} className="flex-1 px-4 py-2 m-1 text-xs font-medium text-blue-700 bg-white border border-blue-700 rounded flex items-center justify-center hover:bg-blue-700 hover:text-white focus:outline-none focus:bg-blue-700 focus:text-white dark:bg-transparent dark:border-gray-600 dark:text-white dark:hover:border-gray-400 dark:hover:text-gray-400 dark:focus:border-gray-400 dark:focus:text-gray-400">
+            Mi Perfil
+          </a>
+          <a href="#" onClick={handleSpacesClick} className="flex-1 px-4 py-2 m-1 text-xs font-medium text-gray-700 bg-white border border-gray-700 rounded flex items-center justify-center hover:bg-gray-700 hover:text-white focus:outline-none focus:bg-gray-700 focus:text-white dark:bg-transparent dark:border-gray-600 dark:text-white dark:hover:border-gray-400 dark:hover:text-gray-400 dark:focus:border-gray-400 dark:focus:text-gray-400">
+            Mis Espacios
+          </a>
+          <a href="#" onClick={handleAnnouncesClick} className="flex-1 px-4 py-2 m-1 text-xs font-medium text-gray-700 bg-white border border-gray-700 rounded flex items-center justify-center hover:bg-gray-700 hover:text-white focus:outline-none focus:bg-gray-700 focus:text-white dark:bg-transparent dark:border-gray-600 dark:text-white dark:hover:border-gray-400 dark:hover:text-gray-400 dark:focus:border-gray-400 dark:focus:text-gray-400">
+            Mis Anuncios
+          </a>
+        </div>
+        <div className="flex">
+          <a href="#" onClick={handleCalendarClick} className="flex-1 px-4 py-2 m-1 text-xs font-medium text-gray-700 bg-white border border-gray-700 rounded flex items-center justify-center hover:bg-gray-700 hover:text-white focus:outline-none focus:bg-gray-700 focus:text-white dark:bg-transparent dark:border-gray-600 dark:text-white dark:hover:border-gray-400 dark:hover:text-gray-400 dark:focus:border-gray-400 dark:focus:text-gray-400">
+            Calendario
+          </a>
+          <a href="#" onClick={handleContractsClick} className="flex-1 px-4 py-2 m-1 text-xs font-medium text-gray-700 bg-white border border-gray-700 rounded flex items-center justify-center hover:bg-gray-700 hover:text-white focus:outline-none focus:bg-gray-700 focus:text-white dark:bg-transparent dark:border-gray-600 dark:text-white dark:hover:border-gray-400 dark:hover:text-gray-400 dark:focus:border-gray-400 dark:focus:text-gray-400">
+            Mis Contratos
+          </a>
+          <a href="#" onClick={handleMessagesClick} className="flex-1 px-4 py-2 m-1 text-xs font-medium text-gray-700 bg-white border border-gray-700 rounded flex items-center justify-center hover:bg-gray-700 hover:text-white focus:outline-none focus:bg-gray-700 focus:text-white dark:bg-transparent dark:border-gray-600 dark:text-white dark:hover:border-gray-400 dark:hover:text-gray-400 dark:focus:border-gray-400 dark:focus:text-gray-400">
+            Mensajes
+          </a>
+        </div>
+      </div>
+
+
       <div className="flex items-start justify-between">
         <div className="relative hidden my-4 ml-4 shadow-lg lg:block w-80">
           <div className="h-full bg-white rounded-2xl dark:bg-gray-700">
@@ -374,659 +396,24 @@ export const Profileclient = () => {
 
         {/* Vista de mi perfil */}
         {showProfile && (
-          <div className="flex flex-col w-full pl-0 md:p-4 md:space-y-4">
-            <div className="h-screen pt-2 pb-24 pl-2 pr-2 overflow-auto md:pt-0 md:pr-0 md:pl-0">
-              <div className="flex flex-col flex-wrap sm:flex-row ">
-                <div className="w-full">
-                  <div className="mb-4">
-                    <div className="w-full p-4 bg-white shadow-lg rounded-2xl dark:bg-gray-700">
-                      <form ionSubmit={(e) => info_customer(e)} className="p-4">
-                        <p className="text-center font-bold text-black text-md dark:text-white">
-                          Mis Datos
-                        </p>
-                        <div className="grid md:grid-cols-2 md:gap-6">
-                          <div className="relative z-0 w-full mb-6 group">
-                            <input
-                              type="text"
-                              name="floating_first_name"
-                              id="floating_first_name"
-                              className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                              placeholder="Nombre "
-                              required
-                            />
-                            <label
-                              htmlFor="floating_first_name"
-                              className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
-                            ></label>
-                          </div>
-                          <div className="relative z-0 w-full mb-6 group">
-                            <input
-                              type="text"
-                              name="floating_last_name"
-                              id="floating_last_name"
-                              className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                              placeholder="Apellido"
-                              required
-                            />
-                            <label
-                              htmlFor="floating_last_name"
-                              className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
-                            ></label>
-                          </div>
-                        </div>
-                        <div className="relative z-0 w-full mb-6 group">
-                          <input
-                            type="email"
-                            name="floating_email"
-                            id="floating_email"
-                            className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                            placeholder="Email"
-                            required
-                          />
-                          <label
-                            htmlFor="floating_email"
-                            className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
-                          ></label>
-                        </div>
-                        <div className="relative z-0 w-full mb-6 group">
-                          <input
-                            type="text"
-                            name="floating_id"
-                            id="floating_id"
-                            className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                            placeholder="DNI"
-                            required
-                          />
-                          <label
-                            htmlFor="floating_id"
-                            className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
-                          ></label>
-                        </div>
-                        <div className="grid md:grid-cols-2 md:gap-6">
-                          <div className="relative z-0 w-full mb-6 group">
-                            <input
-                              onChange={(event) =>
-                                setAddress(event.target.value)
-                              }
-                              type="text"
-                              name="floating_adress"
-                              id="floating_adress"
-                              className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                              placeholder="Dirección "
-                              required
-                            />
-                            <label
-                              htmlFor="floating_adress"
-                              className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
-                            ></label>
-                          </div>
-                          <div className="relative z-0 w-full mb-6 group">
-                            <input
-                              type="text"
-                              name="floating_cp"
-                              id="floating_cp"
-                              className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                              placeholder="Código Postal "
-                              required
-                            />
-                            <label
-                              htmlFor="floating_cp"
-                              className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
-                            ></label>
-                          </div>
-                          <div className="relative z-0 w-full mb-6 group">
-                            <input
-                              type="text"
-                              name="floating_city"
-                              id="floating_city"
-                              className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                              placeholder="Ciudad"
-                              required
-                            />
-                            <label
-                              htmlFor="floating_company"
-                              className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
-                            ></label>
-                          </div>
-                        </div>
-                        <div className="grid md:grid-cols-1 md:gap-6">
-                          <div className="relative z-0 w-full mb-6 group">
-                            <input
-                              type="tel"
-                              pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
-                              name="floating_phone"
-                              id="floating_phone"
-                              className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                              placeholder="Teléfono "
-                              required
-                            />
-                            <label
-                              htmlFor="floating_phone"
-                              className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
-                            ></label>
-                          </div>
-                        </div>
-                        <div className="text-center">
-                          <button
-                            type="submit"
-                            className="text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-                          >
-                            Guardar
-                          </button>
-                        </div>
-                      </form>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+          <Profileclientshowprofile />
         )}
 
         {/* Vista de mis espacios */}
         {showSpaces && (
-          <div className="flex flex-col w-full pl-0 md:p-4 md:space-y-4">
-            <div className="h-screen pt-2 pb-24 pl-2 pr-2 overflow-auto md:pt-0 md:pr-0 md:pl-0 custom-scrollbar">
-              <div className="flex flex-col flex-wrap sm:flex-row ">
-                <div className="w-full">
-                  <div className="mb-4">
-                    <div className="w-full p-4 bg-white shadow-lg rounded-2xl dark:bg-gray-700">
-                      <div className="mx-0 mb-4">
-                        <p className="p-4 font-bold text-black text-md text-center dark:text-white">
-                          Crear Espacio
-                        </p>
-                        <ul className="p-4">
-                          <li>
-                            <label
-                              htmlFor="nameSpace"
-                              className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                            >
-                              Nombre
-                            </label>
-                            <textarea
-                              id="nameSpace"
-                              rows="1"
-                              className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                              placeholder=""
-                            ></textarea>
-                          </li>
-                          <li>
-                            <label
-                              htmlFor="citySpace"
-                              className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                            >
-                              Ciudad
-                            </label>
-                            <textarea
-                              id="citySpace"
-                              rows="1"
-                              className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                              placeholder=""
-                            ></textarea>
-                          </li>
-                          <li>
-                            <label
-                              htmlFor="addresSpace"
-                              className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                            >
-                              Dirección
-                            </label>
-                            <textarea
-                              id="addresSpace"
-                              rows="1"
-                              className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                              placeholder=""
-                            ></textarea>
-                          </li>
-                          <li>
-                            <label
-                              htmlFor="postalCodeSpace"
-                              className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                            >
-                              Codigo Postal
-                            </label>
-                            <textarea
-                              id="postalCodeSpace"
-                              rows="1"
-                              className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                              placeholder=""
-                            ></textarea>
-                          </li>
-                          <li>
-                            <label
-                              htmlFor="dormitorios"
-                              className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                            >
-                              Dormitorios
-                            </label>
-                            <select
-                              id="dormitorios"
-                              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                            >
-                              <option defaultValue>
-                                Elige el número de dormitorios
-                              </option>
-                              <option value="1">1</option>
-                              <option value="2">2</option>
-                              <option value="3">3</option>
-                              <option value="4">4</option>
-                              <option value="+4">+4</option>
-                            </select>
-                          </li>
-                          <li>
-                            <label
-                              htmlFor="salon"
-                              className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                            >
-                              Salón
-                            </label>
-                            <select
-                              id="salon"
-                              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                            >
-                              <option defaultValue>
-                                Elige el número de salones
-                              </option>
-                              <option value="1">1</option>
-                              <option value="2">2</option>
-                              <option value="+2">+2</option>
-                            </select>
-                          </li>
-                          <li>
-                            <label
-                              htmlFor="cocina"
-                              className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                            >
-                              Cocina
-                            </label>
-                            <select
-                              id="cocina"
-                              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                            >
-                              <option defaultValue>
-                                Elige el número de cocinas
-                              </option>
-                              <option value="1">1</option>
-                              <option value="2">2</option>
-                              <option value="+2">+2</option>
-                            </select>
-                          </li>
-                          <li>
-                            <label
-                              htmlFor="banos"
-                              className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                            >
-                              Baños
-                            </label>
-                            <select
-                              id="banos"
-                              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                            >
-                              <option defaultValue>
-                                Elige el número de baños
-                              </option>
-                              <option value="1">1</option>
-                              <option value="2">2</option>
-                              <option value="3">3</option>
-                              <option value="+2">+3</option>
-                            </select>
-                          </li>
-                          <li>
-                            <label
-                              htmlFor="terraza"
-                              className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                            >
-                              Terraza
-                            </label>
-                            <select
-                              id="terraza"
-                              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                            >
-                              <option defaultValue>
-                                Elige el número de terrazas
-                              </option>
-                              <option value="1">1</option>
-                              <option value="2">2</option>
-                              <option value="3">3</option>
-                              <option value="+2">+3</option>
-                            </select>
-                          </li>
-                          <li>
-                            <label
-                              htmlFor="jardin"
-                              className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                            >
-                              Jardín
-                            </label>
-                            <select
-                              id="jardin"
-                              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                            >
-                              <option defaultValue>Jardín</option>
-                              <option value="si">Sí</option>
-                              <option value="no">No</option>
-                            </select>
-                          </li>
-                          <li>
-                            <label
-                              htmlFor="niños"
-                              className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                            >
-                              Niños
-                            </label>
-                            <select
-                              id="niños"
-                              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                            >
-                              <option defaultValue>Niños</option>
-                              <option value="1">1</option>
-                              <option value="2">2</option>
-                              <option value="3">3</option>
-                              <option value="+2">+3</option>
-                            </select>
-                          </li>
-                          <li>
-                            <label
-                              htmlFor="animales"
-                              className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                            >
-                              Animales
-                            </label>
-                            <select
-                              id="animales"
-                              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                            >
-                              <option defaultValue>Animales</option>
-                              <option value="1">1</option>
-                              <option value="2">2</option>
-                              <option value="3">3</option>
-                              <option value="+2">+3</option>
-                            </select>
-                          </li>
-                        </ul>
-                      </div>
-                      <div className="text-center">
-                        <button
-                          type="submit"
-                          className="text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-                        >
-                          Guardar Espacio
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="mx-0 mb-4">
-                    <p className="p-4 font-bold text-black text-md text-center dark:text-white">
-                      Mis Espacios{" "}
-                    </p>
-                    <Cardspaces />
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+          <Profileclientshowspaces />
         )}
 
         {/* Vista de mis anuncios */}
         {showAnnounces && (
-          <div className="flex flex-col w-full pl-0 md:p-4 md:space-y-4">
-            <div className="h-screen pt-2 pb-24 pl-2 pr-2 overflow-auto md:pt-0 md:pr-0 md:pl-0 custom-scrollbar">
-              <div className="flex flex-col flex-wrap sm:flex-row ">
-                <div className="w-full">
-                  <div className="mb-4">
-                    <div className="w-full p-4 bg-white shadow-lg rounded-2xl dark:bg-gray-700">
-                      <div className="mx-0 mb-4">
-                        <p className="p-4 font-bold text-black text-md text-center dark:text-white">
-                          Crear Anuncio
-                        </p>
-                        <div className="dark:bg-gray-700">
-                          <p className="p-4 text-black text-md text-center dark:text-white">
-                            ¿Donde necesitas el servicio?
-                          </p>
-                          <select
-                            id="espacio"
-                            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                          >
-                            <option defaultValue>Elige el lugar</option>
-                            <option value="1">Casa Principal</option>
-                            <option value="2">Casa de la Playa</option>
-                            <option value="3">Casa de los Abuelos</option>
-                          </select>
-                          <p className="p-4 text-black text-md text-center dark:text-white">
-                            ¿Qué servicios necesitas?
-                          </p>
-                          <ul className="p-4 flex justify-center">
-                            <li>
-                              <button
-                                type="button"
-                                id="limpieza"
-                                className={`flex h-[50px] items-center px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-indigo-200 rounded-full mx-1 hover:bg-indigo-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-indigo-500 focus:text-blue-700 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-blue-500 dark:focus:text-white ${
-                                  seleccionados.includes("limpieza")
-                                    ? "bg-indigo-100 text-blue-700"
-                                    : ""
-                                }`}
-                                onClick={() => handleSeleccionar("limpieza")}
-                              >
-                                <div className="flex-row gap-4 flex justify-center items-center">
-                                  <div className="flex-shrink-0">
-                                    <a href="#" className="relative block">
-                                      <img
-                                        alt="limpieza"
-                                        src={limpieza}
-                                        className="mx-auto object-fit rounded-full h-8 w-8"
-                                      />
-                                    </a>
-                                  </div>
-                                  <div className="flex flex-col">
-                                    <span className="text-lg font-medium text-gray-600 dark:text-white">
-                                      Limpieza
-                                    </span>
-                                  </div>
-                                </div>
-                              </button>
-                            </li>
-                            <li>
-                              <button
-                                type="button"
-                                id="cocina"
-                                className={`flex h-[50px] items-center px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-indigo-200 rounded-full mx-1 hover:bg-indigo-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-indigo-500 focus:text-blue-700 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-blue-500 dark:focus:text-white ${
-                                  seleccionados.includes("cocina")
-                                    ? "bg-indigo-100 text-blue-700"
-                                    : ""
-                                }`}
-                                onClick={() => handleSeleccionar("cocina")}
-                              >
-                                <div className="flex-row gap-4 flex justify-center items-center">
-                                  <div className="flex-shrink-0">
-                                    <a href="#" className="relative block">
-                                      <img
-                                        alt="cocina"
-                                        src={chef}
-                                        className="mx-auto object-fit rounded-full h-8 w-8"
-                                      />
-                                    </a>
-                                  </div>
-                                  <div className="flex flex-col">
-                                    <span className="text-lg font-medium text-gray-600 dark:text-white">
-                                      Cocina
-                                    </span>
-                                  </div>
-                                </div>
-                              </button>
-                            </li>
-                            <li>
-                              <button
-                                type="button"
-                                id="niños"
-                                className={`flex h-[50px] items-center px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-indigo-200 rounded-full mx-1 hover:bg-indigo-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-indigo-500 focus:text-blue-700 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-blue-500 dark:focus:text-white ${
-                                  seleccionados.includes("niños")
-                                    ? "bg-indigo-100 text-blue-700"
-                                    : ""
-                                }`}
-                                onClick={() => handleSeleccionar("niños")}
-                              >
-                                <div className="flex-row gap-4 flex justify-center items-center">
-                                  <div className="flex-shrink-0">
-                                    <a href="#" className="relative block">
-                                      <img
-                                        alt="cuidado de niños"
-                                        src={niños}
-                                        className="mx-auto object-fit rounded-full h-8 w-8"
-                                      />
-                                    </a>
-                                  </div>
-                                  <div className="flex flex-col">
-                                    <span className="text-lg font-medium text-gray-600 dark:text-white">
-                                      Cuidado de niños
-                                    </span>
-                                  </div>
-                                </div>
-                              </button>
-                            </li>
-                            <li>
-                              <button
-                                type="button"
-                                id="animales"
-                                className={`flex h-[50px] items-center px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-indigo-200 rounded-full mx-1 hover:bg-indigo-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-indigo-500 focus:text-blue-700 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-blue-500 dark:focus:text-white ${
-                                  seleccionados.includes("animales")
-                                    ? "bg-indigo-100 text-blue-700"
-                                    : ""
-                                }`}
-                                onClick={() => handleSeleccionar("animales")}
-                              >
-                                <div className="flex-row gap-4 flex justify-center items-center">
-                                  <div className="flex-shrink-0">
-                                    <a href="#" className="relative block">
-                                      <img
-                                        alt="cuidado de animales"
-                                        src={animales}
-                                        className="mx-auto object-fit rounded-full h-8 w-8"
-                                      />
-                                    </a>
-                                  </div>
-                                  <div className="flex flex-col">
-                                    <span className="text-lg font-medium text-gray-600 dark:text-white">
-                                      Cuidado de animales
-                                    </span>
-                                  </div>
-                                </div>
-                              </button>
-                            </li>
-                            <li>
-                              <button
-                                type="button"
-                                id="jardineria"
-                                className={`flex h-[50px] items-center px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-indigo-200 rounded-full mx-1 hover:bg-indigo-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-indigo-500 focus:text-blue-700 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-blue-500 dark:focus:text-white ${
-                                  seleccionados.includes("jardineria")
-                                    ? "bg-indigo-100 text-blue-700"
-                                    : ""
-                                }`}
-                                onClick={() => handleSeleccionar("jardineria")}
-                              >
-                                <div className="flex-row gap-4 flex justify-center items-center">
-                                  <div className="flex-shrink-0">
-                                    <a href="#" className="relative block">
-                                      <img
-                                        alt="jardineria"
-                                        src={jardineria}
-                                        className="mx-auto object-fit rounded-full h-8 w-8"
-                                      />
-                                    </a>
-                                  </div>
-                                  <div className="flex flex-col">
-                                    <span className="text-lg font-medium text-gray-600 dark:text-white">
-                                      Jardineria
-                                    </span>
-                                  </div>
-                                </div>
-                              </button>
-                            </li>
-                          </ul>
-                          <p className="p-4 text-black text-md text-center dark:text-white">
-                            Dinos la fecha
-                          </p>
-                          <textarea
-                            id="date"
-                            rows="1"
-                            defaultValue=""
-                            className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                            placeholder=""
-                          ></textarea>
-
-                          <p className="p-4 text-black text-md text-center dark:text-white">
-                            Dinos la hora de inicio
-                          </p>
-                          <textarea
-                            id="hour"
-                            rows="1"
-                            defaultValue=""
-                            className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                            placeholder=""
-                          ></textarea>
-
-                          <p className="p-4 text-black text-md text-center dark:text-white">
-                            Dinos la hora de fin
-                          </p>
-                          <textarea
-                            id="endHour"
-                            rows="1"
-                            defaultValue=""
-                            className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                            placeholder=""
-                          ></textarea>
-
-                          <p className="p-4 text-black text-md text-center dark:text-white">
-                            Especifica las tareas
-                          </p>
-                          <textarea
-                            id="tasks"
-                            rows="4"
-                            defaultValue=""
-                            className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                            placeholder=""
-                          ></textarea>
-                        </div>
-                      </div>
-                      <div className="text-center">
-                        <button
-                          type="submit"
-                          className="text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-                        >
-                          Publicar Anuncio
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="mx-0 mb-4">
-                    <p className="p-4 font-bold text-black text-md text-center dark:text-white">
-                      Tus Anuncios{" "}
-                    </p>
-                    <Cardannounces />
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        )}
+          <Profileclientshowannounces />)}
 
         {/* Vista contrataciones */}
         {showCalendar && <Calendar />}
 
         {/* Vista contrataciones */}
         {showContracts && (
-          <div className="h-screen pt-2 pb-24 pl-2 pr-2 overflow-auto md:pt-0 md:pr-0 md:pl-0 custom-scrollbar">
-            <div className="mx-0 mb-4">
-              <p className="p-4 font-bold text-black text-md text-center dark:text-white">
-                Tus Contratos Confirmados
-              </p>
-              <Acceptedcontractclientcard />
-
-              <p className="p-4 font-bold text-black text-md text-center dark:text-white">
-                Ofertas para tus anuncios
-              </p>
-              <Contractofferprofesionaltoclientcard />
-            </div>
-          </div>
+          <Profileclientshowcontracts />
         )}
 
         {showMessages && (

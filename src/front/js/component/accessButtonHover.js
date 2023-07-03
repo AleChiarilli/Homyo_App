@@ -40,10 +40,11 @@ export const Accesbuttonhover = () => {
         e.preventDefault();
         let auth = await actions.login(email, password);
         if (auth) {
-            setIsmodalOpen2(false);
+            setIsmodalOpen2(false); // Cierra el modal de inicio de sesión si la autenticación es exitosa
+        } else {
+            setIsmodalOpen2(true);
+            setError(true);
         }
-        setIsmodalOpen2(true);
-        setError(true);
     };
 
     const toggleModal1 = () => {
@@ -62,6 +63,17 @@ export const Accesbuttonhover = () => {
         setIsmodalOpen2(false); // Cierra el segundo modal
     };
 
+    const openLoginModal = () => {
+        setIsModalOpen1(false); // Cierra el modal de registro
+        setIsmodalOpen2(true); // Abre el modal de inicio de sesión
+        setError(false); // Resetea el estado de error
+    };
+
+    const openRegisterModal = () => {
+        setIsModalOpen1(true); // Abre el modal de registro
+        setIsmodalOpen2(false); // Cierra el modal de inicio de sesión
+        setError(false); // Resetea el estado de error
+    };
 
     return (
 
@@ -273,9 +285,8 @@ export const Accesbuttonhover = () => {
                                     </div>
                                     <div className="flex items-center justify-center mt-6">
                                         <a
-                                            href="#"
-                                            target="_blank"
-                                            className="inline-flex items-center text-xs font-thin text-center text-gray-500 hover:text-gray-700 dark:text-gray-100 dark:hover:text-white"
+                                            onClick={openLoginModal}
+                                            className="inline-flex items-center text-xs font-thin text-center text-gray-500 hover:text-gray-700 cursor-pointer dark:text-gray-100 dark:hover:text-white"
                                         >
                                             <span className="ml-2">¿Ya tienes cuenta?</span>
                                         </a>
@@ -319,24 +330,6 @@ export const Accesbuttonhover = () => {
                                     <div className="self-center mb-6 text-xl font-light text-gray-600 sm:text-2xl dark:text-white">
                                         Inicia sesión
                                     </div>
-                                    <div className="flex gap-4 item-center">
-                                        <button
-                                            type="button"
-                                            className="py-2 px-4 flex justify-center items-center  bg-red-600 hover:bg-red-700 focus:ring-red-500 focus:ring-offset-red-200 text-white w-full transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-lg "
-                                        >
-                                            <svg
-                                                width="20"
-                                                height="20"
-                                                fill="currentColor"
-                                                className="mr-2"
-                                                viewBox="0 0 1792 1792"
-                                                xmlns="http://www.w3.org/2000/svg"
-                                            >
-                                                <path d="M896 786h725q12 67 12 128 0 217-91 387.5t-259.5 266.5-386.5 96q-157 0-299-60.5t-245-163.5-163.5-245-60.5-299 60.5-299 163.5-245 245-163.5 299-60.5q300 0 515 201l-209 201q-123-119-306-119-129 0-238.5 65t-173.5 176.5-64 243.5 64 243.5 173.5 176.5 238.5 65q87 0 160-24t120-60 82-82 51.5-87 22.5-78h-436v-264z"></path>
-                                            </svg>
-                                            Google
-                                        </button>
-                                    </div>
                                     <div className="mt-8">
                                         <form
                                             id="userLoginForm"
@@ -344,8 +337,8 @@ export const Accesbuttonhover = () => {
                                             autoComplete="off"
                                         >
                                             <div className="flex flex-col mb-2">
-                                                <div className="flex relative ">
-                                                    <span className="rounded-l-md inline-flex  items-center px-3 border-t bg-white border-l border-b  border-gray-300 text-gray-500 shadow-sm text-sm">
+                                                <div className="flex relative">
+                                                    <span className="rounded-l-md inline-flex items-center px-3 border-t bg-white border-l border-b border-gray-300 text-gray-500 shadow-sm text-sm">
                                                         <svg
                                                             width="15"
                                                             height="15"
@@ -360,14 +353,14 @@ export const Accesbuttonhover = () => {
                                                         onChange={(e) => setEmail(e.target.value)}
                                                         type="email"
                                                         id="login-email"
-                                                        className=" rounded-r-lg flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                                                        className="rounded-r-lg flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
                                                         placeholder="Email"
                                                     />
                                                 </div>
                                             </div>
                                             <div className="flex flex-col mb-6">
-                                                <div className="flex relative ">
-                                                    <span className="rounded-l-md inline-flex  items-center px-3 border-t bg-white border-l border-b  border-gray-300 text-gray-500 shadow-sm text-sm">
+                                                <div className="flex relative">
+                                                    <span className="rounded-l-md inline-flex items-center px-3 border-t bg-white border-l border-b border-gray-300 text-gray-500 shadow-sm text-sm">
                                                         <svg
                                                             width="15"
                                                             height="15"
@@ -382,7 +375,7 @@ export const Accesbuttonhover = () => {
                                                         onChange={(e) => setPassword(e.target.value)}
                                                         type="password"
                                                         id="login-password"
-                                                        className=" rounded-r-lg flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                                                        className="rounded-r-lg flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
                                                         placeholder="Contraseña"
                                                     />
                                                 </div>
@@ -397,24 +390,24 @@ export const Accesbuttonhover = () => {
                                                     </a>
                                                 </div>
                                             </div>
-                                            <div className="flex w-full">
+                                            <div className="flex">
                                                 <input
-
                                                     type="submit"
-                                                    className="py-2 px-4  bg-indigo-500 hover:bg-indigo-700 focus:ring-purple-500 focus:ring-offset-purple-200 text-white w-full transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-lg "
+                                                    className="py-2 px-4 bg-indigo-500 hover:bg-indigo-700 focus:ring-purple-500 focus:ring-offset-purple-200 text-white w-full transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2 rounded-lg"
                                                     value="Iniciar sesión"
                                                 />
-                                                {error ? (
-                                                    <p>Usuario o contraseña no existe</p>
-                                                ) : null}
                                             </div>
+                                            {error ? (
+                                                <div className="p-4 mt-3 text-sm text-red-800 text-center rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400" role="alert">
+                                                    <span className="font-medium">Usuario o contraseña no existe</span>
+                                                </div>
+                                            ) : null}
                                         </form>
                                     </div>
                                     <div className="flex items-center justify-center mt-6">
                                         <a
-                                            href="#"
-                                            target="_blank"
-                                            className="inline-flex items-center text-xs font-thin text-center text-gray-500 hover:text-gray-700 dark:text-gray-100 dark:hover:text-white"
+                                            onClick={openRegisterModal}
+                                            className="inline-flex cursor-pointer items-center text-xs font-thin text-center text-gray-500 hover:text-gray-700 dark:text-gray-100 dark:hover:text-white"
                                         >
                                             <span className="ml-2">¿No tienes cuenta?</span>
                                         </a>

@@ -23,7 +23,7 @@ const getState = ({
             ],
             role: "cliente", // Establece el valor por defecto como 'cliente'
             token: "", //guardamos el token como un string vacio
-            isLoggedIn: false, // si cambio esto a true si se abren los hover
+            isLoggedIn: true, // si cambio esto a true si se abren los hover
             role: 'cliente', // Establece el valor por defecto como 'cliente', ¿duplicado? linea 24
             publications: [],
             homePost: [],
