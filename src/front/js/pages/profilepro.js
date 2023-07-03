@@ -17,7 +17,7 @@ export const Profilepro = () => {
   const { store, actions } = useContext(Context);
 
   //ESTADOS DE LOS INPUTS A RELLENAR POR EL PROESIONAL
-  const [verified, setVerified] = "";
+  //const [verified, setVerified] = "";
   const [dni, setDni] = useState("");
   const [description, setDescription] = useState("");
   const [address, setAddress] = "";
@@ -30,8 +30,8 @@ export const Profilepro = () => {
   //FUNCION PARA EL FORM
   const info_professional = async (e) => {
     e.preventDefault();
-    await actions.get_profile_info({
-      verified,
+    await actions.profile_professional({
+      //verified,
       dni,
       description,
       address,
@@ -40,8 +40,13 @@ export const Profilepro = () => {
       km_radius,
       phone_number,
       hourly_rate,
-    }); // Envía los datos del usuario utilizando la acción addUser del objeto actions
+    }); // Envía los datos del usuario utilizando la acción profile_professional del objeto actions(flux)
   };
+
+  //USEEFFECT PARA QUE CARGUE LA INFORMACION DEL FORMULARIO
+  useEffect(() => {
+    actions.get_profile_info();
+  }, []);
 
   ///
   const [showProfile, setShowProfile] = useState(true);
@@ -82,10 +87,6 @@ export const Profilepro = () => {
     console.log("Nuevo rol:", role);
   };
 
-  // const submit_prof_profile = async (e) => {
-  //     e.preventDefault()
-  //     await actions.login(profile_pic,description,address,postal_code,phone_number,hourly_rate)
-  // }
 
   const [seleccionados, setSeleccionados] = useState([]);
 
@@ -96,10 +97,7 @@ export const Profilepro = () => {
       setSeleccionados([...seleccionados, id]);
     }
   };
-  //USEEFFECT PARA QUE CARGUE LA INFORMACION DEL FORMULARIO
-  useEffect(() => {
-    actions.get_profile_info();
-  }, []);
+  
 
   return (
     <main className="max-w-screen-xl overflow-hidden dark:bg-gray-800 rounded-2xl mt-20 mx-auto">
@@ -671,6 +669,7 @@ export const Profilepro = () => {
                         </ul>
                         <div className="text-center">
                           <button
+                            //onClick={info_professional}
                             type="submit"
                             className="text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
                           >

@@ -2,11 +2,12 @@ import React, { useContext } from "react";
 import { Context } from "../store/appContext";
 
 export const Notification = () => {
-    const { store } = useContext(Context);
+    const { store, actions } = useContext(Context);
 
-    return (
+    return ( 
 
-        !!store.isLoggedIn && (
+        <>
+        {!!store.isLoggedIn && (
             <div className="flex justify-center items-center">
               <button
               
@@ -244,7 +245,10 @@ export const Notification = () => {
                 </a>
               </div>
             </div>
-        )
+            
+        )}
+        </>
     )
+    
 
 }

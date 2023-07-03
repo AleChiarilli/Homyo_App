@@ -75,7 +75,8 @@ const getState = ({
                         method: "POST",
                         body: JSON.stringify({
                             email: email,
-                            password: password,
+                            password: password
+
                         }),
                         headers: {
                             "Content-Type": "application/json",
@@ -86,7 +87,6 @@ const getState = ({
                         console.log(data);
                         localStorage.setItem("token", data.token);
                         localStorage.setItem("id", data.user.id);
-                        console.log(data.user)
                         setStore({
                             ...getStore(),
                             isLoggedIn: true,
@@ -101,7 +101,7 @@ const getState = ({
             },
 
 
-            //INFORMACION DE PERFIL  DEL USUARIO-PROFESIONAL (INPUTS A LLENAR)
+            //AGREGAR INFORMACION DE PERFIL  DEL USUARIO-PROFESIONAL (INPUTS A LLENAR)
             profile_professional: async (
                 verified,
                 dni,
@@ -141,7 +141,6 @@ const getState = ({
             },
 
             //GET PARA OBTENER LA INFORMACION DEL PERFIL USUARIO-PROFESIONAL
-
             get_profile_info: async (id) => {
                 const userId = localStorage.getItem("id");
                 console.log(userId);
@@ -156,7 +155,53 @@ const getState = ({
                 }
             },
 
-            //INFORMACION DE PERFIL DEL USUARIO-CLIENTE(INPUTS A LLENAR)
+            ///PUT PARA INFORMACION DEL USUARIO-PROFESIONAL
+
+            modify_professional: async (
+                verified,
+                dni,
+                description,
+                address,
+                city,
+                postalCode,
+                phoneNumber,
+                hourlyRate
+              ) => {
+                try {
+                  const token = localStorage.getItem('token');
+                  const url = process.env.BACKEND_URL + "/pro_profile/";
+              
+                  const data = {
+                    verified: verified,
+                    dni: dni,
+                    description: description,
+                    address: address,
+                    city: city,
+                    postal_code: postalCode,
+                    phone_number: phoneNumber,
+                    hourly_rate: hourlyRate,
+                  };
+              
+                  const response = await fetch(url, {
+                    method: "PUT",
+                    body: JSON.stringify(data),
+                    headers: {
+                      "Content-Type": "application/json",
+                      "Authorization": `Bearer ${token}`
+                    },
+                  });
+              
+                  const responseData = await response.json();
+                  console.log(responseData);
+                  // Realizar las acciones necesarias después de la actualización exitosa
+                } catch (error) {
+                  console.log("Error al cargar los datos desde el backend", error);
+                  // Realizar las acciones necesarias en caso de error
+                }
+              },
+              
+
+            //AGREGAR INFORMACION DE PERFIL DEL USUARIO-CLIENTE(INPUTS A LLENAR)
             profile_customer: async (description, phone_number) => {
                 console.log(profile_professional);
                 try {
@@ -171,6 +216,21 @@ const getState = ({
                             "Content-Type": "application/json",
                         },
                     }
+                    );
+                    const data = await response.json();
+                    console.log(data);
+                } catch (error) {
+                    console.log("error loading message from backend", error);
+                }
+            },
+
+             //GET PARA OBTENER LA INFORMACION DEL PERFIL USUARIO-CLIENTE
+             get_profile_customer_info: async (id) => {
+                const userId = localStorage.getItem("id");
+                console.log(userId);
+                try {
+                    const response = await fetch(
+                        process.env.BACKEND_URL + "/api/cmr_profile/" + userId
                     );
                     const data = await response.json();
                     console.log(data);
@@ -207,7 +267,6 @@ const getState = ({
             },
 
             //FUNCION CERRAR SESION 
-
             logged_out: () => {
                 localStorage.removeItem("token")
                 localStorage.removeItem("id")

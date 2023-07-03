@@ -262,7 +262,6 @@ export const Accesbuttonhover = () => {
 
                                             <div className="flex w-full">
                                                 <button
-
                                                     type="submit"
                                                     className="py-2 px-4 bg-indigo-500 hover:bg-indigo-700 focus:ring-indigo-500 focus:ring-offset-purple-200 text-white w-full transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2 rounded-lg"
                                                 >
@@ -321,6 +320,7 @@ export const Accesbuttonhover = () => {
                                     </div>
                                     <div className="flex gap-4 item-center">
                                         <button
+                                        
                                             type="button"
                                             className="py-2 px-4 flex justify-center items-center  bg-red-600 hover:bg-red-700 focus:ring-red-500 focus:ring-offset-red-200 text-white w-full transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-lg "
                                         >
@@ -399,7 +399,7 @@ export const Accesbuttonhover = () => {
                                             </div>
                                             <div className="flex w-full">
                                                 <input
-
+                                                    
                                                     type="submit"
                                                     className="py-2 px-4  bg-indigo-500 hover:bg-indigo-700 focus:ring-purple-500 focus:ring-offset-purple-200 text-white w-full transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-lg "
                                                     value="Iniciar sesión"
