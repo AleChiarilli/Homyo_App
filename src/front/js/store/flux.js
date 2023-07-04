@@ -195,7 +195,7 @@ const getState = ({
 
                         headers: {
                                 "Content-Type": "application/json",
-                                Authorization: `Bearer ${token}`,
+                                "Authorization": `Bearer ${token}`,
                             },
                         }
 
@@ -256,7 +256,7 @@ const getState = ({
                         {
                             headers: {
                                 "Content-Type": "application/json",
-                                Authorization: `Bearer ${token}`,
+                                "Authorization": `Bearer ${token}`,
                             },
                         }
                     );
