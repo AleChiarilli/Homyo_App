@@ -925,7 +925,7 @@ def create_home():
 
     
     print(body)
-    home = Home(name=body["name"], postal_code=body["postal_code"], address=body["address"], description=body["description"], cmr_profile_id=body["cmr_profile_id"])
+    home = Home(name=body["name"], city=body["city"], postal_code=body["postal_code"], address=body["address"], description=body["description"], cmr_profile_id=body["cmr_profile_id"])
     db.session.add(home)
     db.session.commit()
 

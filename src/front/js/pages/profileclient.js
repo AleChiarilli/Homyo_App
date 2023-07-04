@@ -26,7 +26,6 @@ export const Profileclient = () => {
   useEffect(()=>{
     const emailInput = document.querySelector("#floating_email");
     emailInput.value= store.user.email
-    console.log(emailInput)
   },[]) 
 
   ///
