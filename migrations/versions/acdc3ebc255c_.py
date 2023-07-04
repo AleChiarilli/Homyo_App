@@ -1,14 +1,8 @@
 """empty message
 
-<<<<<<<< HEAD:migrations/versions/84923de81400_.py
-Revision ID: 84923de81400
+Revision ID: acdc3ebc255c
 Revises: 
-Create Date: 2023-06-29 14:36:49.897896
-========
-Revision ID: 85af4aa46e8e
-Revises: 
-Create Date: 2023-06-29 17:04:08.088193
->>>>>>>> main:migrations/versions/85af4aa46e8e_.py
+Create Date: 2023-07-04 14:28:36.401191
 
 """
 from alembic import op
@@ -16,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = '84923de81400'
+revision = 'acdc3ebc255c'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -80,10 +74,11 @@ def upgrade():
     )
     op.create_table('home',
     sa.Column('id', sa.Integer(), nullable=False),
-    sa.Column('name', sa.String(length=200), nullable=False),
+    sa.Column('name', sa.String(length=200), nullable=True),
     sa.Column('address', sa.String(length=200), nullable=True),
-    sa.Column('postal_code', sa.Integer(), nullable=False),
-    sa.Column('description', sa.String(length=255), nullable=False),
+    sa.Column('city', sa.String(length=200), nullable=True),
+    sa.Column('postal_code', sa.Integer(), nullable=True),
+    sa.Column('description', sa.String(length=255), nullable=True),
     sa.Column('cmr_profile_id', sa.Integer(), nullable=True),
     sa.ForeignKeyConstraint(['cmr_profile_id'], ['cmr_profile.id'], ),
     sa.PrimaryKeyConstraint('id')
@@ -97,8 +92,8 @@ def upgrade():
     sa.PrimaryKeyConstraint('id')
     )
     op.create_table('contract',
-    sa.Column('created', sa.DateTime(), nullable=False),
-    sa.Column('updated', sa.DateTime(), nullable=True),
+    sa.Column('created', sa.DateTime(timezone=True), nullable=False),
+    sa.Column('updated', sa.DateTime(timezone=True), nullable=True),
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('home_id', sa.Integer(), nullable=True),
     sa.Column('pro_profile_id', sa.Integer(), nullable=True),
@@ -114,24 +109,22 @@ def upgrade():
     sa.PrimaryKeyConstraint('id')
     )
     op.create_table('home_post',
-    sa.Column('created', sa.DateTime(), nullable=False),
-    sa.Column('updated', sa.DateTime(), nullable=True),
+    sa.Column('created', sa.DateTime(timezone=True), nullable=False),
+    sa.Column('updated', sa.DateTime(timezone=True), nullable=True),
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('is_visible', sa.Boolean(), nullable=False),
     sa.Column('home_id', sa.Integer(), nullable=True),
     sa.Column('description', sa.String(length=255), nullable=False),
-    sa.Column('latitude', sa.String(length=200), nullable=True),
-    sa.Column('longitude', sa.String(length=200), nullable=True),
-    sa.Column('cmr_profile_id', sa.Integer(), nullable=True),
+    sa.Column('latitude', sa.String(length=200), nullable=False),
+    sa.Column('longitude', sa.String(length=200), nullable=False),
     sa.Column('starting_time', sa.DateTime(), nullable=True),
     sa.Column('finishing_time', sa.DateTime(), nullable=True),
-    sa.ForeignKeyConstraint(['cmr_profile_id'], ['cmr_profile.id'], ),
     sa.ForeignKeyConstraint(['home_id'], ['home.id'], ),
     sa.PrimaryKeyConstraint('id')
     )
     op.create_table('message',
-    sa.Column('created', sa.DateTime(), nullable=False),
-    sa.Column('updated', sa.DateTime(), nullable=True),
+    sa.Column('created', sa.DateTime(timezone=True), nullable=False),
+    sa.Column('updated', sa.DateTime(timezone=True), nullable=True),
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('title', sa.String(length=60), nullable=False),
     sa.Column('content', sa.String(length=255), nullable=False),
@@ -143,8 +136,8 @@ def upgrade():
     sa.PrimaryKeyConstraint('id')
     )
     op.create_table('cmr_review',
-    sa.Column('created', sa.DateTime(), nullable=False),
-    sa.Column('updated', sa.DateTime(), nullable=True),
+    sa.Column('created', sa.DateTime(timezone=True), nullable=False),
+    sa.Column('updated', sa.DateTime(timezone=True), nullable=True),
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('rating', sa.Integer(), nullable=False),
     sa.Column('pro_sender_id', sa.Integer(), nullable=True),
@@ -157,6 +150,8 @@ def upgrade():
     sa.PrimaryKeyConstraint('id')
     )
     op.create_table('message_receiver',
+    sa.Column('created', sa.DateTime(timezone=True), nullable=False),
+    sa.Column('updated', sa.DateTime(timezone=True), nullable=True),
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('message_id', sa.Integer(), nullable=True),
     sa.Column('receiver_id', sa.Integer(), nullable=True),
@@ -173,8 +168,8 @@ def upgrade():
     sa.PrimaryKeyConstraint('id')
     )
     op.create_table('pro_review',
-    sa.Column('created', sa.DateTime(), nullable=False),
-    sa.Column('updated', sa.DateTime(), nullable=True),
+    sa.Column('created', sa.DateTime(timezone=True), nullable=False),
+    sa.Column('updated', sa.DateTime(timezone=True), nullable=True),
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('rating', sa.Integer(), nullable=False),
     sa.Column('pro_receiver_id', sa.Integer(), nullable=True),

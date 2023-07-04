@@ -22,7 +22,7 @@ const getState = ({
             },
             ],
             token: "", //guardamos el token como un string vacio
-            isLoggedIn: true, // si cambio esto a true si se abren los hover
+            isLoggedIn: false, // si cambio esto a true si se abren los hover
             role: 'cliente', // Establece el valor por defecto como 'cliente', ¿duplicado? linea 24
             publications: [],
             homePost: [],
@@ -237,6 +237,27 @@ const getState = ({
                     console.log("error loading message from backend", error);
                 }
             },
+
+            //FETCH PARA CREAR UN ESPACIO/HOME
+            addHome: async (home) => {
+                console.log(home);
+                try {
+                    const response = await fetch(process.env.BACKEND_URL + "/api/home", {
+                        method: "POST",
+                        body: JSON.stringify(home),
+                        headers: {
+                            "Content-Type": "application/json",
+                            "Authorization": `Bearer ${localStorage.getItem("token")}`,
+                        },
+                    });
+                    const data = await response.json();
+                    console.log(data);
+                } catch (error) {
+                    console.log("error loading message from backend", error);
+                }
+            },
+
+
 
             //VALIDACION DE TOKEN 
             valide_token: async () => {
