@@ -48,22 +48,22 @@ export const Profilepro = () => {
     const emailInput = document.querySelector("#floating_email");
     emailInput.value= store.user.email
   
-    const dniInput = document.querySelector("#floating_id");
-    dniInput.value= store.user.dni
+    // const dniInput = document.querySelector("#floating_id");
+    // dniInput.value= store.user.dni
 
-    const addressInput = document.querySelector("#floating_adress");
-    addressInput.value= store.user.address
+    // const addressInput = document.querySelector("#floating_adress");
+    // addressInput.value= store.user.address
 
-    const postalCodeInput = document.querySelector("#floating_cp");
-    postalCodeInput.value= store.user.postal_code
+    // const postalCodeInput = document.querySelector("#floating_cp");
+    // postalCodeInput.value= store.user.postal_code
 
-    const cityInput = document.querySelector("#floating_city");
-    cityInput.value= store.user.city
+    // const cityInput = document.querySelector("#floating_city");
+    // cityInput.value= store.user.city
 
-    const priceInput = document.querySelector("#floating_price");
-    priceInput.value= store.user.hourly_rate
+    // const priceInput = document.querySelector("#floating_price");
+    // priceInput.value= store.user.hourly_rate
   
-  },[]) 
+  },[store.user.email, store.user.dni, store.user.address, store.user.postal_code, store.user.city, store.user.hourly_rate]) 
     
 
 

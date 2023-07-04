@@ -10,35 +10,26 @@ const getState = ({
         store: {
 
             message: null,
-            demo: [{
-                title: "FIRST",
-                background: "white",
-                initial: "white",
-            },
-            {
-                title: "SECOND",
-                background: "white",
-                initial: "white",
-            },
-            ],
+            // demo: [{
+            //     title: "FIRST",
+            //     background: "white",
+            //     initial: "white",
+            // },
+            // {
+            //     title: "SECOND",
+            //     background: "white",
+            //     initial: "white",
+            // },
+            //],
             token: "", //guardamos el token como un string vacio
             isLoggedIn: false, // si cambio esto a true si se abren los hover
             role: 'cliente', // Establece el valor por defecto como 'cliente', ¿duplicado? linea 24
             publications: [],
             homePost: [],
-            user:{}
+            user: {}
 
         },
         actions: {
-            // getPublications: async (postalCode) => {
-            //     try {
-            //         const response = await fetch(`${process.env.BACKEND_URL}/api/home_post`)
-            //         const data = await response.json()
-            //         setStore({ publications: data })
-            //     } catch (error) {
-            //         console.error(error)
-            //     }
-            // },
 
             getPostsOn: async () => {
                 try {
@@ -90,7 +81,7 @@ const getState = ({
                         setStore({
                             ...getStore(),
                             isLoggedIn: true,
-                            user:data.user
+                            user: data.user
                         });
                         return true;
                     }
@@ -103,24 +94,27 @@ const getState = ({
 
             //AGREGAR INFORMACION DE PERFIL  DEL USUARIO-PROFESIONAL (INPUTS A LLENAR)
             profile_professional: async (
-                verified,
                 dni,
                 description,
                 address,
                 city,
                 postal_code,
+                km_radius,
                 phone_number,
                 hourly_rate
             ) => {
-                
+                const userId = localStorage.getItem("id");
+                console.log(description)
                 try {
+
                     const response = await fetch(
                         process.env.BACKEND_URL + "/api/pro_profile", {
                         method: "POST",
                         body: JSON.stringify({
-                            verified: verified,
+                            user_id: userId,
+                            //verified: verified,
                             dni: dni,
-                            description: description,
+                            description:description,
                             address: address,
                             city: city,
                             postal_code: postal_code,
@@ -151,39 +145,39 @@ const getState = ({
                 postalCode,
                 phoneNumber,
                 hourlyRate
-              ) => {
+            ) => {
                 try {
-                  const token = localStorage.getItem('token');
-                  const url = process.env.BACKEND_URL + "/pro_profile/";
-              
-                  const data = {
-                    verified: verified,
-                    dni: dni,
-                    description: description,
-                    address: address,
-                    city: city,
-                    postal_code: postalCode,
-                    phone_number: phoneNumber,
-                    hourly_rate: hourlyRate,
-                  };
-              
-                  const response = await fetch(url, {
-                    method: "PUT",
-                    body: JSON.stringify(data),
-                    headers: {
-                      "Content-Type": "application/json",
-                      "Authorization": `Bearer ${token}`
-                    },
-                  });
-              
-                  const responseData = await response.json();
-                  console.log(responseData);
-                  // Realizar las acciones necesarias después de la actualización exitosa
+                    const token = localStorage.getItem('token');
+                    const url = process.env.BACKEND_URL + "/pro_profile/";
+
+                    const data = {
+                        verified: verified,
+                        dni: dni,
+                        description: description,
+                        address: address,
+                        city: city,
+                        postal_code: postalCode,
+                        phone_number: phoneNumber,
+                        hourly_rate: hourlyRate,
+                    };
+
+                    const response = await fetch(url, {
+                        method: "PUT",
+                        body: JSON.stringify(data),
+                        headers: {
+                            "Content-Type": "application/json",
+                            "Authorization": `Bearer ${token}`
+                        },
+                    });
+
+                    const responseData = await response.json();
+                    console.log(responseData);
+                    // Realizar las acciones necesarias después de la actualización exitosa
                 } catch (error) {
-                  console.log("Error al cargar los datos desde el backend", error);
-                  // Realizar las acciones necesarias en caso de error
+                    console.log("Error al cargar los datos desde el backend", error);
+                    // Realizar las acciones necesarias en caso de error
                 }
-              },
+            },
 
             //GET PARA OBTENER LA INFORMACION DEL PERFIL USUARIO-PROFESIONAL
             get_profile_info: async (id) => {
@@ -194,14 +188,13 @@ const getState = ({
                         process.env.BACKEND_URL + "/api/pro_profile/", {
 
                         headers: {
-                                "Content-Type": "application/json",
-                                "Authorization": `Bearer ${token}`,
-                            },
-                        }
-
+                            "Content-Type": "application/json",
+                            "Authorization": `Bearer ${token}`,
+                        },
+                    }
                     );
                     const data = await response.json();
-                    setStore({ pro_profile:data })
+                    setStore({ pro_profile: data })
                     console.log(data);
                 } catch (error) {
                     console.log("error loading message from backend", error);
@@ -231,8 +224,8 @@ const getState = ({
                 }
             },
 
-             //GET PARA OBTENER LA INFORMACION DEL PERFIL USUARIO-CLIENTE
-             get_profile_customer_info: async (id) => {
+            //GET PARA OBTENER LA INFORMACION DEL PERFIL USUARIO-CLIENTE
+            get_profile_customer_info: async (id) => {
                 const userId = localStorage.getItem("id");
                 console.log(userId);
                 try {

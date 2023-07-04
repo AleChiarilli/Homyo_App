@@ -12,10 +12,10 @@ export const Profileproshowprofile = () => {
     const { store, actions } = useContext(Context);
 
     //ESTADOS DE LOS INPUTS A RELLENAR POR EL PROESIONAL
-    const [verified, setVerified] = "";
+    const [verified, setVerified] = useState("");
     const [dni, setDni] = useState("");
     const [description, setDescription] = useState("");
-    const [address, setAddress] = "";
+    const [address, setAddress] = useState("");
     const [city, setCity] = useState("");
     const [postal_code, setPostal_code] = useState("");
     const [km_radius, setKm_radius] = useState("");
@@ -23,10 +23,14 @@ export const Profileproshowprofile = () => {
     const [hourly_rate, setHourly_rate] = useState("");
     const [seleccionados, setSeleccionados] = useState([]);
 
+    console.log(description)
+
     //FUNCION PARA EL FORM
     const info_professional = async (e) => {
+        
         e.preventDefault();
-        await actions.profile_professional({
+        console.log(description)
+        await actions.profile_professional(
             verified,
             dni,
             description,
@@ -36,13 +40,14 @@ export const Profileproshowprofile = () => {
             km_radius,
             phone_number,
             hourly_rate,
-        }); // Envía los datos del usuario utilizando la acción addUser del objeto actions
+        ); // Envía los datos del usuario utilizando la acción addUser del objeto actions
     };
 
      //USEEFFECT PARA QUE CARGUE LA INFORMACION DEL FORMULARIO
      useEffect(() => {
         actions.get_profile_info();
     }, []);
+
 
     const handleSeleccionar = (id) => {
         if (seleccionados.includes(id)) {
@@ -250,7 +255,9 @@ export const Profileproshowprofile = () => {
                                         <p className="p-4 font-bold text-black text-md text-center dark:text-white">
                                             Descripción
                                         </p>
-                                        <form>
+                                        {/* <form
+                                         onSubmit={(e) => info_professional(e)}> */}
+                                            
                                             <div className="w-full mb-4 border border-gray-200 rounded-lg bg-gray-50 dark:bg-gray-700 dark:border-gray-600">
                                                 <div className="px-4 py-2 bg-white rounded-t-lg dark:bg-gray-800">
                                                     <label htmlFor="comment" className="sr-only">
@@ -269,7 +276,7 @@ export const Profileproshowprofile = () => {
                                                     ></textarea>
                                                 </div>
                                             </div>
-                                        </form>
+                                        {/* </form> */}
                                     </div>
 
                                     <p className="p-4 font-bold text-black text-md text-center dark:text-white">
