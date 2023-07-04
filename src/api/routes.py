@@ -412,6 +412,10 @@ def get_pro_profiles():
     results = Pro_profile.query.all()
     pro_profile_list = list(map(lambda item: item.serialize(),results))
 
+     # Filter the query based on the city parameter if it exists
+    query = Pro_profile.query
+    if city:
+        query = query.filter_by(Pro_profile.city.ilike(f'%{city}%')).all()
 
     response_body = {
         "msg": "Hello, this is your GET /pro_profile response ",
@@ -533,7 +537,7 @@ def update_pro_profile():
 @api.route('/pro_profile/<int:id>', methods=['DELETE'])
 # Acceso protegido
 # @jwt_required()
-def delete_pro_profile(id):
+def delete_pro_profile():
     print(id)
 
     pro_profile = Pro_profile.query.filter_by(id=id).first()
@@ -568,13 +572,14 @@ def get_cmr_profiles():
     return jsonify(response_body), 200
 
 # endpoint para consultar un dato en CMR_PROFILE
-@api.route('/cmr_profile/<int:id>', methods=['GET'])
+@api.route('/cmr_profile', methods=['GET'])
 # Acceso protegido
 # # @jwt_required()
-def get_single_cmr_profile(id):
-    print(id)
+def get_single_cmr_profile():
 
-    cmr_profile = Cmr_profile.query.filter_by(id=id).first()
+    user_email = get_jwt_identity()
+    user = User.query.filter_by(email=user_email).first()
+    cmr_profile = Cmr_profile.query.filter_by(user_id=user.id).first()
     print(cmr_profile)
 # comprobamos que existe un CMR_PROFILE con ese id, si no es asi, respondemos un mensaje de error
     if cmr_profile is None:
@@ -616,10 +621,12 @@ def create_cmr_profile():
     return jsonify(response_body), 200
 #edicion de CMR_PROFILE
 
-@api.route('/cmr_profile/<int:id>', methods=['PUT'])
-def update_cmr_profile(id):
+@api.route('/cmr_profile', methods=['PUT'])
+def update_cmr_profile():
     
-    cmr_profile = Cmr_profile.query.filter_by(id=id).first()
+    user_email = get_jwt_identity()
+    user = User.query.filter_by(email=user_email).first()
+    cmr_profile = Cmr_profile.query.filter_by(user_id=user.id).first()
 
     # comprobamos que existe un usuario con ese id, si no es asi, respondemos un mensaje de error
     if cmr_profile is None:
@@ -841,12 +848,13 @@ def delete_pro_profile_skill(id):
 # Acceso protegido
 # @jwt_required()
 def get_home():
-
-    results = Home.query.all()
+    user_email = get_jwt_identity()
+    user = User.query.filter_by(email=user_email).first()
+    cmr_profile = Cmr_profile.query.filter_by(user_id=user.id).first()
+    results = Home.query.filter_by(cmr_profile_id=cmr_profile.id).all() 
     print("-----------------------------------------", results)
     home_list = [result.serialize() for result in results]
     print(home_list)
-
 
     response_body = {
         "msg": "Hello, this is your GET /home response ",
@@ -929,10 +937,15 @@ def create_home():
     return jsonify(response_body), 200
 
 #ENDPOINT EDICION HOME
-@api.route('/home/<int:id>', methods=['PUT'])
-def update_home(id):
-    
-    home = Home.query.filter_by(id=id).first()
+@api.route('/home', methods=['PUT'])
+@jwt_required()
+def update_home():
+
+    user_email = get_jwt_identity()
+    user = User.query.filter_by(email=user_email).first()
+    cmr_profile = Cmr_profile.query.filter_by(user_id=user.id).first()
+    homes = Home.query.filter_by(cmr_profile_id=cmr_profile.id).all() 
+    home = Home.query.filter_by(name=homes.name).all()   
 
     # comprobamos que existe una casa con ese id, si no es asi, respondemos un mensaje de error
     if home is None:
@@ -944,7 +957,9 @@ def update_home(id):
     data = request.json
 
     # Update the home attributes
+    home.name = data.get('name', home.name)
     home.description = data.get('description', home.description)
+    home.city = data.get('city', home.city)
     home.postal_code = data.get('postal_code', home.postal_code)
     home.address = data.get('address', home.address)
 
@@ -982,13 +997,17 @@ def delete_home(id):
 
 @api.route('/home_post', methods=['GET'])
 # Acceso protegido
-# @jwt_required()
+@jwt_required()
 def get_home_post():
 
     results = Home_Post.query.all()
     home_posts_list = list(map(lambda item: item.serialize(),results))
     print(home_posts_list)
 
+    # Filter the query based on the city parameter if it exists
+    query = Home_Post.query
+    if city:
+        query = query.filter_by(Home_Post.home.city.ilike(f'%{city}%')).all()
 
     response_body = {
         "msg": "Hello, this is your GET /pro_user_profile response ",
@@ -1099,7 +1118,7 @@ def delete_home_post(id):
     db.session.commit()
 
     response_body = {
-        "msg": "El contrato ha sido borrado",
+        "msg": "El home_post ha sido borrado",
     }
 
 #----------------ENDPOINTS CONTRACT-----------
@@ -1142,7 +1161,7 @@ def get_single_contract(id):
 
     return jsonify(response_body), 200
 
-# enpoint editar CONTRACT
+# endpoint editar CONTRACT
 
 # endpoint para crear un dato en tabla CONTRACT
 @api.route('/contract', methods=['POST'])
@@ -1202,7 +1221,7 @@ def delete_contract(id):
 
 @api.route('/pro_review', methods=['GET'])
 # Acceso protegido
-# @jwt_required()
+@jwt_required()
 def get_pro_review():
 
     results = Pro_review.query.all()
@@ -1218,13 +1237,15 @@ def get_pro_review():
 
 #enpoint de una relacion PRO_REVIEW en concreto
 
-@api.route('/pro_review/<int:id>', methods=['GET'])
+@api.route('/pro_review', methods=['GET'])
 # Acceso protegido
-# @jwt_required()
+@jwt_required()
 def get_single_pro_review(id):
     print(id)
-
-    pro_review = Pro_review.query.filter_by(id=id).first()
+    user_email = get_jwt_identity()
+    user = User.query.filter_by(email=user_email).first()
+    pro_profile = Pro_profile.query.filter_by(user_id=user.id).first()
+    pro_review = Pro_review.query.filter_by(pro_receiver_id=pro_profile.id).all()
     print(pro_review)
 # comprobamos que existe un PRO_REVIEW con ese id, si no es asi, respondemos un mensaje de error
     if pro_review is None:
@@ -1311,11 +1332,16 @@ def get_cmr_review():
 
 #enpoint de una relacion CMR_REVIEW en concreto
 
-@api.route('/cmr_review/<int:id>', methods=['GET'])
+@api.route('/cmr_review>', methods=['GET'])
 # Acceso protegido
 # @jwt_required()
-def get_single_cmr_review(id):
+def get_cmr_reviews(id):
     print(id)
+
+    user_email = get_jwt_identity()
+    user = User.query.filter_by(email=user_email).first()
+    cmr_profile = Cmr_profile.query.filter_by(user_id=user.id).first()
+    cmr_review = Cmr_review.query.filter_by(cmr_receiver_id=cmr_profile.id).all()
 
     cmr_review = Cmr_review.query.filter_by(id=id).first()
     print(cmr_review)
