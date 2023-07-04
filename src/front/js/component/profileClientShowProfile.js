@@ -8,23 +8,16 @@ export const Profileclientshowprofile = () => {
   //ESTADOS DE LOS INPUTS A RELLENAR POR EL CLIENTE
   const [description, setDescription] = useState("");
   const [phone_number, setPhone_number] = useState("");
+
   //FUNCION PARA EL FORM (INFORMACION DEL CLIENTE)
   const info_customer = async (e) => {
     e.preventDefault();
-    await actions.profile_customer({
-      verified,
-      dni,
-      description,
-      address,
-      city,
-      postal_code,
-      km_radius,
-      phone_number,
-      hourly_rate,
-    }); // Envía los datos del usuario utilizando la acción addUser del objeto actions
+    await actions.profile_customer({description,phone_number
+    }); // Envía los datos del usuario
   };
 
   ///
+  
 
   return (
 
@@ -71,6 +64,7 @@ export const Profileclientshowprofile = () => {
                         </div>
                         <div className="relative z-0 w-full mb-6 group">
                           <input
+                            
                             type="email"
                             name="floating_email"
                             id="floating_email"
@@ -147,6 +141,9 @@ export const Profileclientshowprofile = () => {
                         <div className="grid md:grid-cols-1 md:gap-6">
                           <div className="relative z-0 w-full mb-6 group">
                             <input
+                              onChange={(event) =>
+                                setPhone_number(event.target.value)
+                            }
                               type="tel"
                               pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
                               name="floating_phone"

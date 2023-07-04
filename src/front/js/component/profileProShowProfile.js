@@ -21,11 +21,12 @@ export const Profileproshowprofile = () => {
     const [km_radius, setKm_radius] = useState("");
     const [phone_number, setPhone_number] = useState("");
     const [hourly_rate, setHourly_rate] = useState("");
+    const [seleccionados, setSeleccionados] = useState([]);
 
     //FUNCION PARA EL FORM
     const info_professional = async (e) => {
         e.preventDefault();
-        await actions.get_profile_info({
+        await actions.profile_professional({
             verified,
             dni,
             description,
@@ -38,14 +39,10 @@ export const Profileproshowprofile = () => {
         }); // Envía los datos del usuario utilizando la acción addUser del objeto actions
     };
 
-    ///
-
-    // const submit_prof_profile = async (e) => {
-    //     e.preventDefault()
-    //     await actions.login(profile_pic,description,address,postal_code,phone_number,hourly_rate)
-    // }
-
-    const [seleccionados, setSeleccionados] = useState([]);
+     //USEEFFECT PARA QUE CARGUE LA INFORMACION DEL FORMULARIO
+     useEffect(() => {
+        actions.get_profile_info();
+    }, []);
 
     const handleSeleccionar = (id) => {
         if (seleccionados.includes(id)) {
@@ -54,10 +51,7 @@ export const Profileproshowprofile = () => {
             setSeleccionados([...seleccionados, id]);
         }
     };
-    //USEEFFECT PARA QUE CARGUE LA INFORMACION DEL FORMULARIO
-    useEffect(() => {
-        actions.get_profile_info();
-    }, []);
+   
 
     return (
         <div className="flex flex-col w-full pl-0 md:p-4 md:space-y-4">

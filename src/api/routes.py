@@ -1591,7 +1591,7 @@ def delete_message_receiver(id):
 # Proteja una ruta con jwt_required, que eliminará las solicitudes
 # sin un JWT válido presente.
 @api.route("/valide-token", methods=["GET"])
-@jwt_required()
+#@jwt_required()
 def get_info_profile():
     # Access the identity of the current user with get_jwt_identity
     current_user = get_jwt_identity()
