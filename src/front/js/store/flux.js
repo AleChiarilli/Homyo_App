@@ -22,7 +22,7 @@ const getState = ({
             },
             ],
             token: "", //guardamos el token como un string vacio
-            isLoggedIn: true, // si cambio esto a true si se abren los hover
+            isLoggedIn: false, // si cambio esto a true si se abren los hover
             role: 'cliente', // Establece el valor por defecto como 'cliente', ¿duplicado? linea 24
             publications: [],
             homePost: [],
@@ -112,7 +112,7 @@ const getState = ({
                 phone_number,
                 hourly_rate
             ) => {
-                console.log(profile_professional);
+                
                 try {
                     const response = await fetch(
                         process.env.BACKEND_URL + "/api/pro_profile", {
@@ -187,13 +187,21 @@ const getState = ({
 
             //GET PARA OBTENER LA INFORMACION DEL PERFIL USUARIO-PROFESIONAL
             get_profile_info: async (id) => {
-                const userId = localStorage.getItem("id");
-                console.log(userId);
+                const token = localStorage.getItem("token");
+
                 try {
                     const response = await fetch(
-                        process.env.BACKEND_URL + "/api/pro_profile/" + userId
+                        process.env.BACKEND_URL + "/api/pro_profile/", {
+
+                        headers: {
+                                "Content-Type": "application/json",
+                                Authorization: `Bearer ${token}`,
+                            },
+                        }
+
                     );
                     const data = await response.json();
+                    setStore({ pro_profile:data })
                     console.log(data);
                 } catch (error) {
                     console.log("error loading message from backend", error);
