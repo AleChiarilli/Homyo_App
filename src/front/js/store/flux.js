@@ -108,13 +108,12 @@ const getState = ({
                 try {
 
                     const response = await fetch(
-                        process.env.BACKEND_URL + "/api/pro_profile", {
-                        method: "POST",
+                        process.env.BACKEND_URL + "/api/pro_profile/", {
+                        method: "PUT",
                         body: JSON.stringify({
                             user_id: userId,
-                            //verified: verified,
                             dni: dni,
-                            description:description,
+                            description: description,
                             address: address,
                             city: city,
                             postal_code: postal_code,
@@ -124,6 +123,8 @@ const getState = ({
                         }),
                         headers: {
                             "Content-Type": "application/json",
+                            "Authorization": `Bearer ${localStorage.getItem("token")}`
+
                         },
                     }
                     );
@@ -136,48 +137,48 @@ const getState = ({
 
             ///PUT PARA INFORMACION DEL USUARIO-PROFESIONAL
 
-            modify_professional: async (
-                verified,
-                dni,
-                description,
-                address,
-                city,
-                postalCode,
-                phoneNumber,
-                hourlyRate
-            ) => {
-                try {
-                    const token = localStorage.getItem('token');
-                    const url = process.env.BACKEND_URL + "/pro_profile/";
+            // modify_professional: async (
+            //     verified,
+            //     dni,
+            //     description,
+            //     address,
+            //     city,
+            //     postalCode,
+            //     phoneNumber,
+            //     hourlyRate
+            // ) => {
+            //     try {
+            //         const token = localStorage.getItem('token');
+            //         const url = process.env.BACKEND_URL + "/pro_profile/";
 
-                    const data = {
-                        verified: verified,
-                        dni: dni,
-                        description: description,
-                        address: address,
-                        city: city,
-                        postal_code: postalCode,
-                        phone_number: phoneNumber,
-                        hourly_rate: hourlyRate,
-                    };
+            //         const data = {
+            //             verified: verified,
+            //             dni: dni,
+            //             description: description,
+            //             address: address,
+            //             city: city,
+            //             postal_code: postalCode,
+            //             phone_number: phoneNumber,
+            //             hourly_rate: hourlyRate,
+            //         };
 
-                    const response = await fetch(url, {
-                        method: "PUT",
-                        body: JSON.stringify(data),
-                        headers: {
-                            "Content-Type": "application/json",
-                            "Authorization": `Bearer ${token}`
-                        },
-                    });
+            //         const response = await fetch(url, {
+            //             method: "PUT",
+            //             body: JSON.stringify(data),
+            //             headers: {
+            //                 "Content-Type": "application/json",
+            //                 "Authorization": `Bearer ${token}`
+            //             },
+            //         });
 
-                    const responseData = await response.json();
-                    console.log(responseData);
-                    // Realizar las acciones necesarias después de la actualización exitosa
-                } catch (error) {
-                    console.log("Error al cargar los datos desde el backend", error);
-                    // Realizar las acciones necesarias en caso de error
-                }
-            },
+            //         const responseData = await response.json();
+            //         console.log(responseData);
+            //         // Realizar las acciones necesarias después de la actualización exitosa
+            //     } catch (error) {
+            //         console.log("Error al cargar los datos desde el backend", error);
+            //         // Realizar las acciones necesarias en caso de error
+            //     }
+            // },
 
             //GET PARA OBTENER LA INFORMACION DEL PERFIL USUARIO-PROFESIONAL
             get_profile_info: async (id) => {
@@ -194,7 +195,7 @@ const getState = ({
                     }
                     );
                     const data = await response.json();
-                    setStore({ pro_profile: data })
+                    setStore({ pro_profile: data.result })
                     console.log(data);
                 } catch (error) {
                     console.log("error loading message from backend", error);
