@@ -81,6 +81,8 @@ class Pro_profile(db.Model):
     km_radius = db.Column(db.Numeric, unique=False, nullable=True)
     phone_number = db.Column(db.String, unique=False, nullable=True)
     hourly_rate = db.Column(db.Numeric, unique=False, nullable=True)
+    skills = db.relationship('Pro_profile_skill', backref='pro_profile', lazy=True)
+
 
     def __repr__(self):
         return f'<Pro_profile {self.id}>'
@@ -96,7 +98,8 @@ class Pro_profile(db.Model):
             "postal_code": self.postal_code,
             "km_radius": self.km_radius,
             "phone_number": self.phone_number,
-            "hourly_rate": self.hourly_rate
+            "hourly_rate": self.hourly_rate,
+            "skills" : list(map(lambda item:item.serialize(),self.skills))
         }
 
 class Skill(db.Model):
@@ -117,7 +120,6 @@ class Pro_profile_skill(db.Model):
     skill_id = db.Column(db.Integer, db.ForeignKey('skill.id'))
     skill = db.relationship(Skill)
     pro_profile_id = db.Column(db.Integer, db.ForeignKey('pro_profile.id'))
-    pro_profile = db.relationship(Pro_profile)
 
     def __repr__(self):
         return f'<Pro_profile_skill {self.id}>'
@@ -147,6 +149,7 @@ class Cmr_profile(db.Model):
             "description": self.description,
             "phone_number": self.phone_number,
             "homes": list(map(lambda item:item.serialize(),self.homes))
+            
         }
     
 class Home(db.Model):

@@ -10,36 +10,26 @@ const getState = ({
         store: {
 
             message: null,
-            demo: [{
-                    title: "FIRST",
-                    background: "white",
-                    initial: "white",
-                },
-                {
-                    title: "SECOND",
-                    background: "white",
-                    initial: "white",
-                },
-            ],
+            // demo: [{
+            //     title: "FIRST",
+            //     background: "white",
+            //     initial: "white",
+            // },
+            // {
+            //     title: "SECOND",
+            //     background: "white",
+            //     initial: "white",
+            // },
+            //],
             token: "", //guardamos el token como un string vacio
             isLoggedIn: false,
             role: 'cliente', // Establece el valor por defecto como 'cliente', ¿duplicado? linea 24
             publications: [],
             homePost: [],
-            user: {},
-            pro_profile: {}
+            user: {}
 
         },
         actions: {
-            // getPublications: async (postalCode) => {
-            //     try {
-            //         const response = await fetch(`${process.env.BACKEND_URL}/api/home_post`)
-            //         const data = await response.json()
-            //         setStore({ publications: data })
-            //     } catch (error) {
-            //         console.error(error)
-            //     }
-            // },
 
             getPostsOn: async () => {
                 try {
@@ -121,85 +111,44 @@ const getState = ({
 
             //AGREGAR INFORMACION DE PERFIL  DEL USUARIO-PROFESIONAL (INPUTS A LLENAR)
             profile_professional: async (
-                verified,
                 dni,
                 description,
                 address,
                 city,
                 postal_code,
+                km_radius,
                 phone_number,
                 hourly_rate
             ) => {
-
+                const userId = localStorage.getItem("id");
+                console.log(description)
                 try {
+
                     const response = await fetch(
-                        process.env.BACKEND_URL + "/api/pro_profile", {
-                            method: "POST",
-                            body: JSON.stringify({
-                                verified: verified,
-                                dni: dni,
-                                description: description,
-                                address: address,
-                                city: city,
-                                postal_code: postal_code,
-                                km_radius: km_radius,
-                                phone_number: phone_number,
-                                hourly_rate: hourly_rate,
-                            }),
-                            headers: {
-                                "Content-Type": "application/json",
-                            },
-                        }
+                        process.env.BACKEND_URL + "/api/pro_profile/", {
+                        method: "PUT",
+                        body: JSON.stringify({
+                            user_id: userId,
+                            dni: dni,
+                            description: description,
+                            address: address,
+                            city: city,
+                            postal_code: postal_code,
+                            km_radius: km_radius,
+                            phone_number: phone_number,
+                            hourly_rate: hourly_rate,
+                        }),
+                        headers: {
+                            "Content-Type": "application/json",
+                            "Authorization": `Bearer ${localStorage.getItem("token")}`
+
+                        },
+                    }
                     );
                     const data = await response.json();
                     console.log(data);
                 } catch (error) {
                     console.log("error loading message from backend", error);
-                }
-            },
-
-            ///PUT PARA INFORMACION DEL USUARIO-PROFESIONAL
-
-            modify_professional: async (
-                verified,
-                dni,
-                description,
-                address,
-                city,
-                postalCode,
-                phoneNumber,
-                hourlyRate
-            ) => {
-                try {
-                    const token = localStorage.getItem('token');
-                    const url = process.env.BACKEND_URL + "/pro_profile/";
-
-                    const data = {
-                        verified: verified,
-                        dni: dni,
-                        description: description,
-                        address: address,
-                        city: city,
-                        postal_code: postalCode,
-                        phone_number: phoneNumber,
-                        hourly_rate: hourlyRate,
-                    };
-
-                    const response = await fetch(url, {
-                        method: "PUT",
-                        body: JSON.stringify(data),
-                        headers: {
-                            "Content-Type": "application/json",
-                            "Authorization": `Bearer ${token}`
-                        },
-                    });
-
-                    const responseData = await response.json();
-                    console.log(responseData);
-                    // Realizar las acciones necesarias después de la actualización exitosa
-                } catch (error) {
-                    console.log("Error al cargar los datos desde el backend", error);
-                    // Realizar las acciones necesarias en caso de error
                 }
             },
 
@@ -210,61 +159,86 @@ const getState = ({
                 try {
                     const response = await fetch(
                         process.env.BACKEND_URL + "/api/pro_profile/", {
-
-                            headers: {
-                                "Content-Type": "application/json",
-                                "Authorization": `Bearer ${token}`,
-                            },
-                        }
-
+                        method: "GET",
+                        headers: {
+                            "Content-Type": "application/json",
+                            "Authorization": `Bearer ${token}`,
+                        },
+                    }
                     );
                     const data = await response.json();
-                    setStore({
-                        pro_profile: data
-                    })
+                    setStore({ pro_profile: data.result })
                     console.log(data);
                 } catch (error) {
                     console.log("error loading message from backend", error);
                 }
             },
 
-            //AGREGAR INFORMACION DE PERFIL DEL USUARIO-CLIENTE(INPUTS A LLENAR)
-            profile_customer: async (description, phone_number) => {
-                console.log(profile_professional);
+            //AGREGAR INFORMACION DE PERFIL DEL USUARIO-CLIENTE(INPUTS A LLENAR) (no me funciona)
+
+            profile_customer: async ( phone_number  ) => {
+                const userId = localStorage.getItem("id");
+                console.log(phone_number)
+                try {
+
+                    const response = await fetch(
+                        process.env.BACKEND_URL + "/api/cmr_profile", {
+                        method: "PUT",
+                        body: JSON.stringify({
+                            user_id: userId,
+                            phone_number: phone_number,
+                        }),
+                        headers: {
+                            "Content-Type": "application/json",
+                            "Authorization": `Bearer ${localStorage.getItem("token")}`
+                        },
+                    }
+                    );
+                    const data = await response.json();
+                    console.log(data);
+                } catch (error) {
+                    console.log("error loading message from backend", error);
+                }
+            },
+
+           
+            //GET PARA OBTENER LA INFORMACION DEL PERFIL USUARIO-CLIENTE
+
+            get_profile_customer_info: async (id) => {
+                const token = localStorage.getItem("token");
+
                 try {
                     const response = await fetch(
                         process.env.BACKEND_URL + "/api/cmr_profile", {
-                            method: "POST",
-                            body: JSON.stringify({
-                                description: description,
-                                phone_number: phone_number,
-                            }),
-                            headers: {
-                                "Content-Type": "application/json",
-                            },
-                        }
+                        method: "GET",
+                        headers: {
+                            "Content-Type": "application/json",
+                            "Authorization": `Bearer ${token}`,
+                        },
+                    }
                     );
                     const data = await response.json();
+                    setStore({ cmr_profile: data.result})
                     console.log(data);
                 } catch (error) {
                     console.log("error loading message from backend", error);
                 }
             },
 
-            //GET PARA OBTENER LA INFORMACION DEL PERFIL USUARIO-CLIENTE
-            get_profile_customer_info: async (id) => {
-                const userId = localStorage.getItem("id");
-                console.log(userId);
-                try {
-                    const response = await fetch(
-                        process.env.BACKEND_URL + "/api/cmr_profile/" + userId
-                    );
-                    const data = await response.json();
-                    console.log(data);
-                } catch (error) {
-                    console.log("error loading message from backend", error);
-                }
-            },
+
+            // get_profile_customer_info: async (id) => {
+            //     const userId = localStorage.getItem("id");
+            //     console.log(userId);
+            //     try {
+            //         const response = await fetch(
+            //             process.env.BACKEND_URL + "/api/cmr_profile/" + userId
+            //         );
+            //         const data = await response.json();
+            //         console.log(data);
+            //     } catch (error) {
+            //         console.log("error loading message from backend", error);
+            //     }
+            // },
 
             //FETCH PARA CREAR UN ESPACIO/HOME
             addHome: async (home) => {
