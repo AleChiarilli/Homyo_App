@@ -1,4 +1,3 @@
-import React, { useState } from "react";
 import { Cardvaloracionesporusuario } from "../component/cardvaloracionesporusuario";
 import "../../styles/home.css";
 import avatar from "../../img/avatar.png";
@@ -7,16 +6,117 @@ import animales from "../../img/animales.png";
 import jardineria from "../../img/jardineria.png";
 import niños from "../../img/niños.png";
 import chef from "../../img/chef.png";
+import React, { useEffect, useState } from "react";
+import { format, addMonths, subMonths, startOfMonth, endOfMonth, eachWeekOfInterval, isSameMonth, startOfWeek, endOfWeek, eachDayOfInterval, getDay } from "date-fns";
+import { es } from "date-fns/locale"; // Importar la configuración local en español
 
 export const Profileproview = () => {
   const [isModalOpen8, setIsModalOpen8] = useState(false);
 
   const toggleModal8 = () => {
-      setIsModalOpen8(!isModalOpen8);
+    setIsModalOpen8(!isModalOpen8);
   };
 
   const hideModal8 = () => {
-      setIsModalOpen8(false);
+    setIsModalOpen8(false);
+  };
+
+  const [currentDate, setCurrentDate] = useState(new Date());
+  const [showModal, setShowModal] = useState(false);
+  const [selectedDay, setSelectedDay] = useState(1);
+  const [selectedMonth, setSelectedMonth] = useState(0);
+  const [startTime, setStartTime] = useState("");
+  const [endTime, setEndTime] = useState("");
+  const [reservations, setReservations] = useState([]);
+
+  const [hourDifference, setHourDifference] = useState(0);
+
+  const handleStartingTimeChange = (event) => {
+    const time = event.target.value;
+    setStartTime(time);
+  };
+
+  const handleEndTimeChange = (event) => {
+    const time = event.target.value;
+    setEndTime(time);
+  };
+
+  useEffect(() => {
+    calculateHourDifference(startTime, endTime);
+  }, [startTime, endTime]);
+
+  const calculateHourDifference = (start, end) => {
+    const startDateTime = new Date(start);
+    const endDateTime = new Date(end);
+    const differenceInMilliseconds = endDateTime - startDateTime;
+    const hourDifference = Math.abs(differenceInMilliseconds / (1000 * 60 * 60));
+    setHourDifference(hourDifference);
+  };
+
+  const months = [
+    { value: 0, label: "Enero" },
+    { value: 1, label: "Febrero" },
+    { value: 2, label: "Marzo" },
+    { value: 3, label: "Abril" },
+    { value: 4, label: "Mayo" },
+    { value: 5, label: "Junio" },
+    { value: 6, label: "Julio" },
+    { value: 7, label: "Agosto" },
+    { value: 8, label: "Septiembre" },
+    { value: 9, label: "Octubre" },
+    { value: 10, label: "Noviembre" },
+    { value: 11, label: "Diciembre" },
+  ];
+
+  const previousMonth = () => {
+    setCurrentDate((prevDate) => subMonths(prevDate, 1));
+  };
+
+  const nextMonth = () => {
+    setCurrentDate((prevDate) => addMonths(prevDate, 1));
+  };
+
+  const startOfCurrentMonth = startOfMonth(currentDate);
+  const endOfCurrentMonth = endOfMonth(currentDate);
+  const weeksOfMonth = eachWeekOfInterval(
+    {
+      start: startOfCurrentMonth,
+      end: endOfCurrentMonth,
+    },
+    { weekStartsOn: 0 } // Comenzar la semana en domingo
+  );
+
+  const weekDays = ["Dom", "Lun", "Mar", "Mié", "Jue", "Vie", "Sáb"]; // Domingo como primer día
+
+  const addReservation = () => {
+    const newReservation = {
+      day: selectedDay,
+      month: selectedMonth,
+      startTime: startTime,
+      endTime: endTime,
+    };
+    setReservations([...reservations, newReservation]);
+    setShowModal(false);
+    setSelectedDay(1);
+    setSelectedMonth(0);
+    setStartTime("");
+    setEndTime("");
+  };
+
+  const [homeNames, setHomeNames] = useState([]);
+  const [selectedHome, setSelectedHome] = useState("");
+
+  useEffect(() => {
+    // Obtén los nombres de las casas almacenados en el localStorage
+    const storedHomeNames = JSON.parse(localStorage.getItem("home"));
+    setHomeNames(storedHomeNames);
+  }, []);
+
+  const handleHomeSelection = (event) => {
+    const selectedHome = event.target.value;
+    setSelectedHome(selectedHome);
+    // Hacer lo que necesites con el nombre de la casa seleccionada
+    console.log("Casa seleccionada:", selectedHome);
   };
 
 
@@ -25,125 +125,86 @@ export const Profileproview = () => {
       <div className="bg-white grid place-items-center">
         <img src={avatar} className="rounded-full" />
         <div className="flex items-center justify-center">
-          <div className="w-full max-w-lg p-6 mx-auto bg-white rounded-2xl shadow-xl flex flex-col">
-            <div className="flex justify-between pb-4">
-              <div className="-rotate-90 cursor-pointer">
-                <svg
-                  width="12"
-                  height="7"
-                  viewBox="0 0 12 7"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M11.001 6L6.00098 1L1.00098 6"
-                    stroke="black"
-                    strokeOpacity="0.4"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  />
-                </svg>
-              </div>
-              <span className="uppercase text-sm font-semibold text-gray-600">
-                january - 2022
-              </span>
-              <div className="rotate-90 cursor-pointer">
-                <svg
-                  width="12"
-                  height="7"
-                  viewBox="0 0 12 7"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M11.001 6L6.00098 1L1.00098 6"
-                    stroke="black"
-                    strokeOpacity="0.4"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  />
-                </svg>
-              </div>
-            </div>
-            <div className="flex justify-between font-medium uppercase text-xs pt-4 pb-2 border-t">
-              <div className="px-3 border rounded-sm w-14 h-5 flex items-center justify-center border-red-500 text-red-500 shadow-md">
-                sun
-              </div>
-              <span className="px-3 border rounded-sm w-14 h-5 flex items-center justify-center border-green-500 text-green-500 shadow-md">
-                mon
-              </span>
-              <span className="px-3 border rounded-sm w-14 h-5 flex items-center justify-center border-green-500 text-green-500 shadow-md">
-                tue
-              </span>
-              <span className="px-3 border rounded-sm w-14 h-5 flex items-center justify-center border-green-500 text-green-500 shadow-md">
-                wed
-              </span>
-              <span className="px-3 border rounded-sm w-14 h-5 flex items-center justify-center border-green-500 text-green-500 shadow-md">
-                thu
-              </span>
-              <span className="px-3 border rounded-sm w-14 h-5 flex items-center justify-center border-green-500 text-green-500 shadow-md">
-                fri
-              </span>
-              <span className="px-3 border rounded-sm w-14 h-5 flex items-center justify-center border-green-500 text-green-500 shadow-md">
-                sat
-              </span>
-            </div>
-            {/* Calendario */}
-            <div className="flex justify-between font-medium text-sm pb-2">
-              {/* Días del mes */}
-              {/* Aquí va el código para los días del mes */}
-            </div>
-            <button
-                     data-modal-target="authenticationModal8"
-                     data-modal-toggle="authenticationModal8"
-                     type="button"
-                     onClick={toggleModal8}
-              className="text-white bg-indigo-700 hover:bg-indigo-800 focus:ring-4 focus:outline-none focus:ring-indigo-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-            >
-              Reservar
-            </button>
-
-
-            {isModalOpen8 && (
-                <div tabIndex="-1"
-                    aria-hidden="true"
-                    className="fixed top-0 left-0 right-0 bottom-0 flex items-center justify-center bg-black bg-opacity-50 z-50"
-                >
-                    <div className="py-3 sm:max-w-xl sm:mx-auto">
-                        <div className="bg-white min-w-1xl flex flex-col rounded-xl shadow-lg">
-                            <div className="px-12 py-5">
-                                <h2 className="text-gray-800 text-3xl font-semibold">Reserva el servicio</h2>
-                            </div>
-                            <div className="bg-gray-200 w-full flex flex-col items-center">
-                                <div className="flex flex-col items-center py-6 space-y-3">
-                                    <span className="text-lg text-gray-800">Elige el espacio</span>
-                                    <div className="flex space-x-3">
-                                                        <select id="espacio" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                                                            <option defaultValue>Elige espacio</option>
-                                                            <option value="1">Casa de la playa</option>
-                                                            <option value="2">Casa de los abuelos</option>
-                                                            <option value="3">Casa principal</option>
-                                                        </select>
-                                    </div>
-                                </div>
-                                <div className="w-3/4 flex flex-col">
-                                    <textarea rows="3" className="p-4 text-gray-500 rounded-xl resize-none">Escribe las indicaciones necesarias para que el servicio se lleve a cabo</textarea>
-                                    <button className="py-3 my-8 text-lg bg-indigo-700 hover:bg-indigo-800 focus:ring-4 focus:outline-none focus:ring-indigo-300 rounded-xl text-white"
-                                        onClick={hideModal8}
-                                    >Reservar y Pagar</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+          {/* Calendario */}
+          <div className="flex justify-between font-medium text-sm pb-2">
+            <div className="flex flex-col w-full pl-0 md:space-y-4">
+              <div className="flex flex-col">
+                <div className="flex justify-center mt-4">
+                  <button
+                    onClick={() => setShowModal(true)}
+                    className="px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                  >
+                    Añadir Reserva
+                  </button>
                 </div>
-            )}
 
+                {showModal && (
+                  <div className="fixed inset-0 flex items-center justify-center z-10">
+                    <div className="bg-gray-900 opacity-50" />
+                    <div className="bg-white w-1/2 p-6 rounded shadow-lg">
+                      <h2 className="text-lg font-semibold text-gray-800 mb-4">Añadir Reserva</h2>
+                      <div className="mb-4">
+                        <label className="block text-sm font-medium text-gray-700">Fecha:</label>
+                        <div className="flex items-center">
+                          <select value={selectedHome} onChange={handleHomeSelection}>
+                            <option value="">Seleccionar casa</option>
+                            {homeNames.map((homeName) => (
+                              <option key={homeName} value={homeName}>
+                                {homeName}
+                              </option>
+                            ))}
+                          </select>
+                        </div>
+                      </div>
+                      <div className="mb-4">
+                        <label className="block text-sm font-medium text-gray-700">Hora de inicio:</label>
+                        <input
+                          type="datetime-local"
+                          id="starting-time"
+                          className="block w-full p-4 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 sm:text-md focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                          value={startTime}
+                          onChange={handleStartingTimeChange}
+                        />
+                      </div>
+                      <div className="mb-4">
+                        <label className="block text-sm font-medium text-gray-700">Hora de fin:</label>
+                        <input
+                          type="datetime-local"
+                          id="end-time"
+                          className="block w-full p-4 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 sm:text-md focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                          value={endTime}
+                          onChange={handleEndTimeChange}
+                        />
+                      </div>
+                      <div>
+                        <label className="block text-sm font-medium text-gray-700">Diferencia en horas:</label>
+                        <input
+                          type="text"
+                          className="block w-full p-4 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 sm:text-md focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                          value={hourDifference}
+                          readOnly
+                        />
+                      </div>
 
-
-
-
+                      <div className="mt-6 flex justify-end">
+                        <button
+                          onClick={addReservation}
+                          className="px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                        >
+                          Añadir Reserva
+                        </button>
+                        <button
+                          onClick={() => setShowModal(false)}
+                          className="px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-gray-700 bg-gray-200 hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500 ml-3"
+                        >
+                          Cancelar
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                )}
+              </div>
+            </div>
 
           </div>
         </div>
@@ -279,10 +340,10 @@ export const Profileproview = () => {
 
       </div>
       <div className="col-start-1 col-end-3 ">
-          <p className="text-center text-3xl font-bold text-gray-800  lg:leading-tight leading-normal text-gray-600 dark:text-gray-300 mt-7">
-            Valoraciones
-          </p>
-      <Cardvaloracionesporusuario />
+        <p className="text-center text-3xl font-bold text-gray-800  lg:leading-tight leading-normal text-gray-600 dark:text-gray-300 mt-7">
+          Valoraciones
+        </p>
+        <Cardvaloracionesporusuario />
       </div>
     </div>
   );
