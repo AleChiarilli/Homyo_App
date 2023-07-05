@@ -22,7 +22,7 @@ const getState = ({
             // },
             //],
             token: "", //guardamos el token como un string vacio
-            isLoggedIn: false, // si cambio esto a true si se abren los hover
+            isLoggedIn: false,
             role: 'cliente', // Establece el valor por defecto como 'cliente', ¿duplicado? linea 24
             publications: [],
             homePost: [],
@@ -35,7 +35,9 @@ const getState = ({
                 try {
                     const response = await fetch(`${process.env.BACKEND_URL}/api/home_post`)
                     const data = await response.json()
-                    setStore({ homePost: data.results })
+                    setStore({
+                        homePost: data.results
+                    })
                 } catch (error) {
                     console.error(error)
                 }
@@ -67,7 +69,6 @@ const getState = ({
                         body: JSON.stringify({
                             email: email,
                             password: password
-
                         }),
                         headers: {
                             "Content-Type": "application/json",
@@ -76,18 +77,34 @@ const getState = ({
                     const data = await resp.json();
                     if (resp.status === 200) {
                         console.log(data);
+
+                        let homeNames = [];
+                        if (
+                            data.user &&
+                            data.user.cmr_profile &&
+                            data.user.cmr_profile.length > 0 &&
+                            data.user.cmr_profile[0].homes &&
+                            data.user.cmr_profile[0].homes.length > 0
+                        ) {
+                            // Obtener los nombres de todas las casas en la lista
+                            homeNames = data.user.cmr_profile[0].homes.map(home => home.name);
+                        }
+
                         localStorage.setItem("token", data.token);
                         localStorage.setItem("id", data.user.id);
+                        localStorage.setItem("home", JSON.stringify(homeNames));
+
                         setStore({
                             ...getStore(),
                             isLoggedIn: true,
                             user: data.user
                         });
+
                         return true;
                     }
                 } catch (error) {
-                    console.log("Error loading message from backend", error)
-                    return false; //Si se produce algún error dentro del bloque try, se captura en el bloque catch. Aquí, se imprime un mensaje de erro
+                    console.log("Error loading message from backend", error);
+                    return false;
                 }
             },
 
@@ -250,8 +267,7 @@ const getState = ({
                 console.log(token);
                 try {
                     const data = await axios.get(
-                        process.env.BACKEND_URL + "/api/valide-token",
-                        {
+                        process.env.BACKEND_URL + "/api/valide-token", {
                             headers: {
                                 "Content-Type": "application/json",
                                 "Authorization": `Bearer ${token}`,
