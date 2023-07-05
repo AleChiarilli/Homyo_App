@@ -622,6 +622,7 @@ def create_cmr_profile():
 #edicion de CMR_PROFILE
 
 @api.route('/cmr_profile', methods=['PUT'])
+@jwt_required()
 def update_cmr_profile():
     
     user_email = get_jwt_identity()

@@ -27,7 +27,6 @@ export const Profileproshowprofile = () => {
     //FUNCION PARA EL FORM
     const info_professional = async (e) => {
         e.preventDefault();
-        console.log(description)
         await actions.profile_professional(
             //verified,
             dni,
