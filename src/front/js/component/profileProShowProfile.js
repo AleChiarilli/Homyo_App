@@ -12,21 +12,23 @@ export const Profileproshowprofile = () => {
     const { store, actions } = useContext(Context);
 
     //ESTADOS DE LOS INPUTS A RELLENAR POR EL PROESIONAL
-    const [verified, setVerified] = "";
-    const [dni, setDni] = useState("");
-    const [description, setDescription] = useState("");
-    const [address, setAddress] = "";
-    const [city, setCity] = useState("");
-    const [postal_code, setPostal_code] = useState("");
-    const [km_radius, setKm_radius] = useState("");
-    const [phone_number, setPhone_number] = useState("");
-    const [hourly_rate, setHourly_rate] = useState("");
+    //const [verified, setVerified] = useState("");
+    const [dni, setDni] = useState(store.pro_profile && store.pro_profile.dni);
+    const [description, setDescription] = useState(store.pro_profile && store.pro_profile.description);
+    const [address, setAddress] = useState(store.pro_profile && store.pro_profile.address);
+    const [city, setCity] = useState(store.pro_profile && store.pro_profile.city);
+    const [postal_code, setPostal_code] = useState(store.pro_profile && store.pro_profile.postal_code);
+    const [km_radius, setKm_radius] = useState(store.pro_profile && store.pro_profile.km_radius);
+    const [phone_number, setPhone_number] = useState(store.pro_profile && store.pro_profile.phone_number);
+    const [hourly_rate, setHourly_rate] = useState(store.pro_profile && store.pro_profile.hourly_rate);
+    const [seleccionados, setSeleccionados] = useState([]);
+
 
     //FUNCION PARA EL FORM
     const info_professional = async (e) => {
         e.preventDefault();
-        await actions.get_profile_info({
-            verified,
+        await actions.profile_professional(
+            //verified,
             dni,
             description,
             address,
@@ -35,17 +37,14 @@ export const Profileproshowprofile = () => {
             km_radius,
             phone_number,
             hourly_rate,
-        }); // Envía los datos del usuario utilizando la acción addUser del objeto actions
+        ); // Envía los datos del usuario utilizando la acción addUser del objeto actions
     };
 
-    ///
+     //USEEFFECT PARA QUE CARGUE LA INFORMACION DEL FORMULARIO
+     useEffect(() => {
+        actions.get_profile_info();
+    }, []);
 
-    // const submit_prof_profile = async (e) => {
-    //     e.preventDefault()
-    //     await actions.login(profile_pic,description,address,postal_code,phone_number,hourly_rate)
-    // }
-
-    const [seleccionados, setSeleccionados] = useState([]);
 
     const handleSeleccionar = (id) => {
         if (seleccionados.includes(id)) {
@@ -54,10 +53,7 @@ export const Profileproshowprofile = () => {
             setSeleccionados([...seleccionados, id]);
         }
     };
-    //USEEFFECT PARA QUE CARGUE LA INFORMACION DEL FORMULARIO
-    useEffect(() => {
-        actions.get_profile_info();
-    }, []);
+   
 
     return (
         <div className="flex flex-col w-full pl-0 md:p-4 md:space-y-4">
@@ -139,6 +135,7 @@ export const Profileproshowprofile = () => {
                                             id="floating_id"
                                             className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                                             placeholder="DNI"
+                                            value={dni}
                                             required
                                         />
                                         <label
@@ -157,6 +154,7 @@ export const Profileproshowprofile = () => {
                                                 id="floating_adress"
                                                 className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                                                 placeholder="Dirección "
+                                                value={address}
                                                 required
                                             />
                                             <label
@@ -174,6 +172,7 @@ export const Profileproshowprofile = () => {
                                                 id="floating_cp"
                                                 className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                                                 placeholder="Código Postal "
+                                                value={postal_code}
                                                 required
                                             />
                                             <label
@@ -188,7 +187,8 @@ export const Profileproshowprofile = () => {
                                                 name="floating_city"
                                                 id="floating_city"
                                                 className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                                                placeholder="Radio de trabajo en km"
+                                                placeholder="Ciudad"
+                                                value={city}
                                                 required
                                             />
                                             <label
@@ -205,7 +205,8 @@ export const Profileproshowprofile = () => {
                                                 name="floating_radio"
                                                 id="floating_radio"
                                                 className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                                                placeholder="Ciudad"
+                                                placeholder="Distancia Km"
+                                                value={km_radius}
                                                 required
                                             />
                                             <label
@@ -223,6 +224,7 @@ export const Profileproshowprofile = () => {
                                                 id="floating_price"
                                                 className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                                                 placeholder="Precio/hora"
+                                                value={hourly_rate}
                                                 required
                                             />
                                             <label
@@ -243,6 +245,7 @@ export const Profileproshowprofile = () => {
                                                 id="floating_phone"
                                                 className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                                                 placeholder="Teléfono "
+                                                value={phone_number}
                                                 required
                                             />
                                             <label
@@ -256,7 +259,9 @@ export const Profileproshowprofile = () => {
                                         <p className="p-4 font-bold text-black text-md text-center dark:text-white">
                                             Descripción
                                         </p>
-                                        <form>
+                                        {/* <form
+                                         onSubmit={(e) => info_professional(e)}> */}
+                                            
                                             <div className="w-full mb-4 border border-gray-200 rounded-lg bg-gray-50 dark:bg-gray-700 dark:border-gray-600">
                                                 <div className="px-4 py-2 bg-white rounded-t-lg dark:bg-gray-800">
                                                     <label htmlFor="comment" className="sr-only">
@@ -271,11 +276,12 @@ export const Profileproshowprofile = () => {
                                                         rows="4"
                                                         className="w-full px-0 text-sm text-gray-900 bg-white border-0 dark:bg-gray-800 focus:ring-0 dark:text-white dark:placeholder-gray-400"
                                                         placeholder="Descríbete..."
+                                                        value={description}
                                                         required
                                                     ></textarea>
                                                 </div>
                                             </div>
-                                        </form>
+                                        {/* </form> */}
                                     </div>
 
                                     <p className="p-4 font-bold text-black text-md text-center dark:text-white">

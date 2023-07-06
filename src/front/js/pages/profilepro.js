@@ -41,7 +41,18 @@ export const Profilepro = () => {
     setShowCalendar(false);
     setShowContracts(false);
     setShowMessages(true);
+    
   };
+  //guardamos el correo electronico con el que se ha registrado por defecto.
+  useEffect(()=>{
+    const emailInput = document.querySelector("#floating_email");
+    emailInput.value= store.user.email
+  
+    const nameInput = document.querySelector("#floating_first_name");
+    nameInput.value= store.user.username
+    
+  },[store.user.email, store.user.dni, store.user.address, store.user.postal_code, store.user.city, store.user.hourly_rate]) 
+    
 
 
   return (

@@ -557,26 +557,26 @@ def delete_pro_profile():
     return jsonify(response_body), 200
 
 #----------------ENDPOINTS CMR_PROFILE---------------
-@api.route('/cmr_profile', methods=['GET'])
-# Acceso protegido
-# # @jwt_required()
-def get_cmr_profiles():
+# @api.route('/cmr_profile', methods=['GET'])
+# # Acceso protegido
+# # # @jwt_required()
+# def get_cmr_profiles():
 
-    results = Cmr_profile.query.all()
-    cmr_profile_list = list(map(lambda item: item.serialize(),results))
+#     results = Cmr_profile.query.all()
+#     cmr_profile_list = list(map(lambda item: item.serialize(),results))
 
 
-    response_body = {
-        "msg": "Hello, this is your GET /cmr_profile response ",
-        "results": cmr_profile_list
-    }
+#     response_body = {
+#         "msg": "Hello, this is your GET /cmr_profile response ",
+#         "results": cmr_profile_list
+#     }
 
-    return jsonify(response_body), 200
+#     return jsonify(response_body), 200
 
 # endpoint para consultar un dato en CMR_PROFILE
 @api.route('/cmr_profile', methods=['GET'])
 # Acceso protegido
-# # @jwt_required()
+@jwt_required()
 def get_single_cmr_profile():
 
     user_email = get_jwt_identity()
@@ -624,6 +624,7 @@ def create_cmr_profile():
 #edicion de CMR_PROFILE
 
 @api.route('/cmr_profile', methods=['PUT'])
+@jwt_required()
 def update_cmr_profile():
     
     user_email = get_jwt_identity()
@@ -761,18 +762,21 @@ def delete_skill(id):
 
 #----------------ENDPOINTS PRO_PROFILE_SKILL-----------
 
-@api.route('/pro_profile_skill', methods=['GET'])
+
+#ruta para encontrar mis funciones en mi perfil profesional
+@api.route('/my_pro_profile_skill_list', methods=['GET'])
 # Acceso protegido
-# @jwt_required()
+@jwt_required()
 def get_pro_profile_skill():
 
-    results = Pro_profile_skill.query.all()
-    pro_profile_skills_list = list(map(lambda item: item.serialize(),results))
-
+    user_email = get_jwt_identity()
+    user = User.query.filter_by(email=user_email).first()
+    pro_profile = Pro_profile.query.filter_by(user_id=user.id).first()
+    pro_skills = Pro_profile_skill.query.filter_by(pro_profile_id=pro_profile.id).all()
 
     response_body = {
         "msg": "Hello, this is your GET /pro_user_profile response ",
-        "results": pro_profile_skills_list
+        "results": [skill.serialize() for skill in pro_skills]
     }
 
     return jsonify(response_body), 200
@@ -781,7 +785,7 @@ def get_pro_profile_skill():
 
 @api.route('/pro_profile_skill/<int:id>', methods=['GET'])
 # Acceso protegido
-# @jwt_required()
+@jwt_required()
 def get_single_pro_profile_skill(id):
     print(id)
 
@@ -802,21 +806,27 @@ def get_single_pro_profile_skill(id):
 # endpoint para crear un dato en tabla PRO_PROFILE_SKILL
 @api.route('/pro_profile_skill', methods=['POST'])
 # Acceso protegido
-# @jwt_required()
+@jwt_required()
 def create_pro_profile_skill():
+
+    user_email = get_jwt_identity()
+    user = User.query.filter_by(email=user_email).first()
+    pro_profile = Pro_profile.query.filter_by(user_id=user.id).first()
 
     body = json.loads(request.data)
     # json.loads(request.body.decode(encoding='UTF-8'))
 
     if body is None:
         raise APIException("You need to specify the request body as a json object", status_code=400)
-    if 'pro_profile_id' not in body:
-        raise APIException('Te falta añadir un id de perfil profesional', status_code=400)
-    if 'skill_id' not in body:
-        raise APIException('Te falta añadir un id de skill/habilidad', status_code=400)
+    if 'skill_name' not in body:
+        raise APIException('Te falta añadir de skill/habilidad', status_code=400)
+
+    skill_name = body['skill_name'] #se envia skill por nombre 
+    skill = Skill.query.filter_by(name=skill_name).first() #se busca skill para añadir a profile skill
+    print(skill)
     
     print(body)
-    pro_profile_skill = Pro_profile_skill(pro_profile_id=body["pro_profile_id"], skill_id=body["skill_id"])
+    pro_profile_skill = Pro_profile_skill(pro_profile_id=pro_profile.id, skill=skill)
     db.session.add(pro_profile_skill)
     db.session.commit()
 
@@ -827,26 +837,30 @@ def create_pro_profile_skill():
     return jsonify(response_body), 200
 
 # endpoint para BORRAR un dato en PRO_PROFILE_SKILL 
-@api.route('/pro_profile_skill/<int:id>', methods=['DELETE'])
+@api.route('/pro_profile_skill/<string:skill_name>', methods=['DELETE'])
 # Acceso protegido
-# @jwt_required()
-def delete_pro_profile_skill(id):
-    print(id)
+@jwt_required()
+def delete_pro_profile_skill(skill_name):
 
-    pro_profile_skill = Pro_profile_skill.query.filter_by(id=id).first()
-# # comprobamos que existe un PRO_PROFILE_SKILL con ese id, si no es asi, respondemos un mensaje de error
-    if pro_profile_skill is None:
-        raise APIException("No hay un pro_profile_skill con ese ID", status_code=404)
+    user_email = get_jwt_identity()
+    user = User.query.filter_by(email=user_email).first()
+    pro_profile = Pro_profile.query.filter_by(user_id=user.id).first()
+
+    skill_name = skill_name #se envia skill por nombre en ruta
+    skill = Skill.query.filter_by(name=skill_name).first() #se busca skill para añadir a profile skill
+    pro_profile_skills = Pro_profile_skill.query.filter_by(pro_profile_id=pro_profile.id).all()
+    pro_profile_skill = pro_profile_skills.query.filter_by(skill_id=skill.id).first()
 
     db.session.delete(pro_profile_skill)
     db.session.commit()
 
     response_body = {
-        "msg": "El pro_profile_skill ha sido borrado",
+        "msg": "El pro_profile_skill ha sido borrado"
     }
 
+    return jsonify(response_body), 200
 #----------------ENDPOINTS HOME---------------
-@api.route('/home', methods=['GET'])
+@api.route('/homes', methods=['GET'])
 # Acceso protegido
 @jwt_required()
 def get_home():
@@ -914,9 +928,11 @@ def get_single_home(id):
 # Acceso protegido
 @jwt_required()
 def create_home():
+
     user_email = get_jwt_identity()
     user = User.query.filter_by(email=user_email).first()
     cmr_profile = Cmr_profile.query.filter_by(user_id=user.id).first()
+
     body = json.loads(request.data)
     # json.loads(request.body.decode(encoding='UTF-8'))
 
@@ -929,9 +945,7 @@ def create_home():
 
     
     print(body)
-    home = Home(name=body["nameSpace"], city=body["nameCity"], postal_code=body["postalCodeSpace"], address=body["addressSpace"],
-                description=body["DescriptionSpace"], skills=body["skills"], cmr_profile_id=cmr_profile.id
-                )
+    home = Home(name=body["name"], city=body["city"], postal_code=body["postal_code"], address=body["address"], description=body["description"], cmr_profile_id=cmr_profile.id)
     db.session.add(home)
     db.session.commit()
 
@@ -951,7 +965,7 @@ def update_home():
     user = User.query.filter_by(email=user_email).first()
     cmr_profile = Cmr_profile.query.filter_by(user_id=user.id).first()
     homes = Home.query.filter_by(cmr_profile_id=cmr_profile.id).all() 
-    home = Home.query.filter_by(name=homes.name).all()   
+    home = Home.query.filter_by(name=homes.name).first()   
 
     # comprobamos que existe una casa con ese id, si no es asi, respondemos un mensaje de error
     if home is None:
@@ -1010,11 +1024,6 @@ def get_home_post():
     home_posts_list = list(map(lambda item: item.serialize(),results))
     print(home_posts_list)
 
-    # Filter the query based on the city parameter if it exists
-    # query = Home_Post.query
-    # if city:
-    #     query = query.filter_by(Home_Post.home.city.ilike(f'%{city}%')).all()
-
     response_body = {
         "msg": "Hello, this is your GET /pro_user_profile response ",
         "results": home_posts_list
@@ -1051,7 +1060,7 @@ def get_home_post_city(city):
 
 @api.route('/home_post/<int:id>', methods=['GET'])
 # Acceso protegido
-# @jwt_required()
+@jwt_required()
 def get_single_home_post(id):
     print(id)
 
@@ -1111,6 +1120,7 @@ def create_home_post():
     return jsonify(response_body), 200
 # enpoint editar HOME_POST
 @api.route('/home_post/<int:id>', methods=['PUT'])
+@jwt_required()
 def update_home_post(id):
     
     home_post = Home_Post.query.filter_by(id=id).first()
@@ -1144,7 +1154,7 @@ def update_home_post(id):
 # endpoint para BORRAR un dato en HOME_POST 
 @api.route('/home_post/<int:id>', methods=['DELETE'])
 # Acceso protegido
-# @jwt_required()
+@jwt_required()
 def delete_home_post(id):
     print(id)
 

@@ -8,16 +8,35 @@ export const Nowornever = () => {
     const [isModalOpen4, setIsModalOpen4] = useState(false);
     const { actions, store } = useContext(Context);
     const [toggleActive, setToggleActive] = useState(true); // Establece el interruptor como activado por defecto
-  
+    const [username, setUsername] = useState("");
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const [role, setRole] = useState("");
+
     const handleToggleActive = () => {
-      setToggleActive(!toggleActive); // Invierte el estado del interruptor al hacer clic
-      const role = toggleActive ? "profesional" : "cliente"; // Determina el rol actual en función del estado del interruptor
-      handleRoleChange(role); // Llama a la función para cambiar el rol
+        setToggleActive(!toggleActive);
+        const role = toggleActive ? "profesional" : "cliente";
+        handleRoleChange(role);
     };
-  
+
+    const handleRoleChange = (role) => {
+        setRole(role);
+        actions.setRole(role);
+        console.log("Nuevo rol:", role);
+    };
+
+    const setRoleOnLoad = () => {
+        handleRoleChange("cliente");
+    };
+
+    useEffect(() => {
+        setRoleOnLoad();
+    }, []);
+
     const submitUser = async (e) => {
         e.preventDefault();
-        await actions.addUser({ username, email, password, role }); // Envía los datos del usuario utilizando la acción addUser del objeto actions
+        await actions.addUser({ username, email, password, role_name: role });
+        hideModal4();
     };
 
 
@@ -202,15 +221,6 @@ return (
                     </button>
                   </div>
                 </form>
-              </div>
-              <div className="flex items-center justify-center mt-6">
-                <a
-                  href="#"
-                  target="_blank"
-                  className="inline-flex items-center text-xs font-thin text-center text-gray-500 hover:text-gray-700 dark:text-gray-100 dark:hover:text-white"
-                >
-                  <span className="ml-2">¿Ya tienes cuenta?</span>
-                </a>
               </div>
             </div>
           </div>
