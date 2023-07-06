@@ -28,7 +28,7 @@ export const Cardannounces = () => {
               Horas: 4
             </div>
           </div>
-          <h3 className="font-black text-gray-800 dark:text-white md:text-3xl text-xl">Casa de la playa</h3>
+          <h3 className="font-black text-gray-800 dark:text-white md:text-3xl text-xl">Casa de la Playa</h3>
           <p className="md:text-lg text-gray-500 dark:text-white text-base">Servicios Contratados</p>
           <div className="flex justify-center">
             <ul className="flex flex-wrap">

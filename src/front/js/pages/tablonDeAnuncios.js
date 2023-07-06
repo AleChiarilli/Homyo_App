@@ -29,7 +29,9 @@ export const TablonDeAnuncios = () => {
     dropdown.classList.toggle("hidden");
   };
   const [filledStars, setFilledStars] = useState(0);
-  const { store, actions } = useContext(Context)
+
+  const { store, actions } = useContext(Context);
+
   const handleStarMouseEnter = (index) => {
     setFilledStars(index + 1);
   };
@@ -371,9 +373,11 @@ export const TablonDeAnuncios = () => {
           <div className="w-full sm:w-auto">
             <div className="flex flex-col items-center">
               <div className="max-w-3xl w-full mx-auto z-10">
-              <div className="flex flex-col max-h-[1000px] overflow-y-auto">
+                <div className="flex flex-col max-h-[1000px] overflow-y-auto">
                   {store.homePost.map((item, index) => (
-                    <CardAnnounce key={index} description={item.description} address={item.home_address} startingTime={item.starting_time} finishingTime={item.finishing_time} />
+                    <CardAnnounce key={index} timeDifference={item.time_difference} description={item.description}
+                    address={item.home_address} startingTime={item.starting_time} finishingTime={item.finishing_time}
+                    name={item.home_name} skill={item.skills.skill}/>
                   ))}
 
                 </div>

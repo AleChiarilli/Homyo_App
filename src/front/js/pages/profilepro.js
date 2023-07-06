@@ -15,6 +15,10 @@ export const Profilepro = () => {
   const [showContracts, setShowContracts] = useState(false);
   const [showMessages, setShowMessages] = useState(false);
 
+  useEffect(() => {
+    actions.getSkills();
+  }, []);
+
   const handleProfileClick = () => {
     setShowProfile(true);
     setShowCalendar(false);
@@ -41,18 +45,18 @@ export const Profilepro = () => {
     setShowCalendar(false);
     setShowContracts(false);
     setShowMessages(true);
-    
+
   };
   //guardamos el correo electronico con el que se ha registrado por defecto.
-  useEffect(()=>{
+  useEffect(() => {
     const emailInput = document.querySelector("#floating_email");
-    emailInput.value= store.user.email
-  
+    emailInput.value = store.user.email
+
     const nameInput = document.querySelector("#floating_first_name");
-    nameInput.value= store.user.username
-    
-  },[store.user.email, store.user.dni, store.user.address, store.user.postal_code, store.user.city, store.user.hourly_rate]) 
-    
+    nameInput.value = store.user.username
+
+  }, [store.user.email, store.user.dni, store.user.address, store.user.postal_code, store.user.city, store.user.hourly_rate])
+
 
 
   return (

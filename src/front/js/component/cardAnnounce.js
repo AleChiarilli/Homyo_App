@@ -1,5 +1,4 @@
-import React, { useState, useContext } from "react";
-import { Context } from "react";
+import React, { useState } from "react";
 import limpieza from "../../img/limpieza.png";
 import animales from "../../img/animales.png";
 import jardineria from "../../img/jardineria.png";
@@ -10,7 +9,7 @@ import house from "../../img/house.png";
 
 
 
-export const CardAnnounce = ({ description, address, startingTime, finishingTime }) => {
+export const CardAnnounce = ({ description, address, startingTime, finishingTime, name, timeDifference, skill}) => {
   const [isModalOpen100, setIsModalOpen100] = useState(false); // Estado del primer modal
 
   // const {store} = useContext(Context)
@@ -40,10 +39,10 @@ export const CardAnnounce = ({ description, address, startingTime, finishingTime
               Fin: {finishingTime}
             </div>
             <div className="bg-gray-200 px-3 py-1 rounded-full text-xl font-medium text-gray-800 dark:text-white hidden md:block">
-              Horas: 4
+              Horas: {timeDifference}
             </div>
           </div>
-          <h3 className="font-black text-gray-800 dark:text-white md:text-3xl text-xl">Casa de la playa</h3>
+          <h3 className="font-black text-gray-800 dark:text-white md:text-3xl text-xl">{name}</h3>
           <p>{address}</p>
           <p className="md:text-lg text-gray-500 dark:text-white text-base">Servicios Contratados</p>
           <div className="flex justify-center">
@@ -133,7 +132,7 @@ export const CardAnnounce = ({ description, address, startingTime, finishingTime
                   </div>
                   <div className="flex flex-col">
                     <span className="text-lg font-medium text-gray-600 dark:text-white">
-                      Jardineria
+                      Jardineria {skill}
                     </span>
                   </div>
                 </div>
