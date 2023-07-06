@@ -43,6 +43,14 @@ export const Profilepro = () => {
     setShowMessages(true);
     
   };
+  useEffect(()=>{
+    const emailInput = document.querySelector("#floating_email");
+    emailInput.value= store.user.email
+
+    const nameInput = document.querySelector("#floating_first_name");
+    nameInput.value= store.user.username
+
+  },[]) 
 
   return (
     <main className="max-w-screen-xl overflow-hidden dark:bg-gray-800 rounded-2xl mt-20 mx-auto">

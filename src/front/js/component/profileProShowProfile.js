@@ -13,9 +13,9 @@ export const Profileproshowprofile = () => {
 
     //ESTADOS DE LOS INPUTS A RELLENAR POR EL PROESIONAL
     //const [verified, setVerified] = useState("");
-    const [username, setUsername] = useState(store.cmr_profile && store.cmr_profile.username)
-    const [surname1, setSurname1] = useState(store.cmr_profile && store.cmr_profile.surname1)
-    const [email, setEmail] = useState(store.cmr_profile && store.cmr_profile.email)
+    const [username, setUsername] = useState(store.pro_profile && store.pro_profile.username)
+    const [surname1, setSurname1] = useState(store.pro_profile && store.pro_profile.surname1)
+    const [email, setEmail] = useState(store.pro_profile && store.pro_profile.email)
     const [dni, setDni] = useState(store.pro_profile && store.pro_profile.dni);
     const [description, setDescription] = useState(store.pro_profile && store.pro_profile.description);
     const [address, setAddress] = useState(store.pro_profile && store.pro_profile.address);
