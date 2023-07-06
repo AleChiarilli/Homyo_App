@@ -505,8 +505,8 @@ def update_pro_profile():
     if role:
         user_role = User_role(user=user, role=role)
         db.session.add(user_role)
-    db.session.add(user_role)
-
+        db.session.commit()
+        
     # Retrieve the data to update from the request body
     data = request.json
 

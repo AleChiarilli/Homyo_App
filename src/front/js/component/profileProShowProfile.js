@@ -13,6 +13,9 @@ export const Profileproshowprofile = () => {
 
     //ESTADOS DE LOS INPUTS A RELLENAR POR EL PROESIONAL
     //const [verified, setVerified] = useState("");
+    const [username, setUsername] = useState(store.cmr_profile && store.cmr_profile.username)
+    const [surname1, setSurname1] = useState(store.cmr_profile && store.cmr_profile.surname1)
+    const [email, setEmail] = useState(store.cmr_profile && store.cmr_profile.email)
     const [dni, setDni] = useState(store.pro_profile && store.pro_profile.dni);
     const [description, setDescription] = useState(store.pro_profile && store.pro_profile.description);
     const [address, setAddress] = useState(store.pro_profile && store.pro_profile.address);
@@ -22,6 +25,8 @@ export const Profileproshowprofile = () => {
     const [phone_number, setPhone_number] = useState(store.pro_profile && store.pro_profile.phone_number);
     const [hourly_rate, setHourly_rate] = useState(store.pro_profile && store.pro_profile.hourly_rate);
     const [seleccionados, setSeleccionados] = useState([]);
+    console.log(store.pro_profile);
+
 
 
     //FUNCION PARA EL FORM
@@ -72,11 +77,13 @@ export const Profileproshowprofile = () => {
                                     <div className="grid md:grid-cols-3 md:gap-6">
                                         <div className="relative z-0 w-full mb-6 group">
                                             <input
+                                                onChange={(event) => setUsername(event.target.value)}
                                                 type="text"
                                                 name="floating_first_name"
                                                 id="floating_first_name"
                                                 className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                                                 placeholder="Nombre "
+                                                value={store.pro_profile && store.pro_profile.username }
                                                 required
                                             />
                                             <label
@@ -86,11 +93,13 @@ export const Profileproshowprofile = () => {
                                         </div>
                                         <div className="relative z-0 w-full mb-6 group">
                                             <input
+                                              onChange={(event) => setSurname1(event.target.value)}
                                                 type="text"
                                                 name="floating_last_name"
                                                 id="floating_last_name"
                                                 className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                                                 placeholder="Apellido 1"
+                                                value={surname1}
                                                 required
                                             />
                                             <label
@@ -115,11 +124,13 @@ export const Profileproshowprofile = () => {
                                     </div>
                                     <div className="relative z-0 w-full mb-6 group">
                                         <input
+                                          onChange={(event) => setEmail(event.target.value)}
                                             type="email"
                                             name="floating_email"
                                             id="floating_email"
                                             className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                                             placeholder="Email"
+                                            value={email}
                                             required
                                         />
                                         <label

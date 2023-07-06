@@ -11,26 +11,7 @@ import { Profileclientshowcontracts } from "../component/profileClientShowContra
 
 export const Profileclient = () => {
   const { store } = useContext(Context);
-
-  //ESTADOS DE LOS INPUTS A RELLENAR POR EL CLIENTE
-  const [description, setDescription] = useState("");
-  const [phone_number, setPhone_number] = useState("");
   
-  //FUNCION PARA EL FORM (INFORMACION DEL CLIENTE)
-  const info_customer = async (e) => {
-    e.preventDefault();
-    await actions.profile_customer(description,phone_number
-    ); // Envía los datos del usuario
-  };
-//gaurdamos su correo con el mismo que se registro por defecto
-  useEffect(()=>{
-    const emailInput = document.querySelector("#floating_email");
-    emailInput.value= store.user.email
-
-    const nameInput = document.querySelector("#floating_first_name");
-    nameInput.value= store.user.username
-
-  },[]) 
 
   ///
   const [showProfile, setShowProfile] = useState(true);

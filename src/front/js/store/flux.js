@@ -26,7 +26,9 @@ const getState = ({
             role: 'cliente', // Establece el valor por defecto como 'cliente', ¿duplicado? linea 24
             publications: [],
             homePost: [],
-            user: {}
+            user: {},
+            pro_profile: {},
+            cmr_profile:{}
 
         },
         actions: {
@@ -146,7 +148,6 @@ const getState = ({
                     }
                     );
                     const data = await response.json();
-                    console.log(data);
                 } catch (error) {
                     console.log("error loading message from backend", error);
                 }
@@ -219,26 +220,11 @@ const getState = ({
                     );
                     const data = await response.json();
                     setStore({ cmr_profile: data.result})
-                    console.log(data);
+                    console.log("------------------------------------------------",data);
                 } catch (error) {
                     console.log("error loading message from backend", error);
                 }
             },
-
-
-            // get_profile_customer_info: async (id) => {
-            //     const userId = localStorage.getItem("id");
-            //     console.log(userId);
-            //     try {
-            //         const response = await fetch(
-            //             process.env.BACKEND_URL + "/api/cmr_profile/" + userId
-            //         );
-            //         const data = await response.json();
-            //         console.log(data);
-            //     } catch (error) {
-            //         console.log("error loading message from backend", error);
-            //     }
-            // },
 
             //FETCH PARA CREAR UN ESPACIO/HOME
             addHome: async (home) => {
