@@ -1,14 +1,8 @@
 """empty message
 
-<<<<<<<< HEAD:migrations/versions/b85d45f60341_.py
-Revision ID: b85d45f60341
+Revision ID: 18c5574f7887
 Revises: 
-Create Date: 2023-07-04 19:13:52.844473
-========
-Revision ID: 1c088b739516
-Revises: 
-Create Date: 2023-07-06 09:02:42.049152
->>>>>>>> main:migrations/versions/1c088b739516_.py
+Create Date: 2023-07-06 16:51:06.040716
 
 """
 from alembic import op
@@ -16,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = '1c088b739516'
+revision = '18c5574f7887'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -56,7 +50,6 @@ def upgrade():
     )
     op.create_table('pro_profile',
     sa.Column('id', sa.Integer(), nullable=False),
-    sa.Column('verified', sa.Boolean(), nullable=False),
     sa.Column('user_id', sa.Integer(), nullable=True),
     sa.Column('dni', sa.String(length=255), nullable=True),
     sa.Column('description', sa.String(length=255), nullable=True),
@@ -86,6 +79,7 @@ def upgrade():
     sa.Column('postal_code', sa.Integer(), nullable=True),
     sa.Column('description', sa.String(length=255), nullable=True),
     sa.Column('cmr_profile_id', sa.Integer(), nullable=True),
+    sa.Column('decode_city', sa.String(length=200), nullable=True),
     sa.ForeignKeyConstraint(['cmr_profile_id'], ['cmr_profile.id'], ),
     sa.PrimaryKeyConstraint('id')
     )

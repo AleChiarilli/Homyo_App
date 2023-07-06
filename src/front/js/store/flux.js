@@ -27,7 +27,8 @@ const getState = ({
             publications: [],
             homePost: [],
             user: {},
-            skills: []
+            skills: [],
+            myHomes: null
 
         },
         actions: {
@@ -43,7 +44,9 @@ const getState = ({
                         },
                     })
                     const data = await response.json()
-                    setStore({ homePost: data.results })
+                    setStore({
+                        homePost: data.results
+                    })
                     console.log(data);
                     console.log(response);
                 } catch (error) {
@@ -63,7 +66,29 @@ const getState = ({
                         },
                     })
                     const data = await response.json()
-                    setStore({ skills: data.results })
+                    setStore({
+                        skills: data.results
+                    })
+                    console.log(data);
+                    console.log(response);
+                } catch (error) {
+                    console.error(error)
+                }
+            },
+            getMyHomes: async () => {
+                const token = localStorage.getItem("token");
+                try {
+                    const response = await fetch(`${process.env.BACKEND_URL}/api/homes`, {
+                        method: "GET",
+                        headers: {
+                            "Content-Type": "application/json",
+                            "Authorization": `Bearer ${token}`,
+                        },
+                    })
+                    const data = await response.json()
+                    setStore({
+                        myHomes: data.results
+                    })
                     console.log(data);
                     console.log(response);
                 } catch (error) {
@@ -83,7 +108,9 @@ const getState = ({
                         },
                     })
                     const data = await response.json()
-                    setStore({ homePost: data.results })
+                    setStore({
+                        homePost: data.results
+                    })
                     // console.log(data);
                     // console.log(response);
                 } catch (error) {
@@ -174,24 +201,24 @@ const getState = ({
 
                     const response = await fetch(
                         process.env.BACKEND_URL + "/api/pro_profile/", {
-                        method: "PUT",
-                        body: JSON.stringify({
-                            user_id: userId,
-                            dni: dni,
-                            description: description,
-                            address: address,
-                            city: city,
-                            postal_code: postal_code,
-                            km_radius: km_radius,
-                            phone_number: phone_number,
-                            hourly_rate: hourly_rate,
-                        }),
-                        headers: {
-                            "Content-Type": "application/json",
-                            "Authorization": `Bearer ${localStorage.getItem("token")}`
+                            method: "PUT",
+                            body: JSON.stringify({
+                                user_id: userId,
+                                dni: dni,
+                                description: description,
+                                address: address,
+                                city: city,
+                                postal_code: postal_code,
+                                km_radius: km_radius,
+                                phone_number: phone_number,
+                                hourly_rate: hourly_rate,
+                            }),
+                            headers: {
+                                "Content-Type": "application/json",
+                                "Authorization": `Bearer ${localStorage.getItem("token")}`
 
-                        },
-                    }
+                            },
+                        }
                     );
                     const data = await response.json();
                     console.log(data);
@@ -207,15 +234,17 @@ const getState = ({
                 try {
                     const response = await fetch(
                         process.env.BACKEND_URL + "/api/pro_profile/", {
-                        method: "GET",
-                        headers: {
-                            "Content-Type": "application/json",
-                            "Authorization": `Bearer ${token}`,
-                        },
-                    }
+                            method: "GET",
+                            headers: {
+                                "Content-Type": "application/json",
+                                "Authorization": `Bearer ${token}`,
+                            },
+                        }
                     );
                     const data = await response.json();
-                    setStore({ pro_profile: data.result })
+                    setStore({
+                        pro_profile: data.result
+                    })
                     console.log(data);
                 } catch (error) {
                     console.log("error loading message from backend", error);
@@ -231,16 +260,16 @@ const getState = ({
 
                     const response = await fetch(
                         process.env.BACKEND_URL + "/api/cmr_profile", {
-                        method: "PUT",
-                        body: JSON.stringify({
-                            user_id: userId,
-                            phone_number: phone_number,
-                        }),
-                        headers: {
-                            "Content-Type": "application/json",
-                            "Authorization": `Bearer ${localStorage.getItem("token")}`
-                        },
-                    }
+                            method: "PUT",
+                            body: JSON.stringify({
+                                user_id: userId,
+                                phone_number: phone_number,
+                            }),
+                            headers: {
+                                "Content-Type": "application/json",
+                                "Authorization": `Bearer ${localStorage.getItem("token")}`
+                            },
+                        }
                     );
                     const data = await response.json();
                     console.log(data);
@@ -258,15 +287,17 @@ const getState = ({
                 try {
                     const response = await fetch(
                         process.env.BACKEND_URL + "/api/cmr_profile", {
-                        method: "GET",
-                        headers: {
-                            "Content-Type": "application/json",
-                            "Authorization": `Bearer ${token}`,
-                        },
-                    }
+                            method: "GET",
+                            headers: {
+                                "Content-Type": "application/json",
+                                "Authorization": `Bearer ${token}`,
+                            },
+                        }
                     );
                     const data = await response.json();
-                    setStore({ cmr_profile: data.result })
+                    setStore({
+                        cmr_profile: data.result
+                    })
                     console.log(data);
                 } catch (error) {
                     console.log("error loading message from backend", error);
@@ -316,11 +347,11 @@ const getState = ({
                 try {
                     const data = await axios.get(
                         process.env.BACKEND_URL + "/api/valide-token", {
-                        headers: {
-                            "Content-Type": "application/json",
-                            "Authorization": `Bearer ${token}`,
-                        },
-                    }
+                            headers: {
+                                "Content-Type": "application/json",
+                                "Authorization": `Bearer ${token}`,
+                            },
+                        }
                     );
                     if (data.status === 200) {
                         console.log(data);

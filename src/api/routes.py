@@ -945,7 +945,9 @@ def create_home():
 
     
     print(body)
-    home = Home(name=body["name"], city=body["city"], postal_code=body["postal_code"], address=body["address"], description=body["description"], cmr_profile_id=cmr_profile.id)
+    decode_city = unidecode.unidecode(body["nameCity"].replace(' ', '').replace('-', '').lower())
+
+    home = Home(name=body["nameSpace"], city=body["nameCity"], postal_code=body["postalCodeSpace"], address=body["addressSpace"], description=body["DescriptionSpace"], cmr_profile_id=cmr_profile.id, decode_city=decode_city)
     db.session.add(home)
     db.session.commit()
 
@@ -1043,7 +1045,7 @@ def get_home_post_city(city):
     print(home_list)
     results = []
     for home in home_list:
-        homes = Home_Post.query.filter_by(home_id = home.id).all()
+        homes = Home_Post.query.filter_by(home_id = home.id).first()
         results.append(homes)
     home_posts_list = list(map(lambda item: item.serialize(),results))
     print(results)
@@ -1078,6 +1080,37 @@ def get_single_home_post(id):
     }
 
     return jsonify(response_body), 200
+
+# @api.route('/home_post', methods=['POST'])
+# # Acceso protegido
+# @jwt_required()
+# def create_home_post():
+#     user_email = get_jwt_identity()
+#     user = User.query.filter_by(email=user_email).first()
+#     cmr_profile = Cmr_profile.query.filter_by(user_id=user.id).first()
+#     body = json.loads(request.data)
+#     # json.loads(request.body.decode(encoding='UTF-8'))
+#     if body is None:
+#         raise APIException("You need to specify the request body as a json object", status_code=400)
+#     if 'home_id' not in body:
+#         raise APIException('Te falta añadir un id de casa', status_code=400)
+#     if 'description' not in body:
+#         raise APIException('Te falta añadir una descripción', status_code=400)
+#     print(body)
+#     home_post = Home_Post(home_id=body["home_id"], description=body["description"], latitude=body["latitude"],longitude=body["longitude"],starting_time=body["starting_time"], finishing_time=body["finishing_time"])
+#     db.session.add(home_post)
+#     db.session.commit()
+#     skill_name = body.get("skill_name")
+#     skill = Skill.query.filter_by(name=skill_name).first() #se busca skill para añadir a profile skill
+#     if skill:
+#         post_skills = Post_skills(home_post=home_post, skill=skill)
+#         db.session.add(post_skills)
+#         db.session.commit() #se agrega el commit para guardar.
+#     response_body = {
+#         "msg": "Tu nuevo anuncio ha sido creado",
+#         "your_new_post": home_post.serialize()
+#     }
+#     return jsonify(response_body), 200
 
 # endpoint para crear un dato en tabla HOME_POST
 @api.route('/home_post', methods=['POST'])

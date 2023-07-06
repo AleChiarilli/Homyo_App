@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import house from "../../img/house.png";
 
-export const Cardspaces = () => {
+export const Cardspaces = (props) => {
   const [editing, setEditing] = useState(false);
   const [direccion, setDireccion] = useState("");
   const [codigoPostal, setCodigoPostal] = useState("");
@@ -47,7 +47,7 @@ export const Cardspaces = () => {
                 />
               ) : (
                 <h5 className="text-xl tracking-tight text-gray-900 dark:text-white">
-                  {direccion}
+                  {props.address}
                 </h5>
               )}
             </div>
@@ -64,7 +64,7 @@ export const Cardspaces = () => {
                 />
               ) : (
                 <h5 className="text-xl tracking-tight text-gray-900 dark:text-white">
-                  {codigoPostal}
+                  {props.postalCode}
                 </h5>
               )}
             </div>
@@ -81,7 +81,7 @@ export const Cardspaces = () => {
                 />
               ) : (
                 <h5 className="text-xl tracking-tight text-gray-900 dark:text-white">
-                  {codigoPostal}
+                  {props.name}
                 </h5>
               )}
             </div>
@@ -98,7 +98,7 @@ export const Cardspaces = () => {
                 />
               ) : (
                 <h5 className="text-xl tracking-tight text-gray-900 dark:text-white">
-                  {codigoPostal}
+                  {props.city}
                 </h5>
               )}
             </div>
@@ -115,7 +115,7 @@ export const Cardspaces = () => {
                 />
               ) : (
                 <h5 className="text-xl tracking-tight text-gray-900 dark:text-white">
-                  {codigoPostal}
+                  {props.description}
                 </h5>
               )}
             </div>

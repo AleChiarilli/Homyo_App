@@ -71,6 +71,7 @@ class Pro_profile(db.Model):
     description = db.Column(db.String(255), unique=False, nullable=True)
     address = db.Column(db.String(200), unique=False, nullable=True)
     city = db.Column(db.String(200), unique=False, nullable=True)
+    decode_city = db.Column(db.String(200), unique=False, nullable=True)
     postal_code = db.Column(db.String, unique=False, nullable=True)
     km_radius = db.Column(db.Numeric, unique=False, nullable=True)
     phone_number = db.Column(db.String, unique=False, nullable=True)
@@ -214,7 +215,6 @@ class Home_Post(TimestampMixin,db.Model):
             "home_address":self.home.serialize()["address"],
             "home_postal_code":self.home.serialize()["postal_code"],
             "home_city":self.home.serialize()["city"],
-            "home_city_decode": self.home.decode_city,
             "latitude": self.latitude,
             "longitude": self.longitude,
             "created": created,
