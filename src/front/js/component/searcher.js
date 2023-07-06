@@ -1,14 +1,16 @@
-import React, { useContext } from "react";
+import React, { useState, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Context } from "../store/appContext";
 
 export const Searcher = () => {
   const { actions, store } = useContext(Context);
   const navigate = useNavigate();
+  const [searchCity, setSearchCity] = useState()
 
   const handleSearchKeyDown = (event) => {
     if (event.keyCode === 13) {
       event.preventDefault();
+      actions.getPostsByCity(searchCity)
       const searchUrl =
         store.role === "cliente" ? "/buscador" : "/tablon-de-anuncios";
       navigate(searchUrl);
@@ -35,6 +37,7 @@ export const Searcher = () => {
       </div>
       <input
         type="text"
+        onChange={(e) => {setSearchCity(e.target.value)}}
         id="search-navbar"
         className="block w-20 sm:w-full p-2 pl-10 text-xs sm:text-base text-gray-900 rounded-lg shadow-md focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-purple-200"
         placeholder={

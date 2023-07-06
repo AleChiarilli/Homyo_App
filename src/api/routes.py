@@ -6,6 +6,8 @@ from api.models import db, User, Role, User_role, Pro_profile, Cmr_profile, Skil
 from api.utils import generate_sitemap, APIException
 from flask_jwt_extended import create_access_token, get_jwt_identity, jwt_required
 from geopy.geocoders import Nominatim
+import unidecode
+
 # import cloudinary
 
 api = Blueprint('api', __name__)
@@ -87,7 +89,7 @@ def login():
     password = request.json.get("password", None)
 
     user = User.query.filter_by(email=email).first()
-    print(user.serialize())
+    # print(user.serialize())
     
 
     if user is None:
@@ -846,7 +848,7 @@ def delete_pro_profile_skill(id):
 #----------------ENDPOINTS HOME---------------
 @api.route('/home', methods=['GET'])
 # Acceso protegido
-# @jwt_required()
+@jwt_required()
 def get_home():
     user_email = get_jwt_identity()
     user = User.query.filter_by(email=user_email).first()
@@ -910,22 +912,26 @@ def get_single_home(id):
 # endpoint para crear un dato en tabla HOME
 @api.route('/home', methods=['POST'])
 # Acceso protegido
-# @jwt_required()
+@jwt_required()
 def create_home():
-
+    user_email = get_jwt_identity()
+    user = User.query.filter_by(email=user_email).first()
+    cmr_profile = Cmr_profile.query.filter_by(user_id=user.id).first()
     body = json.loads(request.data)
     # json.loads(request.body.decode(encoding='UTF-8'))
 
     if body is None:
         raise APIException("You need to specify the request body as a json object", status_code=400)
-    if 'postal_code' not in body:
+    if 'postalCodeSpace' not in body:
         raise APIException('Te falta añadir un código postal', status_code=400)
-    if 'description' not in body:
+    if 'DescriptionSpace' not in body:
         raise APIException('Te falta añadir una descripción', status_code=400)
 
     
     print(body)
-    home = Home(name=body["name"], city=body["city"], postal_code=body["postal_code"], address=body["address"], description=body["description"], cmr_profile_id=body["cmr_profile_id"])
+    home = Home(name=body["nameSpace"], city=body["nameCity"], postal_code=body["postalCodeSpace"], address=body["addressSpace"],
+                description=body["DescriptionSpace"], skills=body["skills"], cmr_profile_id=cmr_profile.id
+                )
     db.session.add(home)
     db.session.commit()
 
@@ -1005,12 +1011,37 @@ def get_home_post():
     print(home_posts_list)
 
     # Filter the query based on the city parameter if it exists
-    query = Home_Post.query
-    if city:
-        query = query.filter_by(Home_Post.home.city.ilike(f'%{city}%')).all()
+    # query = Home_Post.query
+    # if city:
+    #     query = query.filter_by(Home_Post.home.city.ilike(f'%{city}%')).all()
 
     response_body = {
         "msg": "Hello, this is your GET /pro_user_profile response ",
+        "results": home_posts_list
+    }
+
+    return jsonify(response_body), 200
+
+# RUTA PARA HACER BÚSQUEDAS DE CASAS POR CIUDADES
+# ÉSTA HAY QUE TERMINAR CON JOSE
+@api.route('/home_post/<city>', methods=['GET'])
+# Acceso protegido
+@jwt_required()
+def get_home_post_city(city):
+    print(city)
+    city = unidecode.unidecode(city.replace(' ', '').replace('-', '').lower())
+    home_list = Home.query.filter_by(decode_city = city).all()
+    print(home_list)
+    results = []
+    for home in home_list:
+        homes = Home_Post.query.filter_by(home_id = home.id).all()
+        results.append(homes)
+    home_posts_list = list(map(lambda item: item.serialize(),results))
+    print(results)
+    print(home_posts_list)
+
+    response_body = {
+        "msg": "Hello, this is your GET /home_post/<city> response ",
         "results": home_posts_list
     }
 
@@ -1042,8 +1073,16 @@ def get_single_home_post(id):
 # endpoint para crear un dato en tabla HOME_POST
 @api.route('/home_post', methods=['POST'])
 # Acceso protegido
-# @jwt_required()
+@jwt_required()
 def create_home_post():
+
+    
+    user_email = get_jwt_identity()
+    user = User.query.filter_by(email=user_email).first()
+    cmr_profile = Cmr_profile.query.filter_by(user_id=user.id).first()
+    homes = Home.query.filter_by(cmr_profile_id=cmr_profile.id).all() 
+    home = Home.query.filter_by(name=homes.name).all()   
+
 
     body = json.loads(request.data)
     # json.loads(request.body.decode(encoding='UTF-8'))

@@ -1,4 +1,5 @@
-import React from "react";
+import React, {useEffect, useContext} from "react";
+import { Context } from "../store/appContext";
 import "../../styles/home.css";
 import { Scrollcards } from "../component/scrollCards";
 import { Howitworks } from "../component/howItWorks";
@@ -7,6 +8,12 @@ import { Valoraciones } from "../component/valoraciones";
 import { Nowornever } from "../component/nowOrNever";
 
 export const Home = () => {
+
+  const { store, actions } = useContext(Context);
+
+  useEffect(() => {
+    actions.getSkills();
+    }, []);
 
   return (
     <div className="max-w-screen-xl mx-auto">

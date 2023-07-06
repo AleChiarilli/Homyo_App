@@ -70,154 +70,52 @@ export const Cardspaces = () => {
             </div>
             <div className="flex flex-col text-center justify-between p-4 leading-normal">
               <h5 className="text-xl tracking-tight text-gray-900 dark:text-white">
-                Población
+                Nombre
               </h5>
               {editing ? (
                 <input
                   type="text"
-                  value={poblacion}
-                  onChange={(e) => setPoblacion(e.target.value)}
+                  value={codigoPostal}
+                  onChange={(e) => setName(e.target.value)}
                   className="border border-gray-300 px-2 py-1 rounded"
                 />
               ) : (
                 <h5 className="text-xl tracking-tight text-gray-900 dark:text-white">
-                  {poblacion}
+                  {codigoPostal}
                 </h5>
               )}
             </div>
             <div className="flex flex-col text-center justify-between p-4 leading-normal">
               <h5 className="text-xl tracking-tight text-gray-900 dark:text-white">
-                Dormitorios
+                Ciudad
               </h5>
               {editing ? (
                 <input
                   type="text"
-                  value={dormitorios}
-                  onChange={(e) => setDormitorios(e.target.value)}
+                  value={codigoPostal}
+                  onChange={(e) => setCodigoPostal(e.target.value)}
                   className="border border-gray-300 px-2 py-1 rounded"
                 />
               ) : (
                 <h5 className="text-xl tracking-tight text-gray-900 dark:text-white">
-                  {dormitorios}
+                  {codigoPostal}
                 </h5>
               )}
             </div>
             <div className="flex flex-col text-center justify-between p-4 leading-normal">
               <h5 className="text-xl tracking-tight text-gray-900 dark:text-white">
-                Salón
+                Descripción
               </h5>
               {editing ? (
                 <input
                   type="text"
-                  value={salon}
-                  onChange={(e) => setSalon(e.target.value)}
+                  value={codigoPostal}
+                  onChange={(e) => setCodigoPostal(e.target.value)}
                   className="border border-gray-300 px-2 py-1 rounded"
                 />
               ) : (
                 <h5 className="text-xl tracking-tight text-gray-900 dark:text-white">
-                  {salon}
-                </h5>
-              )}
-            </div>
-            <div className="flex flex-col text-center justify-between p-4 leading-normal">
-              <h5 className="text-xl tracking-tight text-gray-900 dark:text-white">
-                Cocina
-              </h5>
-              {editing ? (
-                <input
-                  type="text"
-                  value={cocina}
-                  onChange={(e) => setCocina(e.target.value)}
-                  className="border border-gray-300 px-2 py-1 rounded"
-                />
-              ) : (
-                <h5 className="text-xl tracking-tight text-gray-900 dark:text-white">
-                  {cocina}
-                </h5>
-              )}
-            </div>
-            <div className="flex flex-col text-center justify-between p-4 leading-normal">
-              <h5 className="text-xl tracking-tight text-gray-900 dark:text-white">
-                Baños
-              </h5>
-              {editing ? (
-                <input
-                  type="text"
-                  value={banos}
-                  onChange={(e) => setBanos(e.target.value)}
-                  className="border border-gray-300 px-2 py-1 rounded"
-                />
-              ) : (
-                <h5 className="text-xl tracking-tight text-gray-900 dark:text-white">
-                  {banos}
-                </h5>
-              )}
-            </div>
-            <div className="flex flex-col text-center justify-between p-4 leading-normal">
-              <h5 className="text-xl tracking-tight text-gray-900 dark:text-white">
-                Terraza / Patio
-              </h5>
-              {editing ? (
-                <input
-                  type="text"
-                  value={terrazaPatio}
-                  onChange={(e) => setTerrazaPatio(e.target.value)}
-                  className="border border-gray-300 px-2 py-1 rounded"
-                />
-              ) : (
-                <h5 className="text-xl tracking-tight text-gray-900 dark:text-white">
-                  {terrazaPatio}
-                </h5>
-              )}
-            </div>
-            <div className="flex flex-col text-center justify-between p-4 leading-normal">
-              <h5 className="text-xl tracking-tight text-gray-900 dark:text-white">
-                Jardín
-              </h5>
-              {editing ? (
-                <input
-                  type="text"
-                  value={jardin}
-                  onChange={(e) => setJardin(e.target.value)}
-                  className="border border-gray-300 px-2 py-1 rounded"
-                />
-              ) : (
-                <h5 className="text-xl tracking-tight text-gray-900 dark:text-white">
-                  {jardin}
-                </h5>
-              )}
-            </div>
-            <div className="flex flex-col text-center justify-between p-4 leading-normal">
-              <h5 className="text-xl tracking-tight text-gray-900 dark:text-white">
-                Niños
-              </h5>
-              {editing ? (
-                <input
-                  type="text"
-                  value={ninos}
-                  onChange={(e) => setNinos(e.target.value)}
-                  className="border border-gray-300 px-2 py-1 rounded"
-                />
-              ) : (
-                <h5 className="text-xl tracking-tight text-gray-900 dark:text-white">
-                  {ninos}
-                </h5>
-              )}
-            </div>
-            <div className="flex flex-col text-center justify-between p-4 leading-normal">
-              <h5 className="text-xl tracking-tight text-gray-900 dark:text-white">
-                Animales
-              </h5>
-              {editing ? (
-                <input
-                  type="text"
-                  value={animales}
-                  onChange={(e) => setAnimales(e.target.value)}
-                  className="border border-gray-300 px-2 py-1 rounded"
-                />
-              ) : (
-                <h5 className="text-xl tracking-tight text-gray-900 dark:text-white">
-                  {animales}
+                  {codigoPostal}
                 </h5>
               )}
             </div>

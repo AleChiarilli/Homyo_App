@@ -11,10 +11,11 @@ export const Profileclientshowspaces = () => {
   const [postalCodeSpace, setPostalCodeSpace] = useState([]);
   const [DescriptionSpace, setDescriptionSpace] = useState([]);
 
-  const { store, actions } = useContext(Context);
+  const { actions } = useContext(Context);
 
   const submitHome = async () => {
     await actions.addHome({ nameSpace, addressSpace, nameCity, postalCodeSpace, DescriptionSpace });
+    // await actions.addHome({ name, address, city, postal_code, description });
   };
 
 

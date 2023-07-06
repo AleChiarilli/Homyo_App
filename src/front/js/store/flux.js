@@ -26,7 +26,8 @@ const getState = ({
             role: 'cliente', // Establece el valor por defecto como 'cliente', ¿duplicado? linea 24
             publications: [],
             homePost: [],
-            user:{}
+            user: {},
+            skills:[]
 
         },
         actions: {
@@ -41,10 +42,59 @@ const getState = ({
             // },
 
             getPostsOn: async () => {
+                const token = localStorage.getItem("token");
                 try {
-                    const response = await fetch(`${process.env.BACKEND_URL}/api/home_post`)
+                    const response = await fetch(`${process.env.BACKEND_URL}/api/home_post`, {
+                        method: "GET",
+                        headers: {
+                            "Content-Type": "application/json",
+                            "Authorization": `Bearer ${token}`,
+                        },
+                    })
                     const data = await response.json()
                     setStore({ homePost: data.results })
+                    console.log(data);
+                    console.log(response);
+                } catch (error) {
+                    console.error(error)
+                }
+            },
+
+            //RECIBE LAS SKILLS EN LOS POSTS
+            getSkills: async () => {
+                const token = localStorage.getItem("token");
+                try {
+                    const response = await fetch(`${process.env.BACKEND_URL}/api/skill`, {
+                        method: "GET",
+                        headers: {
+                            "Content-Type": "application/json",
+                            "Authorization": `Bearer ${token}`,
+                        },
+                    })
+                    const data = await response.json()
+                    setStore({ skills: data.results })
+                    console.log(data);
+                    console.log(response);
+                } catch (error) {
+                    console.error(error)
+                }
+            },
+            // Función para obtener posts filtrados por ciudad
+            getPostsByCity: async (city) => {
+                const token = localStorage.getItem("token");
+
+                try {
+                    const response = await fetch(`${process.env.BACKEND_URL}/api/home_post/${city}`, {
+                        method: "GET",
+                        headers: {
+                            "Content-Type": "application/json",
+                            "Authorization": `Bearer ${token}`,
+                        },
+                    })
+                    const data = await response.json()
+                    setStore({ homePost: data.results })
+                    // console.log(data);
+                    // console.log(response);
                 } catch (error) {
                     console.error(error)
                 }
@@ -90,7 +140,7 @@ const getState = ({
                         setStore({
                             ...getStore(),
                             isLoggedIn: true,
-                            user:data.user
+                            user: data.user
                         });
                         return true;
                     }
@@ -151,39 +201,39 @@ const getState = ({
                 postalCode,
                 phoneNumber,
                 hourlyRate
-              ) => {
+            ) => {
                 try {
-                  const token = localStorage.getItem('token');
-                  const url = process.env.BACKEND_URL + "/pro_profile/";
-              
-                  const data = {
-                    verified: verified,
-                    dni: dni,
-                    description: description,
-                    address: address,
-                    city: city,
-                    postal_code: postalCode,
-                    phone_number: phoneNumber,
-                    hourly_rate: hourlyRate,
-                  };
-              
-                  const response = await fetch(url, {
-                    method: "PUT",
-                    body: JSON.stringify(data),
-                    headers: {
-                      "Content-Type": "application/json",
-                      "Authorization": `Bearer ${token}`
-                    },
-                  });
-              
-                  const responseData = await response.json();
-                  console.log(responseData);
-                  // Realizar las acciones necesarias después de la actualización exitosa
+                    const token = localStorage.getItem('token');
+                    const url = process.env.BACKEND_URL + "/pro_profile/";
+
+                    const data = {
+                        verified: verified,
+                        dni: dni,
+                        description: description,
+                        address: address,
+                        city: city,
+                        postal_code: postalCode,
+                        phone_number: phoneNumber,
+                        hourly_rate: hourlyRate,
+                    };
+
+                    const response = await fetch(url, {
+                        method: "PUT",
+                        body: JSON.stringify(data),
+                        headers: {
+                            "Content-Type": "application/json",
+                            "Authorization": `Bearer ${token}`
+                        },
+                    });
+
+                    const responseData = await response.json();
+                    console.log(responseData);
+                    // Realizar las acciones necesarias después de la actualización exitosa
                 } catch (error) {
-                  console.log("Error al cargar los datos desde el backend", error);
-                  // Realizar las acciones necesarias en caso de error
+                    console.log("Error al cargar los datos desde el backend", error);
+                    // Realizar las acciones necesarias en caso de error
                 }
-              },
+            },
 
             //GET PARA OBTENER LA INFORMACION DEL PERFIL USUARIO-PROFESIONAL
             get_profile_info: async (id) => {
@@ -223,8 +273,8 @@ const getState = ({
                 }
             },
 
-             //GET PARA OBTENER LA INFORMACION DEL PERFIL USUARIO-CLIENTE
-             get_profile_customer_info: async (id) => {
+            //GET PARA OBTENER LA INFORMACION DEL PERFIL USUARIO-CLIENTE
+            get_profile_customer_info: async (id) => {
                 const userId = localStorage.getItem("id");
                 console.log(userId);
                 try {
