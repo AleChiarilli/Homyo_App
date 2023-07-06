@@ -2,7 +2,7 @@
 This module takes care of starting the API Server, Loading the DB and Adding the endpoints
 """
 from flask import Flask, request, jsonify, url_for, Blueprint, json
-from api.models import db, User, Role, User_role, Pro_profile, Cmr_profile, Skill, Pro_profile_skill, Home, Home_Post, Contract, Pro_review, Cmr_review, Message, Message_receiver
+from api.models import db, User, Role, User_role, Pro_profile, Cmr_profile, Skill, Pro_profile_skill, Home, Home_Post, Contract, Pro_review, Cmr_review, Message, Message_receiver, Post_skills, Contract_skills
 from api.utils import generate_sitemap, APIException
 from flask_jwt_extended import create_access_token, get_jwt_identity, jwt_required
 from geopy.geocoders import Nominatim
@@ -656,7 +656,7 @@ def update_cmr_profile():
 # endpoint para BORRAR un dato en CMR_PROFILE 
 @api.route('/cmr_profile/<int:id>', methods=['DELETE'])
 # Acceso protegido
-# # @jwt_required()
+@jwt_required()
 def delete_cmr_profile(id):
     print(id)
 
@@ -678,7 +678,7 @@ def delete_cmr_profile(id):
 
 @api.route('/skill', methods=['GET'])
 # Acceso protegido
-# @jwt_required()
+@jwt_required()
 def get_skill():
 
     results = Skill.query.all()
@@ -696,7 +696,7 @@ def get_skill():
 
 @api.route('/skill/<int:id>', methods=['GET'])
 # Acceso protegido
-# @jwt_required()
+@jwt_required()
 def get_single_skill(id):
     print(id)
 
@@ -717,7 +717,7 @@ def get_single_skill(id):
 # endpoint para crear un dato en tabla CMR_USER_PROFILE
 @api.route('/skill', methods=['POST'])
 # Acceso protegido
-# @jwt_required()
+@jwt_required()
 def create_skill():
 
     body = json.loads(request.data)
@@ -742,7 +742,7 @@ def create_skill():
 # endpoint para BORRAR un dato en PRO_PROFILE 
 @api.route('/skill/<int:id>', methods=['DELETE'])
 # Acceso protegido
-# @jwt_required()
+@jwt_required()
 def delete_skill(id):
     print(id)
 
@@ -997,7 +997,7 @@ def update_home():
 # endpoint para BORRAR un dato en HOME 
 @api.route('/home/<int:id>', methods=['DELETE'])
 # Acceso protegido
-# @jwt_required()
+@jwt_required()
 def delete_home(id):
     print(id)
 
@@ -1126,6 +1126,10 @@ def create_home_post():
     home = Home.query.filter_by(name=homes.name).all()   
 
 
+    user_email = get_jwt_identity()
+    user = User.query.filter_by(email=user_email).first()
+    cmr_profile = Cmr_profile.query.filter_by(user_id=user.id).first()
+
     body = json.loads(request.data)
     # json.loads(request.body.decode(encoding='UTF-8'))
 
@@ -1133,17 +1137,20 @@ def create_home_post():
         raise APIException("You need to specify the request body as a json object", status_code=400)
     if 'home_id' not in body:
         raise APIException('Te falta añadir un id de casa', status_code=400)
-    if 'description ' not in body:
+    if 'description' not in body:
         raise APIException('Te falta añadir una descripción', status_code=400)
-    if 'cmr_profile' not in body:
-        raise APIException('Te falta añadir un estado del trabajo', status_code=400)
-    if 'starting_time' not in body:
-        raise APIException('Te falta añadir una fecha', status_code=400)
     
     print(body)
-    home_post = Home_Post(home_id=body["home_id"],cmr_profile_id=body["cmr_profile_id"],description=body["description"], latitude=body["latitude"],longitude=body["longitude"],starting_time=body["starting_time"], finishing_time=body["finishing_time"])
+    home_post = Home_Post(home_id=body["home_id"], description=body["description"], latitude=body["latitude"],longitude=body["longitude"],starting_time=body["starting_time"], finishing_time=body["finishing_time"])
     db.session.add(home_post)
     db.session.commit()
+
+    skill_name = body.get("skill_name")
+    skill = Skill.query.filter_by(name=skill_name).first() #se busca skill para añadir a profile skill
+    if skill:
+        post_skills = Post_skills(home_post=home_post, skill=skill)
+        db.session.add(post_skills)
+        db.session.commit() #se agrega el commit para guardar.
 
     response_body = {
         "msg": "Tu nuevo anuncio ha sido creado",
@@ -1151,7 +1158,7 @@ def create_home_post():
     }
 
     return jsonify(response_body), 200
-# enpoint editar HOME_POST
+# enpoint editar HOME_POST -------------------NO USAR----------------
 @api.route('/home_post/<int:id>', methods=['PUT'])
 @jwt_required()
 def update_home_post(id):
@@ -1207,7 +1214,7 @@ def delete_home_post(id):
 
 @api.route('/contract', methods=['GET'])
 # Acceso protegido
-# @jwt_required()
+@jwt_required()
 def get_contract():
 
     results = Contract.query.all()
@@ -1221,58 +1228,74 @@ def get_contract():
 
     return jsonify(response_body), 200
 
-#enpoint de una relacion CONTRACT en concreto
+#enpoint de una lista para contracts como pro_profile
 
-@api.route('/contract/<int:id>', methods=['GET'])
+@api.route('/my_contracts_pro', methods=['GET'])
 # Acceso protegido
-# @jwt_required()
-def get_single_contract(id):
-    print(id)
+@jwt_required()
+def get_my_contracts_pro():
 
-    contract = Contract.query.filter_by(id=id).first()
-    print(contract)
-# comprobamos que existe un CONTRACT con ese id, si no es asi, respondemos un mensaje de error
-    if contract is None:
-        raise APIException("No hay un usuario_rol con ese ID", status_code=404)
-
+    user_email = get_jwt_identity()
+    user = User.query.filter_by(email=user_email).first()
+    pro_profile = Pro_profile.query.filter_by(user_id=user.id).first()
+    pro_contracts = Contract.query.filter_by(pro_profile_id=pro_profile.id).all()
 
     response_body = {
-        "msg": "Hello, this is your SINGLE GET /pro_user_profile response ",
-        "result": contract.serialize()
+        "msg": "Hello, this is your GET /pro_user_profile response ",
+        "results": [contract.serialize() for contract in pro_contracts]
     }
 
     return jsonify(response_body), 200
 
-# endpoint editar CONTRACT
+#enpoint de una lista para contracts como cmr_profile
 
-# endpoint para crear un dato en tabla CONTRACT
-@api.route('/contract', methods=['POST'])
+@api.route('/my_contracts_cmr', methods=['GET'])
 # Acceso protegido
-# @jwt_required()
-def create_contract():
+@jwt_required()
+def get_my_contracts_cmr():
+
+    user_email = get_jwt_identity()
+    user = User.query.filter_by(email=user_email).first()
+    cmr_profile = Cmr_profile.query.filter_by(user_id=user.id).first()
+    cmr_contracts = Contract.query.filter_by(cmr_profile_id=cmr_profile.id).all()
+
+    response_body = {
+        "msg": "Hello, this is your GET /pro_user_profile response ",
+        "results": [contract.serialize() for contract in cmr_contracts]
+    }
+
+    return jsonify(response_body), 200
+
+# endpoint para crear un dato en tabla CONTRACT como Profesional
+@api.route('/contract_pro_to_cmr', methods=['POST'])
+# Acceso protegido
+@jwt_required()
+def create_contract_pro_cmr():
+
+    user_email = get_jwt_identity()
+    user = User.query.filter_by(email=user_email).first()
+    pro_profile = Pro_profile.query.filter_by(user_id=user.id).first()
 
     body = json.loads(request.data)
-    # json.loads(request.body.decode(encoding='UTF-8'))
 
     if body is None:
         raise APIException("You need to specify the request body as a json object", status_code=400)
     if 'home_id' not in body:
         raise APIException('Te falta añadir un id de casa', status_code=400)
-    if 'pro_profile_id ' not in body:
-        raise APIException('Te falta añadir un id de profesional', status_code=400)
     if 'cmr_profile_id' not in body:
         raise APIException('Te falta añadir un id de cliente', status_code=400)
-    if 'job_status' not in body:
-        raise APIException('Te falta añadir un estado del trabajo', status_code=400)
-    if 'payment_status' not in body:
-        raise APIException('Te falta añadir un estado del trabajo', status_code=400)
-    if 'job_date' not in body:
-        raise APIException('Te falta añadir una fecha', status_code=400)
     
     print(body)
-    contract = Contract(pro_profile_id=body["pro_profile_id"],cmr_profile_id=body["cmr_profile_id"],job_status=body["job_status"], payment_status=body["payment_status"],job_date=body["job_date"], home_id=body["home_id"])
+    contract = Contract(pro_profile_id=pro_profile.id, cmr_profile_id=body["cmr_profile_id"], comment=body["comment"], finishing_time=body["finishing_time"], starting_time=body["starting_time"], home_id=body["home_id"])
     db.session.add(contract)
     db.session.commit()
+
+    skill_name = body.get("skill_name")
+    skill = Skill.query.filter_by(name=skill_name).first() #se busca skill para añadir a profile skill
+    if skill:
+        post_skills = Contract_skills(contract=contract, skill=skill)
+        db.session.add(post_skills)
+        db.session.commit() #se agrega el commit para guardar.
 
     response_body = {
         "msg": "La relación contrato ha sido creado",
@@ -1280,10 +1303,75 @@ def create_contract():
 
     return jsonify(response_body), 200
 
+# endpoint para crear un dato en tabla CONTRACT como Cliente
+@api.route('/contract_cmr_to_pro', methods=['POST'])
+# Acceso protegido
+@jwt_required()
+def create_contract_cmr_pro():
+
+    user_email = get_jwt_identity()
+    user = User.query.filter_by(email=user_email).first()
+    cmr_profile = Cmr_profile.query.filter_by(user_id=user.id).first()
+
+    body = json.loads(request.data)
+
+    if body is None:
+        raise APIException("You need to specify the request body as a json object", status_code=400)
+    if 'home_id' not in body:
+        raise APIException('Te falta añadir un id de casa', status_code=400)
+    if 'pro_profile_id' not in body:
+        raise APIException('Te falta añadir un id de cliente', status_code=400)
+    
+    print(body)
+    contract = Contract(pro_profile_id=body["pro_profile_id"], cmr_profile_id=cmr_profile.id, comment=body["comment"], finishing_time=body["finishing_time"], starting_time=body["starting_time"], home_id=body["home_id"])
+    db.session.add(contract)
+    db.session.commit()
+
+    skill_name = body.get("skill_name")
+    skill = Skill.query.filter_by(name=skill_name).first() #se busca skill para añadir a profile skill
+    if skill:
+        post_skills = Contract_skills(contract=contract, skill=skill)
+        db.session.add(post_skills)
+        db.session.commit() #se agrega el commit para guardar.
+
+    response_body = {
+        "msg": "La relación contrato ha sido creado",
+    }
+
+    return jsonify(response_body), 200
+
+# edición de contrato
+
+@api.route('/contract/<int:id>', methods=['PUT'])
+@jwt_required()
+def update_cmr_contract(id):
+    
+    contract = Contract.query.filter_by(id=id).first()
+
+    # comprobamos que existe un usuario con ese id, si no es asi, respondemos un mensaje de error
+    if contract is None:
+        raise APIException("No hay un perfil contrato con ese ID", status_code=404)
+
+    # Retrieve the data to update from the request body
+    data = request.json
+
+    # Update the cmr_profile attributes
+    contract.job_status = data.get('job_status', contract.description)
+    contract.payment_status = data.get('payment_status', contract.description)
+
+    db.session.commit()
+
+    response_body = {
+        "msg": "El ha actualizado su estado",
+        "New data": contract.serialize()
+    }
+
+    return jsonify(response_body), 200
+
 # endpoint para BORRAR un dato en CONTRACT 
 @api.route('/contract/<int:id>', methods=['DELETE'])
 # Acceso protegido
-# @jwt_required()
+@jwt_required()
 def delete_contract(id):
     print(id)
 
@@ -1319,24 +1407,24 @@ def get_pro_review():
 
 #enpoint de una relacion PRO_REVIEW en concreto
 
-@api.route('/pro_review', methods=['GET'])
+@api.route('/my_pro_review', methods=['GET'])
 # Acceso protegido
 @jwt_required()
-def get_single_pro_review(id):
-    print(id)
+def get_single_pro_review():
+
     user_email = get_jwt_identity()
     user = User.query.filter_by(email=user_email).first()
     pro_profile = Pro_profile.query.filter_by(user_id=user.id).first()
-    pro_review = Pro_review.query.filter_by(pro_receiver_id=pro_profile.id).all()
-    print(pro_review)
+    pro_reviews = Pro_review.query.filter_by(pro_receiver_id=pro_profile.id).all()
+
 # comprobamos que existe un PRO_REVIEW con ese id, si no es asi, respondemos un mensaje de error
-    if pro_review is None:
+    if pro_reviews is None:
         raise APIException("No hay un usuario_rol con ese ID", status_code=404)
 
 
     response_body = {
-        "msg": "Hello, this is your SINGLE GET /pro_user_profile response ",
-        "result": pro_review.serialize()
+        "msg": "Hello, this is your SINGLE GET /pro_user_profile response",
+        "result": [review.serialize() for review in pro_reviews]
     }
 
     return jsonify(response_body), 200
@@ -1344,8 +1432,12 @@ def get_single_pro_review(id):
 # endpoint para crear un dato en tabla PRO_REVIEW
 @api.route('/pro_review', methods=['POST'])
 # Acceso protegido
-# @jwt_required()
+@jwt_required()
 def create_pro_review():
+
+    user_email = get_jwt_identity()
+    user = User.query.filter_by(email=user_email).first()
+    cmr_profile = Cmr_profile.query.filter_by(user_id=user.id).first()
 
     body = json.loads(request.data)
     # json.loads(request.body.decode(encoding='UTF-8'))
@@ -1356,8 +1448,6 @@ def create_pro_review():
         raise APIException('Te falta añadir una puntuacion', status_code=400)
     if 'pro_receiver_id' not in body:
         raise APIException('Te falta añadir un id de profesional', status_code=400)
-    if 'cmr_sender_id' not in body:
-        raise APIException('Te falta añadir un id de cliente', status_code=400)
     if 'contract_id' not in body:
         raise APIException('Te falta añadir un id de contrato', status_code=400)
     if 'comment' not in body:
@@ -1365,7 +1455,7 @@ def create_pro_review():
 
     
     print(body)
-    pro_review = Pro_review(rating=body["rating"],pro_receiver_id=body["pro_receiver_id"],cmr_sender_id=body["cmr_sender_id"],comment=body["comment"], contract_id=body["contract_id"])
+    pro_review = Pro_review(rating=body["rating"],pro_receiver_id=body["pro_receiver_id"],cmr_sender_id=cmr_profile.id,comment=body["comment"], contract_id=body["contract_id"])
     db.session.add(pro_review)
     db.session.commit()
 
@@ -1378,7 +1468,7 @@ def create_pro_review():
 # endpoint para BORRAR un dato en PRO_REVIEW 
 @api.route('/pro_review/<int:id>', methods=['DELETE'])
 # Acceso protegido
-# @jwt_required()
+@jwt_required()
 def delete_pro_review(id):
     print(id)
 
@@ -1398,7 +1488,7 @@ def delete_pro_review(id):
 
 @api.route('/cmr_review', methods=['GET'])
 # Acceso protegido
-# @jwt_required()
+@jwt_required()
 def get_cmr_review():
 
     results = Cmr_review.query.all()
@@ -1414,27 +1504,24 @@ def get_cmr_review():
 
 #enpoint de una relacion CMR_REVIEW en concreto
 
-@api.route('/cmr_review>', methods=['GET'])
+@api.route('/my_cmr_reviews>', methods=['GET'])
 # Acceso protegido
-# @jwt_required()
-def get_cmr_reviews(id):
-    print(id)
+@jwt_required()
+def get_cmr_reviews():
 
     user_email = get_jwt_identity()
     user = User.query.filter_by(email=user_email).first()
     cmr_profile = Cmr_profile.query.filter_by(user_id=user.id).first()
-    cmr_review = Cmr_review.query.filter_by(cmr_receiver_id=cmr_profile.id).all()
+    cmr_reviews = Cmr_review.query.filter_by(cmr_receiver_id=cmr_profile.id).all()
 
-    cmr_review = Cmr_review.query.filter_by(id=id).first()
-    print(cmr_review)
 # comprobamos que existe un CMR_REVIEW con ese id, si no es asi, respondemos un mensaje de error
-    if cmr_review is None:
-        raise APIException("No hay un usuario_rol con ese ID", status_code=404)
+    if cmr_reviews is None:
+        raise APIException("No hay opiniones con ese ID", status_code=404)
 
 
     response_body = {
         "msg": "Hello, this is your SINGLE GET /pro_user_profile response ",
-        "result": cmr_review.serialize()
+        "result": [review.serialize() for review in cmr_reviews]
     }
 
     return jsonify(response_body), 200
@@ -1442,8 +1529,12 @@ def get_cmr_reviews(id):
 # endpoint para crear un dato en tabla CMR_REVIEW
 @api.route('/cmr_review', methods=['POST'])
 # Acceso protegido
-# @jwt_required()
+@jwt_required()
 def create_cmr_review():
+
+    user_email = get_jwt_identity()
+    user = User.query.filter_by(email=user_email).first()
+    pro_profile = Pro_profile.query.filter_by(user_id=user.id).first()
 
     body = json.loads(request.data)
     # json.loads(request.body.decode(encoding='UTF-8'))
@@ -1463,7 +1554,7 @@ def create_cmr_review():
 
     
     print(body)
-    cmr_review = Cmr_review(rating=body["rating"],pro_sender_id=body["pro_sender_id"],cmr_receiver_id=body["cmr_receiver_id"],comment=body["comment"], contract_id=body["contract_id"])
+    cmr_review = Cmr_review(rating=body["rating"],pro_sender_id=pro_profile.id,cmr_receiver_id=body["cmr_receiver_id"],comment=body["comment"], contract_id=body["contract_id"])
     db.session.add(cmr_review)
     db.session.commit()
 
@@ -1476,7 +1567,7 @@ def create_cmr_review():
 # endpoint para BORRAR un dato en CMR_REVIEW 
 @api.route('/cmr_review/<int:id>', methods=['DELETE'])
 # Acceso protegido
-# @jwt_required()
+@jwt_required()
 def delete_cmr_review(id):
     print(id)
 
@@ -1535,8 +1626,11 @@ def get_single_message(id):
 # endpoint para crear un dato en tabla MESSAGE
 @api.route('/message', methods=['POST'])
 # Acceso protegido
-# @jwt_required()
+@jwt_required()
 def create_message():
+
+    user_email = get_jwt_identity()
+    user = User.query.filter_by(email=user_email).first()
 
     body = json.loads(request.data)
     # json.loads(request.body.decode(encoding='UTF-8'))
@@ -1549,13 +1643,11 @@ def create_message():
         raise APIException('Te falta añadir contenido', status_code=400)
     if 'home_id' not in body:
         raise APIException('Te falta añadir un id de casa', status_code=400)
-    if 'sender_id' not in body:
-        raise APIException('Te falta añadir un id emisor', status_code=400)
     if 'receiver_id' not in body:
         raise APIException('Te falta añadir un id receptor', status_code=400)
     
     print(body)
-    message = Message(title=body["title"], message_current_status=body["message_current_status"], home_id=body["home_id"], content=body["content"], sender_id=body["sender_id"], receiver_id=body["receiver_id"])
+    message = Message(title=body["title"], message_current_status=body["message_current_status"], home_id=body["home_id"], content=body["content"], sender_id=user.id, receiver_id=body["receiver_id"])
     db.session.add(message)
     db.session.commit()
 
@@ -1568,9 +1660,10 @@ def create_message():
 # endpoint para BORRAR un dato en MESSAGE 
 @api.route('/message/<int:id>', methods=['DELETE'])
 # Acceso protegido
-# @jwt_required()
+@jwt_required()
 def delete_message(id):
     print(id)
+    
 
     message = Message.query.filter_by(id=id).first()
 # # comprobamos que existe una MESSAGE con ese id, si no es asi, respondemos un mensaje de error

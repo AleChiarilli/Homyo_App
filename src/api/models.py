@@ -271,6 +271,7 @@ class Contract(TimestampMixin, db.Model):
     comment = db.Column(db.String(255), unique=False, nullable=True)
     starting_time = db.Column(db.DateTime, nullable=False)
     finishing_time = db.Column(db.DateTime, nullable=False)
+    skills = db.relationship('Contract_skills', backref='contract', lazy=True)
     
     def __repr__(self):
         return f'<Contract {self.id}>'
@@ -300,7 +301,25 @@ class Contract(TimestampMixin, db.Model):
             "payment_status": self.payment_status,
             "starting_time": starting_time,
             "finishing_time": finishing_time,
-            "time_difference": time_difference
+            "time_difference": time_difference,
+            "skills" : list(map(lambda item:item.serialize(),self.skills))
+        }
+
+class Contract_skills(db.Model):
+    __tablename__="contract_skills"
+    id = db.Column(db.Integer, primary_key=True)
+    skill_id = db.Column(db.Integer, db.ForeignKey('skill.id'))
+    skill = db.relationship(Skill)
+    contract_id = db.Column(db.Integer, db.ForeignKey('contract.id'))
+
+    def __repr__(self):
+        return f'<Contract_skills {self.id}>'
+
+    def serialize(self):
+        return {
+            "id": self.id,
+            "skill":self.skill.serialize()["name"],
+            "contract_id": self.homepost_id
         }
 
 class Pro_review(TimestampMixin, db.Model):
