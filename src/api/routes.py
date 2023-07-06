@@ -554,27 +554,27 @@ def delete_pro_profile():
 
     return jsonify(response_body), 200
 
-#----------------ENDPOINTS CMR_PROFILE---------------
-@api.route('/cmr_profile', methods=['GET'])
-# Acceso protegido
-# # @jwt_required()
-def get_cmr_profiles():
+#----------------ENDPOINTS CMR_PROFILE--------------- se comenta por no usu actual.
+# @api.route('/cmr_profile', methods=['GET'])
+# # Acceso protegido
+# # # @jwt_required()
+# def get_cmr_profiles():
 
-    results = Cmr_profile.query.all()
-    cmr_profile_list = list(map(lambda item: item.serialize(),results))
+#     results = Cmr_profile.query.all()
+#     cmr_profile_list = list(map(lambda item: item.serialize(),results))
 
 
-    response_body = {
-        "msg": "Hello, this is your GET /cmr_profile response ",
-        "results": cmr_profile_list
-    }
+#     response_body = {
+#         "msg": "Hello, this is your GET /cmr_profile response ",
+#         "results": cmr_profile_list
+#     }
 
-    return jsonify(response_body), 200
+#     return jsonify(response_body), 200
 
 # endpoint para consultar un dato en CMR_PROFILE
 @api.route('/cmr_profile', methods=['GET'])
 # Acceso protegido
-# # @jwt_required()
+@jwt_required()
 def get_single_cmr_profile():
 
     user_email = get_jwt_identity()
