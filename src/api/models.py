@@ -19,7 +19,6 @@ class User(db.Model):
         return f'<User {self.email}>'
 
     def serialize(self):
-        # pro_profile = Pro_profile.query.filter_by(user_id=self.id).first() if pro_profile else None
         return {
             "id": self.id,
             "profile_pic": self.profile_pic,
@@ -50,29 +49,23 @@ class User_role(db.Model):
     __tablename__="user_role"
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
-    # user = db.relationship(User)
     role_id = db.Column(db.Integer, db.ForeignKey('role.id'))
     role = db.relationship(Role)
-
-    # def serialize(self):
     
     def __repr__(self):
         return f'<Role {self.id}>'
 
     def serialize(self):
-        # user_info = User.query.filter_by(id=self.user_id).first()
         return {
             "id": self.id,
             "role": self.role.serialize()["name"],
-            "user": self.user_id,
-            # "user_info": self.user.serialize()
+            "user": self.user_id
         }
     
 class Pro_profile(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    verified = db.Column(db.Boolean(), unique=False, nullable=False, default=False) 
+    # verified = db.Column(db.Boolean(), unique=False, nullable=False, default=False) 
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
-    # user = db.relationship(User)
     dni = db.Column(db.String(255), unique=True, nullable=True)
     description = db.Column(db.String(255), unique=False, nullable=True)
     address = db.Column(db.String(200), unique=False, nullable=True)
@@ -99,7 +92,7 @@ class Pro_profile(db.Model):
             "km_radius": self.km_radius,
             "phone_number": self.phone_number,
             "hourly_rate": self.hourly_rate,
-            "skills" : list(map(lambda item:item.serialize(),self.skills))
+            # "skills" : list(map(lambda item:item.serialize(),self.skills))
         }
 
 class Skill(db.Model):
@@ -134,7 +127,6 @@ class Pro_profile_skill(db.Model):
 class Cmr_profile(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
-    # user = db.relationship(User)
     description = db.Column(db.String(255), unique=False, nullable=True)
     phone_number = db.Column(db.String, unique=False, nullable=True)
     homes = db.relationship("Home", backref="cmr_profile", lazy=True)
@@ -149,7 +141,6 @@ class Cmr_profile(db.Model):
             "description": self.description,
             "phone_number": self.phone_number,
             "homes": list(map(lambda item:item.serialize(),self.homes))
-            
         }
     
 class Home(db.Model):
@@ -189,12 +180,9 @@ class Home_Post(TimestampMixin,db.Model):
     id = db.Column(db.Integer, primary_key=True)
     is_visible = db.Column(db.Boolean(), unique=False, nullable=False, default=False)
     home_id = db.Column(db.Integer, db.ForeignKey('home.id'))
-    # home = db.relationship(Home)
     description = db.Column(db.String(255), unique=False, nullable=False)
     latitude = db.Column(db.String(200), unique=False, nullable=False)
     longitude = db.Column(db.String(200), unique=False, nullable=False)
-    # cmr_profile_id = db.Column(db.Integer, db.ForeignKey('cmr_profile.id'))
-    # cmr_profile = db.relationship(Cmr_profile)
     starting_time = db.Column(db.DateTime)
     finishing_time = db.Column(db.DateTime)
     skills = db.relationship('Post_skills', backref='home_post', lazy=True)
@@ -211,10 +199,10 @@ class Home_Post(TimestampMixin,db.Model):
     
 
     def serialize(self):
-        created = self.created.strftime("%d/%m/%Y %H:%M:%S") if self.created else None
-        updated = self.updated.strftime("%d/%m/%Y %H:%M:%S") if self.updated else None
-        starting_time = self.starting_time.strftime("%d/%m/%Y %H:%M:%S") if self.starting_time else None
-        finishing_time = self.finishing_time.strftime("%d/%m/%Y %H:%M:%S") if self.finishing_time else None
+        created = self.created.strftime("%d/%m/%Y %H:%M") if self.created else None
+        updated = self.updated.strftime("%d/%m/%Y %H:%M") if self.updated else None
+        starting_time = self.starting_time.strftime("%d/%m/%Y %H:%M") if self.starting_time else None
+        finishing_time = self.finishing_time.strftime("%d/%m/%Y %H:%M") if self.finishing_time else None
         time_difference = self.calculate_time_difference()
         return {
             "id": self.id,
@@ -289,10 +277,10 @@ class Contract(TimestampMixin, db.Model):
         return None
 
     def serialize(self):
-        created = self.created.strftime("%d/%m/%Y %H:%M:%S") if self.created else None
-        updated = self.updated.strftime("%d/%m/%Y %H:%M:%S") if self.updated else None
-        starting_time = self.starting_time.strftime("%d/%m/%Y %H:%M:%S") if self.starting_time else None
-        finishing_time = self.finishing_time.strftime("%d/%m/%Y %H:%M:%S") if self.finishing_time else None
+        created = self.created.strftime("%d/%m/%Y %H:%M") if self.created else None
+        updated = self.updated.strftime("%d/%m/%Y %H:%M") if self.updated else None
+        starting_time = self.starting_time.strftime("%d/%m/%Y %H:%M") if self.starting_time else None
+        finishing_time = self.finishing_time.strftime("%d/%m/%Y %H:%M") if self.finishing_time else None
         time_difference = self.calculate_time_difference()
 
         return {
@@ -326,7 +314,7 @@ class Pro_review(TimestampMixin, db.Model):
         return f'<Pro_review {self.id}>'
 
     def serialize(self):
-        created = self.created.strftime("%d/%m/%Y %H:%M:%S") if self.created else None
+        created = self.created.strftime("%d/%m/%Y %H:%M") if self.created else None
         
         return {
             "id": self.id,
@@ -355,7 +343,7 @@ class Cmr_review(TimestampMixin, db.Model):
         return f'<Cmr_review {self.id}>'
 
     def serialize(self):
-        created = self.created.strftime("%d/%m/%Y %H:%M:%S") if self.created else None
+        created = self.created.strftime("%d/%m/%Y %H:%M") if self.created else None
 
         return {
             "id": self.id,
@@ -386,7 +374,7 @@ class Message(TimestampMixin, db.Model):
         return f'<Message {self.id}>'
 
     def serialize(self):
-        created = self.created.strftime("%d/%m/%Y %H:%M:%S") if self.created else None
+        created = self.created.strftime("%d/%m/%Y %H:%M") if self.created else None
 
         return {
             "id": self.id,
@@ -411,7 +399,7 @@ class Message_receiver(TimestampMixin,db.Model):
         return f'<Message_receiver {self.id}>'
 
     def serialize(self):
-        created = self.created.strftime("%d/%m/%Y %H:%M:%S") if self.created else None
+        created = self.created.strftime("%d/%m/%Y %H:%M") if self.created else None
         return {
             "id": self.id,
             "created": created,
