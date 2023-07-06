@@ -1,8 +1,8 @@
 """empty message
 
-Revision ID: d439c37c08d4
+Revision ID: 5a6427e9b6c2
 Revises: 
-Create Date: 2023-07-06 13:02:52.311386
+Create Date: 2023-07-06 19:06:41.264729
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = 'd439c37c08d4'
+revision = '5a6427e9b6c2'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -55,6 +55,7 @@ def upgrade():
     sa.Column('description', sa.String(length=255), nullable=True),
     sa.Column('address', sa.String(length=200), nullable=True),
     sa.Column('city', sa.String(length=200), nullable=True),
+    sa.Column('decode_city', sa.String(length=200), nullable=True),
     sa.Column('postal_code', sa.String(), nullable=True),
     sa.Column('km_radius', sa.Numeric(), nullable=True),
     sa.Column('phone_number', sa.String(), nullable=True),
@@ -79,6 +80,7 @@ def upgrade():
     sa.Column('postal_code', sa.Integer(), nullable=True),
     sa.Column('description', sa.String(length=255), nullable=True),
     sa.Column('cmr_profile_id', sa.Integer(), nullable=True),
+    sa.Column('decode_city', sa.String(length=200), nullable=True),
     sa.ForeignKeyConstraint(['cmr_profile_id'], ['cmr_profile.id'], ),
     sa.PrimaryKeyConstraint('id')
     )
@@ -148,6 +150,14 @@ def upgrade():
     sa.ForeignKeyConstraint(['pro_sender_id'], ['pro_profile.id'], ),
     sa.PrimaryKeyConstraint('id')
     )
+    op.create_table('contract_skills',
+    sa.Column('id', sa.Integer(), nullable=False),
+    sa.Column('skill_id', sa.Integer(), nullable=True),
+    sa.Column('contract_id', sa.Integer(), nullable=True),
+    sa.ForeignKeyConstraint(['contract_id'], ['contract.id'], ),
+    sa.ForeignKeyConstraint(['skill_id'], ['skill.id'], ),
+    sa.PrimaryKeyConstraint('id')
+    )
     op.create_table('message_receiver',
     sa.Column('created', sa.DateTime(timezone=True), nullable=False),
     sa.Column('updated', sa.DateTime(timezone=True), nullable=True),
@@ -188,6 +198,7 @@ def downgrade():
     op.drop_table('pro_review')
     op.drop_table('post_skills')
     op.drop_table('message_receiver')
+    op.drop_table('contract_skills')
     op.drop_table('cmr_review')
     op.drop_table('message')
     op.drop_table('home_post')

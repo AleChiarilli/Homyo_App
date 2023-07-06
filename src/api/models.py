@@ -2,6 +2,7 @@ from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
 from enum import Enum
 db = SQLAlchemy()
+import unidecode
 
 class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -70,6 +71,7 @@ class Pro_profile(db.Model):
     description = db.Column(db.String(255), unique=False, nullable=True)
     address = db.Column(db.String(200), unique=False, nullable=True)
     city = db.Column(db.String(200), unique=False, nullable=True)
+    decode_city = db.Column(db.String(200), unique=False, nullable=True)
     postal_code = db.Column(db.String, unique=False, nullable=True)
     km_radius = db.Column(db.Numeric, unique=False, nullable=True)
     phone_number = db.Column(db.String, unique=False, nullable=True)
@@ -152,8 +154,10 @@ class Home(db.Model):
     description = db.Column(db.String(255), unique=False, nullable=True)
     cmr_profile_id = db.Column(db.Integer, db.ForeignKey('cmr_profile.id'))
     posts = db.relationship("Home_Post", backref="home", lazy=True)
-    
+    decode_city = db.Column(db.String(200), unique=False, nullable=True)
     #aqui se modifico
+    # def __init__(self):
+    #     self.decode_city = unidecode.unidecode(self.city.replace(' ', '').replace('-', '').lower())
 
     def __repr__(self):
         return f'<Home {self.id}>'
@@ -204,8 +208,10 @@ class Home_Post(TimestampMixin,db.Model):
         starting_time = self.starting_time.strftime("%d/%m/%Y %H:%M") if self.starting_time else None
         finishing_time = self.finishing_time.strftime("%d/%m/%Y %H:%M") if self.finishing_time else None
         time_difference = self.calculate_time_difference()
+        # self.decode_city = unidecode.unidecode(self.home.serialize()["city"].replace(' ', '').replace('-', '').lower())
         return {
             "id": self.id,
+            "home_name":self.home.serialize()["name"],
             "home_address":self.home.serialize()["address"],
             "home_postal_code":self.home.serialize()["postal_code"],
             "home_city":self.home.serialize()["city"],
@@ -265,6 +271,7 @@ class Contract(TimestampMixin, db.Model):
     comment = db.Column(db.String(255), unique=False, nullable=True)
     starting_time = db.Column(db.DateTime, nullable=False)
     finishing_time = db.Column(db.DateTime, nullable=False)
+    skills = db.relationship('Contract_skills', backref='contract', lazy=True)
     
     def __repr__(self):
         return f'<Contract {self.id}>'
@@ -294,7 +301,25 @@ class Contract(TimestampMixin, db.Model):
             "payment_status": self.payment_status,
             "starting_time": starting_time,
             "finishing_time": finishing_time,
-            "time_difference": time_difference
+            "time_difference": time_difference,
+            "skills" : list(map(lambda item:item.serialize(),self.skills))
+        }
+
+class Contract_skills(db.Model):
+    __tablename__="contract_skills"
+    id = db.Column(db.Integer, primary_key=True)
+    skill_id = db.Column(db.Integer, db.ForeignKey('skill.id'))
+    skill = db.relationship(Skill)
+    contract_id = db.Column(db.Integer, db.ForeignKey('contract.id'))
+
+    def __repr__(self):
+        return f'<Contract_skills {self.id}>'
+
+    def serialize(self):
+        return {
+            "id": self.id,
+            "skill":self.skill.serialize()["name"],
+            "contract_id": self.homepost_id
         }
 
 class Pro_review(TimestampMixin, db.Model):

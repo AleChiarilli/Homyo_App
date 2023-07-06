@@ -15,6 +15,10 @@ export const Profilepro = () => {
   const [showContracts, setShowContracts] = useState(false);
   const [showMessages, setShowMessages] = useState(false);
 
+  useEffect(() => {
+    actions.getSkills();
+  }, []);
+
   const handleProfileClick = () => {
     setShowProfile(true);
     setShowCalendar(false);
@@ -41,7 +45,7 @@ export const Profilepro = () => {
     setShowCalendar(false);
     setShowContracts(false);
     setShowMessages(true);
-    
+
   };
   useEffect(()=>{
     const emailInput = document.querySelector("#floating_email");

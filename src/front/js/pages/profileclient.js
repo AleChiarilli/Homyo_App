@@ -10,19 +10,23 @@ import { Profileclientshowannounces } from "../component/profileClientShowAnnoun
 import { Profileclientshowcontracts } from "../component/profileClientShowContracts";
 
 export const Profileclient = () => {
-  const { store } = useContext(Context);
+  const { store, actions } = useContext(Context);
 
   
 
 //gaurdamos su correo con el mismo que se registro por defecto
   useEffect(()=>{
     const emailInput = document.querySelector("#floating_email");
-    emailInput.value= store.user.email
+    emailInput.value = store.user.email
 
     const nameInput = document.querySelector("#floating_first_name");
-    nameInput.value= store.user.username
+    nameInput.value = store.user.username
 
-  },[]) 
+  }, [])
+  
+  useEffect(() => {
+    actions.getSkills();
+  }, []);
 
   ///
   const [showProfile, setShowProfile] = useState(true);

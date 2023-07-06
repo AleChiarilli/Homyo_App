@@ -42,8 +42,32 @@ export const Profileproshowprofile = () => {
             km_radius,
             phone_number,
             hourly_rate,
+            seleccionados
         ); // Envía los datos del usuario utilizando la acción addUser del objeto actions
     };
+
+    const skillList = {
+        "limpieza": {
+            "nameSkill": "Limpieza",
+            "imageSkill": limpieza
+        },
+        "jardineria": {
+            "nameSkill": "Jardineria",
+            "imageSkill": jardineria
+        },
+        "cuidadodeninos": {
+            "nameSkill": "Cuidado de niños",
+            "imageSkill": niños
+        },
+        "cuidadodeanimales": {
+            "nameSkill": "Cuidado de animales",
+            "imageSkill": animales
+        },
+        "cocina": {
+            "nameSkill": "Cocina",
+            "imageSkill": chef
+        },
+    }
 
      //USEEFFECT PARA QUE CARGUE LA INFORMACION DEL FORMULARIO
      useEffect(() => {
@@ -52,11 +76,7 @@ export const Profileproshowprofile = () => {
 
 
     const handleSeleccionar = (id) => {
-        if (seleccionados.includes(id)) {
-            setSeleccionados(seleccionados.filter((item) => item !== id));
-        } else {
             setSeleccionados([...seleccionados, id]);
-        }
     };
    
 
@@ -299,146 +319,41 @@ export const Profileproshowprofile = () => {
                                         Mis Servicios
                                     </p>
                                     <ul className="p-4 flex justify-center">
-                                        <li>
-                                            <button
-                                                type="button"
-                                                id="limpieza"
-                                                className={`flex h-[50px] items-center px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-indigo-200 rounded-full mx-1 hover:bg-indigo-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-indigo-500 focus:text-blue-700 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-blue-500 dark:focus:text-white ${seleccionados.includes("limpieza")
-                                                    ? "bg-indigo-100 text-blue-700"
-                                                    : ""
-                                                    }`}
-                                                onClick={() => handleSeleccionar("limpieza")}
-                                            >
-                                                <div className="flex-row gap-4 flex justify-center items-center">
-                                                    <div className="flex-shrink-0">
-                                                        <a href="#" className="relative block">
-                                                            <img
-                                                                alt="limpieza"
-                                                                src={limpieza}
-                                                                className="mx-auto object-fit rounded-full h-8 w-8"
-                                                            />
-                                                        </a>
-                                                    </div>
-                                                    <div className="flex flex-col">
-                                                        <span className="text-lg font-medium text-gray-600 dark:text-white">
-                                                            Limpieza
-                                                        </span>
-                                                    </div>
-                                                </div>
-                                            </button>
-                                        </li>
-                                        <li>
-                                            <button
-                                                type="button"
-                                                id="cocina"
-                                                className={`flex h-[50px] items-center px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-indigo-200 rounded-full mx-1 hover:bg-indigo-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-indigo-500 focus:text-blue-700 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-blue-500 dark:focus:text-white ${seleccionados.includes("cocina")
-                                                    ? "bg-indigo-100 text-blue-700"
-                                                    : ""
-                                                    }`}
-                                                onClick={() => handleSeleccionar("cocina")}
-                                            >
-                                                <div className="flex-row gap-4 flex justify-center items-center">
-                                                    <div className="flex-shrink-0">
-                                                        <a href="#" className="relative block">
-                                                            <img
-                                                                alt="cocina"
-                                                                src={chef}
-                                                                className="mx-auto object-fit rounded-full h-8 w-8"
-                                                            />
-                                                        </a>
-                                                    </div>
-                                                    <div className="flex flex-col">
-                                                        <span className="text-lg font-medium text-gray-600 dark:text-white">
-                                                            Cocina
-                                                        </span>
-                                                    </div>
-                                                </div>
-                                            </button>
-                                        </li>
-                                        <li>
-                                            <button
-                                                type="button"
-                                                id="niños"
-                                                className={`flex h-[50px] items-center px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-indigo-200 rounded-full mx-1 hover:bg-indigo-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-indigo-500 focus:text-blue-700 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-blue-500 dark:focus:text-white ${seleccionados.includes("niños")
-                                                    ? "bg-indigo-100 text-blue-700"
-                                                    : ""
-                                                    }`}
-                                                onClick={() => handleSeleccionar("niños")}
-                                            >
-                                                <div className="flex-row gap-4 flex justify-center items-center">
-                                                    <div className="flex-shrink-0">
-                                                        <a href="#" className="relative block">
-                                                            <img
-                                                                alt="cuidado de niños"
-                                                                src={niños}
-                                                                className="mx-auto object-fit rounded-full h-8 w-8"
-                                                            />
-                                                        </a>
-                                                    </div>
-                                                    <div className="flex flex-col">
-                                                        <span className="text-lg font-medium text-gray-600 dark:text-white">
-                                                            Cuidado de niños
-                                                        </span>
-                                                    </div>
-                                                </div>
-                                            </button>
-                                        </li>
-                                        <li>
-                                            <button
-                                                type="button"
-                                                id="animales"
-                                                className={`flex h-[50px] items-center px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-indigo-200 rounded-full mx-1 hover:bg-indigo-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-indigo-500 focus:text-blue-700 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-blue-500 dark:focus:text-white ${seleccionados.includes("animales")
-                                                    ? "bg-indigo-100 text-blue-700"
-                                                    : ""
-                                                    }`}
-                                                onClick={() => handleSeleccionar("animales")}
-                                            >
-                                                <div className="flex-row gap-4 flex justify-center items-center">
-                                                    <div className="flex-shrink-0">
-                                                        <a href="#" className="relative block">
-                                                            <img
-                                                                alt="cuidado de animales"
-                                                                src={animales}
-                                                                className="mx-auto object-fit rounded-full h-8 w-8"
-                                                            />
-                                                        </a>
-                                                    </div>
-                                                    <div className="flex flex-col">
-                                                        <span className="text-lg font-medium text-gray-600 dark:text-white">
-                                                            Cuidado de animales
-                                                        </span>
-                                                    </div>
-                                                </div>
-                                            </button>
-                                        </li>
-                                        <li>
-                                            <button
-                                                type="button"
-                                                id="jardineria"
-                                                className={`flex h-[50px] items-center px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-indigo-200 rounded-full mx-1 hover:bg-indigo-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-indigo-500 focus:text-blue-700 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-blue-500 dark:focus:text-white ${seleccionados.includes("jardineria")
-                                                    ? "bg-indigo-100 text-blue-700"
-                                                    : ""
-                                                    }`}
-                                                onClick={() => handleSeleccionar("jardineria")}
-                                            >
-                                                <div className="flex-row gap-4 flex justify-center items-center">
-                                                    <div className="flex-shrink-0">
-                                                        <a href="#" className="relative block">
-                                                            <img
-                                                                alt="jardineria"
-                                                                src={jardineria}
-                                                                className="mx-auto object-fit rounded-full h-8 w-8"
-                                                            />
-                                                        </a>
-                                                    </div>
-                                                    <div className="flex flex-col">
-                                                        <span className="text-lg font-medium text-gray-600 dark:text-white">
-                                                            Jardineria
-                                                        </span>
-                                                    </div>
-                                                </div>
-                                            </button>
-                                        </li>
+                                        
+                                    {store.skills.map((skill) => {
+                                                    return (
+                                                        <>
+                                                            <li className="w-full md:w-auto">
+                                                                <button
+                                                                    type="button"
+                                                                    id={skillList[skill.name].nameSkill}
+                                                                    className={`flex h-[50px] items-center px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-indigo-200 rounded-full mx-1 my-1 md:my-0 text-center w-full md:w-auto hover:bg-indigo-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-indigo-500 focus:text-blue-700 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-blue-500 dark:focus:text-white ${seleccionados.includes("limpieza") ? "bg-indigo-100 text-blue-700" : ""
+                                                                        }`}
+                                                                    onClick={() => handleSeleccionar(skill.id)}
+                                                                >
+                                                                    <div className="flex-row gap-4 flex justify-center items-center">
+                                                                        <div className="flex-shrink-0">
+                                                                            <a href="#" className="relative block">
+                                                                                <img
+                                                                                    alt={skillList[skill.name].nameSkill}
+                                                                                    src={skillList[skill.name].imageSkill}
+                                                                                    className="mx-auto object-fit rounded-full h-8 w-8"
+                                                                                />
+                                                                            </a>
+                                                                        </div>
+                                                                        <div className="flex flex-col">
+                                                                            <span className="text-lg font-medium text-gray-600 dark:text-white">
+                                                                                {skillList[skill.name].nameSkill}
+                                                                            </span>
+                                                                        </div>
+                                                                    </div>
+                                                                </button>
+                                                            </li>
+                                                        </>
+                                                    )
+                                                })}
+
+                                        
                                     </ul>
                                     <div className="text-center">
                                         <button
