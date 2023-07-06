@@ -10,13 +10,13 @@ export const Profileclientshowprofile = () => {
   const [surname1, setSurname1] = useState(store.cmr_profile && store.cmr_profile.surname1)
   const [phone_number, setPhone_number] = useState(store.cmr_profile && store.cmr_profile.phone_number);
   const [email, setEmail] = useState(store.cmr_profile && store.cmr_profile.email)
-  console.log(store.cmr_profile)
+  console.log(phone_number)
 
   //FUNCION PARA EL FORM (INFORMACION DEL CLIENTE)
   const info_customer = async (e) => {
     e.preventDefault();
     const userId = localStorage.getItem("id");
-    actions.profile_customer(userId, phone_number);
+    actions.profile_customer( phone_number);
   };
 
 

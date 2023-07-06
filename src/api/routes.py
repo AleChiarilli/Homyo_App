@@ -676,7 +676,7 @@ def delete_cmr_profile(id):
 
 @api.route('/skill', methods=['GET'])
 # Acceso protegido
-# @jwt_required()
+@jwt_required()
 def get_skill():
 
     results = Skill.query.all()
@@ -715,7 +715,7 @@ def get_single_skill(id):
 # endpoint para crear un dato en tabla CMR_USER_PROFILE
 @api.route('/skill', methods=['POST'])
 # Acceso protegido
-# @jwt_required()
+@jwt_required()
 def create_skill():
 
     body = json.loads(request.data)

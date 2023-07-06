@@ -28,7 +28,8 @@ const getState = ({
             homePost: [],
             user: {},
             pro_profile: {},
-            cmr_profile:{}
+            cmr_profile: {},
+            skill_name: {}
 
         },
         actions: {
@@ -177,7 +178,7 @@ const getState = ({
 
             //AGREGAR INFORMACION DE PERFIL DEL USUARIO-CLIENTE(INPUTS A LLENAR) (no me funciona)
 
-            profile_customer: async ( phone_number  ) => {
+            profile_customer: async (phone_number) => {
                 const userId = localStorage.getItem("id");
                 console.log(phone_number)
                 try {
@@ -202,7 +203,6 @@ const getState = ({
                 }
             },
 
-           
             //GET PARA OBTENER LA INFORMACION DEL PERFIL USUARIO-CLIENTE
 
             get_profile_customer_info: async (id) => {
@@ -219,10 +219,36 @@ const getState = ({
                     }
                     );
                     const data = await response.json();
-                    setStore({ cmr_profile: data.result})
-                    console.log("------------------------------------------------",data);
+                    setStore({ cmr_profile: data.result })
+                    console.log(data);
                 } catch (error) {
                     console.log("error loading message from backend", error);
+                }
+            },
+
+
+            // PETICIÓN PARA AGREGAR UNA HABILIDAD AL PERFIL DEL USUARIO-PROFESIONAL
+            addSkillToProfile: async (skillName) => {
+                const token = localStorage.getItem("token");
+
+                try {
+                    const response = await fetch(`${process.env.BACKEND_URL}/api/pro_profile_skill`, {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json",
+                            "Authorization": `Bearer ${token}`,
+                        },
+                        body: JSON.stringify({ skill_name: skillName }),
+                    });
+
+                    if (response.ok) {
+                        const data = await response.json();
+                        console.log(data); // Respuesta del servidor
+                    } else {
+                        throw new Error("Error en la solicitud");
+                    }
+                } catch (error) {
+                    console.error("Error:", error);
                 }
             },
 
@@ -254,11 +280,11 @@ const getState = ({
                 try {
                     const data = await axios.get(
                         process.env.BACKEND_URL + "/api/valide-token", {
-                            headers: {
-                                "Content-Type": "application/json",
-                                "Authorization": `Bearer ${token}`,
-                            },
-                        }
+                        headers: {
+                            "Content-Type": "application/json",
+                            "Authorization": `Bearer ${token}`,
+                        },
+                    }
                     );
                     if (data.status === 200) {
                         console.log(data);
