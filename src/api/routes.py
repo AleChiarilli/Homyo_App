@@ -944,9 +944,9 @@ def create_home():
 
     if body is None:
         raise APIException("You need to specify the request body as a json object", status_code=400)
-    if 'postalCodeSpace' not in body:
+    if 'postal_code' not in body:
         raise APIException('Te falta añadir un código postal', status_code=400)
-    if 'DescriptionSpace' not in body:
+    if 'description' not in body:
         raise APIException('Te falta añadir una descripción', status_code=400)
 
     

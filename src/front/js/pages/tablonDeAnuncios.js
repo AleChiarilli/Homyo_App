@@ -376,8 +376,8 @@ export const TablonDeAnuncios = () => {
                 <div className="flex flex-col max-h-[1000px] overflow-y-auto">
                   {store.homePost.map((item, index) => (
                     <CardAnnounce key={index} timeDifference={item.time_difference} description={item.description}
-                    address={item.home_address} startingTime={item.starting_time} finishingTime={item.finishing_time}
-                    name={item.home_name} skill={item.skills.skill}/>
+                      address={item.home_address} startingTime={item.starting_time} finishingTime={item.finishing_time}
+                      name={item.home_name} skills={item.skills} />
                   ))}
 
                 </div>
