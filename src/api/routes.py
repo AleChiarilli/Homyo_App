@@ -951,7 +951,7 @@ def create_home():
 
     
     print(body)
-    decode_city = unidecode.unidecode(body["nameCity"].replace(' ', '').replace('-', '').lower())
+    # decode_city = unidecode.unidecode(body["nameCity"].replace(' ', '').replace('-', '').lower())
 
     home = Home(name=body["nameSpace"], city=body["nameCity"], postal_code=body["postalCodeSpace"], address=body["addressSpace"], description=body["DescriptionSpace"], cmr_profile_id=cmr_profile.id, decode_city=decode_city)
     db.session.add(home)
@@ -1046,7 +1046,7 @@ def get_home_post():
 @jwt_required()
 def get_home_post_city(city):
     print(city)
-    city = unidecode.unidecode(city.replace(' ', '').replace('-', '').lower())
+    # city = unidecode.unidecode(city.replace(' ', '').replace('-', '').lower())
     home_list = Home.query.filter_by(decode_city = city).all()
     print(home_list)
     results = []
@@ -1124,17 +1124,8 @@ def get_single_home_post(id):
 @jwt_required()
 def create_home_post():
 
-    
     user_email = get_jwt_identity()
     user = User.query.filter_by(email=user_email).first()
-    cmr_profile = Cmr_profile.query.filter_by(user_id=user.id).first()
-    homes = Home.query.filter_by(cmr_profile_id=cmr_profile.id).all() 
-    home = Home.query.filter_by(name=homes.name).all()   
-
-
-    user_email = get_jwt_identity()
-    user = User.query.filter_by(email=user_email).first()
-    cmr_profile = Cmr_profile.query.filter_by(user_id=user.id).first()
 
     body = json.loads(request.data)
     # json.loads(request.body.decode(encoding='UTF-8'))
@@ -1146,8 +1137,15 @@ def create_home_post():
     if 'description' not in body:
         raise APIException('Te falta añadir una descripción', status_code=400)
     
+    home = Home.query.filter_by(id=body["home_id"])
+
+    geolocator = Nominatim(user_agent="my_geocoder")
+    location = geolocator.geocode(home.address+home.city)
+    latitude = location.latitude
+    longitude = location.longitude
+
     print(body)
-    home_post = Home_Post(home_id=body["home_id"], description=body["description"], latitude=body["latitude"],longitude=body["longitude"],starting_time=body["starting_time"], finishing_time=body["finishing_time"])
+    home_post = Home_Post(home_id=home.id, description=body["description"], latitude=latitude, longitude=longitude, starting_time=body["starting_time"], finishing_time=body["finishing_time"], hourly_rate=body["hourly_rate"])
     db.session.add(home_post)
     db.session.commit()
 
