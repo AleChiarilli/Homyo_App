@@ -18,7 +18,7 @@ export const Profileclientshowspaces = () => {
   }, [])
 
   const submitHome = async () => {
-    await actions.addHome({ name:nameSpace, address:addressSpace, city:nameCity, postal_code:postalCodeSpace, description:DescriptionSpace });
+    await actions.addHome({ name: nameSpace, address: addressSpace, city: nameCity, postal_code: postalCodeSpace, description: DescriptionSpace });
     // await actions.addHome({ name, address, city, postal_code, description });
   };
 
@@ -126,11 +126,11 @@ export const Profileclientshowspaces = () => {
               {store.myHomes && store.myHomes.map((home) => {
                 return (
                   <Cardspaces
-                  address={home.address}
-                  city={home.city}
-                  description={home.description}
-                  name={home.name}
-                  postalCode={home.postal_code}
+                    address={home.address}
+                    city={home.city}
+                    description={home.description}
+                    name={home.name}
+                    postalCode={home.postal_code}
                   />
                 )
               })}
