@@ -951,7 +951,7 @@ def create_home():
 
     
     print(body)
-    decode_city = unidecode.unidecode(body["nameCity"].replace(' ', '').replace('-', '').lower())
+    # decode_city = unidecode.unidecode(body["nameCity"].replace(' ', '').replace('-', '').lower())
 
     home = Home(name=body["nameSpace"], city=body["nameCity"], postal_code=body["postalCodeSpace"], address=body["addressSpace"], description=body["DescriptionSpace"], cmr_profile_id=cmr_profile.id, decode_city=decode_city)
     db.session.add(home)

@@ -63,9 +63,9 @@ export const Profilepro = () => {
         <a href="#" aria-current="page" onClick={handleProfileClick} className="flex-1 px-4 py-2 m-1 text-xs font-medium text-blue-700 bg-white border border-blue-700 rounded flex items-center justify-center hover:bg-blue-700 hover:text-white focus:outline-none focus:bg-blue-700 focus:text-white dark:bg-transparent dark:border-gray-600 dark:text-white dark:hover:border-gray-400 dark:hover:text-gray-400 dark:focus:border-gray-400 dark:focus:text-gray-400">
           Mi Perfil
         </a>
-        <a href="#" onClick={handleCalendarClick} className="flex-1 px-4 py-2 m-1 text-xs font-medium text-gray-700 bg-white border border-gray-700 rounded flex items-center justify-center hover:bg-gray-700 hover:text-white focus:outline-none focus:bg-gray-700 focus:text-white dark:bg-transparent dark:border-gray-600 dark:text-white dark:hover:border-gray-400 dark:hover:text-gray-400 dark:focus:border-gray-400 dark:focus:text-gray-400">
+        {/* <a href="#" onClick={handleCalendarClick} className="flex-1 px-4 py-2 m-1 text-xs font-medium text-gray-700 bg-white border border-gray-700 rounded flex items-center justify-center hover:bg-gray-700 hover:text-white focus:outline-none focus:bg-gray-700 focus:text-white dark:bg-transparent dark:border-gray-600 dark:text-white dark:hover:border-gray-400 dark:hover:text-gray-400 dark:focus:border-gray-400 dark:focus:text-gray-400">
           Calendario
-        </a>
+        </a> */}
         <a href="#" onClick={handleContractsClick} className="flex-1 px-4 py-2 m-1 text-xs font-medium text-gray-700 bg-white border border-gray-700 rounded flex items-center justify-center hover:bg-gray-700 hover:text-white focus:outline-none focus:bg-gray-700 focus:text-white dark:bg-transparent dark:border-gray-600 dark:text-white dark:hover:border-gray-400 dark:hover:text-gray-400 dark:focus:border-gray-400 dark:focus:text-gray-400">
           Mis Contratos
         </a>
@@ -117,7 +117,7 @@ export const Profilepro = () => {
                   <span className="mx-4 text-sm font-normal">MI PERFIL</span>
                 </a>
 
-                <a
+                {/* <a
                   className="flex items-center justify-start w-full p-4 my-2 font-thin text-gray-500 bg-white cursor-pointer dark:hover:text-gray-300 dark:border-gray-700 peer-checked:border-indigo-600 hover:text-indigo-600 dark:peer-checked:text-indigo-300 peer-checked:text-indigo-600 hover:bg-indigo-50 dark:text-gray-400 dark:bg-gray-800 dark:hover:bg-gray-700"
                   onClick={handleCalendarClick}
                   href="#"
@@ -184,7 +184,7 @@ export const Profilepro = () => {
                   <span className="mx-4 text-sm font-normal">
                     MI CALENDARIO
                   </span>
-                </a>
+                </a> */}
 
                 <a
                   className="flex items-center justify-start w-full p-4 my-2 font-thin text-gray-500 bg-white cursor-pointer dark:hover:text-gray-300 dark:border-gray-700 peer-checked:border-indigo-600 hover:text-indigo-600 dark:peer-checked:text-indigo-300 peer-checked:text-indigo-600 hover:bg-indigo-50 dark:text-gray-400 dark:bg-gray-800 dark:hover:bg-gray-700"
@@ -231,7 +231,7 @@ export const Profilepro = () => {
                   </span>
                 </a>
 
-                <a
+                {/* <a
                   className="flex items-center justify-start w-full p-4 my-2 font-thin text-gray-500 bg-white cursor-pointer dark:hover:text-gray-300 dark:border-gray-700 peer-checked:border-indigo-600 hover:text-indigo-600 dark:peer-checked:text-indigo-300 peer-checked:text-indigo-600 hover:bg-indigo-50 dark:text-gray-400 dark:bg-gray-800 dark:hover:bg-gray-700"
                   onClick={handleMessagesClick}
                   href="#"
@@ -264,7 +264,7 @@ export const Profilepro = () => {
                     </svg>
                   </span>
                   <span className="mx-4 text-sm font-normal">MIS MENSAJES</span>
-                </a>
+                </a> */}
               </div>
             </nav>
           </div>
@@ -288,11 +288,11 @@ export const Profilepro = () => {
           <Profileproshowcontracts />
         )}
 
-        {showMessages && (
+        {/* {showMessages && (
           <div className="h-screen pt-2 pb-24 pl-2 pr-2 overflow-auto md:pt-0 md:pr-0 md:pl-0 custom-scrollbar">
             <Messages />
           </div>
-        )}
+        )} */}
       </div>
     </main>
   );

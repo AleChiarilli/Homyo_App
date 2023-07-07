@@ -1,6 +1,7 @@
-import React, { useState, useContext } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { Context } from "../store/appContext";
-import { Link } from "react-router-dom";
+import { format, addMonths, subMonths, startOfMonth, endOfMonth, eachWeekOfInterval, isSameMonth, startOfWeek, endOfWeek, eachDayOfInterval, getDay } from "date-fns";
+import { es } from "date-fns/locale"; // Importar la configuración local en español
 import avatar from "../../img/avatar.png";
 import limpieza from "../../img/limpieza.png";
 import animales from "../../img/animales.png";
@@ -8,9 +9,111 @@ import jardineria from "../../img/jardineria.png";
 import niños from "../../img/niños.png";
 import chef from "../../img/chef.png";
 
-export const Cardprofilepro = (props,professional)  => {
-    //const {store} = useContext(Context)
-    
+
+
+
+export const Cardprofilepro = (props, professional) => {
+
+    const { store, actions } = useContext(Context);
+
+    const [currentDate, setCurrentDate] = useState(new Date());
+    const [showModal, setShowModal] = useState(false);
+    const [selectedDay, setSelectedDay] = useState(1);
+    const [selectedMonth, setSelectedMonth] = useState(0);
+    const [startTime, setStartTime] = useState("");
+    const [endTime, setEndTime] = useState("");
+    const [reservations, setReservations] = useState([]);
+
+    const [hourDifference, setHourDifference] = useState(0);
+
+    const handleStartingTimeChange = (event) => {
+        const time = event.target.value;
+        setStartTime(time);
+    };
+
+    const handleEndTimeChange = (event) => {
+        const time = event.target.value;
+        setEndTime(time);
+    };
+
+    useEffect(() => {
+        calculateHourDifference(startTime, endTime);
+    }, [startTime, endTime]);
+
+    const calculateHourDifference = (start, end) => {
+        const startDateTime = new Date(start);
+        const endDateTime = new Date(end);
+        const differenceInMilliseconds = endDateTime - startDateTime;
+        const hourDifference = Math.abs(differenceInMilliseconds / (1000 * 60 * 60));
+        setHourDifference(hourDifference);
+    };
+
+    const months = [
+        { value: 0, label: "Enero" },
+        { value: 1, label: "Febrero" },
+        { value: 2, label: "Marzo" },
+        { value: 3, label: "Abril" },
+        { value: 4, label: "Mayo" },
+        { value: 5, label: "Junio" },
+        { value: 6, label: "Julio" },
+        { value: 7, label: "Agosto" },
+        { value: 8, label: "Septiembre" },
+        { value: 9, label: "Octubre" },
+        { value: 10, label: "Noviembre" },
+        { value: 11, label: "Diciembre" },
+    ];
+
+    const previousMonth = () => {
+        setCurrentDate((prevDate) => subMonths(prevDate, 1));
+    };
+
+    const nextMonth = () => {
+        setCurrentDate((prevDate) => addMonths(prevDate, 1));
+    };
+
+    const startOfCurrentMonth = startOfMonth(currentDate);
+    const endOfCurrentMonth = endOfMonth(currentDate);
+    const weeksOfMonth = eachWeekOfInterval(
+        {
+            start: startOfCurrentMonth,
+            end: endOfCurrentMonth,
+        },
+        { weekStartsOn: 0 } // Comenzar la semana en domingo
+    );
+
+    const weekDays = ["Dom", "Lun", "Mar", "Mié", "Jue", "Vie", "Sáb"]; // Domingo como primer día
+
+    const addReservation = () => {
+        const newReservation = {
+            day: selectedDay,
+            month: selectedMonth,
+            startTime: startTime,
+            endTime: endTime,
+        };
+        setReservations([...reservations, newReservation]);
+        setShowModal(false);
+        setSelectedDay(1);
+        setSelectedMonth(0);
+        setStartTime("");
+        setEndTime("");
+    };
+
+    const [homeNames, setHomeNames] = useState([]);
+    const [selectedHome, setSelectedHome] = useState("");
+
+    useEffect(() => {
+        // Obtén los nombres de las casas almacenados en el localStorage
+        const storedHomeNames = JSON.parse(localStorage.getItem("home"));
+        setHomeNames(storedHomeNames);
+    }, []);
+
+    const handleHomeSelection = (event) => {
+        const selectedHome = event.target.value;
+        setSelectedHome(selectedHome);
+        // Hacer lo que necesites con el nombre de la casa seleccionada
+        console.log("Casa seleccionada:", selectedHome);
+    };
+
 
     return (
         // <div>
@@ -32,7 +135,7 @@ export const Cardprofilepro = (props,professional)  => {
                 </div>
                 <div className="md:w-2/3 bg-white flex flex-col space-y-2 p-3">
                     <div className="flex justify-between item-center">
-                        <div className="flex items-center">
+                        {/* <div className="flex items-center">
                             <svg xmlns="http://www.w3.org/2000/svg" className="h-10 w-10 text-yellow-500" viewBox="0 0 20 20"
                                 fill="currentColor">
                                 <path
@@ -42,7 +145,7 @@ export const Cardprofilepro = (props,professional)  => {
                                 4.96
                                 <span className="text-gray-500 font-normal">(76 reviews)</span>
                             </p>
-                        </div>
+                        </div> */}
                         <div className="bg-gray-200 px-3 py-1 rounded-full text-xl font-medium text-gray-800 hidden md:block">
                             €/hora: {props.hourly_rate}</div>
                     </div>
@@ -75,7 +178,7 @@ export const Cardprofilepro = (props,professional)  => {
                                     </div>
                                     <div className="flex flex-col">
                                         <span className="text-lg font-medium text-gray-600 dark:text-white">
-                                            Cocina 
+                                            Cocina
                                         </span>
                                     </div>
                                 </div>
@@ -89,7 +192,7 @@ export const Cardprofilepro = (props,professional)  => {
                                     </div>
                                     <div className=" flex flex-col">
                                         <span className="text-lg font-medium text-gray-600 dark:text-white">
-                                            Cuidado de niños 
+                                            Cuidado de niños
                                         </span>
                                     </div>
                                 </div>
@@ -103,7 +206,7 @@ export const Cardprofilepro = (props,professional)  => {
                                     </div>
                                     <div className=" flex flex-col">
                                         <span className="text-lg font-medium text-gray-600 dark:text-white">
-                                            Cuidado de animales 
+                                            Cuidado de animales
                                         </span>
                                     </div>
                                 </div>
@@ -117,7 +220,7 @@ export const Cardprofilepro = (props,professional)  => {
                                     </div>
                                     <div className=" flex flex-col">
                                         <span className="text-lg font-medium text-gray-600 dark:text-white">
-                                            Jardineria 
+                                            Jardineria
                                         </span>
                                     </div>
                                 </div>
@@ -125,22 +228,86 @@ export const Cardprofilepro = (props,professional)  => {
                         </ul>
                     </div>
 
-
-                    <div className="text-right">
-                        <Link to="/perfil-profesional">
-                            <button
-                                type="submit"
-                                className="text-white bg-indigo-700 hover:bg-indigo-800 focus:ring-4 focus:outline-none focus:ring-indigo-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-                            >
-                                Ver Perfil
-                            </button>
-                        </Link>
+                    <div className="flex justify-center mt-4">
+                        <button
+                            onClick={() => setShowModal(true)}
+                            className="px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                        >
+                            Añadir Reserva
+                        </button>
                     </div>
 
+                    {showModal && (
+                        <div className="fixed inset-0 flex items-center justify-center z-10">
+                            <div className="bg-gray-900 opacity-50" />
+                            <div className="bg-white w-1/2 p-6 rounded shadow-lg">
+                                <h2 className="text-lg font-semibold text-gray-800 mb-4">Añadir Reserva</h2>
+                                <div className="mb-4">
+                                    <label className="block text-sm font-medium text-gray-700">Fecha:</label>
+                                    <div className="flex items-center">
+                                        <select value={selectedHome} onChange={handleHomeSelection}>
+                                            <option value="">Seleccionar casa</option>
+                                            {homeNames.map((homeName) => (
+                                                <option key={homeName} value={homeName}>
+                                                    {homeName}
+                                                </option>
+                                            ))}
+                                        </select>
+                                    </div>
+                                </div>
+                                <div className="mb-4">
+                                    <label className="block text-sm font-medium text-gray-700">Hora de inicio:</label>
+                                    <input
+                                        type="datetime-local"
+                                        id="starting-time"
+                                        className="block w-full p-4 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 sm:text-md focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                        value={startTime}
+                                        onChange={handleStartingTimeChange}
+                                    />
+                                </div>
+                                <div className="mb-4">
+                                    <label className="block text-sm font-medium text-gray-700">Hora de fin:</label>
+                                    <input
+                                        type="datetime-local"
+                                        id="end-time"
+                                        className="block w-full p-4 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 sm:text-md focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                        value={endTime}
+                                        onChange={handleEndTimeChange}
+                                    />
+                                </div>
+                                <div>
+                                    <label className="block text-sm font-medium text-gray-700">Diferencia en horas:</label>
+                                    <input
+                                        type="text"
+                                        className="block w-full p-4 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 sm:text-md focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                        value={hourDifference}
+                                        readOnly
+                                    />
+                                </div>
+
+                                <div className="mt-6 flex justify-end">
+                                    <button
+                                        onClick={addReservation}
+                                        className="px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                                    >
+                                        Añadir Reserva
+                                    </button>
+                                    <button
+                                        onClick={() => setShowModal(false)}
+                                        className="px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-gray-700 bg-gray-200 hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500 ml-3"
+                                    >
+                                        Cancelar
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    )}
                 </div>
+
+
             </div>
         </div>
-       // </div>
+        // </div>
 
     );
 };
