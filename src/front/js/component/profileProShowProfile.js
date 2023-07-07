@@ -13,6 +13,10 @@ export const Profileproshowprofile = () => {
 
     //ESTADOS DE LOS INPUTS A RELLENAR POR EL PROESIONAL
     //const [verified, setVerified] = useState("");
+    const [username, setUsername] = useState(store.user && store.user.username)
+    const [surname1, setSurname1] = useState(store.user && store.user.surname1)
+    const [surname2, setSurname2] = useState(store.user && store.user.surname2)
+    const [email, setEmail] = useState(store.user && store.user.email)
     const [dni, setDni] = useState(store.pro_profile && store.pro_profile.dni);
     const [description, setDescription] = useState(store.pro_profile && store.pro_profile.description);
     const [address, setAddress] = useState(store.pro_profile && store.pro_profile.address);
@@ -24,10 +28,13 @@ export const Profileproshowprofile = () => {
     const [seleccionados, setSeleccionados] = useState([]);
 
 
+
+
     //FUNCION PARA EL FORM
     const info_professional = async (e) => {
         e.preventDefault();
         await actions.profile_professional(
+            //surname1,
             //verified,
             dni,
             description,
@@ -37,23 +44,52 @@ export const Profileproshowprofile = () => {
             km_radius,
             phone_number,
             hourly_rate,
+            seleccionados
         ); // Envía los datos del usuario utilizando la acción addUser del objeto actions
     };
 
+    const skillList = {
+        "limpieza": {
+            "nameSkill": "Limpieza",
+            "imageSkill": limpieza
+        },
+        "jardineria": {
+            "nameSkill": "Jardineria",
+            "imageSkill": jardineria
+        },
+        "cuidadodeninos": {
+            "nameSkill": "Cuidado de niños",
+            "imageSkill": niños
+        },
+        "cuidadodeanimales": {
+            "nameSkill": "Cuidado de animales",
+            "imageSkill": animales
+        },
+        "cocina": {
+            "nameSkill": "Cocina",
+            "imageSkill": chef
+        },
+    }
+
      //USEEFFECT PARA QUE CARGUE LA INFORMACION DEL FORMULARIO
      useEffect(() => {
+        console.log(store.user && store.user.username)
         actions.get_profile_info();
     }, []);
 
 
     const handleSeleccionar = (id) => {
-        if (seleccionados.includes(id)) {
-            setSeleccionados(seleccionados.filter((item) => item !== id));
-        } else {
             setSeleccionados([...seleccionados, id]);
-        }
     };
    
+    useEffect(()=>{
+        const emailInput = document.querySelector("#floating_email");
+         emailInput.value = store.user.email
+    
+        const nameInput = document.querySelector("#floating_first_name");
+         nameInput.value = store.user.username
+    
+    },[])
 
     return (
         <div className="flex flex-col w-full pl-0 md:p-4 md:space-y-4">
@@ -72,11 +108,13 @@ export const Profileproshowprofile = () => {
                                     <div className="grid md:grid-cols-3 md:gap-6">
                                         <div className="relative z-0 w-full mb-6 group">
                                             <input
+                                                onChange={(event) => setUsername(event.target.value)}
                                                 type="text"
                                                 name="floating_first_name"
                                                 id="floating_first_name"
                                                 className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                                                 placeholder="Nombre "
+                                                value={store.user && store.user.usernam}
                                                 required
                                             />
                                             <label
@@ -86,11 +124,13 @@ export const Profileproshowprofile = () => {
                                         </div>
                                         <div className="relative z-0 w-full mb-6 group">
                                             <input
+                                                onChange={(event) => setSurname1(event.target.value)}
                                                 type="text"
                                                 name="floating_last_name"
                                                 id="floating_last_name"
                                                 className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                                                 placeholder="Apellido 1"
+                                                value={store.user && store.user.surname1}
                                                 required
                                             />
                                             <label
@@ -100,11 +140,13 @@ export const Profileproshowprofile = () => {
                                         </div>
                                         <div className="relative z-0 w-full mb-6 group">
                                             <input
+                                                onChange={(event) => setSurname2(event.target.value)}
                                                 type="text"
                                                 name="floating_last_name"
                                                 id="floating_last_name"
                                                 className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                                                 placeholder="Apellido 2"
+                                                value={store.user && store.user.surname2}
                                                 required
                                             />
                                             <label
@@ -115,11 +157,13 @@ export const Profileproshowprofile = () => {
                                     </div>
                                     <div className="relative z-0 w-full mb-6 group">
                                         <input
+                                          onChange={(event) => setEmail(event.target.value)}
                                             type="email"
                                             name="floating_email"
                                             id="floating_email"
                                             className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                                             placeholder="Email"
+                                            value={store.user && store.user.email}
                                             required
                                         />
                                         <label
@@ -135,7 +179,7 @@ export const Profileproshowprofile = () => {
                                             id="floating_id"
                                             className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                                             placeholder="DNI"
-                                            value={dni}
+                                            value={store.pro_profile && store.pro_profile.dni}
                                             required
                                         />
                                         <label
@@ -154,7 +198,7 @@ export const Profileproshowprofile = () => {
                                                 id="floating_adress"
                                                 className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                                                 placeholder="Dirección "
-                                                value={address}
+                                                value={store.pro_profile && store.pro_profile.address}
                                                 required
                                             />
                                             <label
@@ -172,7 +216,7 @@ export const Profileproshowprofile = () => {
                                                 id="floating_cp"
                                                 className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                                                 placeholder="Código Postal "
-                                                value={postal_code}
+                                                value={store.pro_profile && store.pro_profile.postal_code}
                                                 required
                                             />
                                             <label
@@ -188,7 +232,7 @@ export const Profileproshowprofile = () => {
                                                 id="floating_city"
                                                 className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                                                 placeholder="Ciudad"
-                                                value={city}
+                                                value={store.pro_profile && store.pro_profile.city}
                                                 required
                                             />
                                             <label
@@ -206,7 +250,7 @@ export const Profileproshowprofile = () => {
                                                 id="floating_radio"
                                                 className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                                                 placeholder="Distancia Km"
-                                                value={km_radius}
+                                                value={store.pro_profile && store.pro_profile.km_radius}
                                                 required
                                             />
                                             <label
@@ -224,7 +268,7 @@ export const Profileproshowprofile = () => {
                                                 id="floating_price"
                                                 className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                                                 placeholder="Precio/hora"
-                                                value={hourly_rate}
+                                                value={store.pro_profile && store.pro_profile.hourly_rate}
                                                 required
                                             />
                                             <label
@@ -245,7 +289,7 @@ export const Profileproshowprofile = () => {
                                                 id="floating_phone"
                                                 className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                                                 placeholder="Teléfono "
-                                                value={phone_number}
+                                                value={store.pro_profile && store.pro_profile.phone_number}
                                                 required
                                             />
                                             <label
@@ -276,7 +320,7 @@ export const Profileproshowprofile = () => {
                                                         rows="4"
                                                         className="w-full px-0 text-sm text-gray-900 bg-white border-0 dark:bg-gray-800 focus:ring-0 dark:text-white dark:placeholder-gray-400"
                                                         placeholder="Descríbete..."
-                                                        value={description}
+                                                        value={store.pro_profile && store.pro_profile.description}
                                                         required
                                                     ></textarea>
                                                 </div>
@@ -288,146 +332,39 @@ export const Profileproshowprofile = () => {
                                         Mis Servicios
                                     </p>
                                     <ul className="p-4 flex justify-center">
-                                        <li>
-                                            <button
-                                                type="button"
-                                                id="limpieza"
-                                                className={`flex h-[50px] items-center px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-indigo-200 rounded-full mx-1 hover:bg-indigo-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-indigo-500 focus:text-blue-700 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-blue-500 dark:focus:text-white ${seleccionados.includes("limpieza")
-                                                    ? "bg-indigo-100 text-blue-700"
-                                                    : ""
-                                                    }`}
-                                                onClick={() => handleSeleccionar("limpieza")}
-                                            >
-                                                <div className="flex-row gap-4 flex justify-center items-center">
-                                                    <div className="flex-shrink-0">
-                                                        <a href="#" className="relative block">
-                                                            <img
-                                                                alt="limpieza"
-                                                                src={limpieza}
-                                                                className="mx-auto object-fit rounded-full h-8 w-8"
-                                                            />
-                                                        </a>
-                                                    </div>
-                                                    <div className="flex flex-col">
-                                                        <span className="text-lg font-medium text-gray-600 dark:text-white">
-                                                            Limpieza
-                                                        </span>
-                                                    </div>
-                                                </div>
-                                            </button>
-                                        </li>
-                                        <li>
-                                            <button
-                                                type="button"
-                                                id="cocina"
-                                                className={`flex h-[50px] items-center px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-indigo-200 rounded-full mx-1 hover:bg-indigo-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-indigo-500 focus:text-blue-700 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-blue-500 dark:focus:text-white ${seleccionados.includes("cocina")
-                                                    ? "bg-indigo-100 text-blue-700"
-                                                    : ""
-                                                    }`}
-                                                onClick={() => handleSeleccionar("cocina")}
-                                            >
-                                                <div className="flex-row gap-4 flex justify-center items-center">
-                                                    <div className="flex-shrink-0">
-                                                        <a href="#" className="relative block">
-                                                            <img
-                                                                alt="cocina"
-                                                                src={chef}
-                                                                className="mx-auto object-fit rounded-full h-8 w-8"
-                                                            />
-                                                        </a>
-                                                    </div>
-                                                    <div className="flex flex-col">
-                                                        <span className="text-lg font-medium text-gray-600 dark:text-white">
-                                                            Cocina
-                                                        </span>
-                                                    </div>
-                                                </div>
-                                            </button>
-                                        </li>
-                                        <li>
-                                            <button
-                                                type="button"
-                                                id="niños"
-                                                className={`flex h-[50px] items-center px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-indigo-200 rounded-full mx-1 hover:bg-indigo-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-indigo-500 focus:text-blue-700 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-blue-500 dark:focus:text-white ${seleccionados.includes("niños")
-                                                    ? "bg-indigo-100 text-blue-700"
-                                                    : ""
-                                                    }`}
-                                                onClick={() => handleSeleccionar("niños")}
-                                            >
-                                                <div className="flex-row gap-4 flex justify-center items-center">
-                                                    <div className="flex-shrink-0">
-                                                        <a href="#" className="relative block">
-                                                            <img
-                                                                alt="cuidado de niños"
-                                                                src={niños}
-                                                                className="mx-auto object-fit rounded-full h-8 w-8"
-                                                            />
-                                                        </a>
-                                                    </div>
-                                                    <div className="flex flex-col">
-                                                        <span className="text-lg font-medium text-gray-600 dark:text-white">
-                                                            Cuidado de niños
-                                                        </span>
-                                                    </div>
-                                                </div>
-                                            </button>
-                                        </li>
-                                        <li>
-                                            <button
-                                                type="button"
-                                                id="animales"
-                                                className={`flex h-[50px] items-center px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-indigo-200 rounded-full mx-1 hover:bg-indigo-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-indigo-500 focus:text-blue-700 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-blue-500 dark:focus:text-white ${seleccionados.includes("animales")
-                                                    ? "bg-indigo-100 text-blue-700"
-                                                    : ""
-                                                    }`}
-                                                onClick={() => handleSeleccionar("animales")}
-                                            >
-                                                <div className="flex-row gap-4 flex justify-center items-center">
-                                                    <div className="flex-shrink-0">
-                                                        <a href="#" className="relative block">
-                                                            <img
-                                                                alt="cuidado de animales"
-                                                                src={animales}
-                                                                className="mx-auto object-fit rounded-full h-8 w-8"
-                                                            />
-                                                        </a>
-                                                    </div>
-                                                    <div className="flex flex-col">
-                                                        <span className="text-lg font-medium text-gray-600 dark:text-white">
-                                                            Cuidado de animales
-                                                        </span>
-                                                    </div>
-                                                </div>
-                                            </button>
-                                        </li>
-                                        <li>
-                                            <button
-                                                type="button"
-                                                id="jardineria"
-                                                className={`flex h-[50px] items-center px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-indigo-200 rounded-full mx-1 hover:bg-indigo-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-indigo-500 focus:text-blue-700 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-blue-500 dark:focus:text-white ${seleccionados.includes("jardineria")
-                                                    ? "bg-indigo-100 text-blue-700"
-                                                    : ""
-                                                    }`}
-                                                onClick={() => handleSeleccionar("jardineria")}
-                                            >
-                                                <div className="flex-row gap-4 flex justify-center items-center">
-                                                    <div className="flex-shrink-0">
-                                                        <a href="#" className="relative block">
-                                                            <img
-                                                                alt="jardineria"
-                                                                src={jardineria}
-                                                                className="mx-auto object-fit rounded-full h-8 w-8"
-                                                            />
-                                                        </a>
-                                                    </div>
-                                                    <div className="flex flex-col">
-                                                        <span className="text-lg font-medium text-gray-600 dark:text-white">
-                                                            Jardineria
-                                                        </span>
-                                                    </div>
-                                                </div>
-                                            </button>
-                                        </li>
+                                        
+                                    {store.skills.map((skill) => {
+                                                    return (
+                                                        <>
+                                                            <li className="w-full md:w-auto">
+                                                                <button
+                                                                    type="button"
+                                                                    id={skillList[skill.name].nameSkill}
+                                                                    className={`flex h-[50px] items-center px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-indigo-200 rounded-full mx-1 my-1 md:my-0 text-center w-full md:w-auto hover:bg-indigo-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-indigo-500 focus:text-blue-700 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-blue-500 dark:focus:text-white ${seleccionados.includes("limpieza") ? "bg-indigo-100 text-blue-700" : ""
+                                                                        }`}
+                                                                    onClick={() => handleSeleccionar(skill.id)}
+                                                                >
+                                                                    <div className="flex-row gap-4 flex justify-center items-center">
+                                                                        <div className="flex-shrink-0">
+                                                                            <a href="#" className="relative block">
+                                                                                <img
+                                                                                    alt={skillList[skill.name].nameSkill}
+                                                                                    src={skillList[skill.name].imageSkill}
+                                                                                    className="mx-auto object-fit rounded-full h-8 w-8"
+                                                                                />
+                                                                            </a>
+                                                                        </div>
+                                                                        <div className="flex flex-col">
+                                                                            <span className="text-lg font-medium text-gray-600 dark:text-white">
+                                                                                {skillList[skill.name].nameSkill}
+                                                                            </span>
+                                                                        </div>
+                                                                    </div>
+                                                                </button>
+                                                            </li>
+                                                        </>
+                                                    )
+                                                })}
                                     </ul>
                                     <div className="text-center">
                                         <button
@@ -442,7 +379,7 @@ export const Profileproshowprofile = () => {
                             <p className="p-4 font-bold text-black text-md text-center dark:text-white">
                                 Mi Perfil
                             </p>
-                            <Cardprofilepro />
+                            <Cardprofilepro username={store.user.username} hourly_rate={store.pro_profile.hourly_rate} description={store.pro_profile.description} />
                         </div>
                     </div>
                 </div>

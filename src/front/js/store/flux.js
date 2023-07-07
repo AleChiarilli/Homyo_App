@@ -10,27 +10,21 @@ const getState = ({
         store: {
 
             message: null,
-            // demo: [{
-            //     title: "FIRST",
-            //     background: "white",
-            //     initial: "white",
-            // },
-            // {
-            //     title: "SECOND",
-            //     background: "white",
-            //     initial: "white",
-            // },
-            //],
-            token: "", //guardamos el token como un string vacio
+            
+            token: "", //guardamos el token como un string vacio 
             isLoggedIn: false,
-            role: 'cliente', // Establece el valor por defecto como 'cliente', ¿duplicado? linea 24
+            role: 'cliente', // 
             publications: [],
             homePost: [],
             user: {},
+            pro_profile: {},
+            cmr_profile: {},
+            all_professionals:[],
+            skill_name: {},
             skills: [],
             myHomes: null
 
-        },
+        }, 
         actions: {
 
             getPostsOn: async () => {
@@ -184,8 +178,9 @@ const getState = ({
             },
 
 
-            //AGREGAR INFORMACION DE PERFIL  DEL USUARIO-PROFESIONAL (INPUTS A LLENAR)
+            //AGREGAR INFORMACION DE PERFIL CON SUS SKILL DEL USUARIO-PROFESIONAL (INPUTS A LLENAR)
             profile_professional: async (
+                //surname1,
                 dni,
                 description,
                 address,
@@ -193,7 +188,8 @@ const getState = ({
                 postal_code,
                 km_radius,
                 phone_number,
-                hourly_rate
+                hourly_rate,
+                seleccionados
             ) => {
                 const userId = localStorage.getItem("id");
                 console.log(description)
@@ -204,6 +200,7 @@ const getState = ({
                             method: "PUT",
                             body: JSON.stringify({
                                 user_id: userId,
+                                //surname1:surname1,
                                 dni: dni,
                                 description: description,
                                 address: address,
@@ -212,6 +209,7 @@ const getState = ({
                                 km_radius: km_radius,
                                 phone_number: phone_number,
                                 hourly_rate: hourly_rate,
+                                seleccionados:seleccionados
                             }),
                             headers: {
                                 "Content-Type": "application/json",
@@ -221,13 +219,36 @@ const getState = ({
                         }
                     );
                     const data = await response.json();
+                } catch (error) {
+                    console.log("error loading message from backend", error);
+                }
+            },
+
+            //GET PARA OBTENER TODA LA LISTA DE PROFESIONALES.
+            get_all_professionals: async () => {
+                const token = localStorage.getItem("token");
+
+                try {
+                    const response = await fetch(
+                        process.env.BACKEND_URL + "/api/pro_profile_list", {
+                            method: "GET",
+                            headers: {
+                                "Content-Type": "application/json",
+                                "Authorization": `Bearer ${token}`,
+                            },
+                        }
+                    );
+                    const data = await response.json();
+                    setStore({
+                       all_professionals: data.result
+                    })
                     console.log(data);
                 } catch (error) {
                     console.log("error loading message from backend", error);
                 }
             },
 
-            //GET PARA OBTENER LA INFORMACION DEL PERFIL USUARIO-PROFESIONAL
+            //GET PARA OBTENER LA INFORMACION DEL PERFIL USUARIO-PROFESIONAL (INDIVIDUALMENTE)
             get_profile_info: async (id) => {
                 const token = localStorage.getItem("token");
 
@@ -251,8 +272,8 @@ const getState = ({
                 }
             },
 
-            //AGREGAR INFORMACION DE PERFIL DEL USUARIO-CLIENTE(INPUTS A LLENAR) (no me funciona)
 
+            //AGREGAR INFORMACION DE PERFIL DEL USUARIO-CLIENTE(INPUTS A LLENAR) 
             profile_customer: async (phone_number) => {
                 const userId = localStorage.getItem("id");
                 console.log(phone_number)
@@ -278,9 +299,7 @@ const getState = ({
                 }
             },
 
-
-            //GET PARA OBTENER LA INFORMACION DEL PERFIL USUARIO-CLIENTE
-
+            //GET PARA OBTENER LA INFORMACION DEL PERFIL USUARIO-CLIENTE (INDIVIDUALMENTE)
             get_profile_customer_info: async (id) => {
                 const token = localStorage.getItem("token");
 
@@ -295,9 +314,7 @@ const getState = ({
                         }
                     );
                     const data = await response.json();
-                    setStore({
-                        cmr_profile: data.result
-                    })
+                    setStore({ cmr_profile: data.result })
                     console.log(data);
                 } catch (error) {
                     console.log("error loading message from backend", error);
@@ -305,19 +322,30 @@ const getState = ({
             },
 
 
-            // get_profile_customer_info: async (id) => {
-            //     const userId = localStorage.getItem("id");
-            //     console.log(userId);
-            //     try {
-            //         const response = await fetch(
-            //             process.env.BACKEND_URL + "/api/cmr_profile/" + userId
-            //         );
-            //         const data = await response.json();
-            //         console.log(data);
-            //     } catch (error) {
-            //         console.log("error loading message from backend", error);
-            //     }
-            // },
+            // PETICIÓN PARA AGREGAR UNA HABILIDAD AL PERFIL DEL USUARIO-PROFESIONAL
+            addSkillToProfile: async (skillName) => {
+                const token = localStorage.getItem("token");
+
+                try {
+                    const response = await fetch(`${process.env.BACKEND_URL}/api/pro_profile_skill`, {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json",
+                            "Authorization": `Bearer ${token}`,
+                        },
+                        body: JSON.stringify({ skill_name: skillName }),
+                    });
+
+                    if (response.ok) {
+                        const data = await response.json();
+                        console.log(data)
+                    } else {
+                        throw new Error("Error en la solicitud");
+                    }
+                } catch (error) {
+                    console.error("Error:", error);
+                }
+            },
 
             //FETCH PARA CREAR UN ESPACIO/HOME
             addHome: async (home) => {
@@ -347,11 +375,11 @@ const getState = ({
                 try {
                     const data = await axios.get(
                         process.env.BACKEND_URL + "/api/valide-token", {
-                            headers: {
-                                "Content-Type": "application/json",
-                                "Authorization": `Bearer ${token}`,
-                            },
-                        }
+                        headers: {
+                            "Content-Type": "application/json",
+                            "Authorization": `Bearer ${token}`,
+                        },
+                    }
                     );
                     if (data.status === 200) {
                         console.log(data);

@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect} from "react";
 import { Context } from "../store/appContext";
 import "../../styles/profile.css";
 
@@ -6,22 +6,24 @@ export const Profileclientshowprofile = () => {
   const { store, actions } = useContext(Context);
 
   //ESTADOS DE LOS INPUTS A RELLENAR POR EL CLIENTE
- // const [description, setDescription] = useState(store.cmr_profile && store.cmr_profile.description);
+  const [username, setUsername] = useState(store.user && store.user.username)
+  const [surname1, setSurname1] = useState(store.user && store.user.surname1)
   const [phone_number, setPhone_number] = useState(store.cmr_profile && store.cmr_profile.phone_number);
+  const [email, setEmail] = useState(store.cmr_profile && store.cmr_profile.email)
   console.log(phone_number)
 
   //FUNCION PARA EL FORM (INFORMACION DEL CLIENTE)
   const info_customer = async (e) => {
     e.preventDefault();
     const userId = localStorage.getItem("id");
-    actions.profile_customer(userId, phone_number);
+    actions.profile_customer( phone_number);
   };
 
 
-  //USEEFFECT PARA QUE CARGUE LA INFORMACION DEL FORMULARIO
-  //   useEffect(() => {
-  //    actions.get_profile_customer_info();
-  //  }, []);
+  //USEEFFECT PARA QUE CARGUE LA INFORMACION DEL FORMULARIO 
+    useEffect(() => {
+    actions.get_profile_customer_info();
+    }, []);
 
 
   return (
@@ -40,11 +42,13 @@ export const Profileclientshowprofile = () => {
                   <div className="grid md:grid-cols-2 md:gap-6">
                     <div className="relative z-0 w-full mb-6 group">
                       <input
+                         onChange={(event) => setUsername(event.target.value)}
                         type="text"
                         name="floating_first_name"
                         id="floating_first_name"
                         className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                         placeholder="Nombre "
+                        value={username}
                         required
                       />
                       <label
@@ -54,6 +58,7 @@ export const Profileclientshowprofile = () => {
                     </div>
                     <div className="relative z-0 w-full mb-6 group">
                       <input
+                        onChange={(event) => setSurname1(event.target.value)}
                         type="text"
                         name="floating_last_name"
                         id="floating_last_name"
@@ -69,12 +74,13 @@ export const Profileclientshowprofile = () => {
                   </div>
                   <div className="relative z-0 w-full mb-6 group">
                     <input
-
+                        onChange={(event) => setEmail(event.target.value)}
                       type="email"
                       name="floating_email"
                       id="floating_email"
                       className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                       placeholder="Email"
+                      value={store.user && store.user.email}
                       required
                     />
                     <label
@@ -82,7 +88,7 @@ export const Profileclientshowprofile = () => {
                       className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
                     ></label>
                   </div>
-                  <div className="relative z-0 w-full mb-6 group">
+                  {/* <div className="relative z-0 w-full mb-6 group">
                     <input
                       type="text"
                       name="floating_id"
@@ -95,8 +101,8 @@ export const Profileclientshowprofile = () => {
                       htmlFor="floating_id"
                       className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
                     ></label>
-                  </div>
-                  <div className="grid md:grid-cols-2 md:gap-6">
+                  </div> */}
+                  {/* <div className="grid md:grid-cols-2 md:gap-6">
                     <div className="relative z-0 w-full mb-6 group">
                       <input
                         type="text"
@@ -139,7 +145,7 @@ export const Profileclientshowprofile = () => {
                         className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
                       ></label>
                     </div>
-                  </div>
+                  </div> */}
                   <div className="grid md:grid-cols-1 md:gap-6">
                     <div className="relative z-0 w-full mb-6 group">
                       <input
@@ -149,7 +155,7 @@ export const Profileclientshowprofile = () => {
                         id="floating_phone"
                         className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                         placeholder="Teléfono"
-                        value={phone_number}
+                        value={store.user && store.user.phone_number}
                         required
                       />
                       <label

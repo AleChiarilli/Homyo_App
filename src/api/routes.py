@@ -408,16 +408,16 @@ def delete_user_role(id):
 #----------------ENDPOINTS PRO_PROFILE---------------
 @api.route('/pro_profile_list', methods=['GET'])
 # Acceso protegido
-# @jwt_required()
+@jwt_required()
 def get_pro_profiles():
 
     results = Pro_profile.query.all()
     pro_profile_list = list(map(lambda item: item.serialize(),results))
 
      # Filter the query based on the city parameter if it exists
-    query = Pro_profile.query
-    if city:
-        query = query.filter_by(Pro_profile.city.ilike(f'%{city}%')).all()
+    # query = Pro_profile.query
+    # if city:
+    #     query = query.filter_by(Pro_profile.city.ilike(f'%{city}%')).all()
 
     response_body = {
         "msg": "Hello, this is your GET /pro_profile response ",
@@ -502,15 +502,21 @@ def update_pro_profile():
         return 'Pro_profile not found', 404
     
     #adición de rol profesional no funca
-    role_id = 1
-    role = Role.query.get(role_id)
-    if role:
-        user_role = User_role(user=user, role=role)
-        db.session.add(user_role)
-    db.session.add(user_role)
-
+    # role_id = 1
+    # role = Role.query.get(role_id)
+    # if role:
+    #     user_role = User_role(user=user, role=role)
+    #     db.session.add(user_role)
+    #     db.session.commit()
+        
     # Retrieve the data to update from the request body
     data = request.json
+    seleccionados = list(set(data["seleccionados"]))
+
+    for skill in seleccionados:
+        new_skill = Pro_profile_skill(skill_id = skill, pro_profile_id = pro_profile.id)
+        db.session.add(new_skill)
+        db.session.commit()
 
     # Update the user attributes
     pro_profile.dni = data.get('dni', pro_profile.dni)
