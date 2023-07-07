@@ -1145,7 +1145,7 @@ def create_home_post():
     longitude = location.longitude
 
     print(body)
-    home_post = Home_Post(home_id=home.id, description=body["description"], latitude=latitude, longitude=longitude, starting_time=body["starting_time"], finishing_time=body["finishing_time"], hourly_rate=body["hourly_rate"])
+    home_post = Home_Post(home_id=home.id, description=body["description"], latitude=latitude, longitude=longitude, starting_time=body["starting_time"], finishing_time=body["finishing_time"])
     db.session.add(home_post)
     db.session.commit()
 
@@ -1290,7 +1290,7 @@ def create_contract_pro_cmr():
         raise APIException('Te falta añadir un id de cliente', status_code=400)
     
     print(body)
-    contract = Contract(pro_profile_id=pro_profile.id, cmr_profile_id=body["cmr_profile_id"], comment=body["comment"], finishing_time=body["finishing_time"], starting_time=body["starting_time"], home_id=body["home_id"])
+    contract = Contract(pro_profile_id=pro_profile.id, cmr_profile_id=body["cmr_profile_id"], comment=body["comment"], finishing_time=body["finishing_time"], starting_time=body["starting_time"], home_id=body["home_id"], hourly_rate=body["hourly_rate"])
     db.session.add(contract)
     db.session.commit()
 
@@ -1327,7 +1327,7 @@ def create_contract_cmr_pro():
         raise APIException('Te falta añadir un id de cliente', status_code=400)
     
     print(body)
-    contract = Contract(pro_profile_id=body["pro_profile_id"], cmr_profile_id=cmr_profile.id, comment=body["comment"], finishing_time=body["finishing_time"], starting_time=body["starting_time"], home_id=body["home_id"])
+    contract = Contract(pro_profile_id=body["pro_profile_id"], cmr_profile_id=cmr_profile.id, comment=body["comment"], finishing_time=body["finishing_time"], starting_time=body["starting_time"], home_id=body["home_id"], hourly_rate=body["hourly_rate"])
     db.session.add(contract)
     db.session.commit()
 
