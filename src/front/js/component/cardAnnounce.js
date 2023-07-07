@@ -6,10 +6,10 @@ import niños from "../../img/niños.png";
 import chef from "../../img/chef.png";
 import house from "../../img/house.png";
 
+const iconsMap = { limpieza, animales, jardineria, niños, chef }
 
 
-
-export const CardAnnounce = ({ description, address, startingTime, finishingTime, name, timeDifference, skill}) => {
+export const CardAnnounce = ({ description, address, startingTime, finishingTime, name, timeDifference, skills }) => {
   const [isModalOpen100, setIsModalOpen100] = useState(false); // Estado del primer modal
 
   // const {store} = useContext(Context)
@@ -44,99 +44,33 @@ export const CardAnnounce = ({ description, address, startingTime, finishingTime
           </div>
           <h3 className="font-black text-gray-800 dark:text-white md:text-3xl text-xl">{name}</h3>
           <p>{address}</p>
-          <p className="md:text-lg text-gray-500 dark:text-white text-base">Servicios Contratados</p>
+          <p className="md:text-lg text-gray-500 dark:text-white text-base">Servicios que precisa:</p>
           <div className="flex justify-center">
             <ul className="flex flex-wrap">
-              <li className="mr-2 mb-2">
-                <div className="flex-row gap-4 flex justify-center items-center">
-                  <div className="flex-shrink-0">
-                    <a className=" block">
-                      <img
-                        alt="limpieza"
-                        src={limpieza}
-                        className="mx-auto object-fit rounded-full h-8 w-8 dark:bg-gray-800"
-                      />
-                    </a>
-                  </div>
-                  <div className="flex flex-col">
-                    <span className="text-lg font-medium text-gray-600 dark:text-white">
-                      Limpieza
-                    </span>
-                  </div>
-                </div>
-              </li>
-              <li className="mr-2 mb-2">
-                <div className="flex-row gap-4 flex justify-center items-center">
-                  <div className="flex-shrink-0">
-                    <a className=" block">
-                      <img
-                        alt="cocina"
-                        src={chef}
-                        className="mx-auto object-fit rounded-full h-8 w-8 dark:bg-gray-800"
-                      />
-                    </a>
-                  </div>
-                  <div className="flex flex-col">
-                    <span className="text-lg font-medium text-gray-600 dark:text-white">
-                      Cocina
-                    </span>
-                  </div>
-                </div>
-              </li>
-              <li className="mr-2 mb-2">
-                <div className="flex-row gap-4 flex justify-center items-center">
-                  <div className="flex-shrink-0">
-                    <a className=" block">
-                      <img
-                        alt="cuidado de niños"
-                        src={niños}
-                        className="mx-auto object-fit rounded-full h-8 w-8 dark:bg-gray-800"
-                      />
-                    </a>
-                  </div>
-                  <div className="flex flex-col">
-                    <span className="text-lg font-medium text-gray-600 dark:text-white">
-                      Cuidado de niños
-                    </span>
-                  </div>
-                </div>
-              </li>
-              <li className="mr-2 mb-2">
-                <div className="flex-row gap-4 flex justify-center items-center">
-                  <div className="flex-shrink-0">
-                    <a className=" block">
-                      <img
-                        alt="cuidado de animales"
-                        src={animales}
-                        className="mx-auto object-fit rounded-full h-8 w-8 dark:bg-gray-800"
-                      />
-                    </a>
-                  </div>
-                  <div className="flex flex-col">
-                    <span className="text-lg font-medium text-gray-600 dark:text-white">
-                      Cuidado de animales
-                    </span>
-                  </div>
-                </div>
-              </li>
-              <li className="mr-2 mb-2">
-                <div className="flex-row gap-4 flex justify-center items-center">
-                  <div className="flex-shrink-0">
-                    <a className=" block">
-                      <img
-                        alt="jardineria"
-                        src={jardineria}
-                        className="mx-auto object-fit rounded-full h-8 w-8 dark:bg-gray-800"
-                      />
-                    </a>
-                  </div>
-                  <div className="flex flex-col">
-                    <span className="text-lg font-medium text-gray-600 dark:text-white">
-                      Jardineria {skill}
-                    </span>
-                  </div>
-                </div>
-              </li>
+              {skills?.map((skill) => {
+                return (
+                  <>
+                    <li className="mr-2 mb-2">
+                      <div className="flex-row gap-4 flex justify-center items-center">
+                        <div className="flex-shrink-0">
+                          <a className=" block">
+                            <img
+                              alt={skill.skill}
+                              src={iconsMap[skill.skill]}
+                              className="mx-auto object-fit rounded-full h-8 w-8 dark:bg-gray-800"
+                            />
+                          </a>
+                        </div>
+                        <div className="flex flex-col">
+                          <span className="text-lg font-medium text-gray-600 dark:text-white">
+                            {skill.skill}
+                          </span>
+                        </div>
+                      </div>
+                    </li>
+                  </>
+                )
+              })}
             </ul>
           </div>
           <div>
@@ -206,7 +140,7 @@ export const CardAnnounce = ({ description, address, startingTime, finishingTime
                             />
                           </div>
                           <div className="flex self-center w-64 ">
-                              <img src="https://thyroiduk.org/wp-content/uploads/2020/12/undraw_content_creator_xeju-1024x788.png" />
+                            <img src="https://thyroiduk.org/wp-content/uploads/2020/12/undraw_content_creator_xeju-1024x788.png" />
                           </div>
                         </div>
                         <div className="flex justify-center items-center">

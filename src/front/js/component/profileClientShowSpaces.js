@@ -17,7 +17,7 @@ export const Profileclientshowspaces = () => {
     actions.getMyHomes()
   })
   const submitHome = async () => {
-    await actions.addHome({ nameSpace, addressSpace, nameCity, postalCodeSpace, DescriptionSpace });
+    await actions.addHome({ name:nameSpace, address:addressSpace, city:nameCity, postal_code:postalCodeSpace, description:DescriptionSpace });
     // await actions.addHome({ name, address, city, postal_code, description });
   };
 
