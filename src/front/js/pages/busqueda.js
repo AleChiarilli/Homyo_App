@@ -1,4 +1,4 @@
-import React, { useState, useEffect,useContext } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { Context } from "../store/appContext";
 import "../../styles/home.css";
 import limpieza from "../../img/limpieza.png";
@@ -8,8 +8,8 @@ import niños from "../../img/niños.png";
 import chef from "../../img/chef.png";
 import { Cardprofilepro } from "../component/cardProfilePro";
 
-export const Busqueda = () => {
-  
+export const Busqueda = (props) => {
+
 
   const { store, actions } = useContext(Context);
 
@@ -47,13 +47,13 @@ export const Busqueda = () => {
 
   useEffect(() => {
     actions.get_all_professionals();
-}, []);
+  }, []);
 
-console.log(store.all_professionals)
+
 
   return (
     <div className="flex flex-col sm:flex-row justify-center mt-20 dark:bg-gray-800">
-  {/* <aside
+      {/* <aside
     id="sidebar-multi-level-sidebar"
     className="w-full sm:w-64 order-1 sm:order-2"
   >
@@ -366,11 +366,22 @@ console.log(store.all_professionals)
         <div className="flex flex-col items-center">
           <div className="max-w-3xl w-full mx-auto z-10">
             <div className="flex flex-col">
-              <Cardprofilepro />
-              <Cardprofilepro />
-              <Cardprofilepro />
-              <Cardprofilepro />
-              <Cardprofilepro />
+              {/* {store.planets.map((planets, index) => { //mapeamos a planets dentro de cards
+			  return (<div key={index} className="col-3"> <Card object={planets} type="planets" id={index + 2} url={`/single/${planets.id}`}/></div>)
+			})} */}
+
+              <div>
+                {store.all_professionals.length > 0 ? (
+                  store.all_professionals.map((professional, index) => (
+                    <div key={index} className="col-1">
+                      <Cardprofilepro hourly_rate={professional.hourly_rate} description={professional.description} />
+                    </div>
+                  ))
+                ) : (
+                  <h1>No hay profesionales disponibles</h1>
+                )}
+              </div>
+
             </div>
           </div>
         </div>

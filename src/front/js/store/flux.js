@@ -10,7 +10,7 @@ const getState = ({
         store: {
 
             message: null,
-            
+
             token: "", //guardamos el token como un string vacio 
             isLoggedIn: false,
             role: 'cliente', // 
@@ -19,12 +19,12 @@ const getState = ({
             user: {},
             pro_profile: {},
             cmr_profile: {},
-            all_professionals:[],
+            all_professionals: [],
             skill_name: {},
             skills: [],
             myHomes: null
 
-        }, 
+        },
         actions: {
 
             getPostsOn: async () => {
@@ -197,26 +197,26 @@ const getState = ({
 
                     const response = await fetch(
                         process.env.BACKEND_URL + "/api/pro_profile/", {
-                            method: "PUT",
-                            body: JSON.stringify({
-                                user_id: userId,
-                                //surname1:surname1,
-                                dni: dni,
-                                description: description,
-                                address: address,
-                                city: city,
-                                postal_code: postal_code,
-                                km_radius: km_radius,
-                                phone_number: phone_number,
-                                hourly_rate: hourly_rate,
-                                seleccionados:seleccionados
-                            }),
-                            headers: {
-                                "Content-Type": "application/json",
-                                "Authorization": `Bearer ${localStorage.getItem("token")}`
+                        method: "PUT",
+                        body: JSON.stringify({
+                            user_id: userId,
+                            //surname1:surname1,
+                            dni: dni,
+                            description: description,
+                            address: address,
+                            city: city,
+                            postal_code: postal_code,
+                            km_radius: km_radius,
+                            phone_number: phone_number,
+                            hourly_rate: hourly_rate,
+                            seleccionados: seleccionados
+                        }),
+                        headers: {
+                            "Content-Type": "application/json",
+                            "Authorization": `Bearer ${localStorage.getItem("token")}`
 
-                            },
-                        }
+                        },
+                    }
                     );
                     const data = await response.json();
                 } catch (error) {
@@ -231,18 +231,19 @@ const getState = ({
                 try {
                     const response = await fetch(
                         process.env.BACKEND_URL + "/api/pro_profile_list", {
-                            method: "GET",
-                            headers: {
-                                "Content-Type": "application/json",
-                                "Authorization": `Bearer ${token}`,
-                            },
-                        }
+                        method: "GET",
+                        headers: {
+                            "Content-Type": "application/json",
+                            "Authorization": `Bearer ${token}`,
+                        },
+                    }
                     );
                     const data = await response.json();
                     setStore({
                         all_professionals: data.results
-                     })
-                    console.log(data);
+                    })
+                    console.log("datos")
+                    console.log(data.results);
                 } catch (error) {
                     console.log("error loading message from backend", error);
                 }
@@ -255,12 +256,12 @@ const getState = ({
                 try {
                     const response = await fetch(
                         process.env.BACKEND_URL + "/api/pro_profile/", {
-                            method: "GET",
-                            headers: {
-                                "Content-Type": "application/json",
-                                "Authorization": `Bearer ${token}`,
-                            },
-                        }
+                        method: "GET",
+                        headers: {
+                            "Content-Type": "application/json",
+                            "Authorization": `Bearer ${token}`,
+                        },
+                    }
                     );
                     const data = await response.json();
                     setStore({
@@ -281,16 +282,16 @@ const getState = ({
 
                     const response = await fetch(
                         process.env.BACKEND_URL + "/api/cmr_profile", {
-                            method: "PUT",
-                            body: JSON.stringify({
-                                user_id: userId,
-                                phone_number: phone_number,
-                            }),
-                            headers: {
-                                "Content-Type": "application/json",
-                                "Authorization": `Bearer ${localStorage.getItem("token")}`
-                            },
-                        }
+                        method: "PUT",
+                        body: JSON.stringify({
+                            user_id: userId,
+                            phone_number: phone_number,
+                        }),
+                        headers: {
+                            "Content-Type": "application/json",
+                            "Authorization": `Bearer ${localStorage.getItem("token")}`
+                        },
+                    }
                     );
                     const data = await response.json();
                     console.log(data);
@@ -306,12 +307,12 @@ const getState = ({
                 try {
                     const response = await fetch(
                         process.env.BACKEND_URL + "/api/cmr_profile", {
-                            method: "GET",
-                            headers: {
-                                "Content-Type": "application/json",
-                                "Authorization": `Bearer ${token}`,
-                            },
-                        }
+                        method: "GET",
+                        headers: {
+                            "Content-Type": "application/json",
+                            "Authorization": `Bearer ${token}`,
+                        },
+                    }
                     );
                     const data = await response.json();
                     setStore({ cmr_profile: data.result })

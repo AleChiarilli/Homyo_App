@@ -12,7 +12,7 @@ import chef from "../../img/chef.png";
 
 
 
-export const Cardprofilepro = (props, professional) => {
+export const Cardprofilepro = (props) => {
 
     const { store, actions } = useContext(Context);
 
