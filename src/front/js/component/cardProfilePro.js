@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
+import { Context } from "../store/appContext";
 import { Link } from "react-router-dom";
 import avatar from "../../img/avatar.png";
 import limpieza from "../../img/limpieza.png";
@@ -7,7 +8,9 @@ import jardineria from "../../img/jardineria.png";
 import niños from "../../img/niños.png";
 import chef from "../../img/chef.png";
 
-export const Cardprofilepro = () => {
+export const Cardprofilepro = (props,professional)  => {
+    //const {store} = useContext(Context)
+    
 
     return (
         <div className="w-full flex flex-col justify-center mb-3">
@@ -29,10 +32,10 @@ export const Cardprofilepro = () => {
                             </p>
                         </div>
                         <div className="bg-gray-200 px-3 py-1 rounded-full text-xl font-medium text-gray-800 hidden md:block">
-                            13€/hora</div>
+                            €/hora: {props.hourly_r  ate}</div>
                     </div>
-                    <h3 className="font-black text-gray-800 md:text-3xl text-xl">Antonio</h3>
-                    <p className="md:text-lg text-gray-500 text-base">Descripción de Antonio</p>
+                    <h3 className="font-black text-gray-800 md:text-3xl text-xl">{props.username}</h3>
+                    <p className="md:text-lg text-gray-500 text-base">{props.description}</p>
 
 
                     <div className="flex justify-center">
@@ -60,7 +63,7 @@ export const Cardprofilepro = () => {
                                     </div>
                                     <div className="flex flex-col">
                                         <span className="text-lg font-medium text-gray-600 dark:text-white">
-                                            Cocina
+                                            Cocina 
                                         </span>
                                     </div>
                                 </div>
@@ -74,7 +77,7 @@ export const Cardprofilepro = () => {
                                     </div>
                                     <div className=" flex flex-col">
                                         <span className="text-lg font-medium text-gray-600 dark:text-white">
-                                            Cuidado de niños
+                                            Cuidado de niños 
                                         </span>
                                     </div>
                                 </div>
@@ -88,7 +91,7 @@ export const Cardprofilepro = () => {
                                     </div>
                                     <div className=" flex flex-col">
                                         <span className="text-lg font-medium text-gray-600 dark:text-white">
-                                            Cuidado de animales
+                                            Cuidado de animales 
                                         </span>
                                     </div>
                                 </div>
@@ -102,7 +105,7 @@ export const Cardprofilepro = () => {
                                     </div>
                                     <div className=" flex flex-col">
                                         <span className="text-lg font-medium text-gray-600 dark:text-white">
-                                            Jardineria
+                                            Jardineria 
                                         </span>
                                     </div>
                                 </div>

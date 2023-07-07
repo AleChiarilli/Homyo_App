@@ -13,9 +13,10 @@ export const Profileproshowprofile = () => {
 
     //ESTADOS DE LOS INPUTS A RELLENAR POR EL PROESIONAL
     //const [verified, setVerified] = useState("");
-    const [username, setUsername] = useState(store.pro_profile && store.pro_profile.username)
-    const [surname1, setSurname1] = useState(store.pro_profile && store.pro_profile.surname1)
-    const [email, setEmail] = useState(store.pro_profile && store.pro_profile.email)
+    const [username, setUsername] = useState(store.user && store.user.username)
+    const [surname1, setSurname1] = useState(store.user && store.user.surname1)
+    const [surname2, setSurname2] = useState(store.user && store.user.surname2)
+    const [email, setEmail] = useState(store.user && store.user.email)
     const [dni, setDni] = useState(store.pro_profile && store.pro_profile.dni);
     const [description, setDescription] = useState(store.pro_profile && store.pro_profile.description);
     const [address, setAddress] = useState(store.pro_profile && store.pro_profile.address);
@@ -25,7 +26,7 @@ export const Profileproshowprofile = () => {
     const [phone_number, setPhone_number] = useState(store.pro_profile && store.pro_profile.phone_number);
     const [hourly_rate, setHourly_rate] = useState(store.pro_profile && store.pro_profile.hourly_rate);
     const [seleccionados, setSeleccionados] = useState([]);
-    console.log(store.pro_profile);
+
 
 
 
@@ -33,6 +34,7 @@ export const Profileproshowprofile = () => {
     const info_professional = async (e) => {
         e.preventDefault();
         await actions.profile_professional(
+            //surname1,
             //verified,
             dni,
             description,
@@ -71,6 +73,7 @@ export const Profileproshowprofile = () => {
 
      //USEEFFECT PARA QUE CARGUE LA INFORMACION DEL FORMULARIO
      useEffect(() => {
+        console.log(store.user && store.user.username)
         actions.get_profile_info();
     }, []);
 
@@ -103,7 +106,7 @@ export const Profileproshowprofile = () => {
                                                 id="floating_first_name"
                                                 className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                                                 placeholder="Nombre "
-                                                value={store.pro_profile && store.pro_profile.username }
+                                                value={store.user && store.user.username}
                                                 required
                                             />
                                             <label
@@ -113,13 +116,13 @@ export const Profileproshowprofile = () => {
                                         </div>
                                         <div className="relative z-0 w-full mb-6 group">
                                             <input
-                                              onChange={(event) => setSurname1(event.target.value)}
+                                                onChange={(event) => setSurname1(event.target.value)}
                                                 type="text"
                                                 name="floating_last_name"
                                                 id="floating_last_name"
                                                 className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                                                 placeholder="Apellido 1"
-                                                value={surname1}
+                                                value={store.user && store.user.surname1}
                                                 required
                                             />
                                             <label
@@ -129,11 +132,13 @@ export const Profileproshowprofile = () => {
                                         </div>
                                         <div className="relative z-0 w-full mb-6 group">
                                             <input
+                                                onChange={(event) => setSurname2(event.target.value)}
                                                 type="text"
                                                 name="floating_last_name"
                                                 id="floating_last_name"
                                                 className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                                                 placeholder="Apellido 2"
+                                                value={store.user && store.user.surname2}
                                                 required
                                             />
                                             <label
@@ -150,7 +155,7 @@ export const Profileproshowprofile = () => {
                                             id="floating_email"
                                             className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                                             placeholder="Email"
-                                            value={email}
+                                            value={store.user && store.user.email}
                                             required
                                         />
                                         <label
@@ -166,7 +171,7 @@ export const Profileproshowprofile = () => {
                                             id="floating_id"
                                             className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                                             placeholder="DNI"
-                                            value={dni}
+                                            value={store.pro_profile && store.pro_profile.dni}
                                             required
                                         />
                                         <label
@@ -185,7 +190,7 @@ export const Profileproshowprofile = () => {
                                                 id="floating_adress"
                                                 className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                                                 placeholder="Dirección "
-                                                value={address}
+                                                value={store.pro_profile && store.pro_profile.address}
                                                 required
                                             />
                                             <label
@@ -203,7 +208,7 @@ export const Profileproshowprofile = () => {
                                                 id="floating_cp"
                                                 className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                                                 placeholder="Código Postal "
-                                                value={postal_code}
+                                                value={store.pro_profile && store.pro_profile.postal_code}
                                                 required
                                             />
                                             <label
@@ -219,7 +224,7 @@ export const Profileproshowprofile = () => {
                                                 id="floating_city"
                                                 className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                                                 placeholder="Ciudad"
-                                                value={city}
+                                                value={store.pro_profile && store.pro_profile.city}
                                                 required
                                             />
                                             <label
@@ -237,7 +242,7 @@ export const Profileproshowprofile = () => {
                                                 id="floating_radio"
                                                 className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                                                 placeholder="Distancia Km"
-                                                value={km_radius}
+                                                value={store.pro_profile && store.pro_profile.km_radius}
                                                 required
                                             />
                                             <label
@@ -255,7 +260,7 @@ export const Profileproshowprofile = () => {
                                                 id="floating_price"
                                                 className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                                                 placeholder="Precio/hora"
-                                                value={hourly_rate}
+                                                value={store.pro_profile && store.pro_profile.hourly_rate}
                                                 required
                                             />
                                             <label
@@ -276,7 +281,7 @@ export const Profileproshowprofile = () => {
                                                 id="floating_phone"
                                                 className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                                                 placeholder="Teléfono "
-                                                value={phone_number}
+                                                value={store.pro_profile && store.pro_profile.phone_number}
                                                 required
                                             />
                                             <label
@@ -307,7 +312,7 @@ export const Profileproshowprofile = () => {
                                                         rows="4"
                                                         className="w-full px-0 text-sm text-gray-900 bg-white border-0 dark:bg-gray-800 focus:ring-0 dark:text-white dark:placeholder-gray-400"
                                                         placeholder="Descríbete..."
-                                                        value={description}
+                                                        value={store.pro_profile && store.pro_profile.description}
                                                         required
                                                     ></textarea>
                                                 </div>
@@ -352,8 +357,6 @@ export const Profileproshowprofile = () => {
                                                         </>
                                                     )
                                                 })}
-
-                                        
                                     </ul>
                                     <div className="text-center">
                                         <button
@@ -368,7 +371,7 @@ export const Profileproshowprofile = () => {
                             <p className="p-4 font-bold text-black text-md text-center dark:text-white">
                                 Mi Perfil
                             </p>
-                            <Cardprofilepro />
+                            <Cardprofilepro username={store.user.username} hourly_rate={store.pro_profile.hourly_rate} description={store.pro_profile.description} />
                         </div>
                     </div>
                 </div>

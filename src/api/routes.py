@@ -415,9 +415,9 @@ def get_pro_profiles():
     pro_profile_list = list(map(lambda item: item.serialize(),results))
 
      # Filter the query based on the city parameter if it exists
-    query = Pro_profile.query
-    if city:
-        query = query.filter_by(Pro_profile.city.ilike(f'%{city}%')).all()
+    # query = Pro_profile.query
+    # if city:
+    #     query = query.filter_by(Pro_profile.city.ilike(f'%{city}%')).all()
 
     response_body = {
         "msg": "Hello, this is your GET /pro_profile response ",

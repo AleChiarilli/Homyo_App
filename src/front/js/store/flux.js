@@ -10,30 +10,21 @@ const getState = ({
         store: {
 
             message: null,
-            // demo: [{
-            //     title: "FIRST",
-            //     background: "white",
-            //     initial: "white",
-            // },
-            // {
-            //     title: "SECOND",
-            //     background: "white",
-            //     initial: "white",
-            // },
-            //],
-            token: "", //guardamos el token como un string vacio
+            
+            token: "", //guardamos el token como un string vacio 
             isLoggedIn: false,
-            role: 'cliente', // Establece el valor por defecto como 'cliente', ¿duplicado? linea 24
+            role: 'cliente', // 
             publications: [],
             homePost: [],
             user: {},
             pro_profile: {},
             cmr_profile: {},
+            all_professionals:[],
             skill_name: {},
             skills: [],
             myHomes: null
 
-        },
+        }, 
         actions: {
 
             getPostsOn: async () => {
@@ -187,8 +178,9 @@ const getState = ({
             },
 
 
-            //AGREGAR INFORMACION DE PERFIL  DEL USUARIO-PROFESIONAL (INPUTS A LLENAR)
+            //AGREGAR INFORMACION DE PERFIL CON SUS SKILL DEL USUARIO-PROFESIONAL (INPUTS A LLENAR)
             profile_professional: async (
+                //surname1,
                 dni,
                 description,
                 address,
@@ -208,6 +200,7 @@ const getState = ({
                             method: "PUT",
                             body: JSON.stringify({
                                 user_id: userId,
+                                //surname1:surname1,
                                 dni: dni,
                                 description: description,
                                 address: address,
@@ -231,7 +224,31 @@ const getState = ({
                 }
             },
 
-            //GET PARA OBTENER LA INFORMACION DEL PERFIL USUARIO-PROFESIONAL
+            //GET PARA OBTENER TODA LA LISTA DE PROFESIONALES.
+            get_all_professionals: async (id) => {
+                const token = localStorage.getItem("token");
+
+                try {
+                    const response = await fetch(
+                        process.env.BACKEND_URL + "/api/pro_profile_list", {
+                            method: "GET",
+                            headers: {
+                                "Content-Type": "application/json",
+                                "Authorization": `Bearer ${token}`,
+                            },
+                        }
+                    );
+                    const data = await response.json();
+                    setStore({
+                       all_professionals: data.result
+                    })
+                    console.log(data);
+                } catch (error) {
+                    console.log("error loading message from backend", error);
+                }
+            },
+
+            //GET PARA OBTENER LA INFORMACION DEL PERFIL USUARIO-PROFESIONAL (INDIVIDUALMENTE)
             get_profile_info: async (id) => {
                 const token = localStorage.getItem("token");
 
@@ -255,8 +272,8 @@ const getState = ({
                 }
             },
 
-            //AGREGAR INFORMACION DE PERFIL DEL USUARIO-CLIENTE(INPUTS A LLENAR) (no me funciona)
 
+            //AGREGAR INFORMACION DE PERFIL DEL USUARIO-CLIENTE(INPUTS A LLENAR) 
             profile_customer: async (phone_number) => {
                 const userId = localStorage.getItem("id");
                 console.log(phone_number)
@@ -282,8 +299,7 @@ const getState = ({
                 }
             },
 
-            //GET PARA OBTENER LA INFORMACION DEL PERFIL USUARIO-CLIENTE
-
+            //GET PARA OBTENER LA INFORMACION DEL PERFIL USUARIO-CLIENTE (INDIVIDUALMENTE)
             get_profile_customer_info: async (id) => {
                 const token = localStorage.getItem("token");
 
@@ -322,7 +338,7 @@ const getState = ({
 
                     if (response.ok) {
                         const data = await response.json();
-                        console.log(data); // Respuesta del servidor
+                        console.log(data)
                     } else {
                         throw new Error("Error en la solicitud");
                     }
