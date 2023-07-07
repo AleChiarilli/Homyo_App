@@ -90,14 +90,14 @@ export const Profileclientshowannounces = () => {
                                                                             <a href="#" className="relative block">
                                                                                 <img
                                                                                     alt={skill.name}
-                                                                                    src={"../../img"+skillList[skill.name].imageSkill}
+                                                                                    src={skillList[skill.name].imageSkill}
                                                                                     className="mx-auto object-fit rounded-full h-8 w-8"
                                                                                 />
                                                                             </a>
                                                                         </div>
                                                                         <div className="flex flex-col">
                                                                             <span className="text-lg font-medium text-gray-600 dark:text-white">
-                                                                                {skill.name}
+                                                                                {skillList[skill.name].nameSkill}
                                                                             </span>
                                                                         </div>
                                                                     </div>

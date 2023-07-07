@@ -23,7 +23,6 @@ export const CardAnnounce = ({ description, address, startingTime, finishingTime
   };
 
 
-
   return (
     <div className="w-full flex flex-col justify-center mt-10 mb-3 dark:bg-gray-700">
       <div className="flex flex-col md:flex-row md:space-x-5 space-y-3 md:space-y-0 rounded-xl shadow-lg p-3 bg-white dark:bg-gray-800 mx-auto border border-white">
