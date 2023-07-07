@@ -26,7 +26,7 @@ export const Navbar = () => {
         <Switchclienttoprofesional />
         <div className="flex items-center space-x-2 md:space-x-1">
           <Accesbuttonhover />
-          <Notification />
+          {/* <Notification /> */}
           <Myprofilehover />
         </div>
       </div>

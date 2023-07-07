@@ -53,7 +53,7 @@ console.log(store.all_professionals)
 
   return (
     <div className="flex flex-col sm:flex-row justify-center mt-20 dark:bg-gray-800">
-  <aside
+  {/* <aside
     id="sidebar-multi-level-sidebar"
     className="w-full sm:w-64 order-1 sm:order-2"
   >
@@ -360,7 +360,7 @@ console.log(store.all_professionals)
             </li>
           </ul>
         </div>
-      </aside>
+      </aside> */}
 
       <div className="w-full sm:w-auto mt-10 order-1 sm:order-2">
         <div className="flex flex-col items-center">
