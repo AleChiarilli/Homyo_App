@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useEffect,useContext } from "react";
+import { Context } from "../store/appContext";
 import "../../styles/home.css";
 import limpieza from "../../img/limpieza.png";
 import animales from "../../img/animales.png";
@@ -8,14 +9,15 @@ import chef from "../../img/chef.png";
 import { Cardprofilepro } from "../component/cardProfilePro";
 
 export const Busqueda = () => {
+  
+
+  const { store, actions } = useContext(Context);
+
 
   const handleDropdownToggle = (dropdownId) => {
     const dropdown = document.getElementById(dropdownId);
     dropdown.classList.toggle("hidden");
   };
-
-
-
 
   const [seleccionados, setSeleccionados] = useState([]);
 
@@ -43,8 +45,11 @@ export const Busqueda = () => {
     setRangeValue(event.target.value);
   };
 
+  useEffect(() => {
+    actions.get_all_professionals();
+}, []);
 
-
+console.log(store.all_professionals)
 
   return (
     <div className="flex flex-col sm:flex-row justify-center mt-20 dark:bg-gray-800">

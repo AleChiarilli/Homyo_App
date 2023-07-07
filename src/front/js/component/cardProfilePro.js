@@ -13,17 +13,17 @@ export const Cardprofilepro = (props,professional)  => {
     
 
     return (
-        // <div>
-        // <ul>
-        //   {data.map((element, index) => (
-        //     <li key={index}>
-        //       name:
-        //       <span>{props.username ? props.username : professional.username}</span>
-        //       <span>
-        //         {props.hourly_rate ? props.hourly_rate : professional.hourly_rate}
-        //       </span>
-        //     </li>
-        //   ))}
+    //      <div>
+    //     // <ul>
+    //        {data.map((element, index) => (
+    //         <li key={index}>
+    //            name:
+    //            <span>{props.username ? props.username : professional.username}</span>
+    //            <span>
+    //              {props.hourly_rate ? props.hourly_rate : professional.hourly_rate}
+    //            </span>
+    //  </li>
+    //       ))}
         // </ul>
         <div className="w-full flex flex-col justify-center mb-3">
             <div className="relative flex flex-col md:flex-row md:space-x-5 space-y-3 md:space-y-0 rounded-xl shadow-lg p-3 mx-auto border border-white bg-white">

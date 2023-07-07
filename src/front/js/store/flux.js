@@ -240,8 +240,8 @@ const getState = ({
                     );
                     const data = await response.json();
                     setStore({
-                       all_professionals: data.result
-                    })
+                        all_professionals: data.results
+                     })
                     console.log(data);
                 } catch (error) {
                     console.log("error loading message from backend", error);
