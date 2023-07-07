@@ -71,7 +71,7 @@ class Pro_profile(db.Model):
     description = db.Column(db.String(255), unique=False, nullable=True)
     address = db.Column(db.String(200), unique=False, nullable=True)
     city = db.Column(db.String(200), unique=False, nullable=True)
-    decode_city = db.Column(db.String(200), unique=False, nullable=True)
+    # decode_city = db.Column(db.String(200), unique=False, nullable=True)
     postal_code = db.Column(db.String, unique=False, nullable=True)
     km_radius = db.Column(db.Numeric, unique=False, nullable=True)
     phone_number = db.Column(db.String, unique=False, nullable=True)
@@ -154,7 +154,7 @@ class Home(db.Model):
     description = db.Column(db.String(255), unique=False, nullable=True)
     cmr_profile_id = db.Column(db.Integer, db.ForeignKey('cmr_profile.id'))
     posts = db.relationship("Home_Post", backref="home", lazy=True)
-    decode_city = db.Column(db.String(200), unique=False, nullable=True)
+    # decode_city = db.Column(db.String(200), unique=False, nullable=True)
     #aqui se modifico
     # def __init__(self):
     #     self.decode_city = unidecode.unidecode(self.city.replace(' ', '').replace('-', '').lower())
