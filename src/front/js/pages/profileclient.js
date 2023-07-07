@@ -15,14 +15,14 @@ export const Profileclient = () => {
   
 
 //gaurdamos su correo con el mismo que se registro por defecto
-  // useEffect(()=>{
-  //   const emailInput = document.querySelector("#floating_email");
-  //   emailInput.value = store.user.email
+   useEffect(()=>{
+    const emailInput = document.querySelector("#floating_email");
+     emailInput.value = store.user.email
 
-  //   const nameInput = document.querySelector("#floating_first_name");
-  //   nameInput.value = store.user.username
+    const nameInput = document.querySelector("#floating_first_name");
+     nameInput.value = store.user.username
 
-  // }, [])
+   }, [])
   
   useEffect(() => {
     actions.getSkills();

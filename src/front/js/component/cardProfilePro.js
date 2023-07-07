@@ -13,6 +13,18 @@ export const Cardprofilepro = (props,professional)  => {
     
 
     return (
+        // <div>
+        // <ul>
+        //   {data.map((element, index) => (
+        //     <li key={index}>
+        //       name:
+        //       <span>{props.username ? props.username : professional.username}</span>
+        //       <span>
+        //         {props.hourly_rate ? props.hourly_rate : professional.hourly_rate}
+        //       </span>
+        //     </li>
+        //   ))}
+        // </ul>
         <div className="w-full flex flex-col justify-center mb-3">
             <div className="relative flex flex-col md:flex-row md:space-x-5 space-y-3 md:space-y-0 rounded-xl shadow-lg p-3 mx-auto border border-white bg-white">
                 <div className="md:w-1/4 bg-white grid place-items-center">
@@ -32,7 +44,7 @@ export const Cardprofilepro = (props,professional)  => {
                             </p>
                         </div>
                         <div className="bg-gray-200 px-3 py-1 rounded-full text-xl font-medium text-gray-800 hidden md:block">
-                            €/hora: {props.hourly_r  ate}</div>
+                            €/hora: {props.hourly_rate}</div>
                     </div>
                     <h3 className="font-black text-gray-800 md:text-3xl text-xl">{props.username}</h3>
                     <p className="md:text-lg text-gray-500 text-base">{props.description}</p>
@@ -128,5 +140,7 @@ export const Cardprofilepro = (props,professional)  => {
                 </div>
             </div>
         </div>
+       // </div>
+
     );
 };

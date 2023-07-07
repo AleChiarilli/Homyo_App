@@ -408,7 +408,7 @@ def delete_user_role(id):
 #----------------ENDPOINTS PRO_PROFILE---------------
 @api.route('/pro_profile_list', methods=['GET'])
 # Acceso protegido
-# @jwt_required()
+@jwt_required()
 def get_pro_profiles():
 
     results = Pro_profile.query.all()

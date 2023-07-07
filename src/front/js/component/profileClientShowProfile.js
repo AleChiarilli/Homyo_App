@@ -6,8 +6,8 @@ export const Profileclientshowprofile = () => {
   const { store, actions } = useContext(Context);
 
   //ESTADOS DE LOS INPUTS A RELLENAR POR EL CLIENTE
-  const [username, setUsername] = useState(store.cmr_profile && store.cmr_profile.username)
-  const [surname1, setSurname1] = useState(store.cmr_profile && store.cmr_profile.surname1)
+  const [username, setUsername] = useState(store.user && store.user.username)
+  const [surname1, setSurname1] = useState(store.user && store.user.surname1)
   const [phone_number, setPhone_number] = useState(store.cmr_profile && store.cmr_profile.phone_number);
   const [email, setEmail] = useState(store.cmr_profile && store.cmr_profile.email)
   console.log(phone_number)
@@ -64,7 +64,6 @@ export const Profileclientshowprofile = () => {
                         id="floating_last_name"
                         className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                         placeholder="Apellido"
-                        value={store.user && store.user.username}
                         required
                       />
                       <label

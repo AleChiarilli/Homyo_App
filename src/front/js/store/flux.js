@@ -225,7 +225,7 @@ const getState = ({
             },
 
             //GET PARA OBTENER TODA LA LISTA DE PROFESIONALES.
-            get_all_professionals: async (id) => {
+            get_all_professionals: async () => {
                 const token = localStorage.getItem("token");
 
                 try {
