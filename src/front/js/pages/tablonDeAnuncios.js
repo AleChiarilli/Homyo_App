@@ -65,7 +65,7 @@ export const TablonDeAnuncios = () => {
     <>
       <div className="max-w-screen-xl flex flex-col justify-center mx-auto mt-20">
         <div className="flex justify-center">
-          <aside id="sidebar-multi-level-sidebar" className="w-full sm:w-64">
+          {/* <aside id="sidebar-multi-level-sidebar" className="w-full sm:w-64">
             <div className=" px-3 py-4 overflow-y-auto sticky top-20">
               <ul className="space-y-2 font-medium">
                 <li>
@@ -369,7 +369,7 @@ export const TablonDeAnuncios = () => {
                 </li>
               </ul>
             </div>
-          </aside>
+          </aside> */}
           <div className="w-full sm:w-auto">
             <div className="flex flex-col items-center">
               <div className="max-w-3xl w-full mx-auto z-10">

@@ -46,7 +46,47 @@ export const Profileclientshowannounces = () => {
         setSeleccionados([...seleccionados, id]);
     };
 
+    const [homeNames, setHomeNames] = useState([]);
+    const [selectedHome, setSelectedHome] = useState("");
 
+    useEffect(() => {
+        // Obtén los nombres de las casas almacenados en el localStorage
+        const storedHomeNames = JSON.parse(localStorage.getItem("home"));
+        setHomeNames(storedHomeNames);
+    }, []);
+
+    const handleHomeSelection = (event) => {
+        const selectedHome = event.target.value;
+        setSelectedHome(selectedHome);
+        // Hacer lo que necesites con el nombre de la casa seleccionada
+        console.log("Casa seleccionada:", selectedHome);
+    };
+
+    const [startTime, setStartTime] = useState("");
+    const [endTime, setEndTime] = useState("");
+    const [hourDifference, setHourDifference] = useState(0);
+
+    const handleStartingTimeChange = (event) => {
+        const time = event.target.value;
+        setStartTime(time);
+    };
+
+    const handleEndTimeChange = (event) => {
+        const time = event.target.value;
+        setEndTime(time);
+    };
+
+    useEffect(() => {
+        calculateHourDifference(startTime, endTime);
+    }, [startTime, endTime]);
+
+    const calculateHourDifference = (start, end) => {
+        const startDateTime = new Date(start);
+        const endDateTime = new Date(end);
+        const differenceInMilliseconds = endDateTime - startDateTime;
+        const hourDifference = Math.abs(differenceInMilliseconds / (1000 * 60 * 60));
+        setHourDifference(hourDifference);
+    };
 
     return (
 
@@ -64,14 +104,14 @@ export const Profileclientshowannounces = () => {
                                         <p className="p-4 text-black text-md text-center dark:text-white">
                                             ¿Donde necesitas el servicio?
                                         </p>
-                                        <select
-                                            id="espacio"
-                                            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                        >
-                                            <option defaultValue>Elige el lugar</option>
-                                            <option value="1">Casa Principal</option>
-                                            <option value="2">Casa de la Playa</option>
-                                            <option value="3">Casa de los Abuelos</option>
+                                        <select className="block w-full p-4 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 sm:text-md focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                            value={selectedHome} onChange={handleHomeSelection}>
+                                            <option value="">Seleccionar casa</option>
+                                            {homeNames.map((homeName) => (
+                                                <option key={homeName} value={homeName}>
+                                                    {homeName}
+                                                </option>
+                                            ))}
                                         </select>
                                         <p className="p-4 text-black text-md text-center dark:text-white">
                                             ¿Qué servicios necesitas?
@@ -113,38 +153,35 @@ export const Profileclientshowannounces = () => {
                                                 })}
                                             </ul>
                                         </div>
-                                        <p className="p-4 text-black text-md text-center dark:text-white">
-                                            Dinos la fecha
-                                        </p>
-                                        <textarea
-                                            id="date"
-                                            rows="1"
-                                            defaultValue=""
-                                            className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                            placeholder=""
-                                        ></textarea>
-
-                                        <p className="p-4 text-black text-md text-center dark:text-white">
-                                            Dinos la hora de inicio
-                                        </p>
-                                        <textarea
-                                            id="hour"
-                                            rows="1"
-                                            defaultValue=""
-                                            className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                            placeholder=""
-                                        ></textarea>
-
-                                        <p className="p-4 text-black text-md text-center dark:text-white">
-                                            Dinos la hora de fin
-                                        </p>
-                                        <textarea
-                                            id="endHour"
-                                            rows="1"
-                                            defaultValue=""
-                                            className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                            placeholder=""
-                                        ></textarea>
+                                        <div className="mb-4">
+                                            <label className="block text-sm font-medium text-gray-700">Hora de inicio:</label>
+                                            <input
+                                                type="datetime-local"
+                                                id="starting-time"
+                                                className="block w-full p-4 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 sm:text-md focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                                value={startTime}
+                                                onChange={handleStartingTimeChange}
+                                            />
+                                        </div>
+                                        <div className="mb-4">
+                                            <label className="block text-sm font-medium text-gray-700">Hora de fin:</label>
+                                            <input
+                                                type="datetime-local"
+                                                id="end-time"
+                                                className="block w-full p-4 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 sm:text-md focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                                value={endTime}
+                                                onChange={handleEndTimeChange}
+                                            />
+                                        </div>
+                                        <div>
+                                            <label className="block text-sm font-medium text-gray-700">Diferencia en horas:</label>
+                                            <input
+                                                type="text"
+                                                className="block w-full p-4 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 sm:text-md focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                                value={hourDifference}
+                                                readOnly
+                                            />
+                                        </div>
 
                                         <p className="p-4 text-black text-md text-center dark:text-white">
                                             Especifica las tareas

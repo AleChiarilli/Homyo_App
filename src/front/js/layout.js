@@ -38,7 +38,7 @@ const Layout = () => {
           <Navbar />
           <Routes>
             <Route element={<Home />} path="/" />
-            <Route element={<Messages />} path="/mensajes" />
+            {/* <Route element={<Messages />} path="/mensajes" /> */}
             <Route element={<Vista />} path="/map" />
             {store.isLoggedIn && store.role === "profesional" && (
               <Route
@@ -62,9 +62,9 @@ const Layout = () => {
               <Route element={<Busqueda />} path="/buscador" />
             )}
 
-            {(store.isLoggedIn || store.role === "cliente") && (
+            {/* {(store.isLoggedIn || store.role === "cliente") && (
               <Route element={<Profileproview />} path="/perfil-profesional" />
-            )}
+            )} */}
 
             <Route element={<Faq />} path="/preguntas-frecuentes" />
             <Route element={<Sobrenosotros />} path="/sobre-nosotros" />
