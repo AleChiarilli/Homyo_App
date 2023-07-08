@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useContext } from "react";
+import { Context } from "../store/appContext";
 import "../../styles/home.css";
 import limpieza from "../../img/limpieza.png";
 import animales from "../../img/animales.png";
@@ -7,15 +8,16 @@ import niños from "../../img/niños.png";
 import chef from "../../img/chef.png";
 import { Cardprofilepro } from "../component/cardProfilePro";
 
-export const Busqueda = () => {
+export const Busqueda = (props) => {
+
+
+  const { store, actions } = useContext(Context);
+
 
   const handleDropdownToggle = (dropdownId) => {
     const dropdown = document.getElementById(dropdownId);
     dropdown.classList.toggle("hidden");
   };
-
-
-
 
   const [seleccionados, setSeleccionados] = useState([]);
 
@@ -43,12 +45,15 @@ export const Busqueda = () => {
     setRangeValue(event.target.value);
   };
 
+  useEffect(() => {
+    actions.get_all_professionals();
+  }, []);
 
 
 
   return (
     <div className="flex flex-col sm:flex-row justify-center mt-20 dark:bg-gray-800">
-  {/* <aside
+      {/* <aside
     id="sidebar-multi-level-sidebar"
     className="w-full sm:w-64 order-1 sm:order-2"
   >
@@ -361,11 +366,20 @@ export const Busqueda = () => {
         <div className="flex flex-col items-center">
           <div className="max-w-3xl w-full mx-auto z-10">
             <div className="flex flex-col">
-              <Cardprofilepro />
-              <Cardprofilepro />
-              <Cardprofilepro />
-              <Cardprofilepro />
-              <Cardprofilepro />
+              
+
+              <div>
+                {store.all_professionals.length > 0 ? (
+                  store.all_professionals.map((professional, index) => (
+                    <div key={index} className="col-1">
+                      <Cardprofilepro id={professional.id} hourly_rate={professional.hourly_rate} description={professional.description} />
+                    </div>
+                  ))
+                ) : (
+                  <h1>No hay profesionales disponibles</h1>
+                )}
+              </div>
+
             </div>
           </div>
         </div>
