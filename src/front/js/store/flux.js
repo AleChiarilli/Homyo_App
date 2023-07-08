@@ -368,24 +368,46 @@ const getState = ({
             },
 
             //FETCH PARA CREAR UN ESPACIO/HOME
-            addHome: async (home) => {
-                console.log(home);
+            addHome: async (newHome) => {
+                console.log(newHome);
                 try {
-                    const response = await fetch(process.env.BACKEND_URL + "/api/home", {
-                        method: "POST",
-                        body: JSON.stringify(home),
-                        headers: {
-                            "Content-Type": "application/json",
-                            "Authorization": `Bearer ${localStorage.getItem("token")}`,
-                        },
-                    });
-                    const data = await response.json();
-                    console.log(data);
+                  console.log("Data being sent to the endpoint:", {
+                    nameSpace: newHome.nameSpace,
+                    nameCity: newHome.nameCity,
+                    DescriptionSpace: newHome.DescriptionSpace,
+                    addressSpace: newHome.addressSpace,
+                    postalCodeSpace: newHome.postalCodeSpace
+                  });
+              
+                  const response = await fetch(process.env.BACKEND_URL + "/api/home", {
+                    method: "POST",
+                    body: JSON.stringify({
+                      nameSpace: newHome.nameSpace,
+                      nameCity: newHome.nameCity,
+                      DescriptionSpace: newHome.DescriptionSpace,
+                      addressSpace: newHome.addressSpace,
+                      postalCodeSpace: newHome.postalCodeSpace
+                    }),
+                    headers: {
+                      "Content-Type": "application/json",
+                      "Authorization": `Bearer ${localStorage.getItem("token")}`,
+                    },
+                  });
+              
+                  const data = await response.json();
+                  console.log(data);
                 } catch (error) {
-                    console.log("error loading message from backend", error);
+                  console.log("error loading message from backend", error);
                 }
-            },
-
+              },
+             
+              
+              
+              
+              
+              
+              
+              
 
 
             //VALIDACION DE TOKEN 

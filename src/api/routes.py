@@ -944,13 +944,19 @@ def create_home():
 
     body = json.loads(request.data)
     # json.loads(request.body.decode(encoding='UTF-8'))
-
+    print(body)
     if body is None:
         raise APIException("You need to specify the request body as a json object", status_code=400)
     if 'nameSpace' not in body:
         raise APIException('Te falta añadir un nombre de sitio', status_code=400)
     if 'DescriptionSpace' not in body:
         raise APIException('Te falta añadir una descripción', status_code=400)
+    if 'nameCity' not in body:
+        raise APIException('Te falta añadir una ciudad', status_code=400)
+    if 'postalCodeSpace' not in body:
+        raise APIException('Te falta añadir un código postal', status_code=400)
+    if 'addressSpace' not in body:
+        raise APIException('Te falta añadir una dirección', status_code=400)
 
     
     print(body)
@@ -959,6 +965,7 @@ def create_home():
     home = Home(name=body["nameSpace"], city=body["nameCity"], postal_code=body["postalCodeSpace"], address=body["addressSpace"], description=body["DescriptionSpace"], cmr_profile_id=cmr_profile.id,
                 # decode_city=decode_city
                 )
+    print(home)
     db.session.add(home)
     db.session.commit()
 
