@@ -374,7 +374,7 @@ export const Busqueda = (props) => {
                 {store.all_professionals.length > 0 ? (
                   store.all_professionals.map((professional, index) => (
                     <div key={index} className="col-1">
-                      <Cardprofilepro hourly_rate={professional.hourly_rate} description={professional.description} />
+                      <Cardprofilepro id={professional.id} hourly_rate={professional.hourly_rate} description={professional.description} />
                     </div>
                   ))
                 ) : (
