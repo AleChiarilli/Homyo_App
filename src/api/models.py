@@ -1,6 +1,7 @@
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
 from enum import Enum
+from sqlalchemy.orm import relationship 
 db = SQLAlchemy()
 import unidecode
 
@@ -77,6 +78,7 @@ class Pro_profile(db.Model):
     phone_number = db.Column(db.String, unique=False, nullable=True)
     hourly_rate = db.Column(db.Numeric, unique=False, nullable=True)
     skills = db.relationship('Pro_profile_skill', backref='pro_profile', lazy=True)
+    #user = relationship(User, uselist=False)
 
 
     def __repr__(self):
@@ -94,6 +96,7 @@ class Pro_profile(db.Model):
             "km_radius": self.km_radius,
             "phone_number": self.phone_number,
             "hourly_rate": self.hourly_rate,
+            "name": self.user.username #sofia
             #"skills" : [skill.serialize() for skill in self.skills]
         }
 
