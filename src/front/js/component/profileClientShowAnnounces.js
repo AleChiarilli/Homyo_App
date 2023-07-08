@@ -32,6 +32,7 @@ export const Profileclientshowannounces = () => {
             "imageSkill": chef
         },
     }
+
     useEffect(() => {
         actions.getSkills()
     }, []);
@@ -40,20 +41,24 @@ export const Profileclientshowannounces = () => {
         actions.getMyHomes()
     }, [])
 
-    const [seleccionados, setSeleccionados] = useState([]);
-    const handleSeleccionar = (id) => {
-
-        setSeleccionados([...seleccionados, id]);
-    };
-
-    const [homeNames, setHomeNames] = useState([]);
-    const [selectedHome, setSelectedHome] = useState("");
-
+    
     useEffect(() => {
         // Obtén los nombres de las casas almacenados en el localStorage
         const storedHomeNames = JSON.parse(localStorage.getItem("home"));
         setHomeNames(storedHomeNames);
     }, []);
+
+    useEffect(() => {
+        calculateHourDifference(startTime, endTime);
+    }, [startTime, endTime]);
+
+    const [seleccionados, setSeleccionados] = useState([]);
+    const [homeNames, setHomeNames] = useState([]);
+    const [selectedHome, setSelectedHome] = useState("");
+    const [startTime, setStartTime] = useState("");
+    const [endTime, setEndTime] = useState("");
+    const [hourDifference, setHourDifference] = useState(0);
+
 
     const handleHomeSelection = (event) => {
         const selectedHome = event.target.value;
@@ -61,10 +66,6 @@ export const Profileclientshowannounces = () => {
         // Hacer lo que necesites con el nombre de la casa seleccionada
         console.log("Casa seleccionada:", selectedHome);
     };
-
-    const [startTime, setStartTime] = useState("");
-    const [endTime, setEndTime] = useState("");
-    const [hourDifference, setHourDifference] = useState(0);
 
     const handleStartingTimeChange = (event) => {
         const time = event.target.value;
@@ -76,9 +77,10 @@ export const Profileclientshowannounces = () => {
         setEndTime(time);
     };
 
-    useEffect(() => {
-        calculateHourDifference(startTime, endTime);
-    }, [startTime, endTime]);
+    const handleSeleccionar = (id) => {
+
+        setSeleccionados([...seleccionados, id]);
+    };
 
     const calculateHourDifference = (start, end) => {
         const startDateTime = new Date(start);
@@ -87,6 +89,11 @@ export const Profileclientshowannounces = () => {
         const hourDifference = Math.abs(differenceInMilliseconds / (1000 * 60 * 60));
         setHourDifference(hourDifference);
     };
+
+    const submitPost = async () => {
+        await actions.submitPost({})
+    }
+
 
     return (
 
