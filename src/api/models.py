@@ -94,7 +94,7 @@ class Pro_profile(db.Model):
             "km_radius": self.km_radius,
             "phone_number": self.phone_number,
             "hourly_rate": self.hourly_rate,
-            # "skills" : list(map(lambda item:item.serialize(),self.skills))
+            #"skills" : [skill.serialize() for skill in self.skills]
         }
 
 class Skill(db.Model):
