@@ -18,8 +18,9 @@ export const Profileclientshowspaces = () => {
   }, [])
 
   const submitHome = async () => {
-    await actions.addHome({ name: nameSpace, address: addressSpace, city: nameCity, postal_code: postalCodeSpace, description: DescriptionSpace });
+    await actions.addHome({ name: nameSpace, address:addressSpace, city:nameCity, postal_code: postalCodeSpace, description: DescriptionSpace });
     // await actions.addHome({ name, address, city, postal_code, description });
+    
   };
 
 

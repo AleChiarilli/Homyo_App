@@ -27,6 +27,23 @@ const getState = ({
         }, 
         actions: {
 
+            submitPost: async (homePost) => {
+                console.log(homePost);
+                try {
+                    const response = await fetch(process.env.BACKEND_URL + "/api/home_post", {
+                        method: "POST",
+                        body: JSON.stringify(user),
+                        headers: {
+                            "Content-Type": "application/json",
+                        },
+                    });
+                    const data = await response.json();
+                    console.log(data);
+                } catch (error) {
+                    console.log("error loading message from backend", error);
+                }
+            },
+            
             getPostsOn: async () => {
                 const token = localStorage.getItem("token");
                 try {
