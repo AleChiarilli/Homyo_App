@@ -130,8 +130,6 @@ const getState = ({
                 }
             },
 
-            
-
             //LOGIN USER
             login: async (email, password) => {
                 try {
@@ -178,7 +176,6 @@ const getState = ({
                     return false;
                 }
             },
-
 
             //AGREGAR INFORMACION DE PERFIL CON SUS SKILL DEL USUARIO-PROFESIONAL (INPUTS A LLENAR)
             profile_professional: async (
