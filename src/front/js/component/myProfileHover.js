@@ -68,6 +68,7 @@ export const Myprofilehover = () => {
                                 <p
                                     onClick={() =>
                                         actions.logged_out()
+
                                     }
                                     className="block px-4 py-2 hover:bg-red-100 dark:hover:bg-red-600 dark:hover:text-white"
                                 >

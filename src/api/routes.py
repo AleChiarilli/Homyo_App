@@ -518,6 +518,8 @@ def update_pro_profile():
         db.session.add(new_skill)
         db.session.commit()
 
+    skills = Pro_profile_skill.query.filter_by(pro_profile_id=pro_profile.id).all()
+
     # Update the user attributes
     pro_profile.dni = data.get('dni', pro_profile.dni)
     pro_profile.description = data.get('description', pro_profile.description)
@@ -529,14 +531,15 @@ def update_pro_profile():
     pro_profile.hourly_rate = data.get('hourly_rate', pro_profile.hourly_rate)
 
     db.session.commit()
-
+    response_data = pro_profile.serialize()
+    response_data["skills"] = [skill.serialize() for skill in skills]
     # role_id = 1
     # user_role = User_role(user=user.id, role=role_id)
     # db.session.add(user_role)
 
     response_body = {
         "msg": "El perfil profesional ha sido editado con éxito",
-        "New data": pro_profile.serialize()
+        "New data": response_data
     }
 
     return jsonify(response_body), 200

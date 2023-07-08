@@ -82,14 +82,7 @@ export const Profileproshowprofile = () => {
             setSeleccionados([...seleccionados, id]);
     };
    
-    useEffect(()=>{
-        const emailInput = document.querySelector("#floating_email");
-         emailInput.value = store.user.email
     
-        const nameInput = document.querySelector("#floating_first_name");
-         nameInput.value = store.user.username
-    
-    },[])
 
     return (
         <div className="flex flex-col w-full pl-0 md:p-4 md:space-y-4">
@@ -114,7 +107,7 @@ export const Profileproshowprofile = () => {
                                                 id="floating_first_name"
                                                 className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                                                 placeholder="Nombre "
-                                                value={store.user && store.user.usernam}
+                                                value={store.user?.username}
                                                 required
                                             />
                                             <label
@@ -163,7 +156,7 @@ export const Profileproshowprofile = () => {
                                             id="floating_email"
                                             className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                                             placeholder="Email"
-                                            value={store.user && store.user.email}
+                                            value={store.user?.email}
                                             required
                                         />
                                         <label
@@ -306,7 +299,7 @@ export const Profileproshowprofile = () => {
                                         {/* <form
                                          onSubmit={(e) => info_professional(e)}> */}
                                             
-                                            <div className="w-full mb-4 border border-gray-200 rounded-lg bg-gray-50 dark:bg-gray-700 dark:border-gray-600">
+                                             <div className="w-full mb-4 border border-gray-200 rounded-lg bg-gray-50 dark:bg-gray-700 dark:border-gray-600">
                                                 <div className="px-4 py-2 bg-white rounded-t-lg dark:bg-gray-800">
                                                     <label htmlFor="comment" className="sr-only">
                                                         Descríbete
@@ -324,7 +317,7 @@ export const Profileproshowprofile = () => {
                                                         required
                                                     ></textarea>
                                                 </div>
-                                            </div>
+                                            </div> 
                                         {/* </form> */}
                                     </div>
 
