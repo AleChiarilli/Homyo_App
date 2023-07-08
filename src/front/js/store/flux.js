@@ -130,6 +130,8 @@ const getState = ({
                 }
             },
 
+            
+
             //LOGIN USER
             login: async (email, password) => {
                 try {

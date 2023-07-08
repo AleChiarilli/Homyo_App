@@ -272,6 +272,8 @@ class Contract(TimestampMixin, db.Model):
     starting_time = db.Column(db.DateTime, nullable=False)
     finishing_time = db.Column(db.DateTime, nullable=False)
     skills = db.relationship('Contract_skills', backref='contract', lazy=True)
+    hourly_rate = db.Column(db.Numeric, unique=False, nullable=True)
+
     
     def __repr__(self):
         return f'<Contract {self.id}>'
@@ -289,6 +291,7 @@ class Contract(TimestampMixin, db.Model):
         starting_time = self.starting_time.strftime("%d/%m/%Y %H:%M") if self.starting_time else None
         finishing_time = self.finishing_time.strftime("%d/%m/%Y %H:%M") if self.finishing_time else None
         time_difference = self.calculate_time_difference()
+        
 
         return {
             "id": self.id,
@@ -302,7 +305,8 @@ class Contract(TimestampMixin, db.Model):
             "starting_time": starting_time,
             "finishing_time": finishing_time,
             "time_difference": time_difference,
-            "skills" : list(map(lambda item:item.serialize(),self.skills))
+            "skills" : list(map(lambda item:item.serialize(),self.skills)),
+            "hourly_rate": self.hourly_rate
         }
 
 class Contract_skills(db.Model):
