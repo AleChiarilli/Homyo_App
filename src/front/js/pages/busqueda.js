@@ -366,9 +366,7 @@ export const Busqueda = (props) => {
         <div className="flex flex-col items-center">
           <div className="max-w-3xl w-full mx-auto z-10">
             <div className="flex flex-col">
-              {/* {store.planets.map((planets, index) => { //mapeamos a planets dentro de cards
-			  return (<div key={index} className="col-3"> <Card object={planets} type="planets" id={index + 2} url={`/single/${planets.id}`}/></div>)
-			})} */}
+              
 
               <div>
                 {store.all_professionals.length > 0 ? (
