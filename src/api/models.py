@@ -145,6 +145,7 @@ class Cmr_profile(db.Model):
         return {
             "id": self.id,
             "user_id": self.user_id,
+            "name": self.user.username,
             "description": self.description,
             "phone_number": self.phone_number,
             "homes": list(map(lambda item:item.serialize(),self.homes))
@@ -155,7 +156,7 @@ class Home(db.Model):
     name = db.Column(db.String(200), unique=False, nullable=True)
     address = db.Column(db.String(200), unique=False, nullable=True)
     city = db.Column(db.String(200), unique=False, nullable=True)
-    postal_code = db.Column(db.Integer, unique=False, nullable=True)
+    postal_code = db.Column(db.String, unique=False, nullable=True)
     description = db.Column(db.String(255), unique=False, nullable=True)
     cmr_profile_id = db.Column(db.Integer, db.ForeignKey('cmr_profile.id'))
     posts = db.relationship("Home_Post", backref="home", lazy=True)
@@ -253,7 +254,7 @@ class Post_skills(db.Model):
 
 class JobStatus(Enum):
     PENDING = 'Pending'
-    ACTIVE = 'Active'
+    ACCEPTED = 'Accepted'
     COMPLETED = 'Completed'
     CANCELED = 'Canceled'
 
@@ -278,6 +279,7 @@ class Contract(TimestampMixin, db.Model):
     finishing_time = db.Column(db.DateTime, nullable=False)
     skills = db.relationship('Contract_skills', backref='contract', lazy=True)
     hourly_rate = db.Column(db.Numeric, unique=False, nullable=True)
+    total_price = db.Column(db.Numeric, unique=False, nullable=True)
 
     
     def __repr__(self):
@@ -306,12 +308,14 @@ class Contract(TimestampMixin, db.Model):
             "comment": self.comment,
             "created": created,
             "updated": updated,
-            "payment_status": self.payment_status,
+            "job_status": self.job_status.value,
+            "payment_status": self.payment_status.value,
             "starting_time": starting_time,
             "finishing_time": finishing_time,
             "time_difference": time_difference,
             "skills" : list(map(lambda item:item.serialize(),self.skills)),
-            "hourly_rate": self.hourly_rate
+            "hourly_rate": self.hourly_rate,
+            "total_price": self.total_price
         }
 
 class Contract_skills(db.Model):
