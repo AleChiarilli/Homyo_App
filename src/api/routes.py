@@ -1152,7 +1152,7 @@ def create_home_post():
     home = Home.query.filter_by(id=body["home_id"])
 
     geolocator = Nominatim(user_agent="my_geocoder")
-    location = geolocator.geocode(home.address+home.city)
+    location = geolocator.geocode(f'{home.address} {home.city} {home.postal_code} , España')
     latitude = location.latitude
     longitude = location.longitude
 
