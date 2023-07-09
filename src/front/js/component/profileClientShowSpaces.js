@@ -20,7 +20,7 @@ export const Profileclientshowspaces = () => {
   const submitHome = async () => {
     await actions.addHome({ nameSpace, addressSpace, nameCity, postalCodeSpace, DescriptionSpace });
     // await actions.addHome({ name, address, city, postal_code, description });
-    
+
   };
 
 
@@ -86,12 +86,12 @@ export const Profileclientshowspaces = () => {
                       >
                         Codigo Postal
                       </label>
-                      <textarea
+                      <input
                         id="postalCodeSpace"
-                        rows="1"
+                        type="number"
                         className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                         onChange={(event) => { setPostalCodeSpace(event.target.value) }}
-                      ></textarea>
+                      />
                     </li>
                     <li>
                       <label

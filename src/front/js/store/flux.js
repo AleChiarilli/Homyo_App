@@ -28,13 +28,15 @@ const getState = ({
         actions: {
 
             submitPost: async (homePost) => {
+                const token = localStorage.getItem("token");
                 console.log(homePost);
                 try {
                     const response = await fetch(process.env.BACKEND_URL + "/api/home_post", {
                         method: "POST",
-                        body: JSON.stringify(user),
+                        body: JSON.stringify(homePost),
                         headers: {
                             "Content-Type": "application/json",
+                            "Authorization": `Bearer ${token}`
                         },
                     });
                     const data = await response.json();
@@ -175,7 +177,7 @@ const getState = ({
                             // Obtener los nombres de todas las casas en la lista
                             homeNames = data.user.cmr_profile[0].homes.map(home => home.name);
                         }
-
+                        console.log(data.user);
                         localStorage.setItem("token", data.token);
                         localStorage.setItem("id", data.user.id);
                         localStorage.setItem("home", JSON.stringify(homeNames));
