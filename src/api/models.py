@@ -16,6 +16,7 @@ class User(db.Model):
     user_roles = db.relationship('User_role', backref='user', lazy=True)
     pro_profile = db.relationship('Pro_profile', backref='user', lazy=True)
     cmr_profile = db.relationship('Cmr_profile', backref='user', lazy=True)
+    contract = db.relationship('Contract', backref='user', lazy=True)
     # is_active = db.Column(db.Boolean(), unique=False, nullable=False) 
     def __repr__(self):
         return f'<User {self.email}>'
@@ -251,15 +252,15 @@ class Post_skills(db.Model):
         }
 
 class JobStatus(Enum):
-    PENDING = 'Pending'
-    ACCEPTED = 'Accepted'
-    COMPLETED = 'Completed'
-    CANCELED = 'Canceled'
+    PENDING = 'Pendiente de aceptar'
+    ACCEPTED = 'Aceptado'
+    COMPLETED = 'Completado'
+    CANCELED = 'Cancelado'
 
 class PaymentStatus(Enum):
-    PENDING = 'Pending'
-    PAYED = 'Payed'
-    REFUNDED = 'Refunded'
+    PENDING = 'Pendiente'
+    PAID = 'Pagado'
+    REFUNDED = 'Reembolsado'
 
 
 class Contract(TimestampMixin, db.Model):
@@ -270,6 +271,7 @@ class Contract(TimestampMixin, db.Model):
     pro_profile = db.relationship(Pro_profile)
     cmr_profile_id = db.Column(db.Integer, db.ForeignKey('cmr_profile.id'))
     cmr_profile = db.relationship(Cmr_profile)
+    posted_by = db.Column(db.Integer, db.ForeignKey('user.id'))
     job_status = db.Column(db.Enum(JobStatus), default=JobStatus.PENDING)
     payment_status = db.Column(db.Enum(PaymentStatus), default=PaymentStatus.PENDING)
     comment = db.Column(db.String(255), unique=False, nullable=True)
@@ -306,6 +308,7 @@ class Contract(TimestampMixin, db.Model):
             "comment": self.comment,
             "created": created,
             "updated": updated,
+            "posted_by": self.posted_by,
             "job_status": self.job_status.value,
             "payment_status": self.payment_status.value,
             "starting_time": starting_time,
