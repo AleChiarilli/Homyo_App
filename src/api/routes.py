@@ -1271,17 +1271,13 @@ def create_contract_pro_cmr():
         raise APIException("You need to specify the request body as a json object", status_code=400)
     if 'home_post_id' not in body:
         raise APIException('Te falta añadir un id de casa', status_code=400)
-    if 'comment' not in body:
-        raise APIException('Te falta añadir un id de casa', status_code=400)
-    if 'hourly_rate' not in body:
-        raise APIException('Te falta añadir precio hora', status_code=400)
     if 'total_price' not in body:
         raise APIException('Te falta añadir precio total', status_code=400)
     
     home_post = Home_Post.query.filter_by(id=body["home_post_id"]).first()
     home = Home.query.filter_by(id=home_post.home_id).first()
     print(body)
-    contract = Contract(posted_by=user.id, pro_profile_id=pro_profile.id, cmr_profile_id=home.cmr_profile_id, comment=body["comment"], finishing_time=home_post.finishing_time, starting_time=home_post.starting_time, home_id=home.id, hourly_rate=body["hourly_rate"], total_price=body["total_price"])
+    contract = Contract(posted_by=user.id, pro_profile_id=pro_profile.id, cmr_profile_id=home.cmr_profile_id, comment=home_post.description, finishing_time=home_post.finishing_time, starting_time=home_post.starting_time, home_id=home.id, hourly_rate=pro_profile.hourly_rate, total_price=body["total_price"])
     db.session.add(contract)
     db.session.commit()
     skill_name = body.get("skill_name")
@@ -1352,26 +1348,24 @@ def update_cmr_contract(id):
     # comprobamos que existe un usuario con ese id, si no es asi, respondemos un mensaje de error
     if contract is None:
         raise APIException("No hay un contrato con ese ID", status_code=404)
-    
 
-    # comprobamos si esta intentando actualizar el estado el mismo el actualizar, respondemos un mensaje de error
-    if contract.posted_by != user.id:
+    # comprobamos si esta intentando actualizar el estado el mismo que creo el contrato, respondemos un mensaje de error
+    if contract.posted_by == user.id:
         raise APIException("No tienes permiso para cambiar el estado de este contrato", status_code=403)
-
 
      # Retrieve the data to update from the request body
     data = request.json
 
-    # Update the cmr_profile attributes
+    # Update the contract attributes
     job_status = data.get('job_status')
     payment_status = data.get('payment_status')
 
     # Check if job_status is provided and valid
-    if job_status is not None and job_status not in [status.value for status in JobStatus]:
+    if job_status is not None and job_status not in [status.name for status in JobStatus]:
         raise APIException("Estado de trabajo inválido", status_code=400)
 
     # Check if payment_status is provided and valid
-    if payment_status is not None and payment_status not in [status.value for status in PaymentStatus]:
+    if payment_status is not None and payment_status not in [status.name for status in PaymentStatus]:
         raise APIException("Estado de pago inválido", status_code=400)
 
     # Update the cmr_profile attributes

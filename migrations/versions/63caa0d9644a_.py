@@ -1,8 +1,8 @@
 """empty message
 
-Revision ID: 2693c24f5455
+Revision ID: 63caa0d9644a
 Revises: 
-Create Date: 2023-07-09 16:27:59.567532
+Create Date: 2023-07-09 17:55:53.238441
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = '2693c24f5455'
+revision = '63caa0d9644a'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -97,8 +97,9 @@ def upgrade():
     sa.Column('home_id', sa.Integer(), nullable=True),
     sa.Column('pro_profile_id', sa.Integer(), nullable=True),
     sa.Column('cmr_profile_id', sa.Integer(), nullable=True),
-    sa.Column('job_status', sa.Enum('PENDING', 'ACCEPTED', 'COMPLETED', 'CANCELED', name='jobstatus'), nullable=True),
-    sa.Column('payment_status', sa.Enum('PENDING', 'PAID', 'REFUNDED', name='paymentstatus'), nullable=True),
+    sa.Column('posted_by', sa.Integer(), nullable=True),
+    sa.Column('job_status', sa.Enum('PENDIENTE', 'ACEPTADO', 'COMPLETADO', 'CANCELADO', name='jobstatus'), nullable=True),
+    sa.Column('payment_status', sa.Enum('PENDIENTE', 'PAGADO', 'REEMBOLSADO', name='paymentstatus'), nullable=True),
     sa.Column('comment', sa.String(length=255), nullable=True),
     sa.Column('starting_time', sa.DateTime(), nullable=False),
     sa.Column('finishing_time', sa.DateTime(), nullable=False),
@@ -106,6 +107,7 @@ def upgrade():
     sa.Column('total_price', sa.Numeric(), nullable=True),
     sa.ForeignKeyConstraint(['cmr_profile_id'], ['cmr_profile.id'], ),
     sa.ForeignKeyConstraint(['home_id'], ['home.id'], ),
+    sa.ForeignKeyConstraint(['posted_by'], ['user.id'], ),
     sa.ForeignKeyConstraint(['pro_profile_id'], ['pro_profile.id'], ),
     sa.PrimaryKeyConstraint('id')
     )
