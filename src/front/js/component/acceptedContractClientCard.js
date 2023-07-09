@@ -7,7 +7,7 @@ import jardineria from "../../img/jardineria.png";
 import niños from "../../img/niños.png";
 import chef from "../../img/chef.png";
 
-export const Acceptedcontractclientcard = () => {
+export const Acceptedcontractclientcard = ({contract}) => {
   const [isModalOpen6, setIsModalOpen6] = useState(false);
 
   const toggleModal6 = () => {
@@ -38,24 +38,25 @@ export const Acceptedcontractclientcard = () => {
               <p className="text-gray-600 font-bold text-m ml-1">4.96</p>
             </div>
             <div className="text-center px-3 py-1 rounded-full text-xl  text-gray-800 dark:text-white hidden md:block">
-              Fecha: 25/12/2023
+              Nombre de sitio: {contract.home_id.name}
             </div>
             <div className="text-center px-3 py-1 rounded-full text-xl  text-gray-800 dark:text-white hidden md:block">
-              Hora Inicio: 14:00
+              Inicio: {contract.finishing_time}
             </div>
             <div className="text-center px-3 py-1 rounded-full text-xl  text-gray-800 dark:text-white hidden md:block">
-              Hora fin: 16:00
+              Fin: {contract.finishing_time}
             </div>
             <div className="text-center px-3 py-1 rounded-full text-xl  text-gray-800 dark:text-white hidden md:block">
-              Horas: 4
+              Horas: {contract.time_difference}
             </div>
             <div className="text-center px-3 py-1 rounded-full text-xl  text-gray-800 dark:text-white hidden md:block">
-              Precio: 52€
+              Precio por hora: {contract.hourly_rate}
+            </div>
+            <div className="text-center px-3 py-1 rounded-full text-xl  text-gray-800 dark:text-white hidden md:block">
+              Precio final: {contract.total_price}
             </div>
           </div>
-          <h3 className="font-black text-gray-800 dark:text-white md:text-3xl text-xl">Antonio</h3>
-          <p className="md:text-lg text-gray-500 dark:text-white text-base">Servicios Contratados</p>
-
+          <h3 className="font-black text-gray-800 dark:text-white md:text-3xl text-xl">{contract.pro_profile_id.name}</h3>
           <div className="flex justify-center">
             <ul className="flex flex-wrap">
               <li className="mr-2 mb-2">
@@ -152,6 +153,7 @@ export const Acceptedcontractclientcard = () => {
           </div>
 
           <div className="text-right">
+          Estado del servicio: {contract.job_status}
             <button
               data-modal-target="authenticationModal6"
               data-modal-toggle="authenticationModal6"

@@ -2,7 +2,7 @@
 This module takes care of starting the API Server, Loading the DB and Adding the endpoints
 """
 from flask import Flask, request, jsonify, url_for, Blueprint, json
-from api.models import db, User, Role, User_role, Pro_profile, Cmr_profile, Skill, Pro_profile_skill, Home, Home_Post, Contract, Pro_review, Cmr_review, Message, Message_receiver, Post_skills, Contract_skills
+from api.models import db, User, Role, User_role, Pro_profile, Cmr_profile, Skill, Pro_profile_skill, Home, Home_Post, Contract, Pro_review, Cmr_review, Message, Message_receiver, Post_skills, Contract_skills, JobStatus, PaymentStatus
 from api.utils import generate_sitemap, APIException
 from flask_jwt_extended import create_access_token, get_jwt_identity, jwt_required
 from geopy.geocoders import Nominatim
@@ -1281,7 +1281,7 @@ def create_contract_pro_cmr():
     home_post = Home_Post.query.filter_by(id=body["home_post_id"]).first()
     home = Home.query.filter_by(id=home_post.home_id).first()
     print(body)
-    contract = Contract(pro_profile_id=pro_profile.id, cmr_profile_id=home.cmr_profile_id, comment=body["comment"], finishing_time=home_post.finishing_time, starting_time=home_post.starting_time, home_id=home.id, hourly_rate=body["hourly_rate"], total_price=body["total_price"])
+    contract = Contract(posted_by=user.id, pro_profile_id=pro_profile.id, cmr_profile_id=home.cmr_profile_id, comment=body["comment"], finishing_time=home_post.finishing_time, starting_time=home_post.starting_time, home_id=home.id, hourly_rate=body["hourly_rate"], total_price=body["total_price"])
     db.session.add(contract)
     db.session.commit()
     skill_name = body.get("skill_name")
@@ -1307,7 +1307,7 @@ def create_contract_cmr_pro():
     body = json.loads(request.data)
     if body is None:
         raise APIException("You need to specify the request body as a json object", status_code=400)
-    if 'home_id' not in body:
+    if 'home_post_id' not in body:
         raise APIException('Te falta añadir un id de casa', status_code=400)
     if 'pro_profile_id' not in body:
         raise APIException('Te falta añadir un id de perfil profesional', status_code=400)
@@ -1322,8 +1322,10 @@ def create_contract_cmr_pro():
     
     pro_profile = Pro_profile.query.filter_by(id=body["pro_profile_id"]).first()
     
+    home_post = Home_Post.query.filter_by(id=body["home_post_id"]).first()
+    home = Home.query.filter_by(id=home_post.home_id).first()
     print(body)
-    contract = Contract(pro_profile_id=pro_profile.id, cmr_profile_id=cmr_profile.id, comment=body["comment"], finishing_time=body["finishing_time"], starting_time=body["starting_time"], home_id=body["home_id"], hourly_rate=pro_profile.hourly_rate, total_price=body["total_price"])
+    contract = Contract(posted_by=user.id, pro_profile_id=pro_profile.id, cmr_profile_id=cmr_profile.id, comment=body["comment"], finishing_time=body["finishing_time"], starting_time=body["starting_time"], home_id=body["home_id"], hourly_rate=pro_profile.hourly_rate, total_price=body["total_price"])
     db.session.add(contract)
     db.session.commit()
     skill_name = body.get("skill_name")
@@ -1337,25 +1339,44 @@ def create_contract_cmr_pro():
         "your_new_contract": contract.serialize()
     }
     return jsonify(response_body), 200
-
 # edición de contrato
 
 @api.route('/contract/<int:id>', methods=['PUT'])
 @jwt_required()
 def update_cmr_contract(id):
-    
-    contract = Contract.query.filter_by(id=id).first()
+
+    user_email = get_jwt_identity()
+    user = User.query.filter_by(email=user_email).first()
+    contract = Contract.query.get(id)
 
     # comprobamos que existe un usuario con ese id, si no es asi, respondemos un mensaje de error
     if contract is None:
         raise APIException("No hay un contrato con ese ID", status_code=404)
+    
 
-    # Retrieve the data to update from the request body
+    # comprobamos si esta intentando actualizar el estado el mismo el actualizar, respondemos un mensaje de error
+    if contract.posted_by != user.id:
+        raise APIException("No tienes permiso para cambiar el estado de este contrato", status_code=403)
+
+
+     # Retrieve the data to update from the request body
     data = request.json
 
     # Update the cmr_profile attributes
-    contract.job_status = data.get('job_status', contract.description)
-    contract.payment_status = data.get('payment_status', contract.description)
+    job_status = data.get('job_status')
+    payment_status = data.get('payment_status')
+
+    # Check if job_status is provided and valid
+    if job_status is not None and job_status not in [status.value for status in JobStatus]:
+        raise APIException("Estado de trabajo inválido", status_code=400)
+
+    # Check if payment_status is provided and valid
+    if payment_status is not None and payment_status not in [status.value for status in PaymentStatus]:
+        raise APIException("Estado de pago inválido", status_code=400)
+
+    # Update the cmr_profile attributes
+    contract.job_status = data.get('job_status', contract.job_status)
+    contract.payment_status = data.get('payment_status', contract.payment_status)
 
     db.session.commit()
 
