@@ -1149,12 +1149,17 @@ def create_home_post():
     if 'description' not in body:
         raise APIException('Te falta añadir una descripción', status_code=400)
     
-    home = Home.query.filter_by(id=body["home_id"])
+    home = Home.query.filter_by(id=body["home_id"]).first()
 
     geolocator = Nominatim(user_agent="my_geocoder")
     location = geolocator.geocode(f'{home.address} {home.city} {home.postal_code} , España')
+
+    if location is None:
+        raise APIException('Sé más específico con tu dirección por favor', status_code=400)
+    
     latitude = location.latitude
     longitude = location.longitude
+    print(latitude, longitude)
 
     print(body)
     home_post = Home_Post(home_id=home.id, description=body["description"], latitude=latitude, longitude=longitude, starting_time=body["starting_time"], finishing_time=body["finishing_time"])
@@ -1165,6 +1170,7 @@ def create_home_post():
     skill = Skill.query.filter_by(name=skill_name).first() #se busca skill para añadir a profile skill
     if skill:
         post_skills = Post_skills(home_post=home_post, skill=skill)
+    
         db.session.add(post_skills)
         db.session.commit() #se agrega el commit para guardar.
 

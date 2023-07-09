@@ -385,7 +385,7 @@ export const TablonDeAnuncios = () => {
             </div>
           </div>
         </div>
-        <SimpleMap />
+        <SimpleMap homes={store.homePost}/>
       </div>
     </>
   );
