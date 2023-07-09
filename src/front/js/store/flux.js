@@ -21,7 +21,7 @@ const getState = ({
             skill_name: {},
             skills: [],
             myHomes: null,
-            myContracts: []
+            myContracts: null
         },
         actions: {
         

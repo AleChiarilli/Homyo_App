@@ -21,7 +21,14 @@ export const Profileclientshowcontracts = () => {
               <p className="p-4 font-bold text-black text-md text-center dark:text-white">
                 Tus Contratos Confirmados
               </p>
-              <Acceptedcontractclientcard />
+              {store.myContracts && store.myContracts.map((contract, index) => {
+                return (
+                  <Acceptedcontractclientcard
+                    contract={contract}
+                    key={index}
+                  />
+                )
+              })}
 
               <p className="p-4 font-bold text-black text-md text-center dark:text-white">
                 Ofertas para tus anuncios
