@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import React, { useContext } from "react";
+import { Context } from "../store/appContext";
 import avatar from "../../img/avatar.png";
 import limpieza from "../../img/limpieza.png";
 import animales from "../../img/animales.png";
@@ -7,7 +7,12 @@ import jardineria from "../../img/jardineria.png";
 import niños from "../../img/niños.png";
 import chef from "../../img/chef.png";
 
-export const Contractofferprofesionaltoclientcard = () => {
+export const Contractofferprofesionaltoclientcard = ({contract}) => {
+  const { actions } = useContext(Context);
+
+  const acceptAndPayContract = () => {
+    actions.acceptAndPayContract(contract.id)
+  }
 
     return (
       <div className="w-full p-3 flex flex-col justify-center mt-10 mb-3 dark:bg-gray-800">
@@ -29,23 +34,25 @@ export const Contractofferprofesionaltoclientcard = () => {
               <p className="text-gray-600 font-bold text-m ml-1">4.96</p>
             </div>
             <div className="text-center px-3 py-1 rounded-full text-xl  text-gray-800 dark:text-white hidden md:block">
-              Fecha: 25/12/2023
+              Nombre de sitio: {contract.home_id.name}
             </div>
             <div className="text-center px-3 py-1 rounded-full text-xl  text-gray-800 dark:text-white hidden md:block">
-              Hora Inicio: 14:00
+              Inicio: {contract.finishing_time}
             </div>
             <div className="text-center px-3 py-1 rounded-full text-xl  text-gray-800 dark:text-white hidden md:block">
-              Hora fin: 16:00
+              Fin: {contract.finishing_time}
             </div>
             <div className="text-center px-3 py-1 rounded-full text-xl  text-gray-800 dark:text-white hidden md:block">
-              Horas: 4
+              Horas: {contract.time_difference}
             </div>
             <div className="text-center px-3 py-1 rounded-full text-xl  text-gray-800 dark:text-white hidden md:block">
-              Precio: 52€
+              Precio por hora: {contract.hourly_rate}
+            </div>
+            <div className="text-center px-3 py-1 rounded-full text-xl  text-gray-800 dark:text-white hidden md:block">
+              Precio final: {contract.total_price}
             </div>
           </div>
-          <h3 className="font-black text-gray-800 dark:text-white md:text-3xl text-xl">Antonio</h3>
-          <p className="md:text-lg text-gray-500 dark:text-white text-base">Servicios Contratados</p>
+          <h3 className="font-black text-gray-800 dark:text-white md:text-3xl text-xl">{contract.pro_profile_id.name}</h3>
 
           <div className="flex justify-center">
             <ul className="flex flex-wrap">
@@ -141,9 +148,9 @@ export const Contractofferprofesionaltoclientcard = () => {
               </li>
             </ul>
           </div>
-  
             <div className="text-right">
               <button
+              onClick={acceptAndPayContract}
                 type="button"
                 className="text-white bg-indigo-700 hover:bg-indigo-800 focus:ring-4 focus:outline-none focus:ring-indigo-300 font-medium rounded-lg text-sm  sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
               >
@@ -152,7 +159,6 @@ export const Contractofferprofesionaltoclientcard = () => {
             </div>
           </div>
         </div>
-  
       </div>
       );
 };

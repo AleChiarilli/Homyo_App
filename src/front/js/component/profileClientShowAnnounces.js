@@ -41,6 +41,10 @@ export const Profileclientshowannounces = () => {
         actions.getMyHomes()
     }, [])
 
+    useEffect(() => {
+        //bloque de codigo a ejecutar
+        actions.getPostsOn();
+    }, [])
 
     useEffect(() => {
         // Obtén los nombres de las casas almacenados en el localStorage
