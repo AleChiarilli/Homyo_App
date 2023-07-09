@@ -115,10 +115,11 @@ export const Cardprofilepro = (props) => {
 
     const submitPost = async (e) => {
         e.preventDefault()
-        console.log("guardado post desde buscador")
+        console.log("guardado contract desde buscador")
         await actions.submitPost({ home_id: selectedHome, starting_time: startTime, finishing_time: endTime, description: "descripcion generica " })
         // generando contracto 
-        //await actions.contract_cmr_to_pro({ home_post_id: s, starting_time: startTime, finishing_time: endTime, total_price: "descripcion generica ,pro_profile_id : pro_id , comment : " })
+        console.log("gererando contrato")
+        await actions.contract_cmr_to_pro({ home_post_id: store.last_post_id, starting_time: startTime, finishing_time: endTime, total_price: finalPrice, pro_profile_id: props.pro_id, comment: "Contrato efectuado por el usuario" })
     }
 
     return (

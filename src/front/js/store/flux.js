@@ -20,6 +20,7 @@ const getState = ({
             all_professionals: [],
             skill_name: {},
             skills: [],
+            last_post_id: null,
             myHomes: null,
             myContracts: null
         },
@@ -60,7 +61,10 @@ const getState = ({
                         },
                     });
                     const data = await response.json();
-                    console.log(data);
+                    console.log(data.your_new_post.id);
+                    setStore({
+                        last_post_id: data.your_new_post.id
+                    })
                 } catch (error) {
                     console.log("error loading message from backend", error);
                 }
@@ -86,25 +90,25 @@ const getState = ({
                     console.error(error)
                 }
             },
-            // ruta para que cliente envie peticion de servicio a un profesional 
-            // contract_cmr_to_pro: async (contract) => {
-            //     const token = localStorage.getItem("token");
-            //     try {
-            //         const response = await fetch(process.env.BACKEND_URL + "/api/contract_cmr_to_pro", {
-            //             method: "POST",
-            //             body: JSON.stringify(contract),
-            //             headers: {
-            //                 "Content-Type": "application/json",
-            //                 "Authorization": `Bearer ${token}`
-            //             },
-            //         });
-            //         const data = await response.json();
-            //         console.log("contractyo cmr to pro")
-            //         console.log(data);
-            //     } catch (error) {
-            //         console.log("error loading message from backend", error);
-            //     }
-            // },
+            //ruta para que cliente envie peticion de servicio a un profesional 
+            contract_cmr_to_pro: async (contract) => {
+                const token = localStorage.getItem("token");
+                try {
+                    const response = await fetch(process.env.BACKEND_URL + "/api/contract_cmr_to_pro", {
+                        method: "POST",
+                        body: JSON.stringify(contract),
+                        headers: {
+                            "Content-Type": "application/json",
+                            "Authorization": `Bearer ${token}`
+                        },
+                    });
+                    const data = await response.json();
+                    console.log("contract cmr to pro")
+                    console.log(data);
+                } catch (error) {
+                    console.log("error loading message from backend", error);
+                }
+            },
 
             //RECIBE LAS SKILLS EN LOS POSTS
             getSkills: async () => {

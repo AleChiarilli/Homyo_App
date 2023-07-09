@@ -1321,7 +1321,7 @@ def create_contract_cmr_pro():
     home_post = Home_Post.query.filter_by(id=body["home_post_id"]).first()
     home = Home.query.filter_by(id=home_post.home_id).first()
     print(body)
-    contract = Contract(posted_by=user.id, pro_profile_id=pro_profile.id, cmr_profile_id=cmr_profile.id, comment=body["comment"], finishing_time=body["finishing_time"], starting_time=body["starting_time"], home_id=body["home_id"], hourly_rate=pro_profile.hourly_rate, total_price=body["total_price"])
+    contract = Contract(posted_by=user.id, pro_profile_id=pro_profile.id, cmr_profile_id=cmr_profile.id, comment=body["comment"], finishing_time=body["finishing_time"], starting_time=body["starting_time"], home_id=home.id , hourly_rate=pro_profile.hourly_rate, total_price=body["total_price"])
     db.session.add(contract)
     db.session.commit()
     skill_name = body.get("skill_name")

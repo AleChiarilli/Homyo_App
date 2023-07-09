@@ -366,19 +366,19 @@ export const Busqueda = (props) => {
         <div className="flex flex-col items-center">
           <div className="max-w-3xl w-full mx-auto z-10">
             <div className="flex flex-col">
-              
+
 
               <div>
                 {store.all_professionals.length > 0 ? (
-                   store.all_professionals.filter(el => el.hourly_rate > 0 && el.description.length > 0 ).map((professional, index) => (
+                  store.all_professionals.filter(el => el.hourly_rate > 0 && el.description.length > 0).map((professional, index) => (
                     <div key={index} className="col-1">
-                      <Cardprofilepro  name={professional.name} hourly_rate={professional.hourly_rate} description={professional.description}  />
+                      <Cardprofilepro name={professional.name} hourly_rate={professional.hourly_rate} description={professional.description} pro_id={professional.id} />
                     </div>
                   ))
                 ) : (
                   <h1>No hay profesionales disponibles</h1>
                 )}
-                
+
               </div>
 
             </div>
