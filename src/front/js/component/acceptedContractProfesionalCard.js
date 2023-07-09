@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import avatar from "../../img/avatar.png";
 import limpieza from "../../img/limpieza.png";
@@ -18,6 +18,7 @@ export const Acceptedcontractprofesionaldcard = () => {
     const hideModal7 = () => {
         setIsModalOpen7(false);
     };
+
 
     return (
         <div className="w-full flex flex-col p-3 justify-center mt-10 mb-3">

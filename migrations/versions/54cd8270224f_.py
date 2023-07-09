@@ -1,8 +1,8 @@
 """empty message
 
-Revision ID: 4a703ced4b5b
+Revision ID: 54cd8270224f
 Revises: 
-Create Date: 2023-07-09 13:00:55.877710
+Create Date: 2023-07-09 16:17:50.857525
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = '4a703ced4b5b'
+revision = '54cd8270224f'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -76,7 +76,7 @@ def upgrade():
     sa.Column('name', sa.String(length=200), nullable=True),
     sa.Column('address', sa.String(length=200), nullable=True),
     sa.Column('city', sa.String(length=200), nullable=True),
-    sa.Column('postal_code', sa.Integer(), nullable=True),
+    sa.Column('postal_code', sa.String(), nullable=True),
     sa.Column('description', sa.String(length=255), nullable=True),
     sa.Column('cmr_profile_id', sa.Integer(), nullable=True),
     sa.ForeignKeyConstraint(['cmr_profile_id'], ['cmr_profile.id'], ),
@@ -97,12 +97,13 @@ def upgrade():
     sa.Column('home_id', sa.Integer(), nullable=True),
     sa.Column('pro_profile_id', sa.Integer(), nullable=True),
     sa.Column('cmr_profile_id', sa.Integer(), nullable=True),
-    sa.Column('job_status', sa.Enum('PENDING', 'ACTIVE', 'COMPLETED', 'CANCELED', name='jobstatus'), nullable=True),
+    sa.Column('job_status', sa.Enum('PENDING', 'ACCEPTED', 'COMPLETED', 'CANCELED', name='jobstatus'), nullable=True),
     sa.Column('payment_status', sa.Enum('PENDING', 'PAYED', 'REFUNDED', name='paymentstatus'), nullable=True),
     sa.Column('comment', sa.String(length=255), nullable=True),
     sa.Column('starting_time', sa.DateTime(), nullable=False),
     sa.Column('finishing_time', sa.DateTime(), nullable=False),
     sa.Column('hourly_rate', sa.Numeric(), nullable=True),
+    sa.Column('total_price', sa.Numeric(), nullable=True),
     sa.ForeignKeyConstraint(['cmr_profile_id'], ['cmr_profile.id'], ),
     sa.ForeignKeyConstraint(['home_id'], ['home.id'], ),
     sa.ForeignKeyConstraint(['pro_profile_id'], ['pro_profile.id'], ),
