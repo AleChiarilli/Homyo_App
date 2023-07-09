@@ -13,7 +13,7 @@ export const Profileproshowprofile = () => {
 
     //ESTADOS DE LOS INPUTS A RELLENAR POR EL PROESIONAL
     //const [verified, setVerified] = useState("");
-    const [username, setUsername] = useState(store.user && store.user.username)
+    const [name, setName] = useState(store.pro_profile && store.pro_profile.name)
     const [surname1, setSurname1] = useState(store.user && store.user.surname1)
     const [surname2, setSurname2] = useState(store.user && store.user.surname2)
     const [email, setEmail] = useState(store.user && store.user.email)
@@ -34,8 +34,8 @@ export const Profileproshowprofile = () => {
     const info_professional = async (e) => {
         e.preventDefault();
         await actions.profile_professional(
-            //surname1,
-            //verified,
+            email,
+            name,
             dni,
             description,
             address,
@@ -101,13 +101,13 @@ export const Profileproshowprofile = () => {
                                     <div className="grid md:grid-cols-3 md:gap-6">
                                         <div className="relative z-0 w-full mb-6 group">
                                             <input
-                                                onChange={(event) => setUsername(event.target.value)}
+                                                onChange={(event) => setName(event.target.value)}
                                                 type="text"
                                                 name="floating_first_name"
                                                 id="floating_first_name"
                                                 className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                                                 placeholder="Nombre "
-                                                value={store.user?.username}
+                                                value={store.pro_profile.name}
                                                 required
                                             />
                                             <label
@@ -156,7 +156,7 @@ export const Profileproshowprofile = () => {
                                             id="floating_email"
                                             className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                                             placeholder="Email"
-                                            value={store.user?.email}
+                                            value={store.pro_profile && store.pro_profile.email}
                                             required
                                         />
                                         <label

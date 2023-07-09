@@ -149,7 +149,7 @@ export const Cardprofilepro = (props) => {
                         <div className="bg-gray-200 px-3 py-1 rounded-full text-xl font-medium text-gray-800 hidden md:block">
                             €/hora: {props.hourly_rate}</div>
                     </div>
-                    <h3 className="font-black text-gray-800 md:text-3xl text-xl">{props.username}</h3>
+                    <h3 className="font-black text-gray-800 md:text-3xl text-xl">{props.name}</h3>
                     <p className="md:text-lg text-gray-500 text-base">{props.description}</p>
 
 

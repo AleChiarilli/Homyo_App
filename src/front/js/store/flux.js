@@ -199,6 +199,8 @@ const getState = ({
             //AGREGAR INFORMACION DE PERFIL CON SUS SKILL DEL USUARIO-PROFESIONAL (INPUTS A LLENAR)
             profile_professional: async (
                 //surname1,
+                email,
+                name,
                 dni,
                 description,
                 address,
@@ -218,7 +220,8 @@ const getState = ({
                         method: "PUT",
                         body: JSON.stringify({
                             user_id: userId,
-                            //surname1:surname1,
+                            email:email,
+                            username:name,
                             dni: dni,
                             description: description,
                             address: address,

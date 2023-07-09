@@ -372,7 +372,7 @@ export const Busqueda = (props) => {
                 {store.all_professionals.length > 0 ? (
                    store.all_professionals.filter(el => el.hourly_rate > 0 && el.description.length > 0 ).map((professional, index) => (
                     <div key={index} className="col-1">
-                      <Cardprofilepro id={professional.id} hourly_rate={professional.hourly_rate} description={professional.description} />
+                      <Cardprofilepro  username={professional.name} hourly_rate={professional.hourly_rate} description={professional.description}  />
                     </div>
                   ))
                 ) : (
