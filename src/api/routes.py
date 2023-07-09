@@ -1303,7 +1303,7 @@ def create_contract_cmr_pro():
     body = json.loads(request.data)
     if body is None:
         raise APIException("You need to specify the request body as a json object", status_code=400)
-    if 'home_id' not in body:
+    if 'home_post_id' not in body:
         raise APIException('Te falta añadir un id de casa', status_code=400)
     if 'pro_profile_id' not in body:
         raise APIException('Te falta añadir un id de perfil profesional', status_code=400)
@@ -1318,6 +1318,8 @@ def create_contract_cmr_pro():
     
     pro_profile = Pro_profile.query.filter_by(id=body["pro_profile_id"]).first()
     
+    home_post = Home_Post.query.filter_by(id=body["home_post_id"]).first()
+    home = Home.query.filter_by(id=home_post.home_id).first()
     print(body)
     contract = Contract(posted_by=user.id, pro_profile_id=pro_profile.id, cmr_profile_id=cmr_profile.id, comment=body["comment"], finishing_time=body["finishing_time"], starting_time=body["starting_time"], home_id=body["home_id"], hourly_rate=pro_profile.hourly_rate, total_price=body["total_price"])
     db.session.add(contract)
@@ -1333,7 +1335,6 @@ def create_contract_cmr_pro():
         "your_new_contract": contract.serialize()
     }
     return jsonify(response_body), 200
-
 # edición de contrato
 
 @api.route('/contract/<int:id>', methods=['PUT'])
