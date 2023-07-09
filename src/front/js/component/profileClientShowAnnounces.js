@@ -41,6 +41,10 @@ export const Profileclientshowannounces = () => {
         actions.getMyHomes()
     }, [])
 
+    useEffect(() => {
+        actions.getPostsOn()
+    }, [])
+
 
     useEffect(() => {
         // Obtén los nombres de las casas almacenados en el localStorage
@@ -93,7 +97,7 @@ export const Profileclientshowannounces = () => {
 
     const submitPost = async (e) => {
         e.preventDefault()
-        await actions.submitPost({home_id: selectedHome, description: description, starting_time: startTime, finishing_time: endTime })
+        await actions.submitPost({ home_id: selectedHome, description: description, starting_time: startTime, finishing_time: endTime })
     }
 
 
@@ -105,7 +109,7 @@ export const Profileclientshowannounces = () => {
                     <div className="w-full">
                         <div className="mb-4">
                             <form
-                            onSubmit={submitPost}>
+                                onSubmit={submitPost}>
                                 <div className="w-full p-4 bg-white shadow-lg rounded-2xl dark:bg-gray-700">
                                     <div className="mx-0 mb-4">
                                         <p className="p-4 font-bold text-black text-md text-center dark:text-white">
@@ -199,7 +203,7 @@ export const Profileclientshowannounces = () => {
                                             </p>
                                             <textarea
                                                 id="tasks"
-                                                onChange={(e) => {setDescription(e.target.value)}}
+                                                onChange={(e) => { setDescription(e.target.value) }}
                                                 rows="4"
                                                 defaultValue=""
                                                 className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"

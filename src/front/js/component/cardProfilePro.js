@@ -84,29 +84,27 @@ export const Cardprofilepro = (props) => {
 
     const weekDays = ["Dom", "Lun", "Mar", "Mié", "Jue", "Vie", "Sáb"]; // Domingo como primer día
 
-    const addReservation = () => {
-        const newReservation = {
-            day: selectedDay,
-            month: selectedMonth,
-            startTime: startTime,
-            endTime: endTime,
-        };
-        setReservations([...reservations, newReservation]);
-        setShowModal(false);
-        setSelectedDay(1);
-        setSelectedMonth(0);
-        setStartTime("");
-        setEndTime("");
-    };
+    // const addReservation = () => {
+    //     const newReservation = {
+    //         day: selectedDay,
+    //         month: selectedMonth,
+    //         startTime: startTime,
+    //         endTime: endTime,
+    //     };
+    //     setReservations([...reservations, newReservation]);
+    //     setShowModal(false);
+    //     setSelectedDay(1);
+    //     setSelectedMonth(0);
+    //     setStartTime("");
+    //     setEndTime("");
+    // };
 
     const [homeNames, setHomeNames] = useState([]);
     const [selectedHome, setSelectedHome] = useState("");
 
     useEffect(() => {
-        // Obtén los nombres de las casas almacenados en el localStorage
-        const storedHomeNames = JSON.parse(localStorage.getItem("home"));
-        setHomeNames(storedHomeNames);
-    }, []);
+        actions.getMyHomes()
+    }, [])
 
     const handleHomeSelection = (event) => {
         const selectedHome = event.target.value;
@@ -115,20 +113,15 @@ export const Cardprofilepro = (props) => {
         console.log("Casa seleccionada:", selectedHome);
     };
 
+    const submitPost = async (e) => {
+        e.preventDefault()
+        console.log("guardado post desde buscador")
+        await actions.submitPost({ home_id: selectedHome, starting_time: startTime, finishing_time: endTime, description: "descripcion generica " })
+        // generando contracto 
+        //await actions.contract_cmr_to_pro({ home_post_id: s, starting_time: startTime, finishing_time: endTime, total_price: "descripcion generica ,pro_profile_id : pro_id , comment : " })
+    }
 
     return (
-    //      <div>
-    //     // <ul>
-    //        {data.map((element, index) => (
-    //         <li key={index}>
-    //            name:
-    //            <span>{props.username ? props.username : professional.username}</span>
-    //            <span>
-    //              {props.hourly_rate ? props.hourly_rate : professional.hourly_rate}
-    //            </span>
-    //  </li>
-    //       ))}
-        // </ul>
         <div className="w-full flex flex-col justify-center mb-3">
             <div className="relative flex flex-col md:flex-row md:space-x-5 space-y-3 md:space-y-0 rounded-xl shadow-lg p-3 mx-auto border border-white bg-white">
                 <div className="md:w-1/4 bg-white grid place-items-center">
@@ -246,11 +239,13 @@ export const Cardprofilepro = (props) => {
                                 <div className="mb-4">
                                     <label className="block text-sm font-medium text-gray-700">Fecha:</label>
                                     <div className="flex items-center">
+
+
                                         <select value={selectedHome} onChange={handleHomeSelection}>
                                             <option value="">Seleccionar casa</option>
-                                            {homeNames.map((homeName) => (
-                                                <option key={homeName} value={homeName}>
-                                                    {homeName}
+                                            {store.myHomes && store.myHomes.map((homeName, index) => (
+                                                <option key={index} value={homeName.id}>
+                                                    {homeName.name}
                                                 </option>
                                             ))}
                                         </select>
@@ -286,12 +281,12 @@ export const Cardprofilepro = (props) => {
                                     />
                                 </div>
                                 <p>
-                                    precio final: {finalPrice? finalPrice : 0}
+                                    precio final: {finalPrice ? finalPrice : 0}
                                 </p>
 
                                 <div className="mt-6 flex justify-end">
                                     <button
-                                        onClick={addReservation}
+                                        onClick={submitPost}
                                         className="px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                                     >
                                         Añadir Reserva

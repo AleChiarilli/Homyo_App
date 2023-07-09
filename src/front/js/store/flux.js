@@ -24,7 +24,7 @@ const getState = ({
             myContracts: null
         },
         actions: {
-        
+
             getMyContracts: async () => {
                 const token = localStorage.getItem("token");
                 try {
@@ -65,7 +65,7 @@ const getState = ({
                     console.log("error loading message from backend", error);
                 }
             },
-            
+
             getPostsOn: async () => {
                 const token = localStorage.getItem("token");
                 try {
@@ -86,6 +86,25 @@ const getState = ({
                     console.error(error)
                 }
             },
+            // ruta para que cliente envie peticion de servicio a un profesional 
+            // contract_cmr_to_pro: async (contract) => {
+            //     const token = localStorage.getItem("token");
+            //     try {
+            //         const response = await fetch(process.env.BACKEND_URL + "/api/contract_cmr_to_pro", {
+            //             method: "POST",
+            //             body: JSON.stringify(contract),
+            //             headers: {
+            //                 "Content-Type": "application/json",
+            //                 "Authorization": `Bearer ${token}`
+            //             },
+            //         });
+            //         const data = await response.json();
+            //         console.log("contractyo cmr to pro")
+            //         console.log(data);
+            //     } catch (error) {
+            //         console.log("error loading message from backend", error);
+            //     }
+            // },
 
             //RECIBE LAS SKILLS EN LOS POSTS
             getSkills: async () => {
@@ -240,8 +259,8 @@ const getState = ({
                         method: "PUT",
                         body: JSON.stringify({
                             user_id: userId,
-                            email:email,
-                            username:name,
+                            email: email,
+                            username: name,
                             dni: dni,
                             description: description,
                             address: address,
@@ -393,43 +412,43 @@ const getState = ({
             addHome: async (newHome) => {
                 console.log(newHome);
                 try {
-                  console.log("Data being sent to the endpoint:", {
-                    nameSpace: newHome.nameSpace,
-                    nameCity: newHome.nameCity,
-                    DescriptionSpace: newHome.DescriptionSpace,
-                    addressSpace: newHome.addressSpace,
-                    postalCodeSpace: newHome.postalCodeSpace
-                  });
-              
-                  const response = await fetch(process.env.BACKEND_URL + "/api/home", {
-                    method: "POST",
-                    body: JSON.stringify({
-                      nameSpace: newHome.nameSpace,
-                      nameCity: newHome.nameCity,
-                      DescriptionSpace: newHome.DescriptionSpace,
-                      addressSpace: newHome.addressSpace,
-                      postalCodeSpace: newHome.postalCodeSpace
-                    }),
-                    headers: {
-                      "Content-Type": "application/json",
-                      "Authorization": `Bearer ${localStorage.getItem("token")}`,
-                    },
-                  });
-              
-                  const data = await response.json();
-                  console.log(data);
+                    console.log("Data being sent to the endpoint:", {
+                        nameSpace: newHome.nameSpace,
+                        nameCity: newHome.nameCity,
+                        DescriptionSpace: newHome.DescriptionSpace,
+                        addressSpace: newHome.addressSpace,
+                        postalCodeSpace: newHome.postalCodeSpace
+                    });
+
+                    const response = await fetch(process.env.BACKEND_URL + "/api/home", {
+                        method: "POST",
+                        body: JSON.stringify({
+                            nameSpace: newHome.nameSpace,
+                            nameCity: newHome.nameCity,
+                            DescriptionSpace: newHome.DescriptionSpace,
+                            addressSpace: newHome.addressSpace,
+                            postalCodeSpace: newHome.postalCodeSpace
+                        }),
+                        headers: {
+                            "Content-Type": "application/json",
+                            "Authorization": `Bearer ${localStorage.getItem("token")}`,
+                        },
+                    });
+
+                    const data = await response.json();
+                    console.log(data);
                 } catch (error) {
-                  console.log("error loading message from backend", error);
+                    console.log("error loading message from backend", error);
                 }
-              },
-             
-              
-              
-              
-              
-              
-              
-              
+            },
+
+
+
+
+
+
+
+
 
 
             //VALIDACION DE TOKEN 
