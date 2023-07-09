@@ -254,15 +254,15 @@ class Post_skills(db.Model):
         }
 
 class JobStatus(Enum):
-    PENDING = 'Pendiente de aceptar'
-    ACCEPTED = 'Aceptado'
-    COMPLETED = 'Completado'
-    CANCELED = 'Cancelado'
+    PENDIENTE = 'Pendiente'
+    ACEPTADO = 'Aceptado'
+    COMPLETADO = 'Completado'
+    CANCELADO = 'Cancelado'
 
 class PaymentStatus(Enum):
-    PENDING = 'Pendiente'
-    PAID = 'Pagado'
-    REFUNDED = 'Reembolsado'
+    PENDIENTE = 'Pendiente'
+    PAGADO = 'Pagado'
+    REEMBOLSADO = 'Reembolsado'
 
 
 class Contract(TimestampMixin, db.Model):
@@ -274,8 +274,8 @@ class Contract(TimestampMixin, db.Model):
     cmr_profile_id = db.Column(db.Integer, db.ForeignKey('cmr_profile.id'))
     cmr_profile = db.relationship(Cmr_profile)
     posted_by = db.Column(db.Integer, db.ForeignKey('user.id'))
-    job_status = db.Column(db.Enum(JobStatus), default=JobStatus.PENDING)
-    payment_status = db.Column(db.Enum(PaymentStatus), default=PaymentStatus.PENDING)
+    job_status = db.Column(db.Enum(JobStatus), default=JobStatus.PENDIENTE)
+    payment_status = db.Column(db.Enum(PaymentStatus), default=PaymentStatus.PENDIENTE)
     comment = db.Column(db.String(255), unique=False, nullable=True)
     starting_time = db.Column(db.DateTime, nullable=False)
     finishing_time = db.Column(db.DateTime, nullable=False)
