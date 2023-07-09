@@ -1099,37 +1099,6 @@ def get_single_home_post(id):
 
     return jsonify(response_body), 200
 
-# @api.route('/home_post', methods=['POST'])
-# # Acceso protegido
-# @jwt_required()
-# def create_home_post():
-#     user_email = get_jwt_identity()
-#     user = User.query.filter_by(email=user_email).first()
-#     cmr_profile = Cmr_profile.query.filter_by(user_id=user.id).first()
-#     body = json.loads(request.data)
-#     # json.loads(request.body.decode(encoding='UTF-8'))
-#     if body is None:
-#         raise APIException("You need to specify the request body as a json object", status_code=400)
-#     if 'home_id' not in body:
-#         raise APIException('Te falta añadir un id de casa', status_code=400)
-#     if 'description' not in body:
-#         raise APIException('Te falta añadir una descripción', status_code=400)
-#     print(body)
-#     home_post = Home_Post(home_id=body["home_id"], description=body["description"], latitude=body["latitude"],longitude=body["longitude"],starting_time=body["starting_time"], finishing_time=body["finishing_time"])
-#     db.session.add(home_post)
-#     db.session.commit()
-#     skill_name = body.get("skill_name")
-#     skill = Skill.query.filter_by(name=skill_name).first() #se busca skill para añadir a profile skill
-#     if skill:
-#         post_skills = Post_skills(home_post=home_post, skill=skill)
-#         db.session.add(post_skills)
-#         db.session.commit() #se agrega el commit para guardar.
-#     response_body = {
-#         "msg": "Tu nuevo anuncio ha sido creado",
-#         "your_new_post": home_post.serialize()
-#     }
-#     return jsonify(response_body), 200
-
 # endpoint para crear un dato en tabla HOME_POST
 @api.route('/home_post', methods=['POST'])
 # Acceso protegido
@@ -1293,36 +1262,38 @@ def get_my_contracts_cmr():
 # Acceso protegido
 @jwt_required()
 def create_contract_pro_cmr():
-
     user_email = get_jwt_identity()
     user = User.query.filter_by(email=user_email).first()
     pro_profile = Pro_profile.query.filter_by(user_id=user.id).first()
-
+    
     body = json.loads(request.data)
-
     if body is None:
         raise APIException("You need to specify the request body as a json object", status_code=400)
-    if 'home_id' not in body:
+    if 'home_post_id' not in body:
         raise APIException('Te falta añadir un id de casa', status_code=400)
-    if 'cmr_profile_id' not in body:
-        raise APIException('Te falta añadir un id de cliente', status_code=400)
+    if 'comment' not in body:
+        raise APIException('Te falta añadir un id de casa', status_code=400)
+    if 'hourly_rate' not in body:
+        raise APIException('Te falta añadir precio hora', status_code=400)
+    if 'total_price' not in body:
+        raise APIException('Te falta añadir precio total', status_code=400)
     
+    home_post = Home_Post.query.filter_by(id=body["home_post_id"]).first()
+    home = Home.query.filter_by(id=home_post.home_id).first()
     print(body)
-    contract = Contract(pro_profile_id=pro_profile.id, cmr_profile_id=body["cmr_profile_id"], comment=body["comment"], finishing_time=body["finishing_time"], starting_time=body["starting_time"], home_id=body["home_id"], hourly_rate=body["hourly_rate"])
+    contract = Contract(pro_profile_id=pro_profile.id, cmr_profile_id=home.cmr_profile_id, comment=body["comment"], finishing_time=home_post.finishing_time, starting_time=home_post.starting_time, home_id=home.id, hourly_rate=body["hourly_rate"], total_price=body["total_price"])
     db.session.add(contract)
     db.session.commit()
-
     skill_name = body.get("skill_name")
     skill = Skill.query.filter_by(name=skill_name).first() #se busca skill para añadir a profile skill
     if skill:
         post_skills = Contract_skills(contract=contract, skill=skill)
         db.session.add(post_skills)
         db.session.commit() #se agrega el commit para guardar.
-
     response_body = {
         "msg": "La relación contrato ha sido creado",
+        "your_new_contract": contract.serialize()
     }
-
     return jsonify(response_body), 200
 
 # endpoint para crear un dato en tabla CONTRACT como Cliente
@@ -1330,36 +1301,41 @@ def create_contract_pro_cmr():
 # Acceso protegido
 @jwt_required()
 def create_contract_cmr_pro():
-
     user_email = get_jwt_identity()
     user = User.query.filter_by(email=user_email).first()
     cmr_profile = Cmr_profile.query.filter_by(user_id=user.id).first()
-
     body = json.loads(request.data)
-
     if body is None:
         raise APIException("You need to specify the request body as a json object", status_code=400)
     if 'home_id' not in body:
         raise APIException('Te falta añadir un id de casa', status_code=400)
     if 'pro_profile_id' not in body:
-        raise APIException('Te falta añadir un id de cliente', status_code=400)
+        raise APIException('Te falta añadir un id de perfil profesional', status_code=400)
+    if 'comment' not in body:
+        raise APIException('Te falta añadir un id de casa', status_code=400)
+    if 'total_price' not in body:
+        raise APIException('Te falta añadir precio total', status_code=400)
+    if 'starting_time' not in body:
+        raise APIException('Te falta añadir hora de inicio', status_code=400)
+    if 'finishing_time' not in body:
+        raise APIException('Te falta añadir hora de inicio', status_code=400)
+    
+    pro_profile = Pro_profile.query.filter_by(id=body["pro_profile_id"]).first()
     
     print(body)
-    contract = Contract(pro_profile_id=body["pro_profile_id"], cmr_profile_id=cmr_profile.id, comment=body["comment"], finishing_time=body["finishing_time"], starting_time=body["starting_time"], home_id=body["home_id"], hourly_rate=body["hourly_rate"])
+    contract = Contract(pro_profile_id=pro_profile.id, cmr_profile_id=cmr_profile.id, comment=body["comment"], finishing_time=body["finishing_time"], starting_time=body["starting_time"], home_id=body["home_id"], hourly_rate=pro_profile.hourly_rate, total_price=body["total_price"])
     db.session.add(contract)
     db.session.commit()
-
     skill_name = body.get("skill_name")
     skill = Skill.query.filter_by(name=skill_name).first() #se busca skill para añadir a profile skill
     if skill:
         post_skills = Contract_skills(contract=contract, skill=skill)
         db.session.add(post_skills)
         db.session.commit() #se agrega el commit para guardar.
-
     response_body = {
         "msg": "La relación contrato ha sido creado",
+        "your_new_contract": contract.serialize()
     }
-
     return jsonify(response_body), 200
 
 # edición de contrato
@@ -1372,7 +1348,7 @@ def update_cmr_contract(id):
 
     # comprobamos que existe un usuario con ese id, si no es asi, respondemos un mensaje de error
     if contract is None:
-        raise APIException("No hay un perfil contrato con ese ID", status_code=404)
+        raise APIException("No hay un contrato con ese ID", status_code=404)
 
     # Retrieve the data to update from the request body
     data = request.json
