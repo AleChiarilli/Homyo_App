@@ -8,9 +8,7 @@ const getState = ({
 }) => {
     return {
         store: {
-
             message: null,
-
             token: "", //guardamos el token como un string vacio 
             isLoggedIn: false,
             role: 'cliente', // 
@@ -22,10 +20,32 @@ const getState = ({
             all_professionals: [],
             skill_name: {},
             skills: [],
-            myHomes: null
-
+            myHomes: null,
+            myContracts: []
         },
         actions: {
+        
+            getMyContracts: async () => {
+                const token = localStorage.getItem("token");
+                try {
+                    const response = await fetch(`${process.env.BACKEND_URL}/api/my_contracts_cmr`, {
+                        method: "GET",
+                        headers: {
+                            "Content-Type": "application/json",
+                            "Authorization": `Bearer ${token}`,
+                        },
+                    })
+                    const data = await response.json()
+                    setStore({
+                        myContracts: data.results
+                    })
+                    console.log(data);
+                    console.log(response);
+                } catch (error) {
+                    console.error(error)
+                }
+            },
+
 
             submitPost: async (homePost) => {
                 const token = localStorage.getItem("token");

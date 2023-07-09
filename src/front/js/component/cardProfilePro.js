@@ -23,7 +23,7 @@ export const Cardprofilepro = (props) => {
     const [startTime, setStartTime] = useState("");
     const [endTime, setEndTime] = useState("");
     const [reservations, setReservations] = useState([]);
-
+    const [finalPrice, setFinalPrice] = useState(0);
     const [hourDifference, setHourDifference] = useState(0);
 
     const handleStartingTimeChange = (event) => {
@@ -46,6 +46,7 @@ export const Cardprofilepro = (props) => {
         const differenceInMilliseconds = endDateTime - startDateTime;
         const hourDifference = Math.abs(differenceInMilliseconds / (1000 * 60 * 60));
         setHourDifference(hourDifference);
+        setFinalPrice(hourDifference * props.hourly_rate)
     };
 
     const months = [
@@ -284,6 +285,9 @@ export const Cardprofilepro = (props) => {
                                         readOnly
                                     />
                                 </div>
+                                <p>
+                                    precio final: {finalPrice? finalPrice : 0}
+                                </p>
 
                                 <div className="mt-6 flex justify-end">
                                     <button

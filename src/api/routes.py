@@ -1292,7 +1292,7 @@ def get_my_contracts_cmr():
 @api.route('/contract_pro_to_cmr', methods=['POST'])
 # Acceso protegido
 @jwt_required()
-def create_contract_pro_cmr():
+def create_contract_pro_to_cmr():
 
     user_email = get_jwt_identity()
     user = User.query.filter_by(email=user_email).first()
@@ -1329,39 +1329,34 @@ def create_contract_pro_cmr():
 @api.route('/contract_cmr_to_pro', methods=['POST'])
 # Acceso protegido
 @jwt_required()
-def create_contract_cmr_pro():
-
+def create_contract_cmr_to_pro():
     user_email = get_jwt_identity()
     user = User.query.filter_by(email=user_email).first()
-    cmr_profile = Cmr_profile.query.filter_by(user_id=user.id).first()
-
+    pro_profile = Pro_profile.query.filter_by(user_id=user.id).first()
+    
     body = json.loads(request.data)
-
     if body is None:
         raise APIException("You need to specify the request body as a json object", status_code=400)
-    if 'home_id' not in body:
+    if 'home_post_id' not in body:
         raise APIException('Te falta añadir un id de casa', status_code=400)
-    if 'pro_profile_id' not in body:
-        raise APIException('Te falta añadir un id de cliente', status_code=400)
     
+    home_post = Home_Post.query.filter_by(id=body["home_post_id"]).first()
+    home = Home.query.filter_by(id=home_post.home_id).first()
     print(body)
-    contract = Contract(pro_profile_id=body["pro_profile_id"], cmr_profile_id=cmr_profile.id, comment=body["comment"], finishing_time=body["finishing_time"], starting_time=body["starting_time"], home_id=body["home_id"], hourly_rate=body["hourly_rate"])
+    contract = Contract(pro_profile_id=pro_profile.id, cmr_profile_id=home.cmr_profile_id, comment=body["comment"], finishing_time=home_post.finishing_time, starting_time=home_post.starting_time, home_id=home.id, hourly_rate=body["hourly_rate"])
     db.session.add(contract)
     db.session.commit()
-
     skill_name = body.get("skill_name")
     skill = Skill.query.filter_by(name=skill_name).first() #se busca skill para añadir a profile skill
     if skill:
         post_skills = Contract_skills(contract=contract, skill=skill)
         db.session.add(post_skills)
         db.session.commit() #se agrega el commit para guardar.
-
     response_body = {
         "msg": "La relación contrato ha sido creado",
+        "your_new_contract": contract.serialize()
     }
-
     return jsonify(response_body), 200
-
 # edición de contrato
 
 @api.route('/contract/<int:id>', methods=['PUT'])

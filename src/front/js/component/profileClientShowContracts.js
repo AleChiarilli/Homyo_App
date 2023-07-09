@@ -1,12 +1,17 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { Context } from "../store/appContext";
 import "../../styles/profile.css";
 import { Acceptedcontractclientcard } from "../component/acceptedContractClientCard";
 import { Contractofferprofesionaltoclientcard } from "../component/contractOfferProfesionalToClientCard";
 
 export const Profileclientshowcontracts = () => {
-  const { store } = useContext(Context);
 
+  const { actions, store } = useContext(Context);
+
+  useEffect(() => {
+    actions.getMyContracts()
+    console.log(store.myContracts);
+  }, [])
 
   return (
    
