@@ -366,13 +366,16 @@ export const Busqueda = (props) => {
         <div className="flex flex-col items-center">
           <div className="max-w-3xl w-full mx-auto z-10">
             <div className="flex flex-col">
-              
 
               <div>
                 {store.all_professionals.length > 0 ? (
                    store.all_professionals.filter(el => el.hourly_rate > 0 && el.description.length > 0 ).map((professional, index) => (
                     <div key={index} className="col-1">
-                      <Cardprofilepro id={professional.id} hourly_rate={professional.hourly_rate} description={professional.description} />
+                      <Cardprofilepro 
+                        id={professional.id} 
+                        hourly_rate={professional.hourly_rate} 
+                        description={professional.description} 
+                      />
                     </div>
                   ))
                 ) : (

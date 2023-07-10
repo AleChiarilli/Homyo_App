@@ -21,9 +21,40 @@ const getState = ({
             skill_name: {},
             skills: [],
             myHomes: null,
-            myContracts: null
+            myContracts: null,
+            homes: [],
         },
         actions: {
+            createReservation: async (reservation) => {
+                const token = localStorage.getItem("token");
+                try {
+                    const {
+                        home_id,
+                        pro_profile_id,
+                        total_price,
+                        finishing_time,
+                        starting_time,
+                    } = reservation;
+
+                    const response = await fetch(process.env.BACKEND_URL + "/api/contract_cmr_to_pro", {
+                        method: "POST",
+                        body: JSON.stringify({
+                            home_id,
+                            pro_profile_id,
+                            total_price,
+                            finishing_time,
+                            starting_time
+                        }),
+                        headers: {
+                            "Content-Type": "application/json",
+                            "Authorization": `Bearer ${token}`
+                        },
+                    });
+                    console.log({ reservationResponse: response })
+                } catch (error) {
+                    console.error(error)
+                }
+            },
 
             submitContract: async (homePostId, professionalOfferValue) => {
                 const token = localStorage.getItem("token");
@@ -270,6 +301,10 @@ const getState = ({
                         ) {
                             // Obtener los nombres de todas las casas en la lista
                             homeNames = data.user.cmr_profile[0].homes.map(home => home.name);
+                            setStore({
+                                ...getStore(),
+                                homes: data.user.cmr_profile[0].homes,
+                            })
                         }
                         console.log(data.user);
                         localStorage.setItem("token", data.token);
@@ -279,7 +314,7 @@ const getState = ({
                         setStore({
                             ...getStore(),
                             isLoggedIn: true,
-                            user: data.user
+                            user: data.user,
                         });
 
                         return true;
