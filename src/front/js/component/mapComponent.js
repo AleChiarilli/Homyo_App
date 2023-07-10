@@ -10,7 +10,7 @@ export const SimpleMap = ({homes}) => {
   }
   )
 
-  const position = [51.505, -0.09]
+  const position = [40.41697083605351, -3.704247655138492]
   return (
     <>
       <MapContainer center={position} zoom={13} scrollWheelZoom={false} id="map" style={{ zIndex: "1" }}>

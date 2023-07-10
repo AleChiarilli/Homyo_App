@@ -10,15 +10,6 @@ import niños from "../../img/niños.png";
 import chef from "../../img/chef.png";
 import { CardAnnounce } from "../component/cardAnnounce";
 
-// ESTE ES UNA PRUEBA PARA OBTENER LOS ANUNCIOS DEL STORE
-// export const TablonDeAnuncios = () => {
-//     const { actions, store } = useContext(Context);
-//     useEffect(() => {
-//         actions.getPublications("28017")
-//     }, [])
-
-
-//     const infoUser = store.publications
 
 
 
@@ -377,7 +368,7 @@ export const TablonDeAnuncios = () => {
                   {store.homePost.map((item, index) => (
                     <CardAnnounce key={index} timeDifference={item.time_difference} description={item.description}
                       address={item.home_address} startingTime={item.starting_time} finishingTime={item.finishing_time}
-                      name={item.home_name} skills={item.skills} />
+                      name={item.home_name} skills={item.skills} item={item} />
                   ))}
 
                 </div>

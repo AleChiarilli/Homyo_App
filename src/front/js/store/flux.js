@@ -25,6 +25,27 @@ const getState = ({
         },
         actions: {
 
+            submitContract: async (homePostId, professionalOfferValue) => {
+                const token = localStorage.getItem("token");
+                try {
+                    const response = await fetch(process.env.BACKEND_URL + "/api/contract_pro_to_cmr", {
+                        method: "POST",
+                        body: JSON.stringify({
+                            home_post_id: homePostId,
+                            total_price: professionalOfferValue
+                        }),
+                        headers: {
+                            "Content-Type": "application/json",
+                            "Authorization": `Bearer ${token}`
+                        },
+                    });
+                    const data = await response.json();
+                    console.log(data);
+                } catch (error) {
+                    console.log("error loading message from backend", error);
+                }
+            },
+
             acceptAndPayContract: async (contractId) => {
                 const token = localStorage.getItem("token");
                 try {
