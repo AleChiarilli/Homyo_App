@@ -100,6 +100,26 @@ const getState = ({
                 }
             },
 
+            getMyContractsPro: async () => {
+                const token = localStorage.getItem("token");
+                try {
+                    const response = await fetch(`${process.env.BACKEND_URL}/api/my_contracts_pro`, {
+                        method: "GET",
+                        headers: {
+                            "Content-Type": "application/json",
+                            "Authorization": `Bearer ${token}`,
+                        },
+                    })
+                    const data = await response.json()
+                    setStore({
+                        myContracts: data.results
+                    })
+                    console.log(data);
+                    console.log(response);
+                } catch (error) {
+                    console.error(error)
+                }
+            },
 
             submitPost: async (homePost) => {
                 const token = localStorage.getItem("token");
