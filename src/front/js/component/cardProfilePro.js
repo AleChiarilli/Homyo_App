@@ -9,9 +9,6 @@ import jardineria from "../../img/jardineria.png";
 import niños from "../../img/niños.png";
 import chef from "../../img/chef.png";
 
-
-
-
 export const Cardprofilepro = (props) => {
 
     const { store, actions } = useContext(Context);
@@ -25,6 +22,8 @@ export const Cardprofilepro = (props) => {
     const [reservations, setReservations] = useState([]);
     const [finalPrice, setFinalPrice] = useState(0);
     const [hourDifference, setHourDifference] = useState(0);
+    const [homeNames, setHomeNames] = useState([]);
+    const [selectedHome, setSelectedHome] = useState("");
 
     const handleStartingTimeChange = (event) => {
         const time = event.target.value;
@@ -97,37 +96,42 @@ export const Cardprofilepro = (props) => {
         setSelectedMonth(0);
         setStartTime("");
         setEndTime("");
+        const selectedHomeFull = store.homes.find(home => home.name === selectedHome)
+        actions.createReservation({
+            home_id: selectedHomeFull.id,
+            pro_profile_id: props.id,
+            total_price: finalPrice,
+            finishing_time: endTime,
+            starting_time: startTime
+        })
     };
-
-    const [homeNames, setHomeNames] = useState([]);
-    const [selectedHome, setSelectedHome] = useState("");
 
     useEffect(() => {
         // Obtén los nombres de las casas almacenados en el localStorage
-        const storedHomeNames = JSON.parse(localStorage.getItem("home"));
+        const storedHomeNames = store.homes.map((home) => home.name);
         setHomeNames(storedHomeNames);
     }, []);
 
     const handleHomeSelection = (event) => {
-        const selectedHome = event.target.value;
-        setSelectedHome(selectedHome);
+        const selectedOption = event.target.value;
+        setSelectedHome(selectedOption);
         // Hacer lo que necesites con el nombre de la casa seleccionada
-        console.log("Casa seleccionada:", selectedHome);
+        console.log("Casa seleccionada:", selectedOption);
     };
 
 
     return (
-    //      <div>
-    //     // <ul>
-    //        {data.map((element, index) => (
-    //         <li key={index}>
-    //            name:
-    //            <span>{props.username ? props.username : professional.username}</span>
-    //            <span>
-    //              {props.hourly_rate ? props.hourly_rate : professional.hourly_rate}
-    //            </span>
-    //  </li>
-    //       ))}
+        //      <div>
+        //     // <ul>
+        //        {data.map((element, index) => (
+        //         <li key={index}>
+        //            name:
+        //            <span>{props.username ? props.username : professional.username}</span>
+        //            <span>
+        //              {props.hourly_rate ? props.hourly_rate : professional.hourly_rate}
+        //            </span>
+        //  </li>
+        //       ))}
         // </ul>
         <div className="w-full flex flex-col justify-center mb-3">
             <div className="relative flex flex-col md:flex-row md:space-x-5 space-y-3 md:space-y-0 rounded-xl shadow-lg p-3 mx-auto border border-white bg-white">
@@ -286,7 +290,7 @@ export const Cardprofilepro = (props) => {
                                     />
                                 </div>
                                 <p>
-                                    precio final: {finalPrice? finalPrice : 0}
+                                    precio final: {finalPrice ? finalPrice : 0}
                                 </p>
 
                                 <div className="mt-6 flex justify-end">
