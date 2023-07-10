@@ -56,7 +56,7 @@ const getState = ({
                             "Authorization": `Bearer ${token}`,
                         },
                         body: JSON.stringify({
-                            job_status: "COMPLETADO",
+                            job_status: "ACEPTADO",
                             payment_status: "PAGADO",
                         }),
                     })
