@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useContext, useEffect } from "react";
+import { Context } from "../store/appContext";
 import { Link } from "react-router-dom";
 import avatar from "../../img/avatar.png";
 import limpieza from "../../img/limpieza.png";
@@ -7,10 +8,17 @@ import jardineria from "../../img/jardineria.png";
 import niños from "../../img/niños.png";
 import chef from "../../img/chef.png";
 
-export const Contractofferprofesionaltoclientcard = () => {
+export const Contractofferprofesionaltoclientcard = ({ start, end, name, total_price, contract_id, home_id }) => {
+  const { actions, store } = useContext(Context);
+  const acceptContract = async () => {
+ 
+    await actions.updateContract({ "job_status": "ACEPTADO", "payment_status": "PENDIENTE" }, contract_id);
+    // // cambia el estado visible para que otros profesionales no l ovean ya que fue aceptado por el cliente 
+    // await actions.updateHomePost({ "is_visible": true }, home_id);
 
-    return (
-      <div className="w-full p-3 flex flex-col justify-center mt-10 mb-3 dark:bg-gray-800">
+  }
+  return (
+    <div className="w-full p-3 flex flex-col justify-center mt-10 mb-3 dark:bg-gray-800">
       <div className="relative flex flex-col md:flex-row md:space-x-5 space-y-3 md:space-y-0 rounded-xl shadow-lg p-3 bg-white dark:bg-gray-700 mx-auto border border-white">
         <div className="w-full md:w-1/4 bg-white dark:bg-gray-700 grid place-items-center">
           <img src={avatar} className="rounded-full" alt="Avatar" />
@@ -29,22 +37,24 @@ export const Contractofferprofesionaltoclientcard = () => {
               <p className="text-gray-600 font-bold text-m ml-1">4.96</p>
             </div>
             <div className="text-center px-3 py-1 rounded-full text-xl  text-gray-800 dark:text-white hidden md:block">
-              Fecha: 25/12/2023
+              Fecha:
             </div>
             <div className="text-center px-3 py-1 rounded-full text-xl  text-gray-800 dark:text-white hidden md:block">
-              Hora Inicio: 14:00
+              hora inicio:{start}
+
             </div>
             <div className="text-center px-3 py-1 rounded-full text-xl  text-gray-800 dark:text-white hidden md:block">
-              Hora fin: 16:00
+              hora final: {end}
+
             </div>
             <div className="text-center px-3 py-1 rounded-full text-xl  text-gray-800 dark:text-white hidden md:block">
-              Horas: 4
+
             </div>
             <div className="text-center px-3 py-1 rounded-full text-xl  text-gray-800 dark:text-white hidden md:block">
-              Precio: 52€
+              Precio:{total_price}
             </div>
           </div>
-          <h3 className="font-black text-gray-800 dark:text-white md:text-3xl text-xl">Antonio</h3>
+          <h3 className="font-black text-gray-800 dark:text-white md:text-3xl text-xl">{name}</h3>
           <p className="md:text-lg text-gray-500 dark:text-white text-base">Servicios Contratados</p>
 
           <div className="flex justify-center">
@@ -141,18 +151,19 @@ export const Contractofferprofesionaltoclientcard = () => {
               </li>
             </ul>
           </div>
-  
-            <div className="text-right">
-              <button
-                type="button"
-                className="text-white bg-indigo-700 hover:bg-indigo-800 focus:ring-4 focus:outline-none focus:ring-indigo-300 font-medium rounded-lg text-sm  sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-              >
-                Acepta y paga el contrato
-              </button>
-            </div>
+
+          <div className="text-right">
+            <button
+              type="button"
+              onClick={() => acceptContract()}
+              className="text-white bg-indigo-700 hover:bg-indigo-800 focus:ring-4 focus:outline-none focus:ring-indigo-300 font-medium rounded-lg text-sm  sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+            >
+              Acepta y paga el contrato
+            </button>
           </div>
         </div>
-  
       </div>
-      );
+
+    </div>
+  );
 };

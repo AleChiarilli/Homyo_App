@@ -8,7 +8,7 @@ import niños from "../../img/niños.png";
 import chef from "../../img/chef.png";
 import house from "../../img/house.png";
 
-export const Acceptedcontractprofesionaldcard = () => {
+export const Acceptedcontractprofesionaldcard = ({}) => {
     const [isModalOpen7, setIsModalOpen7] = useState(false);
 
     const toggleModal7 = () => {
@@ -58,7 +58,7 @@ export const Acceptedcontractprofesionaldcard = () => {
                             Precio: 52€
                         </div>
                     </div>
-                    <h3 className="font-black text-gray-800 md:text-3xl text-xl">Contratado por: Antonio</h3>
+                    <h3 className="font-black text-gray-800 md:text-3xl text-xl">Contratado por: asdsa</h3>
                     <p className="md:text-lg text-gray-500 text-base">Servicios Contratados</p>
 
                     <div className="flex justify-center">

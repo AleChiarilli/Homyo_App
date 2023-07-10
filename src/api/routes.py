@@ -1225,12 +1225,10 @@ def get_contract():
 # Acceso protegido
 @jwt_required()
 def get_my_contracts_pro():
-
     user_email = get_jwt_identity()
     user = User.query.filter_by(email=user_email).first()
     pro_profile = Pro_profile.query.filter_by(user_id=user.id).first()
     pro_contracts = Contract.query.filter_by(pro_profile_id=pro_profile.id).all()
-
     response_body = {
         "msg": "Hello, this is your GET /pro_user_profile response ",
         "results": [contract.serialize() for contract in pro_contracts]
@@ -1350,8 +1348,10 @@ def update_cmr_contract(id):
         raise APIException("No hay un contrato con ese ID", status_code=404)
 
     # comprobamos si esta intentando actualizar el estado el mismo que creo el contrato, respondemos un mensaje de error
-    if contract.posted_by == user.id:
-        raise APIException("No tienes permiso para cambiar el estado de este contrato", status_code=403)
+    # se comenta por que un cliente puede aceptar la oferta hecha por un porofesional por lo que el posted by seria del profesional pero estaria 
+    # modificando el cliente el anuncion para aceptar la oferta 
+    # if contract.posted_by == user.id:
+    #     raise APIException("No tienes permiso para cambiar el estado de este contrato", status_code=403)
 
      # Retrieve the data to update from the request body
     data = request.json

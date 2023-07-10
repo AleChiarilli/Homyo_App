@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useContext, useEffect } from "react";
+import { Context } from "../store/appContext";
 import limpieza from "../../img/limpieza.png";
 import animales from "../../img/animales.png";
 import jardineria from "../../img/jardineria.png";
@@ -9,20 +10,25 @@ import house from "../../img/house.png";
 const iconsMap = { limpieza, animales, jardineria, niños, chef }
 
 
-export const CardAnnounce = ({ description, address, startingTime, finishingTime, name, timeDifference, skills }) => {
+export const CardAnnounce = ({ description, address, startingTime, finishingTime, name, timeDifference, skills, homePostId }) => {
   const [isModalOpen100, setIsModalOpen100] = useState(false); // Estado del primer modal
 
-  // const {store} = useContext(Context)
+  const { store, actions } = useContext(Context)
 
   const toggleModal100 = () => {
     setIsModalOpen100(!isModalOpen100); // Invierte el estado del primer modal al hacer clic
   };
 
+  const [offer, setOffer] = useState("");
+
   const hideModal100 = () => {
     setIsModalOpen100(false); // Cierra el primer modal
   };
 
-
+  const submitOffer = async (e) => {
+    e.preventDefault()
+    await actions.submitOffer({ "home_post_id": homePostId, "total_price": offer })
+  }
   return (
     <div className="w-full flex flex-col justify-center mt-10 mb-3 dark:bg-gray-700">
       <div className="flex flex-col md:flex-row md:space-x-5 space-y-3 md:space-y-0 rounded-xl shadow-lg p-3 bg-white dark:bg-gray-800 mx-auto border border-white">
@@ -121,7 +127,7 @@ export const CardAnnounce = ({ description, address, startingTime, finishingTime
                     </div>
                     <div className="mt-8">
                       <form
-                        onSubmit={(e) => submitUser(e)}
+                        onSubmit={(e) => submitOffer(e)}
                         autoComplete="on"
                       >
                         <div className="flex flex-col mb-6">
@@ -133,6 +139,7 @@ export const CardAnnounce = ({ description, address, startingTime, finishingTime
                             </span>
                             <input
                               type="number"
+                              onChange={(event) => setOffer(event.target.value)}
                               id="oferta"
                               className=" rounded-r-lg flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
                               placeholder="oferta"

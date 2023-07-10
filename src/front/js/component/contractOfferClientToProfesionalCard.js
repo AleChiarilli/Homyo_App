@@ -8,7 +8,7 @@ import niños from "../../img/niños.png";
 import chef from "../../img/chef.png";
 import house from "../../img/house.png";
 
-export const Contractofferclienttoprofesionaldcard = () => {
+export const Contractofferclienttoprofesionaldcard = ({ start, end, total_price, name }) => {
     const [isModalOpen10, setIsModalOpen10] = useState(false);
 
     const toggleModal10 = () => {
@@ -42,22 +42,22 @@ export const Contractofferclienttoprofesionaldcard = () => {
                             </p>
                         </div>
                         <div className="text-center px-3 py-1 rounded-full text-xl  text-gray-800 dark:text-white hidden md:block">
-                            Fecha: 25/12/2023
+                            date
                         </div>
                         <div className="text-center px-3 py-1 rounded-full text-xl  text-gray-800 dark:text-white hidden md:block">
-                            Hora Inicio: 14:00
+                            Inicio:{start}
                         </div>
                         <div className="text-center px-3 py-1 rounded-full text-xl  text-gray-800 dark:text-white hidden md:block">
-                            Hora fin: 16:00
+                            Fin:{end}
                         </div>
                         <div className="text-center px-3 py-1 rounded-full text-xl  text-gray-800 dark:text-white hidden md:block">
-                            Horas: 4
+                            Horas
                         </div>
                         <div className="text-center px-3 py-1 rounded-full text-xl  text-gray-800 dark:text-white hidden md:block">
-                            Precio: 52€
+                            Precio: {total_price}
                         </div>
                     </div>
-                    <h3 className="font-black text-gray-800 md:text-3xl text-xl">Contratado por: Antonio</h3>
+                    <h3 className="font-black text-gray-800 md:text-3xl text-xl">Contratado por: {name}</h3>
                     <p className="md:text-lg text-gray-500 text-base">Servicios Contratados</p>
 
                     <div className="flex justify-center">

@@ -122,7 +122,7 @@ export const Profileclientshowannounces = () => {
                                             <select className="block w-full p-4 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 sm:text-md focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                                 value={selectedHome} onChange={handleHomeSelection}>
                                                 <option value="">Seleccionar casa</option>
-                                                {store.myHomes.map((home, index) => (
+                                                {store.myHomes && store.myHomes.map((home, index) => (
                                                     <option key={index} value={home.id}>
                                                         {home.name}
                                                     </option>
@@ -226,11 +226,16 @@ export const Profileclientshowannounces = () => {
                             <p className="p-4 font-bold text-black text-md text-center dark:text-white">
                                 Tus Anuncios{" "}
                             </p>
-                            {store.homePost.map((item, index) => (
-                                <Cardannounces key={index} timeDifference={item.time_difference} description={item.description}
-                                    address={item.home_address} startingTime={item.starting_time} finishingTime={item.finishing_time}
-                                    name={item.home_name} skills={item.skills} />
+                            {/*  a falta de routa para consultar los home_post por user se debe añadir condicional para all home post  */}
+                            {console.log(store.homePost)}
+                            {store.homePost && store.homePost.map((item, index) => (
+                                (item.cmr_profile_id == localStorage.getItem("id")) ? (
+                                    <Cardannounces key={index} timeDifference={item.time_difference} description={item.description}
+                                        address={item.home_address} startingTime={item.starting_time} finishingTime={item.finishing_time}
+                                        name={item.home_name} skills={item.skills} />
+                                ) : null
                             ))}
+
                         </div>
                     </div>
                 </div>

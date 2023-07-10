@@ -26,6 +26,26 @@ const getState = ({
         },
         actions: {
 
+            getMyContractsPro: async () => {
+                const token = localStorage.getItem("token");
+                try {
+                    const response = await fetch(`${process.env.BACKEND_URL}/api/my_contracts_pro`, {
+                        method: "GET",
+                        headers: {
+                            "Content-Type": "application/json",
+                            "Authorization": `Bearer ${token}`,
+                        },
+                    })
+                    const data = await response.json()
+                    setStore({
+                        myContracts: data.results
+                    })
+                    console.log("datos pro");
+                    console.log(data);
+                } catch (error) {
+                    console.error(error)
+                }
+            },
             getMyContracts: async () => {
                 const token = localStorage.getItem("token");
                 try {
@@ -46,6 +66,66 @@ const getState = ({
                     console.error(error)
                 }
             },
+            updateContract: async (contract, id) => {
+                try {
+                    const response = await fetch(
+                        process.env.BACKEND_URL + "/api/contract/" + id, {
+                        method: "PUT",
+                        body: JSON.stringify(contract),
+                        headers: {
+                            "Content-Type": "application/json",
+                            "Authorization": `Bearer ${localStorage.getItem("token")}`
+                        },
+                    }
+                    );
+                   
+                    const data = await response.json();
+                    if (response.status===200 ) {
+                        getActions().getMyContracts()
+                    }
+                } catch (error) {
+                    console.log("error loading message from backend", error);
+                }
+            },
+            updateHomePost: async (homePost, id) => {
+                try {
+                    const response = await fetch(
+                        process.env.BACKEND_URL + "/api/home_post/" + id, {
+                        method: "PUT",
+                        body: JSON.stringify(homePost),
+                        headers: {
+                            "Content-Type": "application/json",
+                            "Authorization": `Bearer ${localStorage.getItem("token")}`
+                        },
+                    }
+                    );
+                    const data = await response.json();
+                } catch (error) {
+                    console.log("error loading message from backend", error);
+                }
+            },
+
+            submitOffer: async (pro_offer) => {
+                const token = localStorage.getItem("token");
+                console.log("enviando oferta:")
+                console.log(pro_offer);
+                try {
+                    const response = await fetch(process.env.BACKEND_URL + "/api/contract_pro_to_cmr", {
+                        method: "POST",
+                        body: JSON.stringify(pro_offer),
+                        headers: {
+                            "Content-Type": "application/json",
+                            "Authorization": `Bearer ${token}`
+                        },
+                    });
+                    const data = await response.json();
+
+                } catch (error) {
+                    console.log("error loading message from backend", error);
+                }
+            },
+
+
 
 
             submitPost: async (homePost) => {
@@ -477,7 +557,10 @@ const getState = ({
                     return true;
                     //}
                 } catch (error) {
-                    console.log(error); //Si se produce algún error dentro del bloque try, se captura en el bloque catch. Aquí, se imprime un mensaje de erro
+                    console.log()
+                    if (error.status==422) {
+                        getActions().logged_out()
+                    }
                 }
             },
 

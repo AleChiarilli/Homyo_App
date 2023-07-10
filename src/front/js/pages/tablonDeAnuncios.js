@@ -375,9 +375,12 @@ export const TablonDeAnuncios = () => {
               <div className="max-w-3xl w-full mx-auto z-10">
                 <div className="flex flex-col max-h-[1000px] overflow-y-auto">
                   {store.homePost.map((item, index) => (
-                    <CardAnnounce key={index} timeDifference={item.time_difference} description={item.description}
-                      address={item.home_address} startingTime={item.starting_time} finishingTime={item.finishing_time}
-                      name={item.home_name} skills={item.skills} />
+                    //se lee extraño por la condicion inicial de la base de datos que inica en false un anuncio deberia iniciar is_visible el true 
+                    !item.is_visible ?
+                      <CardAnnounce key={index} timeDifference={item.time_difference} description={item.description}
+                        address={item.home_address} startingTime={item.starting_time} finishingTime={item.finishing_time}
+                        name={item.home_name} skills={item.skills} homePostId={item.id} />
+                      : null
                   ))}
 
                 </div>
@@ -385,7 +388,7 @@ export const TablonDeAnuncios = () => {
             </div>
           </div>
         </div>
-        <SimpleMap homes={store.homePost}/>
+        <SimpleMap homes={store.homePost} />
       </div>
     </>
   );

@@ -24,18 +24,31 @@ export const Profileclientshowcontracts = () => {
         {/* hay que tener en cuengta que el profesional debe aceptar el contrato asi que deberia quedar en pendiente de aceptacion */}
         {store.myContracts && store.myContracts.map((contract, index) => {
           return (
-            <Acceptedcontractclientcard
-              contract={contract}
-              key={index}
-            />
-          )
+
+            (contract.posted_by == localStorage.getItem("id") || contract.job_status.toLowerCase() !== "pendiente") ? (
+              <Acceptedcontractclientcard
+                contract={contract}
+                key={index}
+              />
+            ) : (
+              <div>
+                <p className="p-4 font-bold text-black text-md text-center dark:text-white">Tus Ofertas</p>
+                <Contractofferprofesionaltoclientcard
+                  start={contract.starting_time}
+                  end={contract.finishing_time}
+                  name={contract.pro_profile_id.name}
+                  total_price={contract.total_price}
+                  contract_id={contract.id}
+                  home_id={contract.home_id} // esto tierne que ser home post id para poder hacer el put 
+                />
+              </div>
+            )
+          );
         })}
 
-        <p className="p-4 font-bold text-black text-md text-center dark:text-white">
-          Ofertas para tus anuncios
-        </p>
-        
-        <Contractofferprofesionaltoclientcard />
+
+
+
       </div>
     </div>
   );
