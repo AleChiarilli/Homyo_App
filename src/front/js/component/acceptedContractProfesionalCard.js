@@ -8,7 +8,7 @@ import niños from "../../img/niños.png";
 import chef from "../../img/chef.png";
 import house from "../../img/house.png";
 
-export const Acceptedcontractprofesionaldcard = () => {
+export const Acceptedcontractprofesionaldcard = ({contract}) => {
     const [isModalOpen7, setIsModalOpen7] = useState(false);
 
     const toggleModal7 = () => {
@@ -27,7 +27,7 @@ export const Acceptedcontractprofesionaldcard = () => {
                 </div>
                 <div className="w-full md:w-2/3 bg-white flex flex-col space-y-2 p-3">
                     <div className="flex justify-between item-center">
-                        <div className="flex items-center">
+                        {/* <div className="flex items-center">
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"
                                 className="h-10 w-10 text-yellow-500"
@@ -40,25 +40,27 @@ export const Acceptedcontractprofesionaldcard = () => {
                                 4.96
                                 <span className="text-gray-500 font-normal">(76 reviews)</span>
                             </p>
+                        </div> */}
+                        <div className="text-center px-3 py-1 rounded-full text-xl  text-gray-800 dark:text-white hidden md:block">
+                            Nombre de sitio: {contract.home_id.name}
                         </div>
                         <div className="text-center px-3 py-1 rounded-full text-xl  text-gray-800 dark:text-white hidden md:block">
-                            Fecha: 25/12/2023
+                            Inicio: {contract.finishing_time}
                         </div>
                         <div className="text-center px-3 py-1 rounded-full text-xl  text-gray-800 dark:text-white hidden md:block">
-                            Hora Inicio: 14:00
+                            Fin: {contract.finishing_time}
                         </div>
                         <div className="text-center px-3 py-1 rounded-full text-xl  text-gray-800 dark:text-white hidden md:block">
-                            Hora fin: 16:00
+                            Horas: {contract.time_difference}
                         </div>
+                        {/* <div className="text-center px-3 py-1 rounded-full text-xl  text-gray-800 dark:text-white hidden md:block">
+                            Precio por hora: {contract.hourly_rate}
+                        </div> */}
                         <div className="text-center px-3 py-1 rounded-full text-xl  text-gray-800 dark:text-white hidden md:block">
-                            Horas: 4
-                        </div>
-                        <div className="text-center px-3 py-1 rounded-full text-xl  text-gray-800 dark:text-white hidden md:block">
-                            Precio: 52€
+                            Precio final: {contract.total_price}
                         </div>
                     </div>
-                    <h3 className="font-black text-gray-800 md:text-3xl text-xl">Contratado por: Antonio</h3>
-                    <p className="md:text-lg text-gray-500 text-base">Servicios Contratados</p>
+                    <h3 className="font-black text-gray-800 dark:text-white md:text-3xl text-xl">{contract.pro_profile_id.name}</h3>
 
                     <div className="flex justify-center">
                         <ul className="flex flex-wrap">
@@ -157,7 +159,7 @@ export const Acceptedcontractprofesionaldcard = () => {
                     <div>
                         <textarea rows="3" className="p-4 w-full text-gray-500 rounded-xl resize-none">Mensaje del cliente detallando el servicio</textarea>
                     </div>
-                    <div className="text-right">
+                    {/* <div className="text-right">
                         <button
                             data-modal-target="authenticationModal7"
                             data-modal-toggle="authenticationModal7"
@@ -167,12 +169,12 @@ export const Acceptedcontractprofesionaldcard = () => {
                         >
                             Confirmar el Servicio
                         </button>
-                    </div>
+                    </div> */}
                 </div>
             </div>
 
             {/* Main modal 4 */}
-            {isModalOpen7 && (
+            {/* {isModalOpen7 && (
                 <div tabIndex="-1"
                     aria-hidden="true"
                     className="fixed top-0 left-0 right-0 bottom-0 flex items-center justify-center bg-black bg-opacity-50"
@@ -231,7 +233,7 @@ export const Acceptedcontractprofesionaldcard = () => {
                         </div>
                     </div>
                 </div>
-            )}
+            )} */}
         </div>
     );
 };

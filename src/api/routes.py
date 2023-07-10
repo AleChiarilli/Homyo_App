@@ -1350,8 +1350,8 @@ def update_cmr_contract(id):
         raise APIException("No hay un contrato con ese ID", status_code=404)
 
     # comprobamos si esta intentando actualizar el estado el mismo que creo el contrato, respondemos un mensaje de error
-    if contract.posted_by == user.id:
-        raise APIException("No tienes permiso para cambiar el estado de este contrato", status_code=403)
+    # if contract.posted_by == user.id:
+    #     raise APIException("No tienes permiso para cambiar el estado de este contrato", status_code=403)
 
      # Retrieve the data to update from the request body
     data = request.json

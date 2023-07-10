@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useContext, useRef } from "react";
+import { Context } from "../store/appContext";
 import limpieza from "../../img/limpieza.png";
 import animales from "../../img/animales.png";
 import jardineria from "../../img/jardineria.png";
@@ -8,11 +9,11 @@ import house from "../../img/house.png";
 
 const iconsMap = { limpieza, animales, jardineria, niños, chef }
 
+export const CardAnnounce = ({ description, address, startingTime, finishingTime, name, timeDifference, skills, item }) => {
 
-export const CardAnnounce = ({ description, address, startingTime, finishingTime, name, timeDifference, skills }) => {
+  const inputRef = useRef(null)
+
   const [isModalOpen100, setIsModalOpen100] = useState(false); // Estado del primer modal
-
-  // const {store} = useContext(Context)
 
   const toggleModal100 = () => {
     setIsModalOpen100(!isModalOpen100); // Invierte el estado del primer modal al hacer clic
@@ -22,6 +23,12 @@ export const CardAnnounce = ({ description, address, startingTime, finishingTime
     setIsModalOpen100(false); // Cierra el primer modal
   };
 
+  const { actions } = useContext(Context);
+
+  const submitContract = (e) => {
+    e.preventDefault()
+    actions.submitContract(item.id, inputRef.current.value)
+  }
 
   return (
     <div className="w-full flex flex-col justify-center mt-10 mb-3 dark:bg-gray-700">
@@ -121,17 +128,19 @@ export const CardAnnounce = ({ description, address, startingTime, finishingTime
                     </div>
                     <div className="mt-8">
                       <form
-                        onSubmit={(e) => submitUser(e)}
+                        onSubmit={(e) => submitContract(e)}
                         autoComplete="on"
                       >
                         <div className="flex flex-col mb-6">
                           <div className="flex relative">
                             <span className="rounded-l-md inline-flex  items-center px-3 border-t bg-white border-l border-b  border-gray-300 text-gray-500 shadow-sm text-sm">
-                              <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 19">
-                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m9 12 5.419 3.871A1 1 0 0 0 16 15.057V2.943a1 1 0 0 0-1.581-.814L9 6m0 6V6m0 6H2a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h7m-5 6h3v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-5Zm15-3a3 3 0 0 1-3 3V6a3 3 0 0 1 3 3Z" />
+                              <svg className="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 19">
+                                <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m9 12 5.419 3.871A1 1 0 0 0 16 15.057V2.943a1 1 0 0 0-1.581-.814L9 6m0 6V6m0 6H2a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h7m-5 6h3v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-5Zm15-3a3 3 0 0 1-3 3V6a3 3 0 0 1 3 3Z" />
                               </svg>
                             </span>
                             <input
+                              ref={inputRef}
+                              name="professionalOffer"
                               type="number"
                               id="oferta"
                               className=" rounded-r-lg flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent"

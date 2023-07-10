@@ -5,8 +5,12 @@ import { Acceptedcontractprofesionaldcard } from "../component/acceptedContractP
 import { Contractofferclienttoprofesionaldcard } from "../component/contractOfferClientToProfesionalCard";
 
 export const Profileproshowcontracts = () => {
-    const { store, actions } = useContext(Context);
+    const { actions, store } = useContext(Context);
 
+    useEffect(() => {
+        actions.getMyContractsPro()
+        console.log(store.myContracts);
+    }, [])
 
     return (
 
@@ -15,12 +19,30 @@ export const Profileproshowcontracts = () => {
                 <p className="p-4 font-bold text-black text-md text-center dark:text-white">
                     Tus Contratos Confirmados{" "}
                 </p>
-                <Acceptedcontractprofesionaldcard />
+                {store.myContracts && store.myContracts
+                .filter((contract)=>contract.job_status === "Aceptado")
+                .map((contract,index)=> {
+                  return (
+                    <Acceptedcontractprofesionaldcard
+                      contract={contract}
+                      key={index}
+                    />
+                  );
+                })}
 
                 <p className="p-4 font-bold text-black text-md text-center dark:text-white">
                     Contratos por aceptar{" "}
                 </p>
-                <Contractofferclienttoprofesionaldcard />
+                {store.myContracts && store.myContracts
+                .filter((contract)=>contract.job_status === "Pendiente")
+                .map((contract,index)=> {
+                  return (
+                    <Contractofferclienttoprofesionaldcard
+                      contract={contract}
+                      key={index}
+                  />
+                )
+              })}
             </div>
         </div>
     );

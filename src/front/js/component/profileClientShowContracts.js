@@ -33,7 +33,16 @@ export const Profileclientshowcontracts = () => {
               <p className="p-4 font-bold text-black text-md text-center dark:text-white">
                 Ofertas para tus anuncios
               </p>
-              <Contractofferprofesionaltoclientcard />
+              {store.myContracts && store.myContracts
+                .filter((contract)=>contract.job_status === "Pendiente")
+                .map((contract,index)=> {
+                  return (
+                    <Contractofferprofesionaltoclientcard
+                      contract={contract}
+                      key={index}
+                    />
+                  );
+                })}
             </div>
           </div>
         );
