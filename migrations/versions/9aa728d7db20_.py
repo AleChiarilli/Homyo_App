@@ -1,14 +1,8 @@
 """empty message
 
-<<<<<<<< HEAD:migrations/versions/81e41ca4837d_.py
-Revision ID: 81e41ca4837d
+Revision ID: 9aa728d7db20
 Revises: 
-Create Date: 2023-07-09 19:33:40.874206
-========
-Revision ID: 63caa0d9644a
-Revises: 
-Create Date: 2023-07-09 17:55:53.238441
->>>>>>>> main:migrations/versions/63caa0d9644a_.py
+Create Date: 2023-07-09 22:47:17.813189
 
 """
 from alembic import op
@@ -16,9 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-
-revision = '63caa0d9644a'
->>>>>>>> main:migrations/versions/63caa0d9644a_.py
+revision = '9aa728d7db20'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -106,13 +98,8 @@ def upgrade():
     sa.Column('pro_profile_id', sa.Integer(), nullable=True),
     sa.Column('cmr_profile_id', sa.Integer(), nullable=True),
     sa.Column('posted_by', sa.Integer(), nullable=True),
-<<<<<<<< HEAD:migrations/versions/81e41ca4837d_.py
-    sa.Column('job_status', sa.Enum('PENDING', 'ACCEPTED', 'COMPLETED', 'CANCELED', name='jobstatus'), nullable=True),
-    sa.Column('payment_status', sa.Enum('PENDING', 'PAID', 'REFUNDED', name='paymentstatus'), nullable=True),
-========
     sa.Column('job_status', sa.Enum('PENDIENTE', 'ACEPTADO', 'COMPLETADO', 'CANCELADO', name='jobstatus'), nullable=True),
     sa.Column('payment_status', sa.Enum('PENDIENTE', 'PAGADO', 'REEMBOLSADO', name='paymentstatus'), nullable=True),
->>>>>>>> main:migrations/versions/63caa0d9644a_.py
     sa.Column('comment', sa.String(length=255), nullable=True),
     sa.Column('starting_time', sa.DateTime(), nullable=False),
     sa.Column('finishing_time', sa.DateTime(), nullable=False),

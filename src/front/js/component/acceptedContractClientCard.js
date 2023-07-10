@@ -7,7 +7,7 @@ import jardineria from "../../img/jardineria.png";
 import niños from "../../img/niños.png";
 import chef from "../../img/chef.png";
 
-export const Acceptedcontractclientcard = ({contract}) => {
+export const Acceptedcontractclientcard = ({ contract }) => {
   const [isModalOpen6, setIsModalOpen6] = useState(false);
 
   const toggleModal6 = () => {
@@ -153,16 +153,20 @@ export const Acceptedcontractclientcard = ({contract}) => {
           </div>
 
           <div className="text-right">
-          Estado del servicio: {contract.job_status}
-            <button
-              data-modal-target="authenticationModal6"
-              data-modal-toggle="authenticationModal6"
-              type="button"
-              className="text-white bg-indigo-700 hover:bg-indigo-800 focus:ring-4 focus:outline-none focus:ring-indigo-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-              onClick={toggleModal6}
-            >
-              Valorar Servicio
-            </button>
+            {contract.job_status == "Pendiente" ? (
+              <p className="text-white bg-red-700 hover:bg-indigo-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-blue-800"
+              >PENDIENTE DE APROBACION</p>
+            ) : (
+              <button
+                data-modal-target="authenticationModal6"
+                data-modal-toggle="authenticationModal6"
+                type="button"
+                className="text-white bg-indigo-700 hover:bg-indigo-800 focus:ring-4 focus:outline-none focus:ring-indigo-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                onClick={toggleModal6}
+              >
+                Valorar Servicio
+              </button>
+            )}
           </div>
         </div>
       </div>
@@ -173,7 +177,7 @@ export const Acceptedcontractclientcard = ({contract}) => {
           tabIndex="-1"
           aria-hidden="true"
           className="fixed top-0 left-0 right-0 bottom-0 flex items-center justify-center bg-black bg-opacity-50 z-50"
-          >
+        >
           <div className="py-3 sm:max-w-xl sm:mx-auto">
             <div className="bg-white dark:bg-gray-800 min-w-1xl flex flex-col rounded-xl shadow-lg">
               <div className="px-12 py-5">
