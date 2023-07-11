@@ -71,7 +71,7 @@ export const Cardprofilepro = (props) => {
                 </div>
                 <div className="md:w-2/3 bg-white flex flex-col space-y-2 p-3">
                     <div className="flex justify-between item-center">
-                        <h3 className="font-black text-gray-800 md:text-3xl text-xl">{props.username} Antonio</h3>
+                        <h3 className="font-black text-gray-800 md:text-3xl text-xl">{props.name}</h3>
                         <div className="bg-gray-200 px-3 py-1 rounded-full text-sm font-medium text-gray-800">
                             <p>{props.hourly_rate} €/hora</p>
                         </div>
