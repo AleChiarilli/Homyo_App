@@ -1,8 +1,8 @@
 """empty message
 
-Revision ID: 23c6c9ead49e
+Revision ID: e69949602083
 Revises: 
-Create Date: 2023-07-10 18:04:15.717820
+Create Date: 2023-07-10 23:21:04.467981
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = '23c6c9ead49e'
+revision = 'e69949602083'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -90,27 +90,6 @@ def upgrade():
     sa.ForeignKeyConstraint(['skill_id'], ['skill.id'], ),
     sa.PrimaryKeyConstraint('id')
     )
-    op.create_table('contract',
-    sa.Column('created', sa.DateTime(timezone=True), nullable=False),
-    sa.Column('updated', sa.DateTime(timezone=True), nullable=True),
-    sa.Column('id', sa.Integer(), nullable=False),
-    sa.Column('home_id', sa.Integer(), nullable=True),
-    sa.Column('pro_profile_id', sa.Integer(), nullable=True),
-    sa.Column('cmr_profile_id', sa.Integer(), nullable=True),
-    sa.Column('posted_by', sa.Integer(), nullable=True),
-    sa.Column('job_status', sa.Enum('PENDIENTE', 'ACEPTADO', 'COMPLETADO', 'CANCELADO', name='jobstatus'), nullable=True),
-    sa.Column('payment_status', sa.Enum('PENDIENTE', 'PAGADO', 'REEMBOLSADO', name='paymentstatus'), nullable=True),
-    sa.Column('comment', sa.String(length=255), nullable=True),
-    sa.Column('starting_time', sa.DateTime(), nullable=False),
-    sa.Column('finishing_time', sa.DateTime(), nullable=False),
-    sa.Column('hourly_rate', sa.Numeric(), nullable=True),
-    sa.Column('total_price', sa.Numeric(), nullable=True),
-    sa.ForeignKeyConstraint(['cmr_profile_id'], ['cmr_profile.id'], ),
-    sa.ForeignKeyConstraint(['home_id'], ['home.id'], ),
-    sa.ForeignKeyConstraint(['posted_by'], ['user.id'], ),
-    sa.ForeignKeyConstraint(['pro_profile_id'], ['pro_profile.id'], ),
-    sa.PrimaryKeyConstraint('id')
-    )
     op.create_table('home_post',
     sa.Column('created', sa.DateTime(timezone=True), nullable=False),
     sa.Column('updated', sa.DateTime(timezone=True), nullable=True),
@@ -138,6 +117,47 @@ def upgrade():
     sa.ForeignKeyConstraint(['sender_id'], ['user.id'], ),
     sa.PrimaryKeyConstraint('id')
     )
+    op.create_table('contract',
+    sa.Column('created', sa.DateTime(timezone=True), nullable=False),
+    sa.Column('updated', sa.DateTime(timezone=True), nullable=True),
+    sa.Column('id', sa.Integer(), nullable=False),
+    sa.Column('home_id', sa.Integer(), nullable=True),
+    sa.Column('pro_profile_id', sa.Integer(), nullable=True),
+    sa.Column('cmr_profile_id', sa.Integer(), nullable=True),
+    sa.Column('posted_by', sa.Integer(), nullable=True),
+    sa.Column('job_status', sa.Enum('PENDIENTE', 'ACEPTADO', 'COMPLETADO', 'CANCELADO', name='jobstatus'), nullable=True),
+    sa.Column('payment_status', sa.Enum('PENDIENTE', 'PAGADO', 'REEMBOLSADO', name='paymentstatus'), nullable=True),
+    sa.Column('comment', sa.String(length=255), nullable=True),
+    sa.Column('starting_time', sa.DateTime(), nullable=False),
+    sa.Column('finishing_time', sa.DateTime(), nullable=False),
+    sa.Column('hourly_rate', sa.Numeric(), nullable=True),
+    sa.Column('total_price', sa.Numeric(), nullable=True),
+    sa.Column('home_post_id', sa.Integer(), nullable=True),
+    sa.ForeignKeyConstraint(['cmr_profile_id'], ['cmr_profile.id'], ),
+    sa.ForeignKeyConstraint(['home_id'], ['home.id'], ),
+    sa.ForeignKeyConstraint(['home_post_id'], ['home_post.id'], ),
+    sa.ForeignKeyConstraint(['posted_by'], ['user.id'], ),
+    sa.ForeignKeyConstraint(['pro_profile_id'], ['pro_profile.id'], ),
+    sa.PrimaryKeyConstraint('id')
+    )
+    op.create_table('message_receiver',
+    sa.Column('created', sa.DateTime(timezone=True), nullable=False),
+    sa.Column('updated', sa.DateTime(timezone=True), nullable=True),
+    sa.Column('id', sa.Integer(), nullable=False),
+    sa.Column('message_id', sa.Integer(), nullable=True),
+    sa.Column('receiver_id', sa.Integer(), nullable=True),
+    sa.ForeignKeyConstraint(['message_id'], ['message.id'], ),
+    sa.ForeignKeyConstraint(['receiver_id'], ['user.id'], ),
+    sa.PrimaryKeyConstraint('id')
+    )
+    op.create_table('post_skills',
+    sa.Column('id', sa.Integer(), nullable=False),
+    sa.Column('skill_id', sa.Integer(), nullable=True),
+    sa.Column('homepost_id', sa.Integer(), nullable=True),
+    sa.ForeignKeyConstraint(['homepost_id'], ['home_post.id'], ),
+    sa.ForeignKeyConstraint(['skill_id'], ['skill.id'], ),
+    sa.PrimaryKeyConstraint('id')
+    )
     op.create_table('cmr_review',
     sa.Column('created', sa.DateTime(timezone=True), nullable=False),
     sa.Column('updated', sa.DateTime(timezone=True), nullable=True),
@@ -157,24 +177,6 @@ def upgrade():
     sa.Column('skill_id', sa.Integer(), nullable=True),
     sa.Column('contract_id', sa.Integer(), nullable=True),
     sa.ForeignKeyConstraint(['contract_id'], ['contract.id'], ),
-    sa.ForeignKeyConstraint(['skill_id'], ['skill.id'], ),
-    sa.PrimaryKeyConstraint('id')
-    )
-    op.create_table('message_receiver',
-    sa.Column('created', sa.DateTime(timezone=True), nullable=False),
-    sa.Column('updated', sa.DateTime(timezone=True), nullable=True),
-    sa.Column('id', sa.Integer(), nullable=False),
-    sa.Column('message_id', sa.Integer(), nullable=True),
-    sa.Column('receiver_id', sa.Integer(), nullable=True),
-    sa.ForeignKeyConstraint(['message_id'], ['message.id'], ),
-    sa.ForeignKeyConstraint(['receiver_id'], ['user.id'], ),
-    sa.PrimaryKeyConstraint('id')
-    )
-    op.create_table('post_skills',
-    sa.Column('id', sa.Integer(), nullable=False),
-    sa.Column('skill_id', sa.Integer(), nullable=True),
-    sa.Column('homepost_id', sa.Integer(), nullable=True),
-    sa.ForeignKeyConstraint(['homepost_id'], ['home_post.id'], ),
     sa.ForeignKeyConstraint(['skill_id'], ['skill.id'], ),
     sa.PrimaryKeyConstraint('id')
     )
@@ -198,13 +200,13 @@ def upgrade():
 def downgrade():
     # ### commands auto generated by Alembic - please adjust! ###
     op.drop_table('pro_review')
-    op.drop_table('post_skills')
-    op.drop_table('message_receiver')
     op.drop_table('contract_skills')
     op.drop_table('cmr_review')
+    op.drop_table('post_skills')
+    op.drop_table('message_receiver')
+    op.drop_table('contract')
     op.drop_table('message')
     op.drop_table('home_post')
-    op.drop_table('contract')
     op.drop_table('pro_profile_skill')
     op.drop_table('home')
     op.drop_table('user_role')

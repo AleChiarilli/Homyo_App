@@ -189,7 +189,7 @@ class TimestampMixin(db.Model):
 class Home_Post(TimestampMixin,db.Model):
     __tablename__="home_post"
     id = db.Column(db.Integer, primary_key=True)
-    is_visible = db.Column(db.Boolean(), unique=False, nullable=False, default=False)
+    is_visible = db.Column(db.Boolean(), unique=False, nullable=False, default=True)
     home_id = db.Column(db.Integer, db.ForeignKey('home.id'))
     description = db.Column(db.String(255), unique=False, nullable=False)
     latitude = db.Column(db.String(200), unique=False, nullable=False)
@@ -197,6 +197,7 @@ class Home_Post(TimestampMixin,db.Model):
     starting_time = db.Column(db.DateTime)
     finishing_time = db.Column(db.DateTime)
     skills = db.relationship('Post_skills', backref='home_post', lazy=True)
+    #contracts = db.relationship('Contract', backref='home_post', lazy=True)
     
     def __repr__(self):
         return f'<Home_Post {self.id}>'
@@ -282,6 +283,8 @@ class Contract(TimestampMixin, db.Model):
     skills = db.relationship('Contract_skills', backref='contract', lazy=True)
     hourly_rate = db.Column(db.Numeric, unique=False, nullable=True)
     total_price = db.Column(db.Numeric, unique=False, nullable=True)
+    home_post_id = db.Column(db.Integer, db.ForeignKey('home_post.id'))
+    home_post = db.relationship(Home_Post, backref='home_post', lazy=True)
 
     
     def __repr__(self):
@@ -318,7 +321,8 @@ class Contract(TimestampMixin, db.Model):
             "time_difference": time_difference,
             "skills" : list(map(lambda item:item.serialize(),self.skills)),
             "hourly_rate": self.hourly_rate,
-            "total_price": self.total_price
+            "total_price": self.total_price,
+            "home_post":self.home_post.serialize()
         }
 
 class Contract_skills(db.Model):

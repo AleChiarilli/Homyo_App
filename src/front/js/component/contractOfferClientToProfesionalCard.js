@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useContext, useEffect } from "react";
+import { Context } from "../store/appContext";
 import { Link } from "react-router-dom";
 import avatar from "../../img/avatar.png";
 import limpieza from "../../img/limpieza.png";
@@ -8,9 +9,9 @@ import niños from "../../img/niños.png";
 import chef from "../../img/chef.png";
 import house from "../../img/house.png";
 
-export const Contractofferclienttoprofesionaldcard = ({ start, end, total_price, name }) => {
+export const Contractofferclienttoprofesionaldcard = ({ start, end, total_price, name, contract_id }) => {
     const [isModalOpen10, setIsModalOpen10] = useState(false);
-
+    const { store, actions } = useContext(Context);
     const toggleModal10 = () => {
         setIsModalOpen10(!isModalOpen10);
     };
@@ -19,6 +20,13 @@ export const Contractofferclienttoprofesionaldcard = ({ start, end, total_price,
         setIsModalOpen10(false);
     };
 
+    const acceptContract = async () => {
+
+        await actions.updateContract({ "job_status": "ACEPTADO", "payment_status": "PENDIENTE" }, contract_id);
+        // // cambia el estado visible para que otros profesionales no lo vean ya que fue aceptado por el cliente 
+        await actions.updateHomePost({ "is_visible": false }, home_post_id);
+
+    }
     return (
         <div className="w-full flex flex-col p-3 justify-center mt-10 mb-3">
             <div className="relative flex flex-col md:flex-row md:space-x-5 space-y-3 md:space-y-0 rounded-xl shadow-lg p-3 mx-auto border border-white bg-white">
@@ -163,7 +171,7 @@ export const Contractofferclienttoprofesionaldcard = ({ start, end, total_price,
                             data-modal-toggle="authenticationModal10"
                             type="button"
                             className="text-white bg-indigo-700 hover:bg-indigo-800 focus:ring-4 focus:outline-none focus:ring-indigo-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-                            onClick={toggleModal10}
+                            onClick={acceptContract}
                         >
                             Aceptar el contrato
                         </button>

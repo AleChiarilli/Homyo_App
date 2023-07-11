@@ -8,14 +8,17 @@ import jardineria from "../../img/jardineria.png";
 import niños from "../../img/niños.png";
 import chef from "../../img/chef.png";
 
-export const Contractofferprofesionaltoclientcard = ({ start, end, name, total_price, contract_id, home_id }) => {
+export const Contractofferprofesionaltoclientcard = ({ start, end, name, total_price, contract_id, home_post_id }) => {
   const { actions, store } = useContext(Context);
   const acceptContract = async () => {
- 
-    await actions.updateContract({ "job_status": "ACEPTADO", "payment_status": "PENDIENTE" }, contract_id);
-    // // cambia el estado visible para que otros profesionales no l ovean ya que fue aceptado por el cliente 
-    // await actions.updateHomePost({ "is_visible": true }, home_id);
 
+    await actions.updateContract({ "job_status": "ACEPTADO", "payment_status": "PENDIENTE" }, contract_id);
+    // // cambia el estado visible para que otros profesionales no lo vean ya que fue aceptado por el cliente 
+    await actions.updateHomePost({ "is_visible": false }, home_post_id);
+
+  }
+  const deleteOffer = async () => {
+    await actions.deleteOffer(contract_id)
   }
   return (
     <div className="w-full p-3 flex flex-col justify-center mt-10 mb-3 dark:bg-gray-800">
@@ -159,6 +162,15 @@ export const Contractofferprofesionaltoclientcard = ({ start, end, name, total_p
               className="text-white bg-indigo-700 hover:bg-indigo-800 focus:ring-4 focus:outline-none focus:ring-indigo-300 font-medium rounded-lg text-sm  sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
             >
               Acepta y paga el contrato
+            </button>
+            <button
+              data-modal-target="authenticationModal6"
+              data-modal-toggle="authenticationModal6"
+              type="button"
+              className="ml-3 text-white bg-indigo-700 hover:bg-indigo-800 focus:ring-4 focus:outline-none focus:ring-indigo-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+              onClick={deleteOffer}
+            >
+              Rechazar oferta
             </button>
           </div>
         </div>

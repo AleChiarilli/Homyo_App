@@ -46,6 +46,7 @@ const getState = ({
                     console.error(error)
                 }
             },
+
             getMyContracts: async () => {
                 const token = localStorage.getItem("token");
                 try {
@@ -66,6 +67,23 @@ const getState = ({
                     console.error(error)
                 }
             },
+
+            deleteOffer: async (id) => {
+                const token = localStorage.getItem("token");
+                try {
+                    const response = await fetch(`${process.env.BACKEND_URL}/api/contract/` + id, {
+                        method: "DELETE",
+                        headers: {
+                            "Content-Type": "application/json",
+                            "Authorization": `Bearer ${token}`,
+                        },
+                    })
+                    const data = await response.json()
+                } catch (error) {
+                    console.error(error)
+                }
+            },
+
             updateContract: async (contract, id) => {
                 try {
                     const response = await fetch(
@@ -78,9 +96,9 @@ const getState = ({
                         },
                     }
                     );
-                   
+
                     const data = await response.json();
-                    if (response.status===200 ) {
+                    if (response.status === 200) {
                         getActions().getMyContracts()
                     }
                 } catch (error) {
@@ -143,7 +161,7 @@ const getState = ({
                     const data = await response.json();
                     console.log(data.your_new_post.id);
                     setStore({
-                        last_post_id: data.your_new_post.id
+                        last_post_id: data.your_new_post.id // se almacena el ultimo id de un home_post
                     })
                 } catch (error) {
                     console.log("error loading message from backend", error);
@@ -558,7 +576,7 @@ const getState = ({
                     //}
                 } catch (error) {
                     console.log()
-                    if (error.status==422) {
+                    if (error.status == 422) {
                         getActions().logged_out()
                     }
                 }
