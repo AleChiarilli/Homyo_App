@@ -29,7 +29,6 @@ export const Profileproshowprofile = () => {
 
 
 
-
     //FUNCION PARA EL FORM
     const info_professional = async (e) => {
         e.preventDefault();

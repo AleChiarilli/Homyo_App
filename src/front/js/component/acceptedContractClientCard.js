@@ -155,7 +155,7 @@ export const Acceptedcontractclientcard = ({ contract }) => {
               </li>
             </ul>
           </div>
-
+            <p>Descripcion de servicio solicitado: {contract.comment}</p>
           <div className="text-right">
             {contract.job_status == "Pendiente" ? (
               <div>

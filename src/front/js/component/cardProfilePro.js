@@ -25,6 +25,8 @@ export const Cardprofilepro = (props) => {
     const [reservations, setReservations] = useState([]);
     const [finalPrice, setFinalPrice] = useState(0);
     const [hourDifference, setHourDifference] = useState(0);
+    const [description, setDescription] = useState("");
+
 
     const handleStartingTimeChange = (event) => {
         const time = event.target.value;
@@ -116,10 +118,10 @@ export const Cardprofilepro = (props) => {
     const submitPost = async (e) => {
         e.preventDefault()
         console.log("guardado contract desde buscador")
-        await actions.submitPost({ home_id: selectedHome, starting_time: startTime, finishing_time: endTime, description: "descripcion generica " })
+        await actions.submitPost({ home_id: selectedHome, starting_time: startTime, finishing_time: endTime, description: description })
         // generando contracto 
         console.log("gererando contrato")
-        await actions.contract_cmr_to_pro({ home_post_id: store.last_post_id, starting_time: startTime, finishing_time: endTime, total_price: finalPrice, pro_profile_id: props.pro_id, comment: "Contrato efectuado por el usuario" })
+        await actions.contract_cmr_to_pro({ home_post_id: store.last_post_id, starting_time: startTime, finishing_time: endTime, total_price: finalPrice, pro_profile_id: props.pro_id, comment: description })
     }
 
     return (
@@ -248,10 +250,10 @@ export const Cardprofilepro = (props) => {
                                                 <option key={index} value={homeName.id}>
                                                     {homeName.name}
                                                 </option>
-                                            ))}
+                                            ))} 
                                         </select>
                                     </div>
-                                </div>
+                                </div> 
                                 <div className="mb-4">
                                     <label className="block text-sm font-medium text-gray-700">Hora de inicio:</label>
                                     <input
@@ -286,6 +288,14 @@ export const Cardprofilepro = (props) => {
                                 </p>
 
                                 <div className="mt-6 flex justify-end">
+                                    <textarea
+                                        id="tasks"
+                                        onChange={(e) => { setDescription(e.target.value) }}
+                                        rows="4"
+                                        defaultValue=""
+                                        className="mr-3 block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                        placeholder="DESCRIPCION DEL SERVICIO QUE NECESITAS"
+                                    ></textarea>
                                     <button
                                         onClick={submitPost}
                                         className="px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
