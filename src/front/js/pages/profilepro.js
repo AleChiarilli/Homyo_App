@@ -2,8 +2,7 @@ import React, { useState, useContext, useEffect } from "react";
 import { Context } from "../store/appContext";
 import "../../styles/profile.css";
 import { Calendar } from "../component/calendar";
-import { Messages } from "../component/messages";
-import limpieza from "../../img/limpieza.png";
+import avatar from "../../img/avatar.png";
 import { Profileproshowprofile } from "../component/profileProShowProfile";
 import { Profileproshowcontracts } from "../component/profileProShowContracts";
 
@@ -13,7 +12,6 @@ export const Profilepro = () => {
   const [showProfile, setShowProfile] = useState(true);
   const [showCalendar, setShowCalendar] = useState(false);
   const [showContracts, setShowContracts] = useState(false);
-  const [showMessages, setShowMessages] = useState(false);
 
   useEffect(() => {
     actions.getSkills();
@@ -26,12 +24,6 @@ export const Profilepro = () => {
     setShowMessages(false);
   };
 
-  const handleCalendarClick = () => {
-    setShowProfile(false);
-    setShowCalendar(true);
-    setShowContracts(false);
-    setShowMessages(false);
-  };
 
   const handleContractsClick = () => {
     setShowProfile(false);
@@ -40,21 +32,6 @@ export const Profilepro = () => {
     setShowMessages(false);
   };
 
-  const handleMessagesClick = () => {
-    setShowProfile(false);
-    setShowCalendar(false);
-    setShowContracts(false);
-    setShowMessages(true);
-
-  };
-  //  useEffect(()=>{
-  //    const emailInput = document.querySelector("#floating_email");
-  //   emailInput.value= store.user.email
-
-  //    const nameInput = document.querySelector("#floating_first_name");
-  //    nameInput.value= store.user.username
-
-  //  },[]) 
 
   return (
     <main className="max-w-screen-xl overflow-hidden dark:bg-gray-800 rounded-2xl mt-20 mx-auto">
@@ -63,14 +40,8 @@ export const Profilepro = () => {
         <a href="#" aria-current="page" onClick={handleProfileClick} className="flex-1 px-4 py-2 m-1 text-xs font-medium text-blue-700 bg-white border border-blue-700 rounded flex items-center justify-center hover:bg-blue-700 hover:text-white focus:outline-none focus:bg-blue-700 focus:text-white dark:bg-transparent dark:border-gray-600 dark:text-white dark:hover:border-gray-400 dark:hover:text-gray-400 dark:focus:border-gray-400 dark:focus:text-gray-400">
           Mi Perfil
         </a>
-        {/* <a href="#" onClick={handleCalendarClick} className="flex-1 px-4 py-2 m-1 text-xs font-medium text-gray-700 bg-white border border-gray-700 rounded flex items-center justify-center hover:bg-gray-700 hover:text-white focus:outline-none focus:bg-gray-700 focus:text-white dark:bg-transparent dark:border-gray-600 dark:text-white dark:hover:border-gray-400 dark:hover:text-gray-400 dark:focus:border-gray-400 dark:focus:text-gray-400">
-          Calendario
-        </a> */}
         <a href="#" onClick={handleContractsClick} className="flex-1 px-4 py-2 m-1 text-xs font-medium text-gray-700 bg-white border border-gray-700 rounded flex items-center justify-center hover:bg-gray-700 hover:text-white focus:outline-none focus:bg-gray-700 focus:text-white dark:bg-transparent dark:border-gray-600 dark:text-white dark:hover:border-gray-400 dark:hover:text-gray-400 dark:focus:border-gray-400 dark:focus:text-gray-400">
           Mis Contratos
-        </a>
-        <a href="#" onClick={handleMessagesClick} className="flex-1 px-4 py-2 m-1 text-xs font-medium text-gray-700 bg-white border border-gray-700 rounded flex items-center justify-center hover:bg-gray-700 hover:text-white focus:outline-none focus:bg-gray-700 focus:text-white dark:bg-transparent dark:border-gray-600 dark:text-white dark:hover:border-gray-400 dark:hover:text-gray-400 dark:focus:border-gray-400 dark:focus:text-gray-400">
-          Mensajes
         </a>
       </div>
 
@@ -79,8 +50,8 @@ export const Profilepro = () => {
           <div className="h-full bg-white rounded-2xl dark:bg-gray-700">
             <div className="flex items-center justify-center pt-6 ">
               <img
-                alt="limpieza"
-                src={limpieza}
+                alt="avatar"
+                src={avatar}
                 className="mx-auto object-fit rounded-full h-16 w-16 "
               />
             </div>
@@ -117,74 +88,6 @@ export const Profilepro = () => {
                   <span className="mx-4 text-sm font-normal">MI PERFIL</span>
                 </a>
 
-                {/* <a
-                  className="flex items-center justify-start w-full p-4 my-2 font-thin text-gray-500 bg-white cursor-pointer dark:hover:text-gray-300 dark:border-gray-700 peer-checked:border-indigo-600 hover:text-indigo-600 dark:peer-checked:text-indigo-300 peer-checked:text-indigo-600 hover:bg-indigo-50 dark:text-gray-400 dark:bg-gray-800 dark:hover:bg-gray-700"
-                  onClick={handleCalendarClick}
-                  href="#"
-                >
-                  <span className="text-left">
-                    <svg
-                      width="20"
-                      height="20"
-                      fill="currentColor"
-                      viewBox="0 0 64 64"
-                      enableBackground="new 0 0 64 64"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        fill="#231F20"
-                        d="M11,54h6c0.553,0,1-0.447,1-1v-5c0-0.553-0.447-1-1-1h-6c-0.553,0-1,0.447-1,1v5C10,53.553,10.447,54,11,54z M12,49h4v3h-4V49z"
-                      ></path>
-                      <path
-                        fill="#231F20"
-                        d="M23,54h6c0.553,0,1-0.447,1-1v-5c0-0.553-0.447-1-1-1h-6c-0.553,0-1,0.447-1,1v5C22,53.553,22.447,54,23,54z M24,49h4v3h-4V49z"
-                      ></path>
-                      <path
-                        fill="#231F20"
-                        d="M35,54h6c0.553,0,1-0.447,1-1v-5c0-0.553-0.447-1-1-1h-6c-0.553,0-1,0.447-1,1v5C34,53.553,34.447,54,35,54z M36,49h4v3h-4V49z"
-                      ></path>
-                      <path
-                        fill="#231F20"
-                        d="M11,43h6c0.553,0,1-0.447,1-1v-5c0-0.553-0.447-1-1-1h-6c-0.553,0-1,0.447-1,1v5C10,42.553,10.447,43,11,43z M12,38h4v3h-4V38z"
-                      ></path>
-                      <path
-                        fill="#231F20"
-                        d="M23,43h6c0.553,0,1-0.447,1-1v-5c0-0.553-0.447-1-1-1h-6c-0.553,0-1,0.447-1,1v5C22,42.553,22.447,43,23,43z M24,38h4v3h-4V38z"
-                      ></path>
-                      <path
-                        fill="#231F20"
-                        d="M35,43h6c0.553,0,1-0.447,1-1v-5c0-0.553-0.447-1-1-1h-6c-0.553,0-1,0.447-1,1v5C34,42.553,34.447,43,35,43z M36,38h4v3h-4V38z"
-                      ></path>
-                      <path
-                        fill="#231F20"
-                        d="M47,43h6c0.553,0,1-0.447,1-1v-5c0-0.553-0.447-1-1-1h-6c-0.553,0-1,0.447-1,1v5C46,42.553,46.447,43,47,43z M48,38h4v3h-4V38z"
-                      ></path>
-                      <path
-                        fill="#231F20"
-                        d="M11,32h6c0.553,0,1-0.447,1-1v-5c0-0.553-0.447-1-1-1h-6c-0.553,0-1,0.447-1,1v5C10,31.553,10.447,32,11,32z M12,27h4v3h-4V27z"
-                      ></path>
-                      <path
-                        fill="#231F20"
-                        d="M23,32h6c0.553,0,1-0.447,1-1v-5c0-0.553-0.447-1-1-1h-6c-0.553,0-1,0.447-1,1v5C22,31.553,22.447,32,23,32z M24,27h4v3h-4V27z"
-                      ></path>
-                      <path
-                        fill="#231F20"
-                        d="M35,32h6c0.553,0,1-0.447,1-1v-5c0-0.553-0.447-1-1-1h-6c-0.553,0-1,0.447-1,1v5C34,31.553,34.447,32,35,32z M36,27h4v3h-4V27z"
-                      ></path>
-                      <path
-                        fill="#231F20"
-                        d="M47,32h6c0.553,0,1-0.447,1-1v-5c0-0.553-0.447-1-1-1h-6c-0.553,0-1,0.447-1,1v5C46,31.553,46.447,32,47,32z M48,27h4v3h-4V27z"
-                      ></path>
-                      <path
-                        fill="#231F20"
-                        d="M60,4h-7V3c0-1.657-1.343-3-3-3s-3,1.343-3,3v1H17V3c0-1.657-1.343-3-3-3s-3,1.343-3,3v1H4C1.789,4,0,5.789,0,8v52c0,2.211,1.789,4,4,4h56c2.211,0,4-1.789,4-4V8C64,5.789,62.211,4,60,4z M49,3c0-0.553,0.447-1,1-1 s1,0.447,1,1v3v4c0,0.553-0.447,1-1,1s-1-0.447-1-1V6V3z M13,3c0-0.553,0.447-1,1-1s1,0.447,1,1v3v4c0,0.553-0.447,1-1,1 s-1-0.447-1-1V6V3z M62,60c0,1.104-0.896,2-2,2H4c-1.104,0-2-0.896-2-2V17h60V60z M62,15H2V8c0-1.104,0.896-2,2-2h7v4 c0,1.657,1.343,3,3,3s3-1.343,3-3V6h30v4c0,1.657,1.343,3,3,3s3-1.343,3-3V6h7c1.104,0,2,0.896,2,2V15z"
-                      ></path>
-                    </svg>
-                  </span>
-                  <span className="mx-4 text-sm font-normal">
-                    MI CALENDARIO
-                  </span>
-                </a> */}
 
                 <a
                   className="flex items-center justify-start w-full p-4 my-2 font-thin text-gray-500 bg-white cursor-pointer dark:hover:text-gray-300 dark:border-gray-700 peer-checked:border-indigo-600 hover:text-indigo-600 dark:peer-checked:text-indigo-300 peer-checked:text-indigo-600 hover:bg-indigo-50 dark:text-gray-400 dark:bg-gray-800 dark:hover:bg-gray-700"
@@ -230,41 +133,6 @@ export const Profilepro = () => {
                     MIS CONTRATACIONES
                   </span>
                 </a>
-
-                {/* <a
-                  className="flex items-center justify-start w-full p-4 my-2 font-thin text-gray-500 bg-white cursor-pointer dark:hover:text-gray-300 dark:border-gray-700 peer-checked:border-indigo-600 hover:text-indigo-600 dark:peer-checked:text-indigo-300 peer-checked:text-indigo-600 hover:bg-indigo-50 dark:text-gray-400 dark:bg-gray-800 dark:hover:bg-gray-700"
-                  onClick={handleMessagesClick}
-                  href="#"
-                >
-                  <span className="text-left">
-                    <svg
-                      width="20"
-                      height="20"
-                      fill="currentColor"
-                      viewBox="0 0 64 64"
-                      enableBackground="new 0 0 64 64"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        fill="#231F20"
-                        d="M60,0H16c-2.211,0-4,1.789-4,4v6H4c-2.211,0-4,1.789-4,4v30c0,2.211,1.789,4,4,4h7c0.553,0,1,0.447,1,1v11 c0,1.617,0.973,3.078,2.469,3.695C14.965,63.902,15.484,64,16,64c1.039,0,2.062-0.406,2.828-1.172l14.156-14.156 c0,0,0.516-0.672,1.672-0.672S50,48,50,48c2.211,0,4-1.789,4-4v-8h6c2.211,0,4-1.789,4-4V4C64,1.789,62.211,0,60,0z M52,44 c0,1.105-0.895,2-2,2c0,0-14.687,0-15.344,0C32.709,46,32,47,32,47S20,59,18,61c-2.141,2.141-4,0.391-4-1c0-1,0-12,0-12 c0-1.105-0.895-2-2-2H4c-1.105,0-2-0.895-2-2V14c0-1.105,0.895-2,2-2h46c1.105,0,2,0.895,2,2V44z M62,32c0,1.105-0.895,2-2,2h-6V14 c0-2.211-1.789-4-4-4H14V4c0-1.105,0.895-2,2-2h44c1.105,0,2,0.895,2,2V32z"
-                      ></path>{" "}
-                      <path
-                        fill="#231F20"
-                        d="M13,24h13c0.553,0,1-0.447,1-1s-0.447-1-1-1H13c-0.553,0-1,0.447-1,1S12.447,24,13,24z"
-                      ></path>{" "}
-                      <path
-                        fill="#231F20"
-                        d="M41,28H13c-0.553,0-1,0.447-1,1s0.447,1,1,1h28c0.553,0,1-0.447,1-1S41.553,28,41,28z"
-                      ></path>{" "}
-                      <path
-                        fill="#231F20"
-                        d="M34,34H13c-0.553,0-1,0.447-1,1s0.447,1,1,1h21c0.553,0,1-0.447,1-1S34.553,34,34,34z"
-                      ></path>{" "}
-                    </svg>
-                  </span>
-                  <span className="mx-4 text-sm font-normal">MIS MENSAJES</span>
-                </a> */}
               </div>
             </nav>
           </div>
@@ -288,11 +156,6 @@ export const Profilepro = () => {
           <Profileproshowcontracts />
         )}
 
-        {/* {showMessages && (
-          <div className="h-screen pt-2 pb-24 pl-2 pr-2 overflow-auto md:pt-0 md:pr-0 md:pl-0 custom-scrollbar">
-            <Messages />
-          </div>
-        )} */}
       </div>
     </main>
   );

@@ -320,44 +320,6 @@ export const Profileproshowprofile = () => {
                                         {/* </form> */}
                                     </div>
 
-                                    <p className="p-4 font-bold text-black text-md text-center dark:text-white">
-                                        Mis Servicios
-                                    </p>
-                                    <ul className="p-4 flex justify-center">
-                                        
-                                    {store.skills.map((skill) => {
-                                                    return (
-                                                        <>
-                                                            <li className="w-full md:w-auto">
-                                                                <button
-                                                                    type="button"
-                                                                    id={skillList[skill.name].nameSkill}
-                                                                    className={`flex h-[50px] items-center px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-indigo-200 rounded-full mx-1 my-1 md:my-0 text-center w-full md:w-auto hover:bg-indigo-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-indigo-500 focus:text-blue-700 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-blue-500 dark:focus:text-white ${seleccionados.includes("limpieza") ? "bg-indigo-100 text-blue-700" : ""
-                                                                        }`}
-                                                                    onClick={() => handleSeleccionar(skill.id)}
-                                                                >
-                                                                    <div className="flex-row gap-4 flex justify-center items-center">
-                                                                        <div className="flex-shrink-0">
-                                                                            <a href="#" className="relative block">
-                                                                                <img
-                                                                                    alt={skillList[skill.name].nameSkill}
-                                                                                    src={skillList[skill.name].imageSkill}
-                                                                                    className="mx-auto object-fit rounded-full h-8 w-8"
-                                                                                />
-                                                                            </a>
-                                                                        </div>
-                                                                        <div className="flex flex-col">
-                                                                            <span className="text-lg font-medium text-gray-600 dark:text-white">
-                                                                                {skillList[skill.name].nameSkill}
-                                                                            </span>
-                                                                        </div>
-                                                                    </div>
-                                                                </button>
-                                                            </li>
-                                                        </>
-                                                    )
-                                                })}
-                                    </ul>
                                     <div className="text-center">
                                         <button
                                             type="submit"

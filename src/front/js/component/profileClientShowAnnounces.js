@@ -10,32 +10,6 @@ import { Cardannounces } from "../component/cardAnnounces";
 
 export const Profileclientshowannounces = () => {
     const { store, actions } = useContext(Context);
-    const skillList = {
-        "limpieza": {
-            "nameSkill": "Limpieza",
-            "imageSkill": limpieza
-        },
-        "jardineria": {
-            "nameSkill": "Jardineria",
-            "imageSkill": jardineria
-        },
-        "cuidadodeninos": {
-            "nameSkill": "Cuidado de niños",
-            "imageSkill": niños
-        },
-        "cuidadodeanimales": {
-            "nameSkill": "Cuidado de animales",
-            "imageSkill": animales
-        },
-        "cocina": {
-            "nameSkill": "Cocina",
-            "imageSkill": chef
-        },
-    }
-
-    useEffect(() => {
-        actions.getSkills()
-    }, []);
 
     useEffect(() => {
         actions.getMyHomes()

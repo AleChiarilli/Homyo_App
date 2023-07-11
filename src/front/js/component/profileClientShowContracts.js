@@ -25,7 +25,8 @@ export const Profileclientshowcontracts = () => {
           console.log(contract.job_status.toLowerCase() != "pendiente")
           return (
             // definicion de contrato : es creado por el usuario o 
-            (contract.posted_by == localStorage.getItem("id") || contract.job_status.toLowerCase() != "pendiente") ? <div>               <p className="p-4 font-bold text-black text-md text-center dark:text-white">
+            (contract.posted_by == localStorage.getItem("id") || contract.job_status.toLowerCase() != "pendiente") ? 
+            <div>               <p className="p-4 font-bold text-black text-md text-center dark:text-white">
               Tus Contratos
             </p>
 

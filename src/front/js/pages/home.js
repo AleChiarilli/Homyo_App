@@ -35,12 +35,12 @@ export const Home = () => {
         <Ourbussines />
       </section>
 
-      <section className="bg-white dark:bg-gray-900 text-center">
+      {/* <section className="bg-white dark:bg-gray-900 text-center">
         <h1 className="text-3xl font-bold text-gray-800 dark:text-gray-200 py-8">
           Nuestros clientes opinan
         </h1>
         <Valoraciones />
-      </section>
+      </section> */}
 
       <section className="bg-white dark:bg-gray-900 text-center">
         <Nowornever />

@@ -22,7 +22,7 @@ export const Footer = () => {
             </Link>
           </li>
           <Registerfooterform />
-          <Contactus />
+          {/* <Contactus /> */}
           <li className="my-2">
             <Link
               className="text-gray-400 hover:text-gray-800 dark:text-gray-300 dark:hover:text-white transition-colors duration-200"

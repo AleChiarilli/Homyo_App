@@ -31,58 +31,30 @@ export const CardAnnounce = ({ description, address, startingTime, finishingTime
   }
   return (
     <div className="w-full flex flex-col justify-center mt-10 mb-3 dark:bg-gray-700">
-      <div className="flex flex-col md:flex-row md:space-x-5 space-y-3 md:space-y-0 rounded-xl shadow-lg p-3 bg-white dark:bg-gray-800 mx-auto border border-white">
+      <h3 className="w-full font-black text-center text-gray-800 dark:text-white md:text-3xl text-xl">{name}</h3>
+      <div className="w-full flex flex-col md:flex-row md:space-x-5 space-y-3 md:space-y-0 rounded-xl shadow-lg p-3 bg-white dark:bg-gray-800 mx-auto border border-white">
+
         <div className="w-full md:w-1/3 bg-white dark:bg-gray-800 grid place-items-center">
           <img src={house} className="rounded-full" alt="Casa" />
         </div>
-        <div className="w-full md:w-2/3 bg-white dark:bg-gray-800 flex flex-col space-y-2 p-3">
-          <div className="flex justify-between item-center">
-            <div className="bg-gray-200 px-3 py-1 rounded-full text-xl font-medium text-gray-800 dark:text-white hidden md:block">
-              Inicio: {startingTime}
-            </div>
-            <div className="bg-gray-200 px-3 py-1 rounded-full text-xl font-medium text-gray-800 dark:text-white hidden md:block">
-              Fin: {finishingTime}
-            </div>
-            <div className="bg-gray-200 px-3 py-1 rounded-full text-xl font-medium text-gray-800 dark:text-white hidden md:block">
-              Horas: {timeDifference}
-            </div>
+
+        <div className="w-full md:w-2/3 bg-white dark:bg-gray-700 flex flex-col space-y-2 p-3">
+          <div className="text-left px-3 py-1 rounded-full text-xl text-gray-800 dark:text-white">
+            <b>Dirección</b>: {address}
           </div>
-          <h3 className="font-black text-gray-800 dark:text-white md:text-3xl text-xl">{name}</h3>
-          <p>{address}</p>
-          <p className="md:text-lg text-gray-500 dark:text-white text-base">Servicios que precisa:</p>
-          <div className="flex justify-center">
-            <ul className="flex flex-wrap">
-              {skills?.map((skill) => {
-                return (
-                  <>
-                    <li className="mr-2 mb-2">
-                      <div className="flex-row gap-4 flex justify-center items-center">
-                        <div className="flex-shrink-0">
-                          <a className=" block">
-                            <img
-                              alt={skill.skill}
-                              src={iconsMap[skill.skill]}
-                              className="mx-auto object-fit rounded-full h-8 w-8 dark:bg-gray-800"
-                            />
-                          </a>
-                        </div>
-                        <div className="flex flex-col">
-                          <span className="text-lg font-medium text-gray-600 dark:text-white">
-                            {skill.skill}
-                          </span>
-                        </div>
-                      </div>
-                    </li>
-                  </>
-                )
-              })}
-            </ul>
+          <div className="text-left px-3 py-1 rounded-full text-xl text-gray-800 dark:text-white">
+            <b> Inicio</b>: {startingTime}
           </div>
-          <div>
-            {/* <textarea rows="3" className="p-4 w-full text-gray-500 dark:text-white rounded-xl resize-none" placeholder="Mensaje del cliente detallando el servicio"></textarea> */}
-            <p rows="3" className="p-4 w-full text-gray-500 dark:text-white rounded-xl resize-none">{description}</p>
+          <div className="text-left px-3 py-1 rounded-full text-xl text-gray-800 dark:text-white">
+            <b>  Fin</b>: {finishingTime}
           </div>
-          <div className="text-right">
+          <div className="text-left px-3 py-1 rounded-full text-xl text-gray-800 dark:text-white">
+            <b>  Horas</b>: {timeDifference}
+          </div>
+          <div className="text-left px-3 py-1 rounded-full text-xl text-gray-800 dark:text-white">
+            <b>  Detalle del servicio</b>: {description}
+          </div>
+          <div className="flex justify-end items-center mt-3"> {/* Añadido para alinear el botón en el centro */}
             <button
               data-modal-target="authentication-modal100"
               data-modal-toggle="authentication-modal100"
@@ -97,7 +69,7 @@ export const CardAnnounce = ({ description, address, startingTime, finishingTime
                 id="authentication-modal100"
                 tabIndex="-1"
                 aria-hidden="true"
-                className="fixed top-0 left-0 right-0 bottom-0 flex items-center justify-center bg-black bg-opacity-50"
+                className="absolute top-0 left-0 right-0 bottom-0  z-10 flex items-center justify-center bg-black bg-opacity-50"
               >
                 <div className="absolute bg-white rounded-lg shadow dark:bg-gray-700">
                   <button
@@ -126,16 +98,12 @@ export const CardAnnounce = ({ description, address, startingTime, finishingTime
                       Manda una oferta
                     </div>
                     <div className="mt-8">
-                      <form
-                        onSubmit={(e) => submitOffer(e)}
-                        autoComplete="on"
-                      >
+                      <form onSubmit={(e) => { submitOffer(e); hideModal100(); }} autoComplete="on">
+
                         <div className="flex flex-col mb-6">
                           <div className="flex relative">
                             <span className="rounded-l-md inline-flex  items-center px-3 border-t bg-white border-l border-b  border-gray-300 text-gray-500 shadow-sm text-sm">
-                              <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 19">
-                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m9 12 5.419 3.871A1 1 0 0 0 16 15.057V2.943a1 1 0 0 0-1.581-.814L9 6m0 6V6m0 6H2a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h7m-5 6h3v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-5Zm15-3a3 3 0 0 1-3 3V6a3 3 0 0 1 3 3Z" />
-                              </svg>
+                              €
                             </span>
                             <input
                               type="number"
@@ -167,7 +135,6 @@ export const CardAnnounce = ({ description, address, startingTime, finishingTime
                         target="_blank"
                         className="inline-flex items-center text-xs font-thin text-center text-gray-500 hover:text-gray-700 dark:text-gray-100 dark:hover:text-white"
                       >
-                        <span className="ml-2">Las ofertas pueden hacerte notar y posicionarte sobre otros profesionales</span>
                       </a>
                     </div>
                   </div>
