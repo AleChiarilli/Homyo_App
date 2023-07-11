@@ -9,7 +9,7 @@ import niños from "../../img/niños.png";
 import chef from "../../img/chef.png";
 import house from "../../img/house.png";
 
-export const Contractofferclienttoprofesionaldcard = ({ start, end, total_price, name, contract_id }) => {
+export const Contractofferclienttoprofesionaldcard = ({ start, end, total_price, name, contract_id, comment }) => {
     const [isModalOpen10, setIsModalOpen10] = useState(false);
     const { store, actions } = useContext(Context);
     const toggleModal10 = () => {
@@ -163,7 +163,7 @@ export const Contractofferclienttoprofesionaldcard = ({ start, end, total_price,
                         </ul>
                     </div>
                     <div>
-                        <textarea rows="3" className="p-4 w-full text-gray-500 rounded-xl resize-none">Mensaje del cliente detallando el servicio</textarea>
+                        <p rows="3" className="p-4 w-full text-gray-500 rounded-xl resize-none">descripcion de servicio solicitado:  {comment}</p>
                     </div>
                     <div className="text-right">
                         <button

@@ -37,6 +37,7 @@ export const Acceptedcontractprofesionaldcard = ({ contract }) => {
                             </svg>
                             <p className="text-gray-600 font-bold text-m ml-1">4.96</p>
                         </div>
+
                         <div className="text-center px-3 py-1 rounded-full text-xl  text-gray-800 dark:text-white hidden md:block">
                             Nombre de sitio: {contract.home_id.name}
                         </div>
@@ -151,7 +152,7 @@ export const Acceptedcontractprofesionaldcard = ({ contract }) => {
                             </li>
                         </ul>
                     </div>
-
+                    <p rows="3" className="p-4 w-full text-gray-500 rounded-xl resize-none">descripcion de servicio solicitado:  {contract.comment}</p>
                     <div className="text-right">
                         {contract.job_status == "Pendiente" ? (
                             <p className="text-white bg-red-700 hover:bg-indigo-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-blue-800"

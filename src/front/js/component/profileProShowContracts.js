@@ -36,7 +36,8 @@ export const Profileproshowcontracts = () => {
                                     name={contract.cmr_profile_id.name}
                                     total_price={contract.total_price}
                                     home_post_id={contract.home_post.id}
-                                    contract_id={contract.id} />
+                                    contract_id={contract.id}
+                                    comment={contract.comment} />
                             </div>
                         )
                     );
