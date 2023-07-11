@@ -66,7 +66,7 @@ export const Cardprofilepro = (props) => {
         { value: 11, label: "Diciembre" },
     ];
 
-    const previousMonth = () => {
+    const previousMonth = (props) => {
         setCurrentDate((prevDate) => subMonths(prevDate, 1));
     };
 

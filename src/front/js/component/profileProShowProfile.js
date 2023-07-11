@@ -371,7 +371,7 @@ export const Profileproshowprofile = () => {
                             <p className="p-4 font-bold text-black text-md text-center dark:text-white">
                                 Mi Perfil
                             </p>
-                            <Cardprofilepro username={store.user.username} hourly_rate={store.pro_profile.hourly_rate} description={store.pro_profile.description} />
+                            <Cardprofilepro name={store.pro_profile.name} hourly_rate={store.pro_profile.hourly_rate} description={store.pro_profile.description} />
                         </div>
                     </div>
                 </div>
