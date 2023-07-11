@@ -14,9 +14,9 @@ export const Profileproshowcontracts = () => {
 
     return (
 
-        <div className="h-screen pt-2 pb-24 pl-2 pr-2 overflow-auto md:pt-0 md:pr-0 md:pl-0 custom-scrollbar">
+        <div className="w-full h-screen pt-2 pb-24 pl-2 pr-2 overflow-auto md:pt-0 md:pr-0 md:pl-0 custom-scrollbar">
             <div className="mx-0 mb-4 ">
-                <p className="p-4 font-bold text-black text-md text-center dark:text-white">
+                <p className="w-full  p-4 font-bold text-black text-md text-center dark:text-white">
                     Tus Contratos Confirmados{" "}
                 </p>
                 {store.myContracts && store.myContracts
@@ -30,7 +30,7 @@ export const Profileproshowcontracts = () => {
                   );
                 })}
 
-                <p className="p-4 font-bold text-black text-md text-center dark:text-white">
+                <p className="w-full p-4 font-bold text-black text-md text-center dark:text-white">
                     Contratos por aceptar{" "}
                 </p>
                 {store.myContracts && store.myContracts

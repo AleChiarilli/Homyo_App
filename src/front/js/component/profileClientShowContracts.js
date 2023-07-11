@@ -16,7 +16,7 @@ export const Profileclientshowcontracts = () => {
   return (
 
 
-    <div className="md:h-screen pt-2 pb-24 pl-2 pr-2 md:overflow-auto md:pt-0 md:pr-0 md:pl-0 md:custom-scrollbar">
+    <div className="w-full md:h-screen pt-2 pb-24 pl-2 pr-2 md:overflow-auto md:pt-0 md:pr-0 md:pl-0 md:custom-scrollbar">
       <div className="mx-0 mb-4">
         <p className="p-4 font-bold text-black text-md text-center dark:text-white">
           Tus Contratos Confirmados
@@ -33,7 +33,7 @@ export const Profileclientshowcontracts = () => {
           })}
 
         <p className="p-4 font-bold text-black text-md text-center dark:text-white">
-          Ofertas para tus anuncios
+          Ofertas
         </p>
         {store.myContracts && store.myContracts
           .filter((contract) => contract.job_status === "Pendiente")
