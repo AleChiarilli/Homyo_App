@@ -23,11 +23,6 @@ export const Profileclientshowprofile = () => {
   useEffect(() => {
     actions.get_profile_customer_info();
     actions.get_profile_info();
-
-    // setName(store.pro_profile && store.pro_profile.name);
-    // setSurname1(store.user && store.user.surname1);
-    // setPhone_number(store.crm_profile && store.cmr_profile.phone_number);
-    // setEmail(store.pro_profile && store.pro_profile.email);
   }, []);
   
 

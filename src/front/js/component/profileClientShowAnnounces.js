@@ -10,6 +10,43 @@ import { Cardannounces } from "../component/cardAnnounces";
 
 export const Profileclientshowannounces = () => {
     const { store, actions } = useContext(Context);
+    const skillList = {
+        "limpieza": {
+            "nameSkill": "Limpieza",
+            "imageSkill": limpieza
+        },
+        "jardineria": {
+            "nameSkill": "Jardineria",
+            "imageSkill": jardineria
+        },
+        "cuidadodeninos": {
+            "nameSkill": "Cuidado de niños",
+            "imageSkill": niños
+        },
+        "cuidadodeanimales": {
+            "nameSkill": "Cuidado de animales",
+            "imageSkill": animales
+        },
+        "cocina": {
+            "nameSkill": "Cocina",
+            "imageSkill": chef
+        },
+    }
+
+
+
+    const [seleccionados, setSeleccionados] = useState([]);
+    const [homeNames, setHomeNames] = useState([]);
+    const [selectedHome, setSelectedHome] = useState("");
+    const [startTime, setStartTime] = useState("");
+    const [endTime, setEndTime] = useState("");
+    const [hourDifference, setHourDifference] = useState(0);
+    const [description, setDescription] = useState("");
+    const [refresh, setRefresh] = useState(false);
+
+    useEffect(() => {
+        actions.getSkills()
+    }, []);
 
     useEffect(() => {
         actions.getMyHomes()
@@ -17,7 +54,7 @@ export const Profileclientshowannounces = () => {
 
     useEffect(() => {
         actions.getPostsOn()
-    }, [])
+    }, [refresh])
 
 
     useEffect(() => {
@@ -29,16 +66,6 @@ export const Profileclientshowannounces = () => {
     useEffect(() => {
         calculateHourDifference(startTime, endTime);
     }, [startTime, endTime]);
-
-    const [seleccionados, setSeleccionados] = useState([]);
-    const [homeNames, setHomeNames] = useState([]);
-    const [selectedHome, setSelectedHome] = useState("");
-    const [startTime, setStartTime] = useState("");
-    const [endTime, setEndTime] = useState("");
-    const [hourDifference, setHourDifference] = useState(0);
-    const [description, setDescription] = useState("");
-
-
     const handleHomeSelection = (event) => {
         const selectedHome = event.target.value;
         setSelectedHome(selectedHome);
@@ -71,7 +98,9 @@ export const Profileclientshowannounces = () => {
 
     const submitPost = async (e) => {
         e.preventDefault()
+
         await actions.submitPost({ home_id: selectedHome, description: description, starting_time: startTime, finishing_time: endTime })
+        setRefresh(!refresh)
     }
 
 
@@ -202,6 +231,8 @@ export const Profileclientshowannounces = () => {
                             </p>
                             {/*  a falta de routa para consultar los home_post por user se debe añadir condicional para all home post  */}
                             {console.log(store.homePost)}
+                            {console.log(localStorage.getItem("id"))}
+
                             {store.homePost && store.homePost.map((item, index) => (
                                 (item.cmr_profile_id == localStorage.getItem("id")) ? (
                                     <Cardannounces key={index} timeDifference={item.time_difference} description={item.description}
