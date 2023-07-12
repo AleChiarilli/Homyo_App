@@ -8,7 +8,7 @@ export const Profileclientshowprofile = () => {
   //ESTADOS DE LOS INPUTS A RELLENAR POR EL CLIENTE
   const [name, setName] = useState(store.cmr_profile && store.cmr_profile.name)
   const [phone_number, setPhone_number] = useState(store.crm_profile && store.cmr_profile.phone_number);
-  const [email, setEmail] = useState(store.cmr_profile && store.cmr_profile.email)
+  const [email, setEmail] = useState(store.user && store.user.email)
   console.log(phone_number)
 
   //FUNCION PARA EL FORM (INFORMACION DEL CLIENTE)
@@ -22,6 +22,8 @@ export const Profileclientshowprofile = () => {
   //USEEFFECT PARA QUE CARGUE LA INFORMACION DEL FORMULARIO 
   useEffect(() => {
     actions.get_profile_customer_info();
+    actions.get_profile_info();
+
     // setName(store.pro_profile && store.pro_profile.name);
     // setSurname1(store.user && store.user.surname1);
     // setPhone_number(store.crm_profile && store.cmr_profile.phone_number);
@@ -51,7 +53,7 @@ export const Profileclientshowprofile = () => {
                         id="floating_first_name"
                         className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                         placeholder="Nombre "
-                        value={store.cmr_profile.name}
+                        value={store.cmr_profile?.name}
                         required
                       />
                       <label
@@ -68,7 +70,7 @@ export const Profileclientshowprofile = () => {
                       id="floating_email"
                       className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                       placeholder="Email"
-                      value={store.cmr_profile && store.cmr_profile.email}
+                      value={store.pro_profile && store.pro_profile.email}
                       required
                     />
                     <label
