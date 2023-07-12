@@ -9,6 +9,7 @@ import house from "../../img/house.png";
 const iconsMap = { limpieza, animales, jardineria, niños, chef }
 
 export const Cardannounces = ({ description, address, startingTime, finishingTime, name, timeDifference }) => {
+  
 
 
   return (

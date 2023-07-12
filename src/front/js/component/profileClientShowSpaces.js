@@ -10,18 +10,21 @@ export const Profileclientshowspaces = () => {
   const [nameCity, setNameCity] = useState([]);
   const [postalCodeSpace, setPostalCodeSpace] = useState([]);
   const [DescriptionSpace, setDescriptionSpace] = useState([]);
+  const [refresh, setRefresh] = useState(false);
+
 
   const { actions, store } = useContext(Context);
 
   useEffect(() => {
-    actions.getMyHomes()
-  }, [])
+    actions.getMyHomes();
+  }, [refresh]);
+  
 
   const submitHome = async () => {
     await actions.addHome({ nameSpace, addressSpace, nameCity, postalCodeSpace, DescriptionSpace });
-    // await actions.addHome({ name, address, city, postal_code, description });
-
+    setRefresh(!refresh);
   };
+  
 
 
   return (
@@ -133,6 +136,7 @@ export const Profileclientshowspaces = () => {
                     name={home.name}
                     postalCode={home.postal_code}
                     key={index}
+                    refresh={refresh}
                   />
                 )
               })}

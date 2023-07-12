@@ -6,10 +6,9 @@ export const Profileclientshowprofile = () => {
   const { store, actions } = useContext(Context);
 
   //ESTADOS DE LOS INPUTS A RELLENAR POR EL CLIENTE
-  const [name, setName] = useState(store.pro_profile && store.pro_profile.name)
-  const [surname1, setSurname1] = useState(store.user && store.user.surname1)
-  const [phone_number, setPhone_number] = useState(store.pro_profile && store.pro_profile.phone_number);
-  const [email, setEmail] = useState(store.pro_profile && store.pro_profile.email)
+  const [name, setName] = useState(store.cmr_profile && store.cmr_profile.name)
+  const [phone_number, setPhone_number] = useState(store.crm_profile && store.cmr_profile.phone_number);
+  const [email, setEmail] = useState(store.cmr_profile && store.cmr_profile.email)
   console.log(phone_number)
 
   //FUNCION PARA EL FORM (INFORMACION DEL CLIENTE)
@@ -23,8 +22,12 @@ export const Profileclientshowprofile = () => {
   //USEEFFECT PARA QUE CARGUE LA INFORMACION DEL FORMULARIO 
   useEffect(() => {
     actions.get_profile_customer_info();
+    // setName(store.pro_profile && store.pro_profile.name);
+    // setSurname1(store.user && store.user.surname1);
+    // setPhone_number(store.crm_profile && store.cmr_profile.phone_number);
+    // setEmail(store.pro_profile && store.pro_profile.email);
   }, []);
-
+  
 
   return (
 
@@ -48,7 +51,7 @@ export const Profileclientshowprofile = () => {
                         id="floating_first_name"
                         className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                         placeholder="Nombre "
-                        value={store.pro_profile.name}
+                        value={store.cmr_profile.name}
                         required
                       />
                       <label
@@ -56,21 +59,6 @@ export const Profileclientshowprofile = () => {
                         className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
                       ></label>
                     </div>
-                    {/* <div className="relative z-0 w-full mb-6 group">
-                      <input
-                        onChange={(event) => setSurname1(event.target.value)}
-                        type="text"
-                        name="floating_last_name"
-                        id="floating_last_name"
-                        className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                        placeholder="Apellido"
-                        required
-                      />
-                      <label
-                        htmlFor="floating_last_name"
-                        className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
-                      ></label>
-                    </div> */}
                   </div>
                   <div className="relative z-0 w-full mb-6 group">
                     <input
@@ -80,7 +68,7 @@ export const Profileclientshowprofile = () => {
                       id="floating_email"
                       className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                       placeholder="Email"
-                      value={store.pro_profile && store.pro_profile.email}
+                      value={store.cmr_profile && store.cmr_profile.email}
                       required
                     />
                     <label
@@ -88,64 +76,6 @@ export const Profileclientshowprofile = () => {
                       className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
                     ></label>
                   </div>
-                  {/* <div className="relative z-0 w-full mb-6 group">
-                    <input
-                      type="text"
-                      name="floating_id"
-                      id="floating_id"
-                      className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                      placeholder="DNI"
-                      required
-                    />
-                    <label
-                      htmlFor="floating_id"
-                      className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
-                    ></label>
-                  </div> */}
-                  {/* <div className="grid md:grid-cols-2 md:gap-6">
-                    <div className="relative z-0 w-full mb-6 group">
-                      <input
-                        type="text"
-                        name="floating_adress"
-                        id="floating_adress"
-                        className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                        placeholder="Dirección "
-                        required
-                      />
-                      <label
-                        htmlFor="floating_adress"
-                        className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
-                      ></label>
-                    </div>
-                    <div className="relative z-0 w-full mb-6 group">
-                      <input
-                        type="text"
-                        name="floating_cp"
-                        id="floating_cp"
-                        className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                        placeholder="Código Postal "
-                        required
-                      />
-                      <label
-                        htmlFor="floating_cp"
-                        className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
-                      ></label>
-                    </div>
-                    <div className="relative z-0 w-full mb-6 group">
-                      <input
-                        type="text"
-                        name="floating_city"
-                        id="floating_city"
-                        className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                        placeholder="Ciudad"
-                        required
-                      />
-                      <label
-                        htmlFor="floating_company"
-                        className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
-                      ></label>
-                    </div>
-                  </div> */}
                   <div className="grid md:grid-cols-1 md:gap-6">
                     <div className="relative z-0 w-full mb-6 group">
                       <input
@@ -155,7 +85,7 @@ export const Profileclientshowprofile = () => {
                         id="floating_phone"
                         className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                         placeholder="Teléfono"
-                        value={store.pro_profile && store.pro_profile.phone_number}
+                        value={store.cmr_profile && store.cmr_profile.phone_number}
                         required
                       />
                       <label

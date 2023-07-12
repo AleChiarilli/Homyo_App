@@ -26,11 +26,14 @@ export const Profileproshowprofile = () => {
     const [phone_number, setPhone_number] = useState(store.pro_profile && store.pro_profile.phone_number);
     const [hourly_rate, setHourly_rate] = useState(store.pro_profile && store.pro_profile.hourly_rate);
     const [seleccionados, setSeleccionados] = useState([]);
+    const [showCard, setShowCard] = useState(false);
+
 
 
 
     //FUNCION PARA EL FORM
     const info_professional = async (e) => {
+        
         e.preventDefault();
         await actions.profile_professional(
             email,
@@ -44,7 +47,8 @@ export const Profileproshowprofile = () => {
             phone_number,
             hourly_rate,
             seleccionados
-        ); // Envía los datos del usuario utilizando la acción addUser del objeto actions
+        ); 
+        
     };
 
     const skillList = {
@@ -72,10 +76,10 @@ export const Profileproshowprofile = () => {
 
      //USEEFFECT PARA QUE CARGUE LA INFORMACION DEL FORMULARIO
      useEffect(() => {
-        console.log(store.user && store.user.username)
         actions.get_profile_info();
-    }, []);
-
+    
+      }, []);
+      
 
     const handleSeleccionar = (id) => {
             setSeleccionados([...seleccionados, id]);
@@ -114,38 +118,7 @@ export const Profileproshowprofile = () => {
                                                 className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
                                             ></label>
                                         </div>
-                                        {/* <div className="relative z-0 w-full mb-6 group">
-                                            <input
-                                                onChange={(event) => setSurname1(event.target.value)}
-                                                type="text"
-                                                name="floating_last_name"
-                                                id="floating_last_name"
-                                                className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                                                placeholder="Apellido 1"
-                                                value={store.user && store.user.surname1}
-                                                required
-                                            />
-                                            <label
-                                                htmlFor="floating_last_name"
-                                                className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
-                                            ></label>
-                                        </div>
-                                        <div className="relative z-0 w-full mb-6 group">
-                                            <input
-                                                onChange={(event) => setSurname2(event.target.value)}
-                                                type="text"
-                                                name="floating_last_name"
-                                                id="floating_last_name"
-                                                className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                                                placeholder="Apellido 2"
-                                                value={store.user && store.user.surname2}
-                                                required
-                                            />
-                                            <label
-                                                htmlFor="floating_last_name"
-                                                className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
-                                            ></label>
-                                        </div> */}
+                                        
                                     </div>
                                     <div className="relative z-0 w-full mb-6 group">
                                         <input
@@ -333,7 +306,10 @@ export const Profileproshowprofile = () => {
                             <p className="p-4 font-bold text-black text-md text-center dark:text-white">
                                 Mi Perfil
                             </p>
-                            <Cardprofilepro name={store.pro_profile.name} hourly_rate={store.pro_profile.hourly_rate} description={store.pro_profile.description} />
+                            
+                            {showCard && (
+                            <Cardprofilepro name={store.pro_profile.name} hourly_rate={store.pro_profile.hourly_rate} description={store.pro_profile.description} city={store.pro_profile.city} />
+                            )}
                         </div>
                     </div>
                 </div>
