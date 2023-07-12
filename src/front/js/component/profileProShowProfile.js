@@ -307,9 +307,9 @@ export const Profileproshowprofile = () => {
                                 Mi Perfil
                             </p>
                             
-                            {showCard && (
-                            <Cardprofilepro name={store.pro_profile.name} hourly_rate={store.pro_profile.hourly_rate} description={store.pro_profile.description} city={store.pro_profile.city} />
-                            )}
+                        
+                            <Cardprofilepro name={store.pro_profile.name} hourly_rate={store.pro_profile.hourly_rate} description={store.pro_profile.description} city={store.pro_profile.city}/>
+                            
                         </div>
                     </div>
                 </div>

@@ -57,7 +57,7 @@ export const Cardprofilepro = (props) => {
     const submitPost = async (e) => {
         e.preventDefault()
         console.log("guardado contract desde buscador")
-        await actions.submitPost({ home_id: selectedHome, starting_time: startTime, finishing_time: endTime, description: description })
+        await actions.submitPost({ home_id: selectedHome, starting_time: startTime, finishing_time: endTime, description: description, city:"city"})
         // generando contracto 
         console.log("gererando contrato")
         await actions.contract_cmr_to_pro({ home_post_id: store.last_post_id, starting_time: startTime, finishing_time: endTime, total_price: finalPrice, pro_profile_id: props.pro_id, comment: description })
@@ -71,12 +71,15 @@ export const Cardprofilepro = (props) => {
                 </div>
                 <div className="md:w-2/3 bg-white flex flex-col space-y-2 p-3">
                     <div className="flex justify-between item-center">
-                        <h3 className="font-black text-gray-800 md:text-3xl text-xl">{props.name}</h3>
+                        <h3 className="font-black text-gray-800 md:text-3xl text-xl">Nombre: {props.name}</h3>
+                        
+                       
                         <div className="bg-gray-200 px-3 py-1 rounded-full text-sm font-medium text-gray-800">
                             <p>{props.hourly_rate} €/hora</p>
                         </div>
                     </div>
-                    <p className="md:text-lg text-gray-500 text-base">{props.description}</p>
+                    <h4 className="font-black text-gray-800 md:text-3xl text-xl">Ubicacion: {props.city}</h4>
+                    <p className="md:text-xl text-gray-500 text-base">Mi descripcion: {props.description}</p>
                     <div className="flex justify-center mt-3">
                         <button
                             onClick={() => setShowModal(true)}
@@ -160,18 +163,22 @@ export const Cardprofilepro = (props) => {
                             </div>
 
                             <div className="mt-6 flex justify-end">
-                                <button
-                                    onClick={submitPost}
-                                    className="px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-                                >
-                                    Añadir Reserva
-                                </button>
-                                <button
-                                    onClick={() => setShowModal(false)}
-                                    className="px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-gray-700 bg-gray-200 hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500 ml-3"
-                                >
-                                    Cancelar
-                                </button>
+                            <button
+    onClick={() => {
+        submitPost();
+        setShowModal(false);
+    }}
+    className="px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+>
+    Añadir Reserva
+</button>
+
+<button
+    onClick={() => setShowModal(false)}
+    className="px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-gray-700 bg-gray-200 hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500 ml-3"
+>
+    Cancelar
+</button>
                             </div>
                         </div>
                     </div>
