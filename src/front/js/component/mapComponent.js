@@ -2,26 +2,23 @@ import React from "react";
 import { MapContainer, TileLayer, useMap, Marker, Popup } from 'react-leaflet'
 
 
-export const SimpleMap = ({homes}) => {
-  const infoUser = homes.map((home) => {
-    return {
-      direccion: [home.latitude, home.longitude]
-    }
-  }
-  )
+export const SimpleMap = ({ homes }) => {
 
-  const position = [40.703045928773584, 6.49209788327242 ]
+  const position = [40.4165000, -3.1]
+  console.log(homes);
   return (
     <>
-      <MapContainer center={position} zoom={6} scrollWheelZoom={true} id="map" style={{ zIndex: "1" }}>
+      <MapContainer center={position} zoom={10} scrollWheelZoom={true} id="map" style={{ zIndex: "1" }}>
         <TileLayer
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
-        {infoUser.map((data, index) => (
-          <Marker position={data.direccion} key={index}>
+        {homes.map((home, index) => (
+          <Marker position={[home.latitude, home.longitude]} key={index}>
             <Popup>
-              A pretty CSS3 popup. <br /> Easily customizable.
+              <p>{home.home_name}</p>
+              <p>Dirección: {home.home_address}</p>
+              <p>Horas:{home.time_difference}</p>
             </Popup>
           </Marker>)
         )}
