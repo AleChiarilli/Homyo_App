@@ -28,22 +28,25 @@ export const Contractofferprofesionaltoclientcard = ({ start, end, name, total_p
           <img src={avatar} className="rounded-full" alt="Avatar" />
         </div>
         <div className="w-full md:w-2/3 bg-white dark:bg-gray-700 flex flex-col space-y-2 p-3">
-            <div className="text-left px-3 py-1 rounded-full text-xl  text-gray-800 dark:text-white ">
-              <b>Inicio del servicio</b>: {start}
-            </div>
-            <div className="text-left px-3 py-1 rounded-full text-xl  text-gray-800 dark:text-white ">
+          <div className="text-left px-3 py-1 rounded-full text-xl  text-gray-800 dark:text-white ">
+            <b>Inicio del servicio</b>: {start}
+          </div>
+          <div className="text-left px-3 py-1 rounded-full text-xl  text-gray-800 dark:text-white ">
             <b>Final del servicio</b>: {end}
-            </div>
-            <div className="text-left px-3 py-1 rounded-full text-xl  text-gray-800 dark:text-white ">
+          </div>
+          <div className="text-left px-3 py-1 rounded-full text-xl  text-gray-800 dark:text-white ">
             <b>Precio total</b>: {total_price} €
-            </div>
-            <div className="text-right">
+          </div>
+          <div className="text-right">
             <button
               type="button"
               onClick={() => acceptContract()}
               className="text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm  sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-            >
-              Acepta el contrato
+              style={{ transition: 'transform 0.2s ease-in-out', willChange: 'transform' }}
+              onMouseOver={(e) => (e.target.style.transform = 'scale(1.2)')}
+              onMouseOut={(e) => (e.target.style.transform = 'scale(1)')}
+           >
+              Aceptar oferta
             </button>
             <button
               data-modal-target="authenticationModal6"
@@ -51,13 +54,17 @@ export const Contractofferprofesionaltoclientcard = ({ start, end, name, total_p
               type="button"
               className="ml-3 text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
               onClick={deleteOffer}
+              style={{ transition: 'transform 0.2s ease-in-out', willChange: 'transform' }}
+              onMouseOver={(e) => (e.target.style.transform = 'scale(1.2)')}
+              onMouseOut={(e) => (e.target.style.transform = 'scale(1)')}
             >
               Rechazar oferta
             </button>
-          </div>
 
           </div>
+
         </div>
       </div>
+    </div>
   );
 };

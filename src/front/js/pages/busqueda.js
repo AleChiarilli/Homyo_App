@@ -67,7 +67,8 @@ export const Busqueda = (props) => {
                     </div>
                   ))
                 ) : (
-                  <h1>No hay profesionales disponibles</h1>
+                  <h1 style={{ fontSize: '24px', fontWeight: 'bold', color: '#333', textAlign: 'center'}}
+                  >No hay profesionales disponibles</h1>
                 )}
 
               </div>

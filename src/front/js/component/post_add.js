@@ -36,7 +36,11 @@ export const Post_add = () => {
                             </div>
                         </div>
                         <div className="flex">
-                            <button type="submit" class="inline-flex items-center px-5 py-2.5 text-sm font-medium text-center text-white bg-indigo-600 rounded-lg focus:ring-4 focus:ring-blue-200 dark:focus:ring-blue-900 hover:bg-indigo-800">
+                            <button type="submit" class="inline-flex items-center px-5 py-2.5 text-sm font-medium text-center text-white bg-indigo-600 rounded-lg focus:ring-4 focus:ring-blue-200 dark:focus:ring-blue-900 hover:bg-indigo-800"
+                            style={{ transition: 'transform 0.2s ease-in-out', willChange: 'transform' }}
+                            onMouseOver={(e) => (e.target.style.transform = 'scale(1.3)')}
+                            onMouseOut={(e) => (e.target.style.transform = 'scale(1)')}
+                            >
                                 Publicar anuncio
                             </button>
 

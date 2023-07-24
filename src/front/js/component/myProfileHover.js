@@ -1,11 +1,12 @@
 import React, { useContext, useState, useEffect, useRef } from "react";
-import { Link } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 import { Context } from "../store/appContext";
 
 export const Myprofilehover = () => {
     const { actions, store } = useContext(Context);
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
     const dropdownRef = useRef(null);
+    const navigate = useNavigate()
 
     const toggleDropdown = () => {
         setIsDropdownOpen(!isDropdownOpen);
@@ -66,9 +67,10 @@ export const Myprofilehover = () => {
                             </li> */}
                             <li>
                                 <p
-                                    onClick={() =>
-                                        actions.logged_out()
-
+                                    onClick={() => {
+                                        actions.logged_out();
+                                        navigate("/")
+                                    }
                                     }
                                     className="block px-4 py-2 hover:bg-red-100 dark:hover:bg-red-600 dark:hover:text-white"
                                 >

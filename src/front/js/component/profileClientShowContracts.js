@@ -27,7 +27,7 @@ export const Profileclientshowcontracts = () => {
             // definicion de contrato : es creado por el usuario o 
             (contract.posted_by == localStorage.getItem("id") || contract.job_status.toLowerCase() != "pendiente") ? 
             <div>               <p className="p-4 font-bold text-black text-md text-center dark:text-white">
-              Tus Contratos
+              Tus Contrataciones
             </p>
 
 
@@ -47,6 +47,7 @@ export const Profileclientshowcontracts = () => {
                   total_price={contract.total_price}
                   contract_id={contract.id}
                   home_post_id={contract.home_post.id} // esto tierne que ser home post id para poder hacer el put 
+
                 />
               </div>
             )

@@ -28,6 +28,11 @@ export const Cardprofilepro = (props) => {
         setEndTime(time);
     };
 
+    const closeModal = () => {
+  setShowModal(false);
+};
+
+
     useEffect(() => {
         calculateHourDifference(startTime, endTime);
     }, [startTime, endTime]);
@@ -57,7 +62,7 @@ export const Cardprofilepro = (props) => {
     const submitPost = async (e) => {
         e.preventDefault()
         console.log("guardado contract desde buscador")
-        await actions.submitPost({ home_id: selectedHome, starting_time: startTime, finishing_time: endTime, description: description, city:"city"})
+        await actions.submitPost({ home_id: selectedHome, starting_time: startTime, finishing_time: endTime, description: description, city: "city" })
         // generando contracto 
         console.log("gererando contrato")
         await actions.contract_cmr_to_pro({ home_post_id: store.last_post_id, starting_time: startTime, finishing_time: endTime, total_price: finalPrice, pro_profile_id: props.pro_id, comment: description })
@@ -72,8 +77,8 @@ export const Cardprofilepro = (props) => {
                 <div className="md:w-2/3 bg-white flex flex-col space-y-2 p-3">
                     <div className="flex justify-between item-center">
                         <h3 className="font-black text-gray-800 md:text-3xl text-xl">Nombre: {props.name}</h3>
-                        
-                       
+
+
                         <div className="bg-gray-200 px-3 py-1 rounded-full text-sm font-medium text-gray-800">
                             <p>{props.hourly_rate} €/hora</p>
                         </div>
@@ -84,6 +89,9 @@ export const Cardprofilepro = (props) => {
                         <button
                             onClick={() => setShowModal(true)}
                             className="w-full px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                            style={{ transition: 'transform 0.2s ease-in-out', willChange: 'transform' }}
+                            onMouseOver={(e) => (e.target.style.transform = 'scale(1.2)')}
+                            onMouseOut={(e) => (e.target.style.transform = 'scale(1)')}
                         >
                             Añadir Reserva
                         </button>
@@ -96,7 +104,7 @@ export const Cardprofilepro = (props) => {
                     <div className="fixed inset-0 bg-gray-900 bg-opacity-50" onClick={() => setShowModal(false)} />
                     <div className="relative">
                         <div className="bg-white p-6 rounded shadow-lg">
-                            <h2 className="text-lg font-semibold text-gray-800 mb-4">Contratar al profesional</h2>
+                            <h2 className="text-lg font-semibold text-gray-800 mb-4">Solicitud de servicio al profesional</h2>
                             <div className="mb-4">
                                 <div className="flex items-center">
                                     <select
@@ -165,13 +173,19 @@ export const Cardprofilepro = (props) => {
                             <div className="mt-6 flex justify-end">
                                 <button
                                     onClick={submitPost}
-                                    className="px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                                    className="ml-5 px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                                    style={{ transition: 'transform 0.2s ease-in-out', willChange: 'transform' }}
+                                    onMouseOver={(e) => (e.target.style.transform = 'scale(1.2)')}
+                                    onMouseOut={(e) => (e.target.style.transform = 'scale(1)')}
                                 >
-                                    Añadir Reserva
+                                    Enviar solicitud 
                                 </button>
                                 <button
                                     onClick={() => setShowModal(false)}
                                     className="px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-gray-700 bg-gray-200 hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500 ml-3"
+                                    style={{ transition: 'transform 0.2s ease-in-out', willChange: 'transform' }}
+                                    onMouseOver={(e) => (e.target.style.transform = 'scale(1.2)')}
+                                    onMouseOut={(e) => (e.target.style.transform = 'scale(1)')}
                                 >
                                     Cancelar
                                 </button>

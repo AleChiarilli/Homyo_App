@@ -133,7 +133,10 @@ export const Profileproview = () => {
                   <button
                     onClick={() => setShowModal(true)}
                     className="px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-                  >
+                    style={{ transition: 'transform 0.2s ease-in-out', willChange: 'transform' }}
+                    onMouseOver={(e) => (e.target.style.transform = 'scale(1.3)')}
+                    onMouseOut={(e) => (e.target.style.transform = 'scale(1)')}
+                    >
                     Añadir Reserva
                   </button>
                 </div>
