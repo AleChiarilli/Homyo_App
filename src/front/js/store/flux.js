@@ -447,7 +447,7 @@ const getState = ({
                         method: "PUT",
                         body: JSON.stringify({
                             user_id: userId,
-                
+
                             phone_number: phone_number,
                         }),
                         headers: {

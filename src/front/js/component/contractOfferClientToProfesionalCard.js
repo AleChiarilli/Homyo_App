@@ -29,7 +29,7 @@ export const Contractofferclienttoprofesionaldcard = ({ start, end, total_price,
     }
     return (
         <div className="w-full flex flex-col p-3 justify-center mt-10 mb-3">
-            <h3 className="text-center font-black text-gray-800 md:text-3xl text-xl">Contratado por: {name}</h3>
+            <h3 className="text-center font-black text-gray-800 md:text-3xl text-xl">Ofertado por: {name}</h3>
             <div className="w-full relative flex flex-col md:flex-row md:space-x-5 space-y-3 md:space-y-0 rounded-xl shadow-lg p-3 mx-auto border border-white bg-white">
                 <div className="w-full md:w-1/3 bg-white grid place-items-center">
                     <img src={house} className="rounded-full" />

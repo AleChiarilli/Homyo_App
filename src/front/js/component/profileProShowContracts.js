@@ -16,19 +16,21 @@ export const Profileproshowcontracts = () => {
 
         <div className="h-screen pt-2 pb-24 pl-2 pr-2 overflow-auto md:pt-0 md:pr-0 md:pl-0 custom-scrollbar">
             <div className="mx-0 mb-4 ">
-
-
+                <p className="p-4 font-bold text-black text-md text-center dark:text-white">Tus Contratos</p>
                 {store.myContracts && store.myContracts.map((contract, index) => {
-                    return (
-                        // un contrato hecho por el profesional estara en tus contratos ( en funcion del status job  mostrata algo el boton del componente)
-                        (contract.posted_by == localStorage.getItem("id") || contract.job_status.toLowerCase() !== "pendiente") ? (
+                    if (contract.posted_by == localStorage.getItem("id") || contract.job_status.toLowerCase() !== "pendiente") {
+                        return (
                             <div>
-                                <p className="p-4 font-bold text-black text-md text-center dark:text-white">Tus Contratos </p>
                                 <Acceptedcontractprofesionaldcard contract={contract} />
                             </div>
-                        ) : (
+                        )
+                    }
+                })}
+                <p className="p-4 font-bold text-black text-md text-center dark:text-white">Tus Ofertas</p>
+                {store.myContracts && store.myContracts.map((contract, index) => {
+                    if (!(contract.posted_by == localStorage.getItem("id") || contract.job_status.toLowerCase() !== "pendiente")){
+                        return (
                             <div>
-                                <p className="p-4 font-bold text-black text-md text-center dark:text-white">Tus Ofertas</p>
                                 <Contractofferclienttoprofesionaldcard
                                     start={contract.starting_time}
                                     end={contract.finishing_time}
@@ -39,8 +41,16 @@ export const Profileproshowcontracts = () => {
                                     comment={contract.comment} />
                             </div>
                         )
-                    );
+                    }
                 })}
+
+
+
+
+
+
+
+
 
 
 

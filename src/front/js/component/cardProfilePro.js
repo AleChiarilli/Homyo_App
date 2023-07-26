@@ -29,8 +29,8 @@ export const Cardprofilepro = (props) => {
     };
 
     const closeModal = () => {
-  setShowModal(false);
-};
+        setShowModal(false);
+    };
 
 
     useEffect(() => {
@@ -62,10 +62,11 @@ export const Cardprofilepro = (props) => {
     const submitPost = async (e) => {
         e.preventDefault()
         console.log("guardado contract desde buscador")
-        await actions.submitPost({ home_id: selectedHome, starting_time: startTime, finishing_time: endTime, description: description, city: "city" })
-        // generando contracto 
+        await actions.submitPost({ home_id: selectedHome, starting_time: startTime, finishing_time: endTime, description: description, city: "city", is_visible: true })
+        // ocultado el home_post y generando contracto 
+        await actions.updateHomePost({ is_visible: false }, store.last_post_id)
         console.log("gererando contrato")
-        await actions.contract_cmr_to_pro({ home_post_id: store.last_post_id, starting_time: startTime, finishing_time: endTime, total_price: finalPrice, pro_profile_id: props.pro_id, comment: description })
+        await actions.contract_cmr_to_pro({ home_post_id: store.last_post_id, starting_time: startTime, finishing_time: endTime, total_price: finalPrice, pro_profile_id: props.pro_id, comment: description });
     }
 
     return (
@@ -178,7 +179,7 @@ export const Cardprofilepro = (props) => {
                                     onMouseOver={(e) => (e.target.style.transform = 'scale(1.2)')}
                                     onMouseOut={(e) => (e.target.style.transform = 'scale(1)')}
                                 >
-                                    Enviar solicitud 
+                                    Enviar solicitud
                                 </button>
                                 <button
                                     onClick={() => setShowModal(false)}

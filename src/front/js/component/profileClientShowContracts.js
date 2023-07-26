@@ -21,25 +21,27 @@ export const Profileclientshowcontracts = () => {
       <div className="mx-0 mb-4">
 
         {/* hay que tener en cuengta que el profesional debe aceptar el contrato asi que deberia quedar en pendiente de aceptacion */}
+
+        <p className="p-4 font-bold text-black text-md text-center dark:text-white">Tus Contratos</p>
         {store.myContracts && store.myContracts.map((contract, index) => {
-          console.log(contract.job_status.toLowerCase() != "pendiente")
-          return (
-            // definicion de contrato : es creado por el usuario o 
-            (contract.posted_by == localStorage.getItem("id") || contract.job_status.toLowerCase() != "pendiente") ? 
-            <div>               <p className="p-4 font-bold text-black text-md text-center dark:text-white">
-              Tus Contrataciones
-            </p>
-
-
-              <Acceptedcontractclientcard
-                contract={contract}
-                key={index}
-              />
-
-            </div> : (
-              // el else ternario significa que el id del post es distinto al del customer Y el estado es pendiente ( o cual se traduciria a una oferta )
+          if (contract.posted_by == localStorage.getItem("id") || contract.job_status.toLowerCase() !== "pendiente") {
+            return (
               <div>
-                <p className="p-4 font-bold text-black text-md text-center dark:text-white">Tus Ofertas</p>
+                <Acceptedcontractclientcard
+                  contract={contract}
+                  key={index}
+                />
+
+              </div>
+            )
+          }
+        })}
+        <p className="p-4 font-bold text-black text-md text-center dark:text-white">Tus Ofertas</p>
+        {store.myContracts && store.myContracts.map((contract, index) => {
+          if (!(contract.posted_by == localStorage.getItem("id") || contract.job_status.toLowerCase() !== "pendiente")) {
+            return (
+              <div>
+
                 <Contractofferprofesionaltoclientcard
                   start={contract.starting_time}
                   end={contract.finishing_time}
@@ -51,8 +53,9 @@ export const Profileclientshowcontracts = () => {
                 />
               </div>
             )
-          );
+          }
         })}
+
 
 
 

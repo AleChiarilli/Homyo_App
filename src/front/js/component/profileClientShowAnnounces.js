@@ -99,7 +99,7 @@ export const Profileclientshowannounces = () => {
     const submitPost = async (e) => {
         e.preventDefault()
 
-        await actions.submitPost({ home_id: selectedHome, description: description, starting_time: startTime, finishing_time: endTime })
+        await actions.submitPost({ home_id: selectedHome, description: description, starting_time: startTime, finishing_time: endTime, is_visible: true })
         setRefresh(!refresh)
     }
 

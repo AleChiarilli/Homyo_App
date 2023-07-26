@@ -1129,9 +1129,9 @@ def create_home_post():
     latitude = location.latitude
     longitude = location.longitude
     print(latitude, longitude)
-
+    print("creando home post ")
     print(body)
-    home_post = Home_Post(home_id=home.id, description=body["description"], latitude=latitude, longitude=longitude, starting_time=body["starting_time"], finishing_time=body["finishing_time"])
+    home_post = Home_Post(home_id=home.id, description=body["description"], latitude=latitude, longitude=longitude, starting_time=body["starting_time"], finishing_time=body["finishing_time"],is_visible=body["is_visible"]  )
     db.session.add(home_post)
     db.session.commit()
 
