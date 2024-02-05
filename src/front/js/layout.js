@@ -32,7 +32,7 @@ const Layout = () => {
   //const isLoggedIn = false; // Indica si el usuario está logueado
 
   return (
-    <div>
+    <div className="dark:bg-gray-800">
       <BrowserRouter basename={basename}>
         <ScrollToTop>
           <Navbar />

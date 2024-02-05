@@ -8,7 +8,7 @@ import { Myprofilehover } from "./myProfileHover";
 
 export const Navbar = () => {
   return (
-    <nav className="bg-white border-gray-200 dark:bg-gray-900 fixed top-0 left-0 w-full z-50">
+    <nav className="border-gray-200 bg-indigo-500 fixed top-0 left-0 w-full z-50 text-white">
       <div className="max-w-screen-xl flex items-center justify-between mx-auto p-4">
         <div className="flex items-center">
           <Link className="flex items-center " to="/">
@@ -18,7 +18,7 @@ export const Navbar = () => {
               alt="HOMYO Logo"
             />
           </Link>
-          <span className="self-center hidden md:block text-2xl font-semibold whitespace-nowrap dark:text-white text-indigo-500">
+          <span className="self-center hidden md:block text-2xl font-semibold whitespace-nowrap">
             HOMYO
           </span>
         </div>

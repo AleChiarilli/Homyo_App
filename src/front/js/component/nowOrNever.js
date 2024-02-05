@@ -5,57 +5,57 @@ import servicios from "../../img/servicios.png";
 
 
 export const Nowornever = () => {
-    const [isModalOpen4, setIsModalOpen4] = useState(false);
-    const { actions, store } = useContext(Context);
-    const [toggleActive, setToggleActive] = useState(true); // Establece el interruptor como activado por defecto
-    const [username, setUsername] = useState("");
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
-    const [role, setRole] = useState("");
+  const [isModalOpen4, setIsModalOpen4] = useState(false);
+  const { actions, store } = useContext(Context);
+  const [toggleActive, setToggleActive] = useState(true); // Establece el interruptor como activado por defecto
+  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [role, setRole] = useState("");
 
-    const handleToggleActive = () => {
-        setToggleActive(!toggleActive);
-        const role = toggleActive ? "profesional" : "cliente";
-        handleRoleChange(role);
-    };
+  const handleToggleActive = () => {
+    setToggleActive(!toggleActive);
+    const role = toggleActive ? "profesional" : "cliente";
+    handleRoleChange(role);
+  };
 
-    const handleRoleChange = (role) => {
-        setRole(role);
-        actions.setRole(role);
-        console.log("Nuevo rol:", role);
-    };
+  const handleRoleChange = (role) => {
+    setRole(role);
+    actions.setRole(role);
+    console.log("Nuevo rol:", role);
+  };
 
-    const setRoleOnLoad = () => {
-        handleRoleChange("cliente");
-    };
+  const setRoleOnLoad = () => {
+    handleRoleChange("cliente");
+  };
 
-    useEffect(() => {
-        setRoleOnLoad();
-    }, []);
+  useEffect(() => {
+    setRoleOnLoad();
+  }, []);
 
-    const submitUser = async (e) => {
-        e.preventDefault();
-        await actions.addUser({ username, email, password, role_name: role });
-        hideModal4();
-    };
+  const submitUser = async (e) => {
+    e.preventDefault();
+    await actions.addUser({ username, email, password, role_name: role });
+    hideModal4();
+  };
 
 
-    const toggleModal4 = () => {
-      setIsModalOpen4(!isModalOpen4);
-    };
-  
-    const hideModal4 = () => {
-      setIsModalOpen4(false);
-    };
+  const toggleModal4 = () => {
+    setIsModalOpen4(!isModalOpen4);
+  };
 
-return (
+  const hideModal4 = () => {
+    setIsModalOpen4(false);
+  };
+
+  return (
 
     <div className="bg-white dark:bg-gray-800 overflow-hidden relative">
       <div className="w-full py-12 px-4 sm:px-6 lg:flex lg:justify-between">
         <div className="lg:w-1/2 mt-24">
           <h2 className="text-3xl font-extrabold text-black dark:text-white sm:text-4xl">
             <span className="block">¿Quieres ofrecer tus servicios?</span>
-            <span className="block text-indigo-500">Es ahora o nunca</span>
+            <span className="block text-indigo-500">Es tu oportunidad de destacar</span>
           </h2>
           {!store.isLoggedIn ? (
             <div className="mt-12 inline-flex rounded-md shadow">

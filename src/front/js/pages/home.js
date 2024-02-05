@@ -1,4 +1,4 @@
-import React, {useEffect, useContext} from "react";
+import React, { useEffect, useContext } from "react";
 import { Context } from "../store/appContext";
 import "../../styles/home.css";
 import { Scrollcards } from "../component/scrollCards";
@@ -13,7 +13,7 @@ export const Home = () => {
 
   useEffect(() => {
     actions.getSkills();
-    }, []);
+  }, []);
 
   return (
     <div className="max-w-screen-xl mx-auto">
